@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "domain": "skills",
+  "publishedAt": "2026-05-12T00:00:00Z",
+  "publishedBy": "tuya/TuyaOpen-dev-skills",
+  "items": [
+    {
+      "id": "tuyaopen-build-upstream",
+      "name": { "en": "TuyaOpen Build (upstream)", "zh-CN": "TuyaOpen 编译(上游版)" },
+      "surface": "embedded",
+      "summary": {
+        "en": "Compile TuyaOpen projects, edit Kconfig options, clean artifacts.",
+        "zh-CN": "编译 TuyaOpen 项目,调整 Kconfig 选项,清理产物。"
+      },
+      "tags": ["build", "tos.py"],
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
+        "subpath": "tuyaopen-build",
+        "ref": "main"
+      }
+    },
+    {
+      "id": "tuyaopen-flash-monitor",
+      "name": { "en": "Flash & Monitor", "zh-CN": "烧录与串口监视" },
+      "surface": "embedded",
+      "summary": {
+        "en": "Flash firmware to a TuyaOpen device and stream the serial console.",
+        "zh-CN": "向 TuyaOpen 设备烧录固件并实时查看串口日志。"
+      },
+      "tags": ["flash", "monitor", "uart"],
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
+        "subpath": "tuyaopen-flash-monitor",
+        "ref": "main"
+      }
+    }
+  ]
+}

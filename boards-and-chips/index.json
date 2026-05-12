@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "domain": "boardsAndChips",
+  "publishedAt": "2026-05-12T00:00:00Z",
+  "items": [
+    {
+      "id": "tuya-t5",
+      "name": { "en": "Tuya T5", "zh-CN": "涂鸦 T5" },
+      "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+      "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+      "chip": "T5",
+      "summary": {
+        "en": "Wi-Fi + BLE combo, 320KB SRAM, 4MB flash.",
+        "zh-CN": "Wi-Fi + BLE 双模,320KB SRAM,4MB flash。"
+      },
+      "tags": ["wifi", "ble", "edge-ai"],
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "src/board/t5",
+        "ref": "v2.x"
+      },
+      "recommendedDemos": ["switch-3-iot"]
+    },
+    {
+      "id": "tuya-t3",
+      "name": { "en": "Tuya T3", "zh-CN": "涂鸦 T3" },
+      "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+      "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+      "chip": "T3",
+      "summary": {
+        "en": "Cost-optimized Wi-Fi controller for switch / light products.",
+        "zh-CN": "面向开关 / 照明品类的高性价比 Wi-Fi 主控。"
+      },
+      "tags": ["wifi", "switch", "light"],
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "src/board/t3",
+        "ref": "v2.x"
+      }
+    },
+    {
+      "id": "esp32-c3-devkitm-1",
+      "name": "ESP32-C3-DevKitM-1",
+      "brand": { "en": "Espressif", "zh-CN": "乐鑫" },
+      "manufacturer": { "en": "Espressif", "zh-CN": "乐鑫" },
+      "chip": "ESP32-C3",
+      "summary": {
+        "en": "Espressif's official RISC-V Wi-Fi / BLE dev board.",
+        "zh-CN": "乐鑫官方 RISC-V Wi-Fi / BLE 开发板。"
+      },
+      "tags": ["wifi", "ble", "risc-v"],
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "src/board/esp32-c3",
+        "ref": "v2.x"
+      },
+      "recommendedDemos": ["switch-3-iot"]
+    }
+  ]
+}

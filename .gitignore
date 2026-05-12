@@ -1,0 +1,10 @@
+# OS / editor artifacts
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Local-only experimentation
+*.local.json
+/scratch/

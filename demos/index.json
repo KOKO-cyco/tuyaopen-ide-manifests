@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "domain": "demos",
+  "publishedAt": "2026-05-12T00:00:00Z",
+  "items": [
+    {
+      "id": "switch-3-iot",
+      "name": { "en": "3-Switch IoT Demo", "zh-CN": "三路开关 IoT 示例" },
+      "summary": {
+        "en": "Three-channel smart switch with Tuya cloud integration.",
+        "zh-CN": "三路智能开关 + 涂鸦云端联动示例。"
+      },
+      "tags": ["wifi", "switch", "device-control"],
+      "boards": ["tuya-t5", "esp32-c3-devkitm-1"],
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/3-switches-iot",
+        "ref": "main"
+      }
+    },
+    {
+      "id": "voice-assistant",
+      "name": { "en": "Voice Assistant Demo", "zh-CN": "语音助手示例" },
+      "summary": {
+        "en": "On-device wake word + cloud LLM round-trip on T5.",
+        "zh-CN": "T5 上的本地唤醒 + 云端 LLM 推理示例。"
+      },
+      "tags": ["ai", "voice", "edge-cloud"],
+      "boards": ["tuya-t5"],
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/voice-assistant",
+        "ref": "main"
+      }
+    }
+  ]
+}
