@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "tuya-t5ai-core",
+  "name": { "en": "Tuya T5AI Core", "zh-CN": "涂鸦 T5AI 核心板" },
+  "summary": {
+    "en": "Compact T5AI core module with audio AEC, designed for voice-enabled product integration",
+    "zh-CN": "搭载音频 AEC 的 T5AI 紧凑核心模块，专为语音类产品集成设计"
+  },
+  "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "platformId": "t5ai",
+  "variantId": "t5ai",
+
+  "peripheralPatterns": {
+
+    "audio": {
+      "model": null,
+      "interface": "I2S",
+      "optional": false,
+      "note": {
+        "en": "Audio codec with AEC (echo cancellation) enabled by default; designed for far-field voice interaction",
+        "zh-CN": "默认启用音频编解码器与 AEC 回声消除，适合远场语音交互"
+      }
+    },
+
+    "led": {
+      "count": 1,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "Single status LED",
+        "zh-CN": "单颗状态指示 LED"
+      }
+    },
+
+    "button": {
+      "count": 1,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "Single user button",
+        "zh-CN": "单颗用户按键"
+      }
+    }
+
+  },
+
+  "links": {
+    "schematic": null,
+    "datasheet": null,
+    "productPage": null
+  },
+  "tags": ["wifi", "ble", "edge-ai", "audio"],
+  "recommendedDemos": ["voice-assistant"]
+}

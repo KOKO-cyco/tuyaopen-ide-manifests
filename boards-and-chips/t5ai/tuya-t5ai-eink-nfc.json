@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "tuya-t5ai-eink-nfc",
+  "name": { "en": "Tuya T5AI E-Ink NFC", "zh-CN": "涂鸦 T5AI 墨水屏 NFC 板" },
+  "summary": {
+    "en": "T5AI board with UC8276 e-ink display, FT6336 capacitive touch, audio AEC, and 6 user buttons",
+    "zh-CN": "搭载 UC8276 墨水屏、FT6336 电容触控、音频 AEC 和 6 颗用户按键的 T5AI 开发板"
+  },
+  "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "platformId": "t5ai",
+  "variantId": "t5ai",
+
+  "peripheralPatterns": {
+
+    "audio": {
+      "model": null,
+      "interface": "I2S",
+      "optional": false,
+      "note": {
+        "en": "Audio codec with AEC (echo cancellation) enabled by default",
+        "zh-CN": "默认启用音频编解码器与 AEC 回声消除"
+      }
+    },
+
+    "display": {
+      "model": "UC8276",
+      "interface": "SPI",
+      "optional": false,
+      "note": {
+        "en": "400×300 e-ink (electronic paper) display; low power, image retained without power; refresh takes ~1–2 s — not suitable for animations",
+        "zh-CN": "400×300 电子墨水屏（电子纸），低功耗，断电后画面保持；刷新约需 1–2 秒，不适合动画"
+      }
+    },
+
+    "touch": {
+      "model": "FT6336",
+      "interface": "I2C",
+      "optional": false,
+      "note": {
+        "en": "Capacitive touch panel overlaid on the e-ink display; up to 2-point touch",
+        "zh-CN": "覆盖在墨水屏上的电容触摸面板，最多支持 2 点触控"
+      }
+    },
+
+    "led": {
+      "count": 1,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "Single status LED",
+        "zh-CN": "单颗状态指示 LED"
+      }
+    },
+
+    "button": {
+      "count": 6,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "6 user buttons mapped to ENABLE_BUTTON through ENABLE_BUTTON_6",
+        "zh-CN": "6 颗用户按键，对应 ENABLE_BUTTON 至 ENABLE_BUTTON_6"
+      }
+    }
+
+  },
+
+  "links": {
+    "schematic": null,
+    "datasheet": null,
+    "productPage": null
+  },
+  "tags": ["wifi", "ble", "edge-ai", "audio", "display", "touch"],
+  "recommendedDemos": ["voice-assistant"]
+}

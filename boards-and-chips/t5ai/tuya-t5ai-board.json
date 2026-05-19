@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "tuya-t5ai-board",
+  "name": { "en": "Tuya T5AI Board", "zh-CN": "涂鸦 T5AI 评估板" },
+  "summary": {
+    "en": "Tuya T5AI general-purpose board with audio codec, LED, and button; optional display, camera, and printer expansion via Kconfig",
+    "zh-CN": "涂鸦 T5AI 通用评估板，配备音频编解码器、LED 和按键，支持可选显示屏、摄像头及打印机扩展"
+  },
+  "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "platformId": "t5ai",
+  "variantId": "t5ai",
+
+  "peripheralPatterns": {
+
+    "audio": {
+      "model": null,
+      "interface": "I2S",
+      "optional": false,
+      "note": {
+        "en": "Audio codec enabled by default; AEC (echo cancellation) available on v1.0.2+ hardware — enable ENABLE_AUDIO_AEC in Kconfig",
+        "zh-CN": "默认启用音频编解码器；v1.0.2+ 硬件支持 AEC 回声消除，通过 Kconfig ENABLE_AUDIO_AEC 启用"
+      }
+    },
+
+    "display": {
+      "model": null,
+      "interface": "SPI",
+      "optional": true,
+      "note": {
+        "en": "Optional display expansion — enable via ENABLE_DISPLAY in Kconfig",
+        "zh-CN": "可选显示扩展，通过 Kconfig ENABLE_DISPLAY 启用"
+      }
+    },
+
+    "camera": {
+      "model": null,
+      "interface": "DVP",
+      "optional": true,
+      "note": {
+        "en": "Optional camera module — enable via TUYA_T5AI_BOARD_CAMERA in Kconfig",
+        "zh-CN": "可选摄像头模块，通过 Kconfig TUYA_T5AI_BOARD_CAMERA 启用"
+      }
+    },
+
+    "printer": {
+      "model": null,
+      "interface": "SPI+PWM+GPIO",
+      "optional": true,
+      "note": {
+        "en": "Optional thermal printer expansion — enable via ENABLE_PRINTER in Kconfig",
+        "zh-CN": "可选热敏打印机扩展，通过 Kconfig ENABLE_PRINTER 启用"
+      }
+    },
+
+    "led": {
+      "count": 1,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "Single status LED",
+        "zh-CN": "单颗状态指示 LED"
+      }
+    },
+
+    "button": {
+      "count": 1,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "Single user button",
+        "zh-CN": "单颗用户按键"
+      }
+    }
+
+  },
+
+  "links": {
+    "schematic": null,
+    "datasheet": null,
+    "productPage": null
+  },
+  "tags": ["wifi", "ble", "edge-ai", "audio"],
+  "recommendedDemos": ["voice-assistant", "switch-3-iot"]
+}

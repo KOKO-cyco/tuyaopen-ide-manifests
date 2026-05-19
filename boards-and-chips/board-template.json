@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "id": "<kebab-case-board-id, e.g. tuya-t5ai-evb>",
+  "name": { "en": "<Board Display Name>", "zh-CN": "<板子中文显示名称>" },
+  "summary": {
+    "en": "<One-sentence board description for IDE list view and AI context, e.g. T5AI evaluation board with audio codec, RGB display, and dual-mic AEC>",
+    "zh-CN": "<一句话板子简介，用于 IDE 列表展示与 AI 上下文，例如：搭载音频编解码器、RGB 显示屏和双麦 AEC 的 T5AI 评估板>"
+  },
+  "brand": { "en": "<Brand>", "zh-CN": "<品牌中文名>" },
+  "manufacturer": { "en": "<Manufacturer>", "zh-CN": "<制造商中文名>" },
+  "platformId": "<platform-id: t5ai | esp32 | t3 | t2 | ...>",
+  "variantId": "<id field from variants[] in platforms/<platformId>.json, e.g. t5ai | esp32-s3 | esp32-c3>",
+
+  "peripheralPatterns": {
+
+    "audio": {
+      "model": "<IC model or null if discrete/unknown>",
+      "interface": "<I2S | analog>",
+      "optional": "<boolean: false = soldered onboard | true = via connector, not always installed>",
+      "note": {
+        "en": "<e.g. Audio codec with AEC (echo cancellation) enabled by default>",
+        "zh-CN": "<e.g. 默认启用音频编解码器与 AEC 回声消除>"
+      }
+    },
+
+    "display": {
+      "model": "<driver IC: SSD1306 | ST7789 | ST7735S | ST7796S | GC9A01 | GC9D01 | ILI9341 | ILI9488 | ST7701S | ST7701SN | NV3041 | CO5300 | ST7305 | ST7306 | UC8276 | null>",
+      "interface": "<SPI | I2C | RGB | QSPI | MCU8080>",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. 2.4-inch IPS LCD; LVGL dual-buffer supported>",
+        "zh-CN": "<e.g. 2.4 寸 IPS 彩屏，支持 LVGL 双缓冲>"
+      }
+    },
+
+    "touch": {
+      "model": "<controller IC: GT911 | GT1151 | FT6336 | CST816X | CST92XX | null>",
+      "interface": "I2C",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. Capacitive touch, up to 5 points; I2C address 0x5D>",
+        "zh-CN": "<e.g. 电容式触控，最多 5 点；I2C 地址 0x5D>"
+      }
+    },
+
+    "camera": {
+      "model": "<sensor IC: OV2640 | GC2145 | null>",
+      "interface": "<DVP | MIPI-CSI>",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. Optional camera — enable via TUYA_T5AI_BOARD_CAMERA in Kconfig>",
+        "zh-CN": "<e.g. 可选摄像头，通过 Kconfig TUYA_T5AI_BOARD_CAMERA 启用>"
+      }
+    },
+
+    "imu": {
+      "model": "<sensor IC: BMI270 | null>",
+      "axes": "<integer: 3 | 6 | 9>",
+      "interface": "<I2C | SPI>",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. 6-axis accelerometer + gyroscope; default I2C address 0x68>",
+        "zh-CN": "<e.g. 6 轴加速度计 + 陀螺仪，默认 I2C 地址 0x68>"
+      }
+    },
+
+    "button": {
+      "count": "<integer>",
+      "interface": "GPIO",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. 3 user buttons mapped to ENABLE_BUTTON / ENABLE_BUTTON_2 / ENABLE_BUTTON_3>",
+        "zh-CN": "<e.g. 3 颗用户按键，对应 ENABLE_BUTTON / ENABLE_BUTTON_2 / ENABLE_BUTTON_3>"
+      }
+    },
+
+    "led": {
+      "count": "<integer>",
+      "interface": "GPIO",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. Single status LED>",
+        "zh-CN": "<e.g. 单颗状态指示 LED>"
+      }
+    },
+
+    "led-pixel": {
+      "model": "<IC model: WS2812 | WS2812B | SM16703P | YX1903B | null>",
+      "count": "<integer: total number of LEDs>",
+      "interface": "<SPI | PWM>",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. 8x RGB addressable LEDs in a matrix; SPI-driven — timing is strict>",
+        "zh-CN": "<e.g. 8 颗 RGB 可寻址灯珠矩阵，SPI 驱动，时序严格>"
+      }
+    },
+
+    "encoder": {
+      "count": "<integer, usually 1>",
+      "interface": "GPIO",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. Rotary encoder with push button; GPIO pins configured via DECODER_INPUT_A/B/P in Kconfig>",
+        "zh-CN": "<e.g. 旋转编码器含按压功能，GPIO 引脚通过 Kconfig DECODER_INPUT_A/B/P 配置>"
+      }
+    },
+
+    "ir": {
+      "count": "<integer: number of IR transceivers>",
+      "interface": "GPIO",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. IR transceiver; supports NEC and timecode protocols>",
+        "zh-CN": "<e.g. 红外收发器，支持 NEC 与 timecode 协议>"
+      }
+    },
+
+    "joystick": {
+      "count": "<integer, usually 1>",
+      "interface": "ADC",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. Analog joystick with push button; X/Y axes via ADC, button via GPIO>",
+        "zh-CN": "<e.g. 模拟摇杆含按键，X/Y 轴通过 ADC 读取，按键通过 GPIO>"
+      }
+    },
+
+    "pmic": {
+      "model": "<IC model: AXP2101 | null>",
+      "interface": "I2C",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. PMIC for battery charging and power-rail control; must init before peripherals>",
+        "zh-CN": "<e.g. 电源管理芯片，负责电池充电与电源域控制，需在外设初始化前完成>"
+      }
+    },
+
+    "printer": {
+      "model": "<printer mechanism: MTP02 | DP48A | null>",
+      "interface": "<UART — for DP48A/ESC-POS | SPI+PWM+GPIO — for MTP02 bit-bang mechanism>",
+      "optional": "<boolean>",
+      "note": {
+        "en": "<e.g. Thermal printer; supports text and 1-bit monochrome bitmap printing>",
+        "zh-CN": "<e.g. 热敏打印机，支持文本与单色位图打印>"
+      }
+    }
+  },
+
+  "links": {
+    "schematic": "<URL or null>",
+    "datasheet": "<URL or null>",
+    "productPage": "<URL or null>"
+  },
+
+  "tags": ["<wifi | ble | zigbee | thread | edge-ai | audio | display | camera | imu | led-pixel | pmic | cellular | ...>"],
+  "recommendedDemos": ["<demo-id from demos/index.json, e.g. voice-assistant | switch-3-iot>"]
+}
