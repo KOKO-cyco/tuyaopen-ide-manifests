@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "id": "tuya-t5ai-pixel",
+  "name": { "en": "Tuya T5AI Pixel", "zh-CN": "涂鸦 T5AI Pixel 板" },
+  "summary": {
+    "en": "T5AI evaluation board with audio AEC, 8× WS2812B pixel LED matrix, BMI270 6-axis IMU, and 3 user buttons",
+    "zh-CN": "搭载音频 AEC、8 颗 WS2812B 像素灯珠矩阵、BMI270 六轴 IMU 和 3 颗用户按键的 T5AI 评估板"
+  },
+  "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "platformId": "t5ai",
+  "variantId": "t5ai",
+
+  "peripheralPatterns": {
+
+    "audio": {
+      "model": null,
+      "interface": "I2S",
+      "optional": false,
+      "note": {
+        "en": "Audio codec with AEC (echo cancellation) enabled by default",
+        "zh-CN": "默认启用音频编解码器与 AEC 回声消除"
+      }
+    },
+
+    "imu": {
+      "model": "BMI270",
+      "axes": 6,
+      "interface": "I2C",
+      "optional": false,
+      "note": {
+        "en": "6-axis accelerometer + gyroscope; default I2C address 0x68",
+        "zh-CN": "6 轴加速度计 + 陀螺仪，默认 I2C 地址 0x68"
+      }
+    },
+
+    "led-pixel": {
+      "model": "WS2812B",
+      "count": 8,
+      "interface": "SPI",
+      "optional": false,
+      "note": {
+        "en": "8× RGB addressable LEDs in a matrix; SPI-driven — timing is strict, do not change SPI clock",
+        "zh-CN": "8 颗 RGB 可寻址灯珠矩阵排列，SPI 驱动，时序严格，勿调整 SPI 时钟"
+      }
+    },
+
+    "led": {
+      "count": 1,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "Single status LED (separate from the pixel LED matrix)",
+        "zh-CN": "单颗状态指示 LED（独立于像素灯珠矩阵）"
+      }
+    },
+
+    "button": {
+      "count": 3,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "3 user buttons mapped to ENABLE_BUTTON / ENABLE_BUTTON_2 / ENABLE_BUTTON_3",
+        "zh-CN": "3 颗用户按键，对应 ENABLE_BUTTON / ENABLE_BUTTON_2 / ENABLE_BUTTON_3"
+      }
+    }
+
+  },
+
+  "links": {
+    "schematic": null,
+    "datasheet": null,
+    "productPage": null
+  },
+  "tags": ["wifi", "ble", "edge-ai", "audio", "led-pixel", "imu"],
+  "recommendedDemos": ["voice-assistant"]
+}

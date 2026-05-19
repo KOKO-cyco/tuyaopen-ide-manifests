@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "t5ai-mini",
+  "name": { "en": "T5AI Mini", "zh-CN": "T5AI Mini 开发板" },
+  "summary": {
+    "en": "Minimal T5AI board with audio AEC and optional SPI display expansion module",
+    "zh-CN": "搭载音频 AEC 的 T5AI Mini 开发板，支持可选 SPI 显示扩展模块"
+  },
+  "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "platformId": "t5ai",
+  "variantId": "t5ai",
+
+  "peripheralPatterns": {
+
+    "audio": {
+      "model": null,
+      "interface": "I2S",
+      "optional": false,
+      "note": {
+        "en": "Audio codec with AEC (echo cancellation) enabled by default",
+        "zh-CN": "默认启用音频编解码器与 AEC 回声消除"
+      }
+    },
+
+    "display": {
+      "model": null,
+      "interface": "SPI",
+      "optional": true,
+      "note": {
+        "en": "Optional SPI display expansion: ST7789 240×240 or ST7735S 160×80 — select via T5AI_MINI_EX_MODULE_13565LCD or T5AI_MINI_EX_MODULE_ST7735S_XLT in Kconfig",
+        "zh-CN": "可选 SPI 显示扩展：ST7789 240×240 或 ST7735S 160×80，通过 Kconfig T5AI_MINI_EX_MODULE_13565LCD 或 T5AI_MINI_EX_MODULE_ST7735S_XLT 选择"
+      }
+    }
+
+  },
+
+  "links": {
+    "schematic": null,
+    "datasheet": null,
+    "productPage": null
+  },
+  "tags": ["wifi", "ble", "edge-ai", "audio"],
+  "recommendedDemos": ["voice-assistant"]
+}

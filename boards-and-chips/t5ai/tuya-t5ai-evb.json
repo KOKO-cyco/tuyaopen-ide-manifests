@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "id": "tuya-t5ai-evb",
+  "name": { "en": "Tuya T5AI EVB", "zh-CN": "涂鸦 T5AI 工程验证板" },
+  "summary": {
+    "en": "T5AI engineering validation board with audio AEC, ST7789 SPI display, and 2 user buttons",
+    "zh-CN": "搭载音频 AEC、ST7789 SPI 显示屏和 2 颗用户按键的 T5AI 工程验证板"
+  },
+  "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "platformId": "t5ai",
+  "variantId": "t5ai",
+
+  "peripheralPatterns": {
+
+    "audio": {
+      "model": null,
+      "interface": "I2S",
+      "optional": false,
+      "note": {
+        "en": "Audio codec with AEC (echo cancellation) enabled by default",
+        "zh-CN": "默认启用音频编解码器与 AEC 回声消除"
+      }
+    },
+
+    "display": {
+      "model": "ST7789",
+      "interface": "SPI",
+      "optional": false,
+      "note": {
+        "en": "240×240 SPI IPS LCD; LVGL supported",
+        "zh-CN": "240×240 SPI IPS 彩屏，支持 LVGL"
+      }
+    },
+
+    "led": {
+      "count": 1,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "Single status LED",
+        "zh-CN": "单颗状态指示 LED"
+      }
+    },
+
+    "button": {
+      "count": 2,
+      "interface": "GPIO",
+      "optional": false,
+      "note": {
+        "en": "2 user buttons mapped to ENABLE_BUTTON / ENABLE_BUTTON_2",
+        "zh-CN": "2 颗用户按键，对应 ENABLE_BUTTON / ENABLE_BUTTON_2"
+      }
+    }
+
+  },
+
+  "links": {
+    "schematic": null,
+    "datasheet": null,
+    "productPage": null
+  },
+  "tags": ["wifi", "ble", "edge-ai", "audio", "display"],
+  "recommendedDemos": ["voice-assistant"]
+}
