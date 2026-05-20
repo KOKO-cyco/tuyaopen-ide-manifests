@@ -13,25 +13,71 @@
 
   "peripheralPatterns": {
 
-    "audio": {
-      "model": null,
-      "interface": "I2S",
-      "optional": false,
-      "note": {
-        "en": "Audio codec with AEC (echo cancellation) enabled by default",
-        "zh-CN": "默认启用音频编解码器与 AEC 回声消除"
+    "audio": [
+      {
+        "model": null,
+        "name": { "en": "Audio", "zh-CN": "音频" },
+        "interface": "INTERNAL",
+        "pins": {
+          "INTERNAL": [
+            { "role": "spk_en", "gpio": 27 }
+          ]
+        },
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "AEC enabled by default.",
+          "zh-CN": "默认启用 AEC。"
+        }
       }
-    },
+    ],
 
-    "display": {
-      "model": null,
-      "interface": "SPI",
-      "optional": true,
-      "note": {
-        "en": "Optional SPI display expansion: ST7789 240×240 or ST7735S 160×80 — select via T5AI_MINI_EX_MODULE_13565LCD or T5AI_MINI_EX_MODULE_ST7735S_XLT in Kconfig",
-        "zh-CN": "可选 SPI 显示扩展：ST7789 240×240 或 ST7735S 160×80，通过 Kconfig T5AI_MINI_EX_MODULE_13565LCD 或 T5AI_MINI_EX_MODULE_ST7735S_XLT 选择"
+    "display": [
+      {
+        "model": "ST7789",
+        "name": { "en": "ST7789 LCD Module", "zh-CN": "ST7789 LCD 模块" },
+        "resolution": "240x240",
+        "interface": "SPI",
+        "pins": {
+          "SPI": [
+            { "role": "sck",  "gpio": 22 },
+            { "role": "mosi", "gpio": 24 },
+            { "role": "cs",   "gpio": 23 },
+            { "role": "dc",   "gpio": 17 },
+            { "role": "rst",  "gpio": 18 },
+            { "role": "bl",   "gpio": 25 }
+          ]
+        },
+        "optional": true,
+        "kconfig": { "T5AI_MINI_EX_MODULE_13565LCD": 1 },
+        "note": {
+          "en": "BL active high.",
+          "zh-CN": "背光高有效。"
+        }
+      },
+      {
+        "model": "ST7735S",
+        "name": { "en": "ST7735S LCD Module", "zh-CN": "ST7735S LCD 模块" },
+        "resolution": "160x80",
+        "interface": "SPI",
+        "pins": {
+          "SPI": [
+            { "role": "sck",  "gpio": 22 },
+            { "role": "mosi", "gpio": 24 },
+            { "role": "cs",   "gpio": 23 },
+            { "role": "dc",   "gpio": 17 },
+            { "role": "rst",  "gpio": 18 },
+            { "role": "bl",   "gpio": 25 }
+          ]
+        },
+        "optional": true,
+        "kconfig": { "T5AI_MINI_EX_MODULE_ST7735S_XLT": 1 },
+        "note": {
+          "en": "BL active high.",
+          "zh-CN": "背光高有效。"
+        }
       }
-    }
+    ]
 
   },
 
@@ -40,6 +86,5 @@
     "datasheet": null,
     "productPage": null
   },
-  "tags": ["wifi", "ble", "edge-ai", "audio"],
-  "recommendedDemos": ["voice-assistant"]
+  "tags": ["wifi", "ble", "edge-ai", "audio"]
 }

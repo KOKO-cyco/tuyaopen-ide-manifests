@@ -13,35 +13,63 @@
 
   "peripheralPatterns": {
 
-    "audio": {
-      "model": null,
-      "interface": "I2S",
-      "optional": false,
-      "note": {
-        "en": "Audio codec with AEC (echo cancellation) enabled by default; designed for far-field voice interaction",
-        "zh-CN": "默认启用音频编解码器与 AEC 回声消除，适合远场语音交互"
+    "audio": [
+      {
+        "model": null,
+        "name": { "en": "Audio", "zh-CN": "音频" },
+        "interface": "INTERNAL",
+        "pins": {
+          "INTERNAL": [
+            { "role": "spk_en", "gpio": 39 }
+          ]
+        },
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "AEC enabled by default; designed for far-field voice interaction.",
+          "zh-CN": "默认启用 AEC，适合远场语音交互。"
+        }
       }
-    },
+    ],
 
-    "led": {
-      "count": 1,
-      "interface": "GPIO",
-      "optional": false,
-      "note": {
-        "en": "Single status LED",
-        "zh-CN": "单颗状态指示 LED"
+    "led": [
+      {
+        "model": null,
+        "name": { "en": "Indicator LED", "zh-CN": "指示灯" },
+        "count": 1,
+        "interface": "GPIO",
+        "pins": {
+          "GPIO": [
+            { "role": "led", "gpio": 9 }
+          ]
+        },
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "Active high.",
+          "zh-CN": "高有效。"
+        }
       }
-    },
+    ],
 
-    "button": {
-      "count": 1,
-      "interface": "GPIO",
-      "optional": false,
-      "note": {
-        "en": "Single user button",
-        "zh-CN": "单颗用户按键"
+    "button": [
+      {
+        "name": { "en": "User Button", "zh-CN": "用户按键" },
+        "count": 1,
+        "interface": "GPIO",
+        "pins": {
+          "GPIO": [
+            { "role": "btn", "gpio": 29 }
+          ]
+        },
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "Active low.",
+          "zh-CN": "低有效。"
+        }
       }
-    }
+    ]
 
   },
 
@@ -50,6 +78,5 @@
     "datasheet": null,
     "productPage": null
   },
-  "tags": ["wifi", "ble", "edge-ai", "audio"],
-  "recommendedDemos": ["voice-assistant"]
+  "tags": ["wifi", "ble", "edge-ai", "audio"]
 }
