@@ -29,9 +29,10 @@ function requireSkill(items, id) {
 async function setEnabled(ids, value) {
   const data = await load()
   const items = getItems(data)
+  ids.forEach(id => requireSkill(items, id))
   const changed = []
   for (const id of ids) {
-    const [, skill] = requireSkill(items, id)
+    const [, skill] = findSkill(items, id)
     if (skill.defaultEnabled !== value) { skill.defaultEnabled = value; changed.push(id) }
   }
   if (changed.length) {
