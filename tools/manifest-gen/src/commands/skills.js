@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url'
 import { loadJson, saveJson } from '../utils/json-file.js'
 
-const INDEX_PATH = fileURLToPath(new URL('../../../skills/index.json', import.meta.url))
+const INDEX_PATH = fileURLToPath(new URL('../../../../skills/index.json', import.meta.url))
 
 async function load() { return loadJson(INDEX_PATH) }
 async function save(data) { return saveJson(INDEX_PATH, data) }

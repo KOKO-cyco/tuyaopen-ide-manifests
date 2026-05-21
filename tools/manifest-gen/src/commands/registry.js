@@ -2,7 +2,7 @@ import { fileURLToPath } from 'url'
 import { loadJson, saveJson } from '../utils/json-file.js'
 import { bumpVersion } from '../utils/semver.js'
 
-const REGISTRY_PATH = fileURLToPath(new URL('../../../registry.json', import.meta.url))
+const REGISTRY_PATH = fileURLToPath(new URL('../../../../registry.json', import.meta.url))
 
 async function load() { return loadJson(REGISTRY_PATH) }
 async function save(data) { return saveJson(REGISTRY_PATH, data) }
