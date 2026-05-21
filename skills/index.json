@@ -40,72 +40,6 @@
       }
     },
     {
-      "id": "tuyaopen-dp-add",
-      "order": 4,
-      "name": {
-        "en": "TuyaOpen DP Add",
-        "zh-CN": "TuyaOpen 新增 DP"
-      },
-      "surface": "cloud",
-      "summary": {
-        "en": "Add a Tuya cloud Data Point definition to the project.",
-        "zh-CN": "为项目新增一个涂鸦云数据点(DP)定义。"
-      },
-      "whenToUse": {
-        "en": "Use when the user wants to register a new sensor or actuator DP.",
-        "zh-CN": "当用户希望注册一个新的传感器或执行器 DP 时使用。"
-      },
-      "tags": [
-        "dp",
-        "cloud"
-      ],
-      "commands": [
-        "tuyaopen.skill.dpAdd"
-      ],
-      "defaultEnabled": true,
-      "installPayload": "cloud/tuyaopen-dp-add",
-      "related": [
-        "tuyaopen-dp-list",
-        "tuyaopen-project-config"
-      ],
-      "source": {
-        "localPath": "skills/cloud/tuyaopen-dp-add"
-      }
-    },
-    {
-      "id": "tuyaopen-dp-list",
-      "order": 5,
-      "name": {
-        "en": "TuyaOpen DP List",
-        "zh-CN": "TuyaOpen DP 列表"
-      },
-      "surface": "cloud",
-      "summary": {
-        "en": "List existing DPs and their schema.",
-        "zh-CN": "列出已有的 DP 及其 schema。"
-      },
-      "whenToUse": {
-        "en": "Use when the user asks what DPs are defined or to verify a DP id.",
-        "zh-CN": "当用户询问已定义哪些 DP，或需要确认 DP id 时使用。"
-      },
-      "tags": [
-        "dp",
-        "cloud"
-      ],
-      "commands": [
-        "tuyaopen.skill.dpList"
-      ],
-      "defaultEnabled": true,
-      "installPayload": "cloud/tuyaopen-dp-list",
-      "related": [
-        "tuyaopen-dp-add",
-        "tuyaopen-project-config"
-      ],
-      "source": {
-        "localPath": "skills/cloud/tuyaopen-dp-list"
-      }
-    },
-    {
       "id": "tuyaopen-project-config",
       "order": 6,
       "name": {
@@ -131,7 +65,6 @@
       "defaultEnabled": true,
       "installPayload": "embedded/tuyaopen-project-config",
       "related": [
-        "tuyaopen-dp-add",
         "tuyaopen-build"
       ],
       "source": {
@@ -200,11 +133,7 @@
       "installPayload": "cloud/tuya-iot-platform",
       "source": {
         "localPath": "skills/cloud/tuya-iot-platform"
-      },
-      "related": [
-        "tuyaopen-dp-add",
-        "tuyaopen-dp-list"
-      ]
+      }
     },
     {
       "id": "agent-hardware-debug-helper-tools",

@@ -11,3 +11,4 @@ Thumbs.db
 
 # oh-my-claudecode internal state
 .omc/
+.claude/
