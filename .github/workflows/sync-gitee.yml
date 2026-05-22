@@ -18,13 +18,13 @@ jobs:
         env:
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
         run: |
-          # Inject credentials via extraheader — keeps token out of remote URL.
-          # Username is the Gitee account that owns the token.
-          git -c http.https://gitee.com/.extraheader="Authorization: Basic $(
-            printf 'flyingcys:%s' "$GITEE_TOKEN" | base64 -w 0
-          )" push https://gitee.com/tuya-open/tuyaopen-ide-manifests.git \
-            --all --force
-          git -c http.https://gitee.com/.extraheader="Authorization: Basic $(
-            printf 'flyingcys:%s' "$GITEE_TOKEN" | base64 -w 0
-          )" push https://gitee.com/tuya-open/tuyaopen-ide-manifests.git \
-            --tags --force
+          AUTH="Authorization: Basic $(printf 'flyingcys:%s' "$GITEE_TOKEN" | base64 -w 0)"
+          REMOTE="https://gitee.com/tuya-open/tuyaopen-ide-manifests.git"
+
+          echo "→ Syncing branches to Gitee…"
+          git -c "http.https://gitee.com/.extraheader=$AUTH" push "$REMOTE" --all --force
+
+          echo "→ Syncing tags to Gitee…"
+          git -c "http.https://gitee.com/.extraheader=$AUTH" push "$REMOTE" --tags --force
+
+          echo "✓ Gitee sync complete"
