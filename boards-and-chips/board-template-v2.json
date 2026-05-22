@@ -13,12 +13,6 @@
     "en": "Tuya",
     "zh-CN": "涂鸦"
   },
-  "chip": "T5",
-  "summary": {
-    "en": "High-performance AI development board",
-    "zh-CN": "高性能 AI 开发板"
-  },
-  "tags": ["ai", "edge-computing", "audio", "display"],
   "platformId": "t5ai",
   "variantId": "t5ai",
   "detailUrl": "t5ai/example-board.json",
@@ -30,39 +24,6 @@
     },
     "width": 500,
     "height": 500
-  },
-  "chip_docs": {
-    "name": "T5 AI Chip",
-    "datasheet": {
-      "en": "https://example.com/docs/t5-datasheet-en.pdf",
-      "zh-CN": "https://example.com/docs/t5-datasheet-zh.pdf"
-    },
-    "userGuide": {
-      "en": "https://example.com/docs/t5-user-guide-en.pdf",
-      "zh-CN": "https://example.com/docs/t5-user-guide-zh.pdf"
-    },
-    "purchaseUrl": {
-      "en": "https://supplier.com/t5-chip",
-      "zh-CN": "https://supplier.cn/t5-chip"
-    }
-  },
-  "board_docs": {
-    "userGuide": {
-      "en": "https://example.com/docs/example-board-ug-en.pdf",
-      "zh-CN": "https://example.com/docs/example-board-ug-zh.pdf"
-    },
-    "schematic": {
-      "en": "https://example.com/docs/example-board-schematic.pdf",
-      "zh-CN": "https://example.com/docs/example-board-schematic.pdf"
-    },
-    "purchaseUrl": {
-      "en": "https://shop.example.com/boards/example-board",
-      "zh-CN": "https://shop.example.cn/boards/example-board"
-    },
-    "purchaseNote": {
-      "en": "Available on official store",
-      "zh-CN": "在官方商店可用"
-    }
   },
   "demoIds": [
     "audio-wake-word",

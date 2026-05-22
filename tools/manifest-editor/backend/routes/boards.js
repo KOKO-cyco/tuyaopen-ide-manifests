@@ -59,8 +59,6 @@ router.post('/', asyncHandler(async (req, res) => {
     summary: summary || {},
     tags: tags || [],
     image: null,
-    chip_docs: null,
-    board_docs: null,
     onboardPeripherals: null,
   };
 

@@ -10,7 +10,6 @@
   "manufacturer": { "en": "<Manufacturer>", "zh-CN": "<制造商中文名>" },
   "platformId": "<platform-id: t5ai | ...>",
   "variantId": "<id field from variants[] in platforms/<platformId>.json, e.g. t5ai>",
-  "chip": "<chip model or identifier, e.g. T5>",
 
   "image": {
     "url": "<path or URL to board image, e.g. /images/board-id-500x500.jpg>",
@@ -20,41 +19,6 @@
     },
     "width": 500,
     "height": 500
-  },
-
-  "chip_docs": {
-    "name": "<Chip name>",
-    "datasheet": {
-      "en": "<HTTPS URL to English datasheet or null>",
-      "zh-CN": "<HTTPS URL to Chinese datasheet or null>"
-    },
-    "userGuide": {
-      "en": "<HTTPS URL to English user guide or null>",
-      "zh-CN": "<HTTPS URL to Chinese user guide or null>"
-    },
-    "purchaseUrl": {
-      "en": "<HTTPS URL to purchase chip or null>",
-      "zh-CN": "<HTTPS URL to purchase chip or null>"
-    }
-  },
-
-  "board_docs": {
-    "userGuide": {
-      "en": "<HTTPS URL to English user guide or null>",
-      "zh-CN": "<HTTPS URL to Chinese user guide or null>"
-    },
-    "schematic": {
-      "en": "<HTTPS URL to schematic or null>",
-      "zh-CN": "<HTTPS URL to schematic or null>"
-    },
-    "purchaseUrl": {
-      "en": "<HTTPS URL to purchase board or null>",
-      "zh-CN": "<HTTPS URL to purchase board or null>"
-    },
-    "purchaseNote": {
-      "en": "<Additional purchase notes or null>",
-      "zh-CN": "<购买注意事项或 null>"
-    }
   },
 
   "demoIds": [
