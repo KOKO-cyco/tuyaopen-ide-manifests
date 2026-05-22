@@ -1,0 +1,143 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write   # upload assets + commit back release.json
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── 1. Extract version from tag ────────────────────────────────────────
+      - name: Set version vars
+        run: |
+          TAG="${GITHUB_REF_NAME}"              # e.g. v1.2.3
+          VERSION="${TAG#v}"                    # e.g. 1.2.3
+          echo "TAG=$TAG"       >> "$GITHUB_ENV"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      # ── 2. Read domain versions from each index.json ───────────────────────
+      - name: Read domain versions
+        id: domains
+        run: |
+          read_ver() {
+            local file="$1"
+            python3 -c "import json,sys; d=json.load(open('$file')); print(d.get('version',''))" 2>/dev/null || echo ''
+          }
+          echo "boards=$(read_ver boards-and-chips/index.json)"    >> "$GITHUB_OUTPUT"
+          echo "demos=$(read_ver demos/index.json)"                >> "$GITHUB_OUTPUT"
+          echo "platforms=$(read_ver platforms/index.json)"        >> "$GITHUB_OUTPUT"
+          echo "skills=$(read_ver skills/index.json)"              >> "$GITHUB_OUTPUT"
+
+      # ── 3. Build staging dir (runtime files only) ─────────────────────────
+      - name: Stage package contents
+        run: |
+          mkdir -p staging
+          cp registry.json staging/
+          for dir in boards-and-chips demos platforms skills; do
+            [ -d "$dir" ] && cp -r "$dir" staging/
+          done
+
+      # ── 4. Create tarball + hash ───────────────────────────────────────────
+      - name: Create tarball
+        run: |
+          tar -czf manifests.tar.gz -C staging .
+          SHA256="$(sha256sum manifests.tar.gz | awk '{print $1}')"
+          SIZE="$(wc -c < manifests.tar.gz | tr -d ' ')"
+          echo "SHA256=$SHA256" >> "$GITHUB_ENV"
+          echo "SIZE=$SIZE"     >> "$GITHUB_ENV"
+
+      # ── 5. Generate release.json ───────────────────────────────────────────
+      - name: Generate release.json
+        run: |
+          python3 - <<'EOF'
+          import json, os
+          tag     = os.environ["TAG"]
+          version = os.environ["VERSION"]
+          sha256  = os.environ["SHA256"]
+          size    = int(os.environ["SIZE"])
+          repo_gh = "tuya/tuyaopen-ide-manifests"
+          repo_ge = "tuya-open/tuyaopen-ide-manifests"
+          manifest = {
+            "schemaVersion": 1,
+            "version": version,
+            "tag": tag,
+            "publishedAt": __import__("datetime").datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "package": {
+              "github": f"https://github.com/{repo_gh}/releases/download/{tag}/manifests.tar.gz",
+              "gitee":  f"https://gitee.com/{repo_ge}/releases/download/{tag}/manifests.tar.gz",
+              "sha256": sha256,
+              "size":   size,
+            },
+            "domains": {
+              "boardsAndChips": {"version": os.environ.get("BOARDS_VER","")},
+              "demos":          {"version": os.environ.get("DEMOS_VER","")},
+              "platforms":      {"version": os.environ.get("PLATFORMS_VER","")},
+              "skills":         {"version": os.environ.get("SKILLS_VER","")},
+            },
+          }
+          json.dump(manifest, open("release.json","w"), indent=2)
+          print("Generated release.json:")
+          print(json.dumps(manifest, indent=2))
+          EOF
+        env:
+          BOARDS_VER:    ${{ steps.domains.outputs.boards }}
+          DEMOS_VER:     ${{ steps.domains.outputs.demos }}
+          PLATFORMS_VER: ${{ steps.domains.outputs.platforms }}
+          SKILLS_VER:    ${{ steps.domains.outputs.skills }}
+
+      # ── 6. Upload to GitHub Release ────────────────────────────────────────
+      - name: Upload GitHub Release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "$TAG" manifests.tar.gz release.json --clobber
+
+      # ── 7. Commit release.json back to main (documentation copy) ──────────
+      - name: Commit release.json to main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout main
+          cp release.json ./release.json
+          git add release.json
+          # Only commit if there's a change
+          git diff --cached --quiet && echo "release.json unchanged, skip commit" && exit 0
+          git commit -m "chore(release): update release.json to $VERSION [skip ci]"
+          git push origin main
+
+      # ── 8. Gitee: versioned Release (v1.2.3) ──────────────────────────────
+      - name: Sync versioned Release to Gitee
+        env:
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+          GITEE_REPO: tuya-open/tuyaopen-ide-manifests
+          TAG: ${{ env.TAG }}
+          GITEE_ASSETS_DIR: ./gitee-assets
+          GITEE_TARGET_COMMITISH: main
+        run: |
+          mkdir -p gitee-assets
+          cp manifests.tar.gz release.json gitee-assets/
+          bash scripts/sync-gitee-release.sh
+
+      # ── 9. Gitee: floating "latest" Release (release.json only) ───────────
+      - name: Sync latest Release to Gitee (release.json discovery)
+        env:
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+          GITEE_REPO: tuya-open/tuyaopen-ide-manifests
+          TAG: latest
+          GITEE_ASSETS_DIR: ./gitee-latest-assets
+          GITEE_TARGET_COMMITISH: main
+        run: |
+          mkdir -p gitee-latest-assets
+          cp release.json gitee-latest-assets/
+          bash scripts/sync-gitee-release.sh
