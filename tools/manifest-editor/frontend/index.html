@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="manifestEditor">TuyaOpen IDE Manifest - TuyaOpen IDE</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header with Branding -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo-section">
+          <h1 class="logo" data-i18n="manifestEditor">📋 TuyaOpen IDE Manifest</h1>
+          <p class="logo-subtitle" data-i18n="editorSubtitle">Content Asset Management</p>
+          <p class="logo-description" data-i18n="editorDescription">Manage hardware definitions, board information, and demo assets that power the TuyaOpen IDE.</p>
+        </div>
+        <div class="header-actions">
+          <select id="languageSwitcher" class="btn btn-sm btn-outline" style="padding: 6px 12px; border: 1px solid var(--color-border); border-radius: 4px; background-color: var(--color-bg); cursor: pointer; font-size: 0.9em;">
+            <option value="en">🌐 English</option>
+            <option value="zh-CN">中文</option>
+          </select>
+          <button id="pullBtn" class="btn btn-sm btn-outline" data-i18n="pull" data-i18n-title="pullTitle" title="Pull latest changes from git">↓ Pull</button>
+          <button id="pushBtn" class="btn btn-sm btn-outline" data-i18n="push" data-i18n-title="pushTitle" title="Push changes to git" style="display: none;">↑ Push</button>
+          <div id="gitStatus" class="git-status" title="Git status">
+            <span class="status-indicator" id="statusIndicator"></span>
+            <span class="status-text" id="statusText" data-i18n="loading">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <nav class="nav">
+          <h2 class="nav-title" data-i18n="navigation">Navigation</h2>
+          <button class="nav-item active" data-tab="boards" data-i18n="boards">
+            📦 Boards
+          </button>
+          <button class="nav-item" data-tab="git-history" data-i18n="gitHistory">
+            📜 Git History
+          </button>
+          <button class="nav-item" data-tab="contribute" data-i18n="contribute">
+            🤝 Contribute
+          </button>
+          <button class="nav-item" data-tab="settings" data-i18n="settings">
+            ⚙️ Settings
+          </button>
+        </nav>
+
+        <!-- Git Status Panel -->
+        <div class="sidebar-section">
+          <h3 class="section-title" data-i18n="repositoryStatus">Repository Status</h3>
+          <div id="repoStatus" class="repo-status">
+            <p class="loading" data-i18n="loadingRepositoryInfo">Loading repository info...</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="content">
+        <!-- Boards Tab -->
+        <section id="boards-tab" class="tab-content active">
+          <div class="section-header">
+            <h2 data-i18n="developmentBoards">Development Boards</h2>
+            <button id="addBoardBtn" class="btn btn-primary" data-i18n="addNewBoard">+ Add New Board</button>
+          </div>
+
+          <!-- Boards List -->
+          <div id="boardsList" class="boards-list loading">
+            <p class="loading-text" data-i18n="loadingBoards">Loading boards...</p>
+          </div>
+
+          <!-- Board Detail/Edit Modal -->
+          <div id="boardModal" class="modal hidden">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 id="modalTitle" data-i18n="editBoard">Edit Board</h2>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+              </div>
+              <div class="modal-body" id="boardFormContainer">
+                <!-- Form will be injected here -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Git History Tab -->
+        <section id="git-history-tab" class="tab-content">
+          <div class="section-header">
+            <h2 data-i18n="commitHistory">Commit History</h2>
+            <button id="refreshHistoryBtn" class="btn btn-sm btn-outline" data-i18n="refresh">Refresh</button>
+          </div>
+          <div id="commitHistory" class="commit-history loading">
+            <p class="loading-text" data-i18n="loadingCommitHistory">Loading commit history...</p>
+          </div>
+        </section>
+
+        <!-- Contribute Tab -->
+        <section id="contribute-tab" class="tab-content">
+          <div class="section-header">
+            <h2 data-i18n="contributeTitle">Contribute to the Manifest</h2>
+            <p data-i18n="contributeSubtitle" class="contribute-subtitle">Share your hardware expertise with the global TuyaOpen community</p>
+          </div>
+
+          <div class="contribute-content">
+            <!-- Hero Section -->
+            <div class="contribute-hero">
+              <div class="hero-text">
+                <h3 data-i18n="howItWorks">How It Works</h3>
+                <p data-i18n="howItWorksDesc">The TuyaOpen Manifest is the bridge between IDE, code, and hardware. Every board definition, demo asset, and documentation link you contribute helps thousands of developers worldwide.</p>
+              </div>
+            </div>
+
+            <!-- Four Pillars -->
+            <div class="contribute-grid">
+              <div class="contribute-card">
+                <div class="card-icon">📖</div>
+                <h4 data-i18n="editingGuide">Editing Guide</h4>
+                <p data-i18n="editingGuideDesc">Learn best practices for creating high-quality board information, documentation links, and asset metadata.</p>
+                <button class="btn btn-sm btn-outline" data-i18n="learnMore">Learn More →</button>
+              </div>
+
+              <div class="contribute-card">
+                <div class="card-icon">🚀</div>
+                <h4 data-i18n="submissionProcess">Submission Process</h4>
+                <p data-i18n="submissionProcessDesc">Create a new board, validate your changes, push to the repository, and open a pull request for review.</p>
+                <button class="btn btn-sm btn-outline" data-i18n="learnMore">Learn More →</button>
+              </div>
+
+              <div class="contribute-card">
+                <div class="card-icon">🗂️</div>
+                <h4 data-i18n="repositoryPath">Repository Path</h4>
+                <p data-i18n="repositoryPathDesc">Understand the structure: vendor/tuyaopen-ide-manifests/boards-and-chips/</p>
+                <button class="btn btn-sm btn-outline" data-i18n="learnMore">Learn More →</button>
+              </div>
+
+              <div class="contribute-card">
+                <div class="card-icon">⭐</div>
+                <h4 data-i18n="qualityStandards">Quality Standards</h4>
+                <p data-i18n="qualityStandardsDesc">High-quality manifests lead to better developer experiences. Follow our guidelines for descriptions, documentation, and asset organization.</p>
+                <button class="btn btn-sm btn-outline" data-i18n="learnMore">Learn More →</button>
+              </div>
+            </div>
+
+            <!-- Step-by-Step Process -->
+            <div class="contribution-steps">
+              <h3 style="margin-top: 0; margin-bottom: 24px;">🛠️ Quick Start</h3>
+              <div class="steps-container">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <h4 data-i18n="step1Title">Fork or Clone</h4>
+                    <p data-i18n="step1Desc">Clone the manifest repository to your local machine or fork it on GitHub.</p>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <h4 data-i18n="step2Title">Create or Edit</h4>
+                    <p data-i18n="step2Desc">Use this editor to create new boards or update existing ones. Changes are auto-committed with descriptive messages.</p>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <div class="step-content">
+                    <h4 data-i18n="step3Title">Validate</h4>
+                    <p data-i18n="step3Desc">Schema validation ensures your data is correct. All URLs, formats, and references are checked automatically.</p>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <div class="step-content">
+                    <h4 data-i18n="step4Title">Push & Submit</h4>
+                    <p data-i18n="step4Desc">Push changes to your branch and create a pull request. Our team reviews and merges high-quality contributions.</p>
+                    <div class="step-details" style="margin-top: 12px; padding: 12px; background: rgba(14, 165, 233, 0.05); border-left: 3px solid #0ea5e9; border-radius: 4px;">
+                      <p style="margin: 0 0 8px; font-size: 12px; font-weight: 600; color: var(--color-fg);">Fork Workflow:</p>
+                      <ul style="margin: 0; padding-left: 16px; font-size: 12px; color: var(--color-muted);">
+                        <li>Editor auto-detects your fork branch</li>
+                        <li>After push, you'll see a "Create PR" guide</li>
+                        <li>Click to open GitHub with pre-filled title & description</li>
+                        <li>Review and click "Create pull request" on GitHub</li>
+                        <li>Your PR is now submitted to the upstream repository!</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Settings Tab -->
+        <section id="settings-tab" class="tab-content">
+          <div class="section-header">
+            <h2 data-i18n="settingsTitle">Settings</h2>
+          </div>
+          <div class="settings-content">
+            <p data-i18n="settingsDesc">Settings and configuration will be added here.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container"></div>
+
+  <!-- Push Confirmation Modal -->
+  <div id="pushModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 data-i18n="confirmPushToRemote">Confirm Push to Remote</h2>
+        <button class="close-btn" id="closePushModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="pushModalContent">
+          <!-- Content will be populated here -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="pushConfirmCancelBtn" class="btn btn-outline" data-i18n="cancelBtn">Cancel</button>
+        <button id="pushConfirmBtn" class="btn btn-primary" data-i18n="pushChanges">✓ Push Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

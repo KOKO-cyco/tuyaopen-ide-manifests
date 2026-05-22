@@ -1,0 +1,616 @@
+// Main application controller
+
+import { apiClient } from './api-client.js';
+import { formatDate, showNotification, showError, debounce, escapeHtml } from './utils.js';
+import imageUploader from './image-uploader.js';
+import { renderBoardCard, renderBoardForm, saveBoardForm, deleteBoardPrompt, setupFormValidation, initGlobalTags } from './board-editor.js';
+import i18n from './i18n.js';
+
+let currentTab = 'boards';
+let platforms = [];
+let formDirty = false;  // Track unsaved changes
+
+// Initialize application
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    // Initialize language
+    setupLanguageSwitcher();
+    updateUILanguage();
+
+    // Initialize modules
+    imageUploader.init();
+
+    // Set up event listeners
+    setupNavigation();
+    setupBoardsTab();
+    setupGitHistoryTab();
+
+    // Load initial data
+    await loadInitialData();
+    await loadBoards();
+
+    // Set up auto-refresh
+    setInterval(updateGitStatus, 10000); // Every 10 seconds
+  } catch (error) {
+    showError('Initialization Error', error.message);
+  }
+});
+
+// ========== Language Support ==========
+function setupLanguageSwitcher() {
+  const switcher = document.getElementById('languageSwitcher');
+  if (!switcher) return;
+
+  // Set initial value
+  switcher.value = i18n.getLanguage();
+
+  // Handle language change
+  switcher.addEventListener('change', (e) => {
+    const lang = e.target.value;
+    i18n.setLanguage(lang);
+    updateUILanguage();
+  });
+}
+
+function updateUILanguage() {
+  // Update navigation labels and text content
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = i18n.t(el.getAttribute('data-i18n'));
+  });
+
+  // Update title attributes
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    el.title = i18n.t(el.getAttribute('data-i18n-title'));
+  });
+
+  // Update document title
+  const titleEl = document.querySelector('title');
+  if (titleEl) {
+    titleEl.textContent = i18n.t('manifestEditor') + ' - TuyaOpen IDE';
+  }
+
+  // Reload current page
+  const currentTab = document.querySelector('.nav-item.active')?.dataset.tab;
+  if (currentTab === 'boards') {
+    loadBoards();
+  } else if (currentTab === 'git-history') {
+    loadCommitHistory();
+  }
+}
+
+// ========== Navigation ==========
+function setupNavigation() {
+  document.querySelectorAll('.nav-item').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const tab = e.target.dataset.tab;
+      if (tab) {
+        if (formDirty) {
+          showUnsavedChangesConfirm(() => switchTab(tab));
+        } else {
+          switchTab(tab);
+        }
+      }
+    });
+  });
+}
+
+function switchTab(tab) {
+  // Update nav
+  document.querySelectorAll('.nav-item').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.tab === tab);
+  });
+
+  // Update content
+  document.querySelectorAll('.tab-content').forEach((section) => {
+    section.classList.remove('active');
+  });
+  const tabElement = document.getElementById(`${tab}-tab`);
+  if (tabElement) {
+    tabElement.classList.add('active');
+  }
+
+  currentTab = tab;
+
+  // Load tab-specific data
+  if (tab === 'git-history') {
+    loadCommitHistory();
+  }
+}
+
+// ========== Unsaved Changes Confirmation ==========
+function showUnsavedChangesConfirm(onDiscard) {
+  const confirmResult = confirm(i18n.t('unsavedChangesTitle') || '⚠️ Unsaved Changes\n\nYou have unsaved changes. Do you want to discard them?');
+  if (confirmResult) {
+    formDirty = false;
+    if (onDiscard) onDiscard();
+  }
+}
+
+// ========== Initial Data Load ==========
+async function loadInitialData() {
+  try {
+    const status = await apiClient.getStatus();
+
+    // Update git status
+    updateGitStatusDisplay(status.git);
+
+    // Update repo status sidebar
+    updateRepoStatusPanel(status);
+  } catch (error) {
+    console.error('Error loading initial data:', error);
+  }
+}
+
+// ========== Boards Tab ==========
+function setupBoardsTab() {
+  const addBtn = document.getElementById('addBoardBtn');
+  const pullBtn = document.getElementById('pullBtn');
+  const pushBtn = document.getElementById('pushBtn');
+
+  if (addBtn) {
+    addBtn.addEventListener('click', () => openBoardForm(null));
+  }
+
+  if (pullBtn) {
+    pullBtn.addEventListener('click', async () => {
+      try {
+        pullBtn.disabled = true;
+        const result = await apiClient.pullChanges();
+        showNotification('Pulled latest changes');
+        await loadBoards();
+        await updateGitStatus();
+      } catch (error) {
+        showError('Pull Failed', error.message);
+      } finally {
+        pullBtn.disabled = false;
+      }
+    });
+  }
+
+  if (pushBtn) {
+    pushBtn.addEventListener('click', async () => {
+      try {
+        await showPushConfirmation();
+      } catch (error) {
+        showError('Push Error', error.message);
+      }
+    });
+  }
+
+  // Listen for image upload events
+  window.addEventListener('imageUploaded', (e) => {
+    loadBoards();
+    updateGitStatus();
+  });
+}
+
+async function loadBoards() {
+  const boardsList = document.getElementById('boardsList');
+  if (!boardsList) return;
+
+  boardsList.innerHTML = '<p class="loading-text">Loading boards...</p>';
+  boardsList.classList.add('loading');
+
+  try {
+    const result = await apiClient.getBoards();
+    const boards = result.boards || [];
+
+    if (boards.length === 0) {
+      boardsList.innerHTML = '<p class="loading-text">No boards yet. Click "Add New Board" to create one.</p>';
+    } else {
+      boardsList.innerHTML = boards.map((board) => renderBoardCard(board)).join('');
+
+      // Attach event listeners
+      document.querySelectorAll('.edit-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const boardId = btn.dataset.boardId;
+          openBoardForm(boardId);
+        });
+      });
+
+      document.querySelectorAll('.delete-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const boardId = btn.dataset.boardId;
+          deleteBoardPrompt(boardId).then((success) => {
+            if (success) loadBoards();
+          });
+        });
+      });
+    }
+
+    boardsList.classList.remove('loading');
+  } catch (error) {
+    boardsList.innerHTML = `<p class="loading-text" style="color: var(--color-error);">Error: ${error.message}</p>`;
+  }
+}
+
+async function openBoardForm(boardId = null) {
+  const modal = document.getElementById('boardModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const formContainer = document.getElementById('boardFormContainer');
+  const closeBtn = document.getElementById('closeModalBtn');
+
+  if (!modal) return;
+
+  // Initialize global tags from all boards
+  await initGlobalTags();
+
+  let board = null;
+  if (boardId) {
+    try {
+      const result = await apiClient.getBoard(boardId);
+      board = result.board;
+      modalTitle.textContent = `Edit Board: ${boardId}`;
+    } catch (error) {
+      showError('Load Failed', `Failed to load board "${boardId}"`);
+      return;
+    }
+  } else {
+    modalTitle.textContent = 'Create New Board';
+  }
+
+  // Load platforms if not already loaded
+  if (platforms.length === 0) {
+    try {
+      const result = await apiClient.getStatus();
+      // In a real app, we'd load platforms from /api/platforms
+      // For now, we'll use hardcoded defaults
+      platforms = ['t5ai', 'esp32-s3', 'esp32', 'bk7231n'];
+    } catch (error) {
+      console.error('Error loading platforms:', error);
+    }
+  }
+
+  formContainer.innerHTML = renderBoardForm(board);
+
+  // Populate platforms dropdown
+  const platformSelect = document.getElementById('platformId');
+  if (platformSelect) {
+    platforms.forEach((plat) => {
+      if (!platformSelect.querySelector(`option[value="${plat}"]`)) {
+        const option = document.createElement('option');
+        option.value = plat;
+        option.textContent = plat;
+        platformSelect.appendChild(option);
+      }
+    });
+  }
+
+  // Set up form handlers and validation
+  const form = document.getElementById('boardForm');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const uploadImageBtn = document.getElementById('uploadImageBtn');
+
+  // Reset dirty flag when opening form
+  formDirty = false;
+
+  if (form) {
+    form.dataset.isEdit = !!boardId;
+
+    // Track form changes
+    form.addEventListener('change', () => {
+      formDirty = true;
+    });
+
+    form.addEventListener('input', () => {
+      formDirty = true;
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const success = await saveBoardForm(form);
+      if (success) {
+        formDirty = false;
+        modal.classList.add('hidden');
+        loadBoards();
+      }
+    });
+  }
+
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+      if (formDirty) {
+        showUnsavedChangesConfirm(() => modal.classList.add('hidden'));
+      } else {
+        modal.classList.add('hidden');
+      }
+    });
+  }
+
+  closeBtn.addEventListener('click', () => {
+    if (formDirty) {
+      showUnsavedChangesConfirm(() => modal.classList.add('hidden'));
+    } else {
+      modal.classList.add('hidden');
+    }
+  });
+
+  // Set up URL validation and tags autocomplete
+  setupFormValidation();
+
+  modal.classList.remove('hidden');
+
+  // Set up inline image upload for existing boards
+  if (boardId) {
+    imageUploader.setupInlineUpload(boardId);
+  }
+}
+
+// ========== Git History Tab ==========
+function setupGitHistoryTab() {
+  const refreshBtn = document.getElementById('refreshHistoryBtn');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', loadCommitHistory);
+  }
+}
+
+async function loadCommitHistory() {
+  const history = document.getElementById('commitHistory');
+  if (!history) return;
+
+  history.innerHTML = '<p class="loading-text">Loading commit history...</p>';
+  history.classList.add('loading');
+
+  try {
+    const result = await apiClient.getGitStatus();
+    const commits = result.history || [];
+
+    if (commits.length === 0) {
+      history.innerHTML = '<p class="loading-text">No commits yet.</p>';
+    } else {
+      history.innerHTML = commits
+        .map((commit) => {
+          return `
+            <div class="commit-item">
+              <div class="commit-sha">${commit.sha}</div>
+              <div class="commit-message">${commit.message}</div>
+              <div class="commit-meta">${commit.author} · ${formatDate(commit.date)}</div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    history.classList.remove('loading');
+  } catch (error) {
+    history.innerHTML = `<p class="loading-text" style="color: var(--color-error);">Error: ${error.message}</p>`;
+  }
+}
+
+// ========== Git Status ==========
+async function updateGitStatus() {
+  try {
+    const result = await apiClient.getGitStatus();
+    updateGitStatusDisplay(result);
+  } catch (error) {
+    console.error('Error updating git status:', error);
+  }
+}
+
+function updateGitStatusDisplay(gitStatus) {
+  const statusIndicator = document.getElementById('statusIndicator');
+  const statusText = document.getElementById('statusText');
+  const pushBtn = document.getElementById('pushBtn');
+
+  if (!statusIndicator || !statusText) return;
+
+  if (gitStatus.dirty) {
+    statusIndicator.classList.add('dirty');
+    statusIndicator.classList.remove('clean');
+    const count = Array.isArray(gitStatus.uncommitted) ? gitStatus.uncommitted.length : gitStatus.uncommitted;
+    statusText.textContent = `${i18n.t('dirty')} (${count} ${i18n.t('files')}) - ${i18n.t('waitingToPush')}`;
+    if (pushBtn) {
+      pushBtn.style.display = 'inline-block';
+    }
+  } else {
+    statusIndicator.classList.add('clean');
+    statusIndicator.classList.remove('dirty');
+    statusText.textContent = i18n.t('clean');
+    if (pushBtn) {
+      pushBtn.style.display = 'none';
+    }
+  }
+
+  // Update sidebar status
+  updateRepoStatusPanel({ git: gitStatus });
+}
+
+function updateRepoStatusPanel(status) {
+  const panel = document.getElementById('repoStatus');
+  if (!panel) return;
+
+  const git = status.git || {};
+  let statusHtml = `
+    <div class="status-row">
+      <span class="status-label">${i18n.t('branch')}:</span>
+      <span class="status-value">${git.branch || i18n.t('unknown')}</span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">${i18n.t('status')}:</span>
+      <span class="status-value">${git.dirty ? i18n.t('dirty') : i18n.t('clean')}</span>
+    </div>
+  `;
+
+  if (git.dirty) {
+    statusHtml += `
+      <div class="status-row" style="background-color: rgba(251, 146, 60, 0.1); padding: 8px; border-radius: 4px; margin-top: 8px;">
+        <span class="status-label" style="color: #d97706;">📤 ${i18n.t('waitingToPush')}</span>
+      </div>
+    `;
+  }
+
+  if (git.uncommitted) {
+    statusHtml += `
+      <div class="status-row">
+        <span class="status-label">${i18n.t('uncommitted')}:</span>
+        <span class="status-value">${Array.isArray(git.uncommitted) ? git.uncommitted.length : git.uncommitted} ${i18n.t('files')}</span>
+      </div>
+    `;
+  }
+
+  if (git.ahead) {
+    statusHtml += `
+      <div class="status-row">
+        <span class="status-label">${i18n.t('ahead')}:</span>
+        <span class="status-value">${git.ahead} commits</span>
+      </div>
+    `;
+  }
+
+  panel.innerHTML = statusHtml;
+}
+
+// ========== Push Functionality ==========
+async function showPRCreationGuide(commitMessage) {
+  const prGuide = `
+    <div style="text-align: center; padding: 24px;">
+      <div style="font-size: 48px; margin-bottom: 16px;">🔗</div>
+      <h3 style="margin: 0 0 12px; font-size: 18px; font-weight: 700;">Create a Pull Request</h3>
+      <p style="margin: 0 0 24px; font-size: 14px; color: #666;">
+        Your changes have been pushed to your fork. Now create a pull request to contribute to the main repository.
+      </p>
+
+      <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 16px; margin-bottom: 20px; text-align: left; border-radius: 4px;">
+        <p style="margin: 0 0 12px; font-size: 13px; color: #333;"><strong>📝 Commit Message (will auto-fill PR title):</strong></p>
+        <code style="font-family: monospace; font-size: 12px; color: #0284c7; word-break: break-all; display: block; padding: 8px; background: white; border-radius: 2px;">
+          ${escapeHtml(commitMessage)}
+        </code>
+      </div>
+
+      <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 16px; margin-bottom: 20px; text-align: left; border-radius: 4px;">
+        <p style="margin: 0 0 8px; font-size: 13px; color: #333;"><strong>✅ Next Steps:</strong></p>
+        <ol style="margin: 0; padding-left: 20px; font-size: 13px; color: #555;">
+          <li>Click the button below to open GitHub</li>
+          <li>Review the PR title and description (pre-filled)</li>
+          <li>Click "Create pull request" to submit</li>
+        </ol>
+      </div>
+
+      <button id="openGithubPRBtn" class="btn btn-primary" style="width: 100%; padding: 12px;">
+        🚀 Open GitHub & Create PR
+      </button>
+    </div>
+  `;
+
+  const modal = document.getElementById('pushModal');
+  const modalContent = document.getElementById('pushModalContent');
+
+  if (modalContent) {
+    modalContent.innerHTML = prGuide;
+    modal.classList.remove('hidden');
+
+    const openBtn = document.getElementById('openGithubPRBtn');
+    if (openBtn) {
+      openBtn.addEventListener('click', () => {
+        // Generate GitHub PR creation URL
+        const prUrl = 'https://github.com/tuya/tuyaopen-ide-manifests/compare/master...HEAD?expand=1';
+        window.open(prUrl, '_blank');
+        setTimeout(() => modal.classList.add('hidden'), 500);
+      });
+    }
+  }
+}
+
+// ========== Push Functionality ==========
+async function showPushConfirmation() {
+  const modal = document.getElementById('pushModal');
+  const modalContent = document.getElementById('pushModalContent');
+  const closePushBtn = document.getElementById('closePushModalBtn');
+  const pushConfirmBtn = document.getElementById('pushConfirmBtn');
+  const pushConfirmCancelBtn = document.getElementById('pushConfirmCancelBtn');
+
+  if (!modal || !modalContent) return;
+
+  // Fetch uncommitted changes
+  let changedFiles = [];
+  let commitMessage = 'chore(manifests): update boards and chips data';
+
+  try {
+    const statusResult = await apiClient.getGitStatus();
+    if (statusResult.uncommitted && Array.isArray(statusResult.uncommitted)) {
+      changedFiles = statusResult.uncommitted;
+    }
+
+    // Auto-generate commit message based on changed files
+    const hasBoards = changedFiles.some(f => f.includes('boards'));
+    const hasChips = changedFiles.some(f => f.includes('chips'));
+    const hasImages = changedFiles.some(f => f.includes('images'));
+
+    if (hasBoards && hasChips) {
+      commitMessage = 'feat(manifests): update boards and chips';
+    } else if (hasBoards) {
+      commitMessage = 'feat(manifests): update board information';
+    } else if (hasImages) {
+      commitMessage = 'assets(manifests): add/update board images';
+    }
+
+    // Add timestamp for uniqueness
+    commitMessage += ` (${new Date().toLocaleString()})`;
+  } catch (error) {
+    console.error('Error fetching git status:', error);
+  }
+
+  // Build modal content
+  const filesHtml = changedFiles.length > 0 ? `
+    <div style="margin-bottom: 20px;">
+      <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 14px; font-weight: 600;">📝 Changed Files (${changedFiles.length}):</h3>
+      <div style="background-color: #f5f5f5; border-radius: 4px; max-height: 250px; overflow-y: auto; padding: 12px;">
+        ${changedFiles.map(file => `
+          <div style="padding: 6px 0; border-bottom: 1px solid #e0e0e0; font-family: monospace; font-size: 12px;">
+            <span style="color: #d97706;">●</span> ${escapeHtml(file)}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  ` : '<p style="color: #999;">No changes to push</p>';
+
+  const messageHtml = `
+    <div style="margin-bottom: 16px;">
+      <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 14px; font-weight: 600;">📌 Commit Message:</h3>
+      <div style="background-color: #f0f9ff; border-left: 3px solid #0284c7; padding: 12px; border-radius: 4px;">
+        <code style="font-family: monospace; font-size: 13px; word-break: break-all;">${escapeHtml(commitMessage)}</code>
+      </div>
+    </div>
+  `;
+
+  modalContent.innerHTML = messageHtml + filesHtml + `
+    <div style="background-color: #fef3c7; border-left: 3px solid #f59e0b; padding: 12px; border-radius: 4px; font-size: 13px;">
+      <strong>⚠️ Note:</strong> This will create a commit and push to the remote repository. Please review the changes before confirming.
+    </div>
+  `;
+
+  // Setup event handlers
+  closePushBtn.onclick = () => modal.classList.add('hidden');
+  pushConfirmCancelBtn.onclick = () => modal.classList.add('hidden');
+
+  pushConfirmBtn.onclick = async () => {
+    try {
+      pushConfirmBtn.disabled = true;
+      pushConfirmBtn.textContent = '⏳ Pushing...';
+
+      // Auto-commit and push
+      const result = await apiClient.pushChanges(commitMessage);
+
+      if (result.success) {
+        showNotification(`✅ Successfully pushed ${changedFiles.length} file(s) to remote`);
+        modal.classList.add('hidden');
+        await updateGitStatus();
+        await loadBoards();
+
+        // Show PR creation guide if fork is detected
+        setTimeout(() => showPRCreationGuide(commitMessage), 500);
+      } else {
+        showError('Push Failed', result.error || 'Unknown error occurred');
+      }
+    } catch (error) {
+      showError('Push Error', error.message);
+    } finally {
+      pushConfirmBtn.disabled = false;
+      pushConfirmBtn.textContent = '✓ Push Changes';
+    }
+  };
+
+  modal.classList.remove('hidden');
+}

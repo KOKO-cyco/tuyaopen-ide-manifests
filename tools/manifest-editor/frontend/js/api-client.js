@@ -1,0 +1,132 @@
+// API Client for making requests to the backend
+
+class ApiClient {
+  constructor(baseUrl = '/api') {
+    this.baseUrl = baseUrl;
+  }
+
+  async request(method, endpoint, data = null) {
+    const url = `${this.baseUrl}${endpoint}`;
+    const options = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    if (data && (method === 'POST' || method === 'PATCH' || method === 'PUT')) {
+      options.body = JSON.stringify(data);
+    }
+
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        throw new Error(errorData.error?.message || errorData.error || 'Request failed');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error(`API Error [${method} ${url}]:`, error);
+      throw error;
+    }
+  }
+
+  // Status endpoints
+  async getStatus() {
+    return this.request('GET', '/status');
+  }
+
+  async getGitStatus() {
+    return this.request('GET', '/status/git');
+  }
+
+  async pullChanges() {
+    return this.request('POST', '/status/pull');
+  }
+
+  async pushChanges(commitMessage = null) {
+    return this.request('POST', '/status/push', { commitMessage });
+  }
+
+  // Board endpoints
+  async getBoards() {
+    return this.request('GET', '/boards');
+  }
+
+  async getBoard(id) {
+    return this.request('GET', `/boards/${id}`);
+  }
+
+  async createBoard(data) {
+    return this.request('POST', '/boards', data);
+  }
+
+  async updateBoard(id, data) {
+    return this.request('PATCH', `/boards/${id}`, data);
+  }
+
+  async deleteBoard(id, autoCommit = true) {
+    return this.request('DELETE', `/boards/${id}`, { autoCommit });
+  }
+
+  async validateBoard(data) {
+    return this.request('POST', `/boards/temp/validate`, data);
+  }
+
+  // Image endpoints
+  async uploadImage(boardId, fileOrUrl, filename = null, autoCommit = true, isUrl = false) {
+    // Handle URL-based image upload
+    if (isUrl || (typeof fileOrUrl === 'string' && fileOrUrl.startsWith('https://'))) {
+      return this.request('POST', '/images/upload', {
+        boardId,
+        imageUrl: fileOrUrl,
+        autoCommit,
+        autoUpdate: true,
+      });
+    }
+
+    // Handle file-based image upload
+    const formData = new FormData();
+    formData.append('boardId', boardId);
+    formData.append('image', fileOrUrl);
+    if (filename) formData.append('filename', filename);
+    formData.append('autoCommit', autoCommit);
+    formData.append('autoUpdate', 'true');
+
+    const url = `${this.baseUrl}/images/upload`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || 'Upload failed');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Image upload error:', error);
+      throw error;
+    }
+  }
+
+  async getBoardImages(boardId) {
+    return this.request('GET', `/images/${boardId}`);
+  }
+
+  async deleteImage(boardId, filename, autoCommit = true) {
+    return this.request('DELETE', `/images/${boardId}/${filename}`, { autoCommit });
+  }
+}
+
+export const apiClient = new ApiClient();
