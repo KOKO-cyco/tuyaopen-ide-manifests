@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "id": "example-board-id",
+  "name": {
+    "en": "Example Board",
+    "zh-CN": "示例板"
+  },
+  "brand": {
+    "en": "Tuya",
+    "zh-CN": "涂鸦"
+  },
+  "manufacturer": {
+    "en": "Tuya",
+    "zh-CN": "涂鸦"
+  },
+  "chip": "T5",
+  "summary": {
+    "en": "High-performance AI development board",
+    "zh-CN": "高性能 AI 开发板"
+  },
+  "tags": ["ai", "edge-computing", "audio", "display"],
+  "platformId": "t5ai",
+  "variantId": "t5ai",
+  "detailUrl": "t5ai/example-board.json",
+  "image": {
+    "url": "/images/example-board-500x500.jpg",
+    "alt": {
+      "en": "Example Board front view",
+      "zh-CN": "示例板正视图"
+    },
+    "width": 500,
+    "height": 500
+  },
+  "chip_docs": {
+    "name": "T5 AI Chip",
+    "datasheet": {
+      "en": "https://example.com/docs/t5-datasheet-en.pdf",
+      "zh-CN": "https://example.com/docs/t5-datasheet-zh.pdf"
+    },
+    "userGuide": {
+      "en": "https://example.com/docs/t5-user-guide-en.pdf",
+      "zh-CN": "https://example.com/docs/t5-user-guide-zh.pdf"
+    },
+    "purchaseUrl": {
+      "en": "https://supplier.com/t5-chip",
+      "zh-CN": "https://supplier.cn/t5-chip"
+    }
+  },
+  "board_docs": {
+    "userGuide": {
+      "en": "https://example.com/docs/example-board-ug-en.pdf",
+      "zh-CN": "https://example.com/docs/example-board-ug-zh.pdf"
+    },
+    "schematic": {
+      "en": "https://example.com/docs/example-board-schematic.pdf",
+      "zh-CN": "https://example.com/docs/example-board-schematic.pdf"
+    },
+    "purchaseUrl": {
+      "en": "https://shop.example.com/boards/example-board",
+      "zh-CN": "https://shop.example.cn/boards/example-board"
+    },
+    "purchaseNote": {
+      "en": "Available on official store",
+      "zh-CN": "在官方商店可用"
+    }
+  },
+  "demoIds": [
+    "audio-wake-word",
+    "face-detection"
+  ],
+  "onboardPeripherals": {
+    "default": [
+      {
+        "model": "ES7210",
+        "name": {
+          "en": "Audio Codec",
+          "zh-CN": "音频编解码器"
+        },
+        "interface": "I2S",
+        "pins": {
+          "i2s_bck": { "role": "bck", "gpio": 12 },
+          "i2s_ws": { "role": "ws", "gpio": 13 },
+          "i2s_din": { "role": "din", "gpio": 14 },
+          "i2s_dout": { "role": "dout", "gpio": 15 }
+        },
+        "optional": false,
+        "kconfig": {
+          "ENABLE_ES7210": "ENABLE_ES7210_DEFAULT"
+        },
+        "group": "audio",
+        "role": "primary",
+        "note": {
+          "en": "Integrated microphone array",
+          "zh-CN": "集成麦克风阵列"
+        }
+      }
+    ],
+    "expandable": [
+      {
+        "model": "GC2145",
+        "name": {
+          "en": "Camera Module",
+          "zh-CN": "摄像头模块"
+        },
+        "interface": "DVP",
+        "pins": {
+          "cam_clk": { "role": "pclk", "gpio": 20 },
+          "cam_hsync": { "role": "hsync", "gpio": 21 },
+          "cam_vsync": { "role": "vsync", "gpio": 22 },
+          "cam_d0": { "role": "d0", "gpio": 23 }
+        },
+        "optional": true,
+        "kconfig": {
+          "ENABLE_DVP": "ENABLE_DVP_CAMERA"
+        },
+        "group": "vision",
+        "role": "primary",
+        "note": {
+          "en": "Connect via J1 camera connector",
+          "zh-CN": "通过 J1 摄像头连接器连接"
+        }
+      }
+    ]
+  },
+  "peripheralPatterns": {
+    "audio": [],
+    "display": [],
+    "touchpad": [],
+    "camera": [],
+    "imu": [],
+    "button": [],
+    "led": [],
+    "led-pixel": [],
+    "encoder": [],
+    "ir": [],
+    "joystick": [],
+    "pmic": [],
+    "printer": []
+  },
+  "links": {
+    "schematic": null,
+    "datasheet": null,
+    "productPage": null
+  },
+  "source": {
+    "repo": "https://github.com/tuya/example-board-manifest",
+    "ref": "main",
+    "subpath": "boards/example"
+  }
+}

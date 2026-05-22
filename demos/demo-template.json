@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "domain": "demos",
+  "items": [
+    {
+      "schemaVersion": 1,
+      "id": "audio-wake-word",
+      "name": {
+        "en": "Audio Wake Word Detection",
+        "zh-CN": "音频唤醒词检测"
+      },
+      "summary": {
+        "en": "Detect custom wake words using edge ML",
+        "zh-CN": "使用边缘 ML 检测自定义唤醒词"
+      },
+      "description": {
+        "en": "Real-time wake word detection running on-device without cloud connectivity. Supports multiple custom wake words and speaker adaptation.",
+        "zh-CN": "在设备上实时运行唤醒词检测，无需云连接。支持多个自定义唤醒词和说话人自适应。"
+      },
+      "image": null,
+      "capabilities": [
+        "audio-processing",
+        "ml-inference",
+        "low-latency",
+        "power-efficient"
+      ],
+      "platforms": [
+        {
+          "platformId": "t5ai",
+          "chipIds": null,
+          "minFirmwareVersion": null
+        }
+      ],
+      "documentation": {
+        "readme": {
+          "en": "https://github.com/tuya/tuyaopen-sdk/blob/main/apps/audio_wake_word/README.md",
+          "zh-CN": "https://github.com/tuya/tuyaopen-sdk/blob/main/apps/audio_wake_word/README_zh.md"
+        },
+        "gettingStarted": {
+          "en": "https://docs.example.com/demos/audio-wake-word-quickstart",
+          "zh-CN": "https://docs.example.com/zh/demos/audio-wake-word-quickstart"
+        }
+      },
+      "repositoryUrl": "https://github.com/tuya/tuyaopen-sdk",
+      "branch": "main",
+      "path": "apps/audio_wake_word",
+      "source": {
+        "repo": "https://github.com/tuya/tuyaopen-sdk",
+        "ref": "main",
+        "subpath": "apps/audio_wake_word"
+      },
+      "publishedDate": "2025-01-15",
+      "tags": [
+        "official",
+        "audio",
+        "ai",
+        "wake-word"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "face-detection",
+      "name": {
+        "en": "Face Detection & Recognition",
+        "zh-CN": "人脸检测与识别"
+      },
+      "summary": {
+        "en": "Real-time face detection on-device",
+        "zh-CN": "设备上的实时人脸检测"
+      },
+      "description": {
+        "en": "Detect and recognize faces in camera feed using optimized ML model. Supports face enrollment, verification, and identification modes.",
+        "zh-CN": "使用优化的 ML 模型检测并识别摄像头中的人脸。支持人脸注册、验证和识别模式。"
+      },
+      "image": null,
+      "capabilities": [
+        "computer-vision",
+        "ml-inference",
+        "face-recognition",
+        "display-control"
+      ],
+      "platforms": [
+        {
+          "platformId": "t5ai",
+          "chipIds": null,
+          "minFirmwareVersion": null
+        },
+        {
+          "platformId": "esp32-s3",
+          "chipIds": null,
+          "minFirmwareVersion": null
+        }
+      ],
+      "documentation": {
+        "readme": {
+          "en": "https://github.com/tuya/tuyaopen-sdk/blob/main/apps/face_detection/README.md",
+          "zh-CN": "https://github.com/tuya/tuyaopen-sdk/blob/main/apps/face_detection/README_zh.md"
+        },
+        "gettingStarted": null
+      },
+      "repositoryUrl": "https://github.com/tuya/tuyaopen-sdk",
+      "branch": "main",
+      "path": "apps/face_detection",
+      "source": {
+        "repo": "https://github.com/tuya/tuyaopen-sdk",
+        "ref": "main",
+        "subpath": "apps/face_detection"
+      },
+      "publishedDate": "2025-02-01",
+      "tags": [
+        "official",
+        "vision",
+        "ai",
+        "face-recognition"
+      ]
+    }
+  ]
+}
