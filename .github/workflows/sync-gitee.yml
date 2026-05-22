@@ -1,0 +1,30 @@
+name: Sync to Gitee
+
+on:
+  push:
+    branches: ['**']
+    tags: ['**']
+  delete: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to Gitee
+        env:
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+        run: |
+          # Inject token via extraheader — keeps token out of remote URL
+          # so it never appears in git error messages or runner logs.
+          git -c http.https://gitee.com/.extraheader="Authorization: Basic $(
+            printf 'x-token:%s' "$GITEE_TOKEN" | base64 -w 0
+          )" push https://gitee.com/tuya-open/tuyaopen-ide-manifests.git \
+            --all --force
+          git -c http.https://gitee.com/.extraheader="Authorization: Basic $(
+            printf 'x-token:%s' "$GITEE_TOKEN" | base64 -w 0
+          )" push https://gitee.com/tuya-open/tuyaopen-ide-manifests.git \
+            --tags --force
