@@ -9,14 +9,15 @@ let globalTagsList = [];
 
 export async function initGlobalTags() {
   try {
-    const result = await apiClient.getBoards();
-    const allTags = new Set();
-    (result.boards || []).forEach(board => {
-      if (Array.isArray(board.tags)) {
-        board.tags.forEach(tag => allTags.add(tag.toLowerCase()));
-      }
-    });
-    globalTagsList = Array.from(allTags).sort();
+    const result = await apiClient.get('/api/status/tags');
+    if (result.success && result.tags) {
+      globalTagsList = result.tags.map(t => ({
+        id: t.id,
+        label: i18n.getLanguage() === 'zh-CN' ? t['zh-CN'] : t.en,
+        en: t.en,
+        zh: t['zh-CN'],
+      }));
+    }
   } catch (error) {
     console.error('Error loading tags:', error);
   }
@@ -164,24 +165,16 @@ export function renderBoardForm(board = null) {
         </div>
       </div>
 
-      <!-- Tags with Autocomplete -->
+      <!-- Tags Selection -->
       <div class="form-group">
-        <label class="form-label" for="tags">Tags / 标签 (comma-separated)</label>
-        <div class="tags-input-wrapper">
-          <input
-            type="text"
-            id="tags"
-            name="tags"
-            class="form-input"
-            placeholder="e.g., wifi, ble, edge-ai, audio"
-            value="${board ? (Array.isArray(board.tags) ? board.tags.join(', ') : '') : ''}"
-            autocomplete="off"
-          >
-          <div id="tagsDropdown" class="tags-dropdown" style="display: none;">
-            <div id="tagsDropdownList" class="tags-dropdown-list"></div>
-          </div>
+        <label class="form-label" for="tags">Tags / 标签</label>
+        <div id="tagsContainer" class="tags-selector">
+          <div id="selectedTags" class="tags-selected" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;"></div>
+          <select id="tags" name="tags" class="form-select" multiple style="min-height: 120px;">
+            <!-- Options populated by JavaScript -->
+          </select>
         </div>
-        <small style="color: var(--color-muted);">Use comma-separated tags for easy search and filter. Select from existing tags or create new ones.</small>
+        <small style="color: var(--color-muted);">Select from available tags. Tags are managed globally from tags.json registry.</small>
       </div>
 
       <!-- Links: Schematic -->
@@ -452,20 +445,13 @@ export async function saveBoardForm(formElement) {
   }
 
   // Validate tags format
-  const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim().toLowerCase()).filter(Boolean) : [];
-  const invalidTags = tags.filter(t => !isValidTagFormat(t));
-  if (invalidTags.length > 0) {
-    showError('Invalid Tags', `Tags must be lowercase letters, numbers, and hyphens: ${invalidTags.join(', ')}`);
+  const tagsSelect = document.getElementById('tags');
+  const tags = Array.from(tagsSelect?.selectedOptions || []).map(opt => opt.value);
+
+  if (tags.length === 0) {
+    showError('Validation Error', 'Please select at least one tag');
     return false;
   }
-
-  // Update global tags list
-  tags.forEach(tag => {
-    if (!globalTagsList.includes(tag)) {
-      globalTagsList.push(tag);
-    }
-  });
-  globalTagsList.sort();
 
   const boardData = {
     id: boardId,
@@ -564,56 +550,18 @@ export function setupFormValidation() {
     }
   });
 
-  // Tags autocomplete
-  const tagsInput = document.getElementById('tags');
-  const tagsDropdown = document.getElementById('tagsDropdown');
-  const tagsDropdownList = document.getElementById('tagsDropdownList');
+  // Populate tags multi-select dropdown
+  const tagsSelect = document.getElementById('tags');
+  if (tagsSelect && globalTagsList.length > 0) {
+    tagsSelect.innerHTML = globalTagsList.map(tag => `
+      <option value="${escapeHtml(tag.id)}">${escapeHtml(tag.label)}</option>
+    `).join('');
 
-  if (tagsInput && tagsDropdown && tagsDropdownList) {
-    tagsInput.addEventListener('focus', () => {
-      showTagsDropdown();
-    });
-
-    tagsInput.addEventListener('input', () => {
-      showTagsDropdown();
-    });
-
-    document.addEventListener('click', (e) => {
-      if (e.target !== tagsInput && !tagsDropdown.contains(e.target)) {
-        tagsDropdown.style.display = 'none';
-      }
-    });
-
-    function showTagsDropdown() {
-      const value = tagsInput.value;
-      const lastTag = value.split(',').pop().trim().toLowerCase();
-
-      let matches = globalTagsList;
-      if (lastTag) {
-        matches = globalTagsList.filter(tag => tag.includes(lastTag));
-      }
-
-      tagsDropdownList.innerHTML = matches.slice(0, 10).map(tag => `
-        <div class="tags-dropdown-item" data-tag="${escapeHtml(tag)}">
-          ${escapeHtml(tag)}
-        </div>
-      `).join('');
-
-      tagsDropdownList.querySelectorAll('.tags-dropdown-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-          e.preventDefault();
-          const selectedTag = item.dataset.tag;
-          const values = tagsInput.value.split(',').map(v => v.trim());
-          values[values.length - 1] = selectedTag;
-          tagsInput.value = values.join(', ') + ', ';
-          tagsInput.focus();
-          showTagsDropdown();
-        });
-      });
-
-      if (matches.length > 0) {
-        tagsDropdown.style.display = 'block';
-      }
+    // Pre-select existing tags from board data if editing
+    const boardForm = document.getElementById('boardForm');
+    if (boardForm && boardForm.dataset.isEdit === 'true') {
+      const boardId = document.getElementById('boardId')?.value;
+      // Tags should be pre-selected by the form rendering logic
     }
   }
 }

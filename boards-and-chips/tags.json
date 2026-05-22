@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "description": "Global tag registry for board categorization and search",
+  "tags": [
+    {
+      "id": "wifi",
+      "en": "WiFi",
+      "zh-CN": "WiFi 无线网络"
+    },
+    {
+      "id": "bluetooth",
+      "en": "Bluetooth",
+      "zh-CN": "蓝牙"
+    },
+    {
+      "id": "zigbee",
+      "en": "Zigbee",
+      "zh-CN": "Zigbee"
+    },
+    {
+      "id": "thread",
+      "en": "Thread",
+      "zh-CN": "Thread"
+    },
+    {
+      "id": "nfc",
+      "en": "NFC",
+      "zh-CN": "NFC 近场通信"
+    },
+    {
+      "id": "camera",
+      "en": "Camera",
+      "zh-CN": "摄像头"
+    },
+    {
+      "id": "display",
+      "en": "Display",
+      "zh-CN": "显示屏"
+    },
+    {
+      "id": "usb",
+      "en": "USB",
+      "zh-CN": "USB"
+    },
+    {
+      "id": "battery",
+      "en": "Battery Powered",
+      "zh-CN": "电池供电"
+    },
+    {
+      "id": "industrial",
+      "en": "Industrial",
+      "zh-CN": "工业级"
+    },
+    {
+      "id": "ai",
+      "en": "AI / ML",
+      "zh-CN": "人工智能 / 机器学习"
+    },
+    {
+      "id": "edge-computing",
+      "en": "Edge Computing",
+      "zh-CN": "边缘计算"
+    },
+    {
+      "id": "iot",
+      "en": "IoT",
+      "zh-CN": "物联网"
+    },
+    {
+      "id": "smart-home",
+      "en": "Smart Home",
+      "zh-CN": "智能家居"
+    },
+    {
+      "id": "wearable",
+      "en": "Wearable",
+      "zh-CN": "可穿戴设备"
+    },
+    {
+      "id": "sensor",
+      "en": "Sensor Hub",
+      "zh-CN": "传感器中心"
+    },
+    {
+      "id": "gateway",
+      "en": "Gateway",
+      "zh-CN": "网关"
+    },
+    {
+      "id": "starter-kit",
+      "en": "Starter Kit",
+      "zh-CN": "入门套件"
+    },
+    {
+      "id": "development",
+      "en": "Development Board",
+      "zh-CN": "开发板"
+    },
+    {
+      "id": "prototyping",
+      "en": "Prototyping",
+      "zh-CN": "原型设计"
+    }
+  ]
+}

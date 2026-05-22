@@ -330,6 +330,14 @@ async function openBoardForm(boardId = null) {
   // Set up URL validation and tags autocomplete
   setupFormValidation();
 
+  // Pre-select existing tags for editing
+  if (boardId && board && Array.isArray(board.tags)) {
+    const tagsSelect = document.getElementById('tags');
+    if (tagsSelect) {
+      tagsSelect.value = board.tags;
+    }
+  }
+
   modal.classList.remove('hidden');
 
   // Set up inline image upload for existing boards

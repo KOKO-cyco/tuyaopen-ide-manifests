@@ -8,11 +8,13 @@ class ManifestLoader {
       boards: null,
       demos: null,
       platforms: null,
+      tags: null,
     };
     this.lastLoaded = {
       boards: null,
       demos: null,
       platforms: null,
+      tags: null,
     };
   }
 
@@ -84,6 +86,29 @@ class ManifestLoader {
 
   getPlatforms() {
     return this.cache.platforms;
+  }
+
+  async loadTags(forceRefresh = false) {
+    try {
+      const filePath = path.join(config.paths.boards, 'tags.json');
+
+      await fs.access(filePath);
+
+      const content = await fs.readFile(filePath, 'utf-8');
+      const data = JSON.parse(content);
+
+      this.cache.tags = data;
+      this.lastLoaded.tags = new Date();
+
+      return data;
+    } catch (error) {
+      console.error('Error loading tags manifest:', error.message);
+      throw new Error(`Failed to load tags manifest: ${error.message}`);
+    }
+  }
+
+  getTags() {
+    return this.cache.tags;
   }
 
   async saveBoardsIndex(data) {
