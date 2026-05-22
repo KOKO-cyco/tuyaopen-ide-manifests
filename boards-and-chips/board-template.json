@@ -10,9 +10,98 @@
   "manufacturer": { "en": "<Manufacturer>", "zh-CN": "<制造商中文名>" },
   "platformId": "<platform-id: t5ai | ...>",
   "variantId": "<id field from variants[] in platforms/<platformId>.json, e.g. t5ai>",
+  "chip": "<chip model or identifier, e.g. T5>",
+
+  "image": {
+    "url": "<path or URL to board image, e.g. /images/board-id-500x500.jpg>",
+    "alt": {
+      "en": "<English image description>",
+      "zh-CN": "<中文图片描述>"
+    },
+    "width": 500,
+    "height": 500
+  },
+
+  "chip_docs": {
+    "name": "<Chip name>",
+    "datasheet": {
+      "en": "<HTTPS URL to English datasheet or null>",
+      "zh-CN": "<HTTPS URL to Chinese datasheet or null>"
+    },
+    "userGuide": {
+      "en": "<HTTPS URL to English user guide or null>",
+      "zh-CN": "<HTTPS URL to Chinese user guide or null>"
+    },
+    "purchaseUrl": {
+      "en": "<HTTPS URL to purchase chip or null>",
+      "zh-CN": "<HTTPS URL to purchase chip or null>"
+    }
+  },
+
+  "board_docs": {
+    "userGuide": {
+      "en": "<HTTPS URL to English user guide or null>",
+      "zh-CN": "<HTTPS URL to Chinese user guide or null>"
+    },
+    "schematic": {
+      "en": "<HTTPS URL to schematic or null>",
+      "zh-CN": "<HTTPS URL to schematic or null>"
+    },
+    "purchaseUrl": {
+      "en": "<HTTPS URL to purchase board or null>",
+      "zh-CN": "<HTTPS URL to purchase board or null>"
+    },
+    "purchaseNote": {
+      "en": "<Additional purchase notes or null>",
+      "zh-CN": "<购买注意事项或 null>"
+    }
+  },
+
+  "demoIds": [
+    "<demo-id-1>",
+    "<demo-id-2>"
+  ],
+
+  "onboardPeripherals": {
+    "default": [
+      {
+        "model": "<IC model or null if unknown>",
+        "name": { "en": "<peripheral display name>", "zh-CN": "<外设显示名称>" },
+        "interface": "<I2S | PDM | SPI | I2C | GPIO | ADC | ...>",
+        "pins": {
+          "<interface-type>": [
+            { "role": "<pin-role>", "gpio": "<gpio-number>" }
+          ]
+        },
+        "optional": false,
+        "kconfig": "<{ SYMBOL: value, ... } or null>",
+        "group": "<optional: kebab-case id>",
+        "role": "<optional: role within group, e.g. primary | secondary>",
+        "note": {
+          "en": "<non-obvious notes only; null if nothing special>",
+          "zh-CN": "<仅填特殊说明，无则填 null>"
+        }
+      }
+    ],
+    "expandable": [
+      {
+        "model": "<IC model or null>",
+        "name": { "en": "<peripheral display name>", "zh-CN": "<外设显示名称>" },
+        "interface": "<interface type>",
+        "pins": {},
+        "optional": true,
+        "kconfig": "<{ SYMBOL: value, ... } or null>",
+        "group": "<optional: kebab-case id>",
+        "role": "<optional: role>",
+        "note": {
+          "en": "<notes or null>",
+          "zh-CN": "<说明或 null>"
+        }
+      }
+    ]
+  },
 
   "peripheralPatterns": {
-
     "audio": [
       {
         "model": "<IC model, e.g. ES8311; null if unknown or interface is INTERNAL>",
@@ -431,7 +520,6 @@
         }
       }
     ]
-
   },
 
   "links": {
@@ -440,5 +528,13 @@
     "productPage": "<URL or null>"
   },
 
-  "tags": ["<wifi | ble | zigbee | thread | edge-ai | audio | display | camera | imu | led-pixel | pmic | cellular | ...>"],
+  "tags": [
+    "<wifi | ble | zigbee | thread | edge-ai | audio | display | camera | imu | led-pixel | pmic | cellular | ...>"
+  ],
+
+  "source": {
+    "repo": "<source repository URL or null>",
+    "ref": "<branch or tag, e.g. main>",
+    "subpath": "<path within repo, e.g. boards/board-id>"
+  }
 }

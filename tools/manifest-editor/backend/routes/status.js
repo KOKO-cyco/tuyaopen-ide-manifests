@@ -11,6 +11,7 @@ router.get('/', asyncHandler(async (req, res) => {
     // Load initial manifests
     await manifestLoader.loadBoards();
     await manifestLoader.loadPlatforms();
+    await manifestLoader.loadTags();
 
     // Get git status
     const gitStatus = await gitSync.getStatus();
@@ -18,9 +19,11 @@ router.get('/', asyncHandler(async (req, res) => {
     // Get commit history
     const history = await gitSync.getCommitHistory(10);
 
-    // Get boards count
+    // Get boards and tags count
     const boards = manifestLoader.getBoards();
+    const tags = manifestLoader.getTags();
     const boardCount = boards?.items?.length || 0;
+    const tagCount = tags?.tags?.length || 0;
 
     res.json({
       success: true,
@@ -30,6 +33,7 @@ router.get('/', asyncHandler(async (req, res) => {
       },
       manifests: {
         boards: boardCount,
+        tags: tagCount,
         lastLoaded: new Date().toISOString(),
       },
       git: {
@@ -74,6 +78,24 @@ router.post('/pull', asyncHandler(async (req, res) => {
     success: true,
     message: result.message,
     status: newStatus,
+  });
+}));
+
+// GET /api/tags - Return available tags
+router.get('/tags', asyncHandler(async (req, res) => {
+  await manifestLoader.loadTags();
+  const tagsData = manifestLoader.getTags();
+
+  if (!tagsData) {
+    return res.status(404).json({
+      success: false,
+      error: 'Tags manifest not found',
+    });
+  }
+
+  res.json({
+    success: true,
+    tags: tagsData.tags || [],
   });
 }));
 

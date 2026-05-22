@@ -1,4 +1,5 @@
 import Ajv from 'ajv';
+import { manifestLoader } from './manifest-loader.js';
 
 const ajv = new Ajv();
 
@@ -165,6 +166,35 @@ export class ManifestValidator {
     }
 
     return { valid: false, errors: ['Must be string or localized object'] };
+  }
+
+  async validateTags(tags) {
+    if (!tags || !Array.isArray(tags)) {
+      return { valid: true };
+    }
+
+    try {
+      await manifestLoader.loadTags();
+      const tagsData = manifestLoader.getTags();
+
+      if (!tagsData || !tagsData.tags) {
+        return { valid: true };
+      }
+
+      const validTagIds = new Set(tagsData.tags.map(t => t.id));
+      const invalidTags = tags.filter(tag => !validTagIds.has(tag));
+
+      if (invalidTags.length > 0) {
+        return {
+          valid: false,
+          errors: [`Invalid tags: ${invalidTags.join(', ')}. Use tags from the global tags registry.`],
+        };
+      }
+
+      return { valid: true };
+    } catch (error) {
+      return { valid: false, errors: [`Error validating tags: ${error.message}`] };
+    }
   }
 }
 
