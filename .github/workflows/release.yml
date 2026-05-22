@@ -27,12 +27,12 @@ jobs:
         id: domains
         run: |
           read_ver() {
-            python3 -c "import json,sys; d=json.load(open('$1')); print(d.get('version',''))" 2>/dev/null || echo ''
+            python3 -c "import json; d=json.load(open('registry.json')); print(d['manifests'].get('$1',{}).get('version',''))" 2>/dev/null || echo ''
           }
-          BOARDS="$(read_ver boards-and-chips/index.json)"
-          DEMOS="$(read_ver demos/index.json)"
-          PLATFORMS="$(read_ver platforms/index.json)"
-          SKILLS="$(read_ver skills/index.json)"
+          BOARDS="$(read_ver boardsAndChips)"
+          DEMOS="$(read_ver demos)"
+          PLATFORMS="$(read_ver platforms)"
+          SKILLS="$(read_ver skills)"
           echo "boards=$BOARDS"       >> "$GITHUB_OUTPUT"
           echo "demos=$DEMOS"         >> "$GITHUB_OUTPUT"
           echo "platforms=$PLATFORMS" >> "$GITHUB_OUTPUT"
