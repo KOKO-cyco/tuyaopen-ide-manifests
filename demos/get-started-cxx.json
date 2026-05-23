@@ -1,12 +1,12 @@
 {
   "id": "get-started-cxx",
   "name": {
-    "en": "cxx",
-    "zh-CN": "cxx"
+    "en": "C++ Integration Starter",
+    "zh-CN": "C++ 集成入门"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Demonstrates mixing C++ classes with C code in a TuyaOpen project.",
+    "zh-CN": "演示在 TuyaOpen 项目中混合使用 C++ 类与 C 代码。"
   },
   "tags": [
     "example",

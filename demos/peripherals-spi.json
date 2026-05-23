@@ -1,12 +1,12 @@
 {
   "id": "peripherals-spi",
   "name": {
-    "en": "SPI",
-    "zh-CN": "SPI 串行外设接口"
+    "en": "SPI Master/Slave",
+    "zh-CN": "SPI 主从通信"
   },
   "summary": {
-    "en": "",
-    "zh-CN": "SPI（Serial Peripheral Interface）即串行外设接口，是一种**高速、全双工、同步**的串行通信协议。SPI 使用四根信号线（SCLK时钟线、MOSI主出从入、MISO主入从出、CS片选信号）实现主从设备间的数据传输。 本示例的代码主要向您演示模组作为主机通过 SPI 接口发送数据的功能。关于 SPI 接口的详细说明请查看: [TKL_SPI](https://ww..."
+    "en": "Configures SPI master to send data and slave to receive, demonstrating full-duplex communication.",
+    "zh-CN": "配置 SPI 主机发送数据、从机接收，演示全双工串行通信。"
   },
   "tags": [
     "example",

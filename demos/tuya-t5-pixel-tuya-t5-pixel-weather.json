@@ -1,12 +1,12 @@
 {
   "id": "tuya-t5-pixel-tuya-t5-pixel-weather",
   "name": {
-    "en": "tuya t5 pixel weather",
-    "zh-CN": "tuya t5 pixel weather"
+    "en": "Pixel Weather Clock",
+    "zh-CN": "像素天气时钟"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Displays weather icons, temperature, and time cycling on a 32x32 LED pixel matrix.",
+    "zh-CN": "在 32x32 LED 矩阵上循环显示天气图标、温度和时间。"
   },
   "tags": [
     "app",

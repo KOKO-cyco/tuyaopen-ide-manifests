@@ -1,12 +1,12 @@
 {
   "id": "peripherals-adc",
   "name": {
-    "en": "ADC",
-    "zh-CN": "ADC"
+    "en": "ADC Analog-to-Digital",
+    "zh-CN": "ADC 模数转换"
   },
   "summary": {
-    "en": "ADC (Analog-to-Digital Converter) is a device that converts **continuous analog signals** into **discrete digital signals**. Through sampling and quantization, it converts analog voltage values int...",
-    "zh-CN": ""
+    "en": "Reads analog voltage from an ADC channel and converts it to a digital value.",
+    "zh-CN": "从 ADC 通道读取模拟电压并转换为数字值。"
   },
   "tags": [
     "example",

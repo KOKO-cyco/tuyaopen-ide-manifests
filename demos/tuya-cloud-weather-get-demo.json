@@ -1,12 +1,12 @@
 {
   "id": "tuya-cloud-weather-get-demo",
   "name": {
-    "en": "weather get demo",
-    "zh-CN": "weather get demo"
+    "en": "Cloud Weather Query",
+    "zh-CN": "云端天气查询"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Fetches weather data (conditions, forecasts, sunrise/sunset) from a cloud weather API.",
+    "zh-CN": "从云端天气 API 获取实况天气、预报和日出日落数据。"
   },
   "tags": [
     "app",

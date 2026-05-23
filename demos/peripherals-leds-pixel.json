@@ -1,12 +1,12 @@
 {
   "id": "peripherals-leds-pixel",
   "name": {
-    "en": "leds pixel",
-    "zh-CN": "leds pixel"
+    "en": "LED Pixel Strip",
+    "zh-CN": "LED 像素灯带"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Drives addressable LED strips (WS2812, SK6812) with sequential RGB color cycling.",
+    "zh-CN": "驱动可寻址 LED 灯带(WS2812、SK6812)进行 RGB 颜色循环。"
   },
   "tags": [
     "example",

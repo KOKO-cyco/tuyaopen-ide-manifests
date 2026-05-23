@@ -1,12 +1,12 @@
 {
   "id": "system-os-kv",
   "name": {
-    "en": "KV COMMON",
-    "zh-CN": "KV COMMON"
+    "en": "Key-Value Storage",
+    "zh-CN": "KV 键值存储"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Writes, reads, and deletes persistent key-value pairs in flash.",
+    "zh-CN": "在 Flash 中写入、读取和删除持久化键值对。"
   },
   "tags": [
     "example",

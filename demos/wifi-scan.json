@@ -1,12 +1,12 @@
 {
   "id": "wifi-scan",
   "name": {
-    "en": "WIFI SCAN",
-    "zh-CN": "WIFI SCAN"
+    "en": "Wi-Fi Scan",
+    "zh-CN": "Wi-Fi 扫描"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Scans nearby Wi-Fi networks and reports channel numbers and SSIDs.",
+    "zh-CN": "扫描附近 Wi-Fi 网络并输出信道号和 SSID。"
   },
   "tags": [
     "example",

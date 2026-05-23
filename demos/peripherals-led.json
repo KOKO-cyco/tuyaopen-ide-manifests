@@ -1,12 +1,12 @@
 {
   "id": "peripherals-led",
   "name": {
-    "en": "led",
-    "zh-CN": "led"
+    "en": "LED Control",
+    "zh-CN": "LED 控制"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Controls an LED with on/off switching, configurable blink count, and continuous flash modes.",
+    "zh-CN": "控制 LED 实现开关切换、可配置次数闪烁及持续闪烁模式。"
   },
   "tags": [
     "example",

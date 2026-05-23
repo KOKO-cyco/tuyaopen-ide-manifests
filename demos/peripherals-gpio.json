@@ -1,12 +1,12 @@
 {
   "id": "peripherals-gpio",
   "name": {
-    "en": "GPIO",
-    "zh-CN": "GPIO"
+    "en": "GPIO Input/Output",
+    "zh-CN": "GPIO 输入输出"
   },
   "summary": {
-    "en": "",
-    "zh-CN": "GPIO（General Purpose Input/Output）即通用输入输出接口，是嵌入式系统中用于**控制外部设备或读取外部信号**的基本数字接口。每个 GPIO 引脚可以被软件配置为输入或输出模式，在输入模式下可以读取引脚的电平状态（高电平或低电平），在输出模式下可以控制引脚输出高电平或低电平。GPIO 还支持中断功能，当引脚电平发生变化时可以触发中断处理函数，实现事件驱动的程序设..."
+    "en": "Demonstrates GPIO pin input, output, and interrupt handling.",
+    "zh-CN": "演示 GPIO 引脚的输入、输出及中断功能的使用方法。"
   },
   "tags": [
     "example",

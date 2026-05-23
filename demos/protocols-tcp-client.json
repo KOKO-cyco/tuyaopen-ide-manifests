@@ -1,12 +1,12 @@
 {
   "id": "protocols-tcp-client",
   "name": {
-    "en": "NETWORK CLIENT Introduction",
-    "zh-CN": "NETWORK CLIENT 简介"
+    "en": "TCP Client",
+    "zh-CN": "TCP 客户端"
   },
   "summary": {
-    "en": "This example demonstrates a TCP client. After connecting to the server, the TCP client will send `Hello Tuya` five times, then close the TCP client socket and thread. Note that it should be called ...",
-    "zh-CN": "该示例为 TCP 客户端的一个示例演示，TCP 客户端在连接上服务器后会发送 5 次 `Hello Tuya`，然后关闭 TCP 客户端 socket 套接字和线程。注意需要在模组连上 WiFi 之后调用，TCP 客户端可以使用 `NetAssist` 等网络调试助手。需要注意的是模组连接的网络要和网络调试助手在同一个局域网下。 该示例演示连接的是当前主机的echo服务，需要手动开启，你也可..."
+    "en": "Creates a TCP socket, connects to a server, and sends data repeatedly.",
+    "zh-CN": "创建 TCP 连接并向服务器重复发送数据。"
   },
   "tags": [
     "example",

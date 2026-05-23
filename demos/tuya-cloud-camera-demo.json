@@ -1,12 +1,12 @@
 {
   "id": "tuya-cloud-camera-demo",
   "name": {
-    "en": "camera demo",
-    "zh-CN": "camera demo"
+    "en": "Cloud IPC Camera",
+    "zh-CN": "云端 IPC 摄像头"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Implements IPC with P2P video streaming, OTA, and cloud device management.",
+    "zh-CN": "实现 IPC 功能，支持 P2P 视频流、OTA 和云端设备管理。"
   },
   "tags": [
     "app",

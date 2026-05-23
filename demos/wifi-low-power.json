@@ -1,12 +1,12 @@
 {
   "id": "wifi-low-power",
   "name": {
-    "en": "WIFI LOW POWER",
-    "zh-CN": "WIFI LOW POWER"
+    "en": "Wi-Fi Low Power",
+    "zh-CN": "Wi-Fi 低功耗"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Toggles Wi-Fi low-power mode on and off from multiple tasks.",
+    "zh-CN": "在多任务中交替启用和禁用 Wi-Fi 低功耗模式。"
   },
   "tags": [
     "example",

@@ -6,12 +6,12 @@
     {
       "id": "ble-ble-central",
       "name": {
-        "en": "BLE CENTRAL",
-        "zh-CN": "BLE CENTRAL"
+        "en": "BLE Central",
+        "zh-CN": "BLE Central"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Enables Bluetooth Central (host) mode, scans for nearby BLE devices, and reports discovery results.",
+        "zh-CN": "启用蓝牙中心设备（主机）模式，扫描附近 BLE 设备并上报发现结果。"
       },
       "tags": [
         "example",
@@ -28,12 +28,12 @@
     {
       "id": "ble-ble-peripher",
       "name": {
-        "en": "BLE PERIPHERAL",
-        "zh-CN": "BLE PERIPHERAL"
+        "en": "BLE Peripheral",
+        "zh-CN": "BLE Peripheral"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Enables Bluetooth Peripheral (slave) mode and allows a phone to connect as the central device.",
+        "zh-CN": "启用蓝牙外围设备（从机）模式，允许手机作为中心设备连接。"
       },
       "tags": [
         "example",
@@ -50,12 +50,12 @@
     {
       "id": "e-paper-1-54inch-e-paper",
       "name": {
-        "en": "1.54inch e Paper",
-        "zh-CN": "1.54inch e Paper"
+        "en": "E-Paper 1.54\" Display",
+        "zh-CN": "1.54 寸电子墨水屏"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Drives a 1.54-inch e-Paper display via SPI to render images, text, and graphics.",
+        "zh-CN": "通过 SPI 驱动 1.54 寸电子墨水屏，渲染图像、文字和图形。"
       },
       "tags": [
         "example",
@@ -72,12 +72,12 @@
     {
       "id": "e-paper-2-13inch-e-paper-touch",
       "name": {
-        "en": "2.13inch e Paper Touch",
-        "zh-CN": "2.13inch e Paper Touch"
+        "en": "E-Paper 2.13\" Touch Display",
+        "zh-CN": "2.13 寸触摸电子墨水屏"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Drives a 2.13-inch e-Paper with touch input for menu navigation and drawing.",
+        "zh-CN": "驱动 2.13 寸电子墨水屏，配合触摸实现菜单导航与白板绘图。"
       },
       "tags": [
         "example",
@@ -95,12 +95,12 @@
     {
       "id": "e-paper-4-26inch-e-paper",
       "name": {
-        "en": "4.26inch e Paper",
-        "zh-CN": "4.26inch e Paper"
+        "en": "E-Paper 4.26\" Display",
+        "zh-CN": "4.26 寸电子墨水屏"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Drives a 4.26-inch e-Paper display via SPI to render images, text, and graphics.",
+        "zh-CN": "通过 SPI 驱动 4.26 寸电子墨水屏，渲染图像、文字和图形。"
       },
       "tags": [
         "example",
@@ -117,12 +117,12 @@
     {
       "id": "games-lvgl-games",
       "name": {
-        "en": "一、硬件环境",
-        "zh-CN": "一、硬件环境"
+        "en": "LVGL Retro Games",
+        "zh-CN": "LVGL 复古游戏合集"
       },
       "summary": {
-        "en": "实物使用`T5AI-Board`开发板，搭载一个3.5寸屏幕，开发环境使用`TuyaOpen`。 涂鸦 T5AI-Board 是一款基于 T5-E1-IPEX 的语音和屏幕多交互开发板，T5-E1-IPEX 是涂鸦智能开发的嵌入式 Wi-Fi 和蓝牙组合模块。该开发板配备 2 个麦克风和 1 个扬声器，支持语音识别和播放，提供语音交互功能。 通过开发板上的 I/O 连接器，您可以使用 LCD...",
-        "zh-CN": ""
+        "en": "Runs classic retro games (2048, Plants vs Zombies, match-3) using LVGL on T5AI touchscreen boards.",
+        "zh-CN": "在 T5AI 触摸屏开发板上运行基于 LVGL 的经典游戏（2048、植物大战僵尸、消消乐）。"
       },
       "tags": [
         "app",
@@ -147,12 +147,12 @@
     {
       "id": "get-started-cxx",
       "name": {
-        "en": "cxx",
-        "zh-CN": "cxx"
+        "en": "C++ Integration Starter",
+        "zh-CN": "C++ 集成入门"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Demonstrates mixing C++ classes with C code in a TuyaOpen project.",
+        "zh-CN": "演示在 TuyaOpen 项目中混合使用 C++ 类与 C 代码。"
       },
       "tags": [
         "example",
@@ -169,12 +169,12 @@
     {
       "id": "get-started-sample-project",
       "name": {
-        "en": "sample project",
-        "zh-CN": "sample project"
+        "en": "Minimal Project Template",
+        "zh-CN": "最小工程模板"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Minimal hello-world project template with logging and basic control flow.",
+        "zh-CN": "包含日志输出和基本控制流的最小 hello-world 工程模板。"
       },
       "tags": [
         "example",
@@ -191,12 +191,12 @@
     {
       "id": "graphics-lvgl-camera",
       "name": {
-        "en": "LVGL2Camera 示例",
-        "zh-CN": "LVGL2Camera 示例"
+        "en": "LVGL Camera Preview",
+        "zh-CN": "LVGL 摄像头预览"
       },
       "summary": {
-        "en": "[English](#english-version) | [中文](#中文版本) ---",
-        "zh-CN": ""
+        "en": "Switches between an LVGL GUI and live camera preview on an LCD via button press.",
+        "zh-CN": "通过按键在 LVGL 界面与摄像头实时预览之间切换显示。"
       },
       "tags": [
         "example",
@@ -217,12 +217,12 @@
     {
       "id": "graphics-lvgl-demo",
       "name": {
-        "en": "lvgl_demo",
-        "zh-CN": "lvgl_demo"
+        "en": "LVGL Widgets Demo",
+        "zh-CN": "LVGL 控件演示"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Runs the built-in LVGL widgets demo on a display with touch and encoder support.",
+        "zh-CN": "在屏幕上运行 LVGL 内置控件演示，支持触摸和编码器。"
       },
       "tags": [
         "example",
@@ -253,12 +253,12 @@
     {
       "id": "graphics-lvgl-gif",
       "name": {
-        "en": "lvgl_demo",
-        "zh-CN": "lvgl_demo"
+        "en": "LVGL GIF Animation",
+        "zh-CN": "LVGL GIF 动画播放"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Displays animated GIF images on one or two LCD screens using LVGL.",
+        "zh-CN": "使用 LVGL 在单屏或双屏上显示 GIF 动画图像。"
       },
       "tags": [
         "example",
@@ -284,12 +284,12 @@
     {
       "id": "graphics-lvgl-label",
       "name": {
-        "en": "lvgl label",
-        "zh-CN": "lvgl label"
+        "en": "LVGL Label Rendering",
+        "zh-CN": "LVGL 标签显示"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Initializes the LVGL graphics library and renders a centered text label on the screen.",
+        "zh-CN": "初始化 LVGL 图形库并在屏幕居中渲染文本标签。"
       },
       "tags": [
         "example",
@@ -313,12 +313,12 @@
     {
       "id": "graphics-lvgl-simulator",
       "name": {
-        "en": "lvgl simulator",
+        "en": "LVGL PC Simulator",
         "zh-CN": "LVGL PC 模拟器"
       },
       "summary": {
-        "en": "",
-        "zh-CN": "在桌面上运行 TuyaOpen App 的 LVGL UI，无需烧录硬件。UI 源码直接编译为原生可执行文件，通过 SDL2 窗口渲染 LVGL 界面。 模拟器同时编译了 `platform/LINUX` 的 TKL 适配层和 `src/tal_system` 的 TAL 层，使得 UI 代码可以直接调用 `tal_*` / `tkl_*` 接口，并使用 `PR_xxx` 宏输出日志。 ---"
+        "en": "Runs LVGL UIs on desktop via SDL2 without hardware.",
+        "zh-CN": "通过 SDL2 在桌面端运行 LVGL 界面，无需硬件。"
       },
       "tags": [
         "example",
@@ -336,12 +336,12 @@
     {
       "id": "graphics-u8g2-i2c",
       "name": {
-        "en": "u8g2 i2c",
-        "zh-CN": "u8g2 i2c"
+        "en": "U8g2 OLED via I2C",
+        "zh-CN": "U8g2 I2C OLED 显示"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Drives an SSD1306 128x64 OLED over I2C using U8g2 page-mode rendering.",
+        "zh-CN": "使用 U8g2 页模式通过 I2C 驱动 SSD1306 128x64 OLED。"
       },
       "tags": [
         "example",
@@ -361,12 +361,12 @@
     {
       "id": "graphics-u8g2-spi",
       "name": {
-        "en": "u8g2 spi",
-        "zh-CN": "u8g2 spi"
+        "en": "U8g2 Display via SPI",
+        "zh-CN": "U8g2 SPI 显示"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Drives an ST7305 display over SPI using U8g2 full-buffer mode rendering.",
+        "zh-CN": "使用 U8g2 全缓冲模式通过 SPI 驱动 ST7305 显示屏。"
       },
       "tags": [
         "example",
@@ -386,12 +386,12 @@
     {
       "id": "graphics-u8g2-tdl-disp",
       "name": {
-        "en": "u8g2 tdl disp",
-        "zh-CN": "u8g2 tdl disp"
+        "en": "U8g2 via TDL Display Layer",
+        "zh-CN": "U8g2 TDL 显示驱动"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Renders U8g2 graphics through the TDL display abstraction layer for hardware-agnostic output.",
+        "zh-CN": "通过 TDL 显示抽象层渲染 U8g2 图形，实现硬件无关输出。"
       },
       "tags": [
         "example",
@@ -412,12 +412,12 @@
     {
       "id": "micropython-mpy-minimal",
       "name": {
-        "en": "mpy minimal",
-        "zh-CN": "mpy minimal"
+        "en": "MicroPython Minimal Boot",
+        "zh-CN": "MicroPython 最小启动"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Boots a minimal firmware that initializes a MicroPython REPL on UART.",
+        "zh-CN": "启动最小固件，在 UART 上初始化 MicroPython REPL 交互环境。"
       },
       "tags": [
         "app",
@@ -436,12 +436,12 @@
     {
       "id": "mimiclaw",
       "name": {
-        "en": "mimiclaw",
-        "zh-CN": "mimiclaw"
+        "en": "MimiClaw AI Agent",
+        "zh-CN": "MimiClaw AI 智能体"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Local-first AI assistant with LLM chat via Feishu, Telegram, or Discord.",
+        "zh-CN": "本地优先的 AI 助手，支持飞书/Telegram/Discord 聊天。"
       },
       "tags": [
         "app"
@@ -460,12 +460,12 @@
     {
       "id": "multimedia-audio-kws",
       "name": {
-        "en": "audio kws",
-        "zh-CN": "audio kws"
+        "en": "Audio Keyword Spotting",
+        "zh-CN": "语音关键词唤醒"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Captures microphone audio and performs on-device keyword wake-word recognition.",
+        "zh-CN": "采集麦克风音频并在设备端执行关键词唤醒识别。"
       },
       "tags": [
         "example",
@@ -485,12 +485,12 @@
     {
       "id": "multimedia-audio-player-music",
       "name": {
-        "en": "music",
-        "zh-CN": "music"
+        "en": "Network Music Player",
+        "zh-CN": "网络音乐播放"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Connects to Wi-Fi and streams MP3 music from a URL for decoded audio playback.",
+        "zh-CN": "连接 Wi-Fi 后从 URL 串流 MP3 音乐进行解码播放。"
       },
       "tags": [
         "example",
@@ -510,12 +510,12 @@
     {
       "id": "multimedia-audio-player-tts",
       "name": {
-        "en": "tts",
-        "zh-CN": "tts"
+        "en": "TTS Audio Playback",
+        "zh-CN": "TTS 语音播放"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Plays a pre-embedded MP3 speech audio array through the audio player service.",
+        "zh-CN": "通过音频播放服务播放预嵌入的 MP3 语音数组。"
       },
       "tags": [
         "example",
@@ -535,12 +535,12 @@
     {
       "id": "multimedia-audio-recorder-output-sdcard",
       "name": {
-        "en": "output sdcard",
-        "zh-CN": "output sdcard"
+        "en": "Audio Recorder to SD Card",
+        "zh-CN": "录音存 SD 卡"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Records microphone audio as PCM, encodes it to WAV, and saves the file to an SD card.",
+        "zh-CN": "录制麦克风 PCM 音频，编码为 WAV 格式并保存到 SD 卡。"
       },
       "tags": [
         "example",
@@ -561,12 +561,12 @@
     {
       "id": "multimedia-audio-vad",
       "name": {
-        "en": "audio vad",
-        "zh-CN": "audio vad"
+        "en": "Voice Activity Detection",
+        "zh-CN": "语音活动检测"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Feeds audio frames to a VAD engine and reports speech-start and speech-end transitions.",
+        "zh-CN": "将音频帧送入 VAD 引擎并报告语音起止状态变化。"
       },
       "tags": [
         "example",
@@ -586,12 +586,12 @@
     {
       "id": "peripherals-adc",
       "name": {
-        "en": "ADC",
-        "zh-CN": "ADC"
+        "en": "ADC Analog-to-Digital",
+        "zh-CN": "ADC 模数转换"
       },
       "summary": {
-        "en": "ADC (Analog-to-Digital Converter) is a device that converts **continuous analog signals** into **discrete digital signals**. Through sampling and quantization, it converts analog voltage values int...",
-        "zh-CN": ""
+        "en": "Reads analog voltage from an ADC channel and converts it to a digital value.",
+        "zh-CN": "从 ADC 通道读取模拟电压并转换为数字值。"
       },
       "tags": [
         "example",
@@ -608,12 +608,12 @@
     {
       "id": "peripherals-audio-codecs",
       "name": {
-        "en": "audio codecs",
-        "zh-CN": "audio codecs"
+        "en": "Audio Codec Record/Playback",
+        "zh-CN": "Audio Codec 录放音"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Records PCM audio into a ring buffer on button press and plays it back through the codec.",
+        "zh-CN": "按键录制 PCM 音频到环形缓冲区并通过编解码器回放。"
       },
       "tags": [
         "example",
@@ -635,12 +635,12 @@
     {
       "id": "peripherals-button",
       "name": {
-        "en": "button",
-        "zh-CN": "button"
+        "en": "Button Input",
+        "zh-CN": "按键输入"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Detects button press-down and long-press events via callback-driven event handling.",
+        "zh-CN": "通过回调驱动的事件处理检测按键按下和长按事件。"
       },
       "tags": [
         "example",
@@ -664,12 +664,12 @@
     {
       "id": "peripherals-camera-output-display",
       "name": {
-        "en": "output display",
-        "zh-CN": "相机输出显示数据流向文档"
+        "en": "Camera Display Output",
+        "zh-CN": "摄像头屏幕输出"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Captures camera frames and renders them on an LCD with optional rotation.",
+        "zh-CN": "采集摄像头画面并输出到 LCD 显示，支持旋转。"
       },
       "tags": [
         "example",
@@ -693,12 +693,12 @@
     {
       "id": "peripherals-camera-output-sdcard",
       "name": {
-        "en": "output sdcard",
-        "zh-CN": "output sdcard"
+        "en": "Camera Capture to SD Card",
+        "zh-CN": "摄像头抓帧存 SD 卡"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Captures H.264 video frames from a camera and saves them as files on an SD card.",
+        "zh-CN": "从摄像头捕获 H.264 视频帧并保存到 SD 卡文件。"
       },
       "tags": [
         "example",
@@ -720,12 +720,12 @@
     {
       "id": "peripherals-display-fill-color",
       "name": {
-        "en": "fill color",
-        "zh-CN": "fill color"
+        "en": "Display Color Fill",
+        "zh-CN": "显示屏颜色填充"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Fills the entire display with random colors in a continuous loop to verify the driver.",
+        "zh-CN": "以随机颜色持续填充整块显示屏以验证驱动程序。"
       },
       "tags": [
         "example",
@@ -750,12 +750,12 @@
     {
       "id": "peripherals-display-picture",
       "name": {
-        "en": "picture",
-        "zh-CN": "picture"
+        "en": "Display Image Rendering",
+        "zh-CN": "显示屏图片渲染"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Renders a pre-stored RGB565 image array onto the display with pixel format conversion.",
+        "zh-CN": "将预存的 RGB565 图片数组经像素格式转换渲染到显示屏。"
       },
       "tags": [
         "example",
@@ -780,12 +780,12 @@
     {
       "id": "peripherals-encoder",
       "name": {
-        "en": "encoder",
-        "zh-CN": "encoder"
+        "en": "Rotary Encoder Input",
+        "zh-CN": "旋转编码器输入"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Polls a rotary encoder for angle changes and button press events at fixed intervals.",
+        "zh-CN": "以固定间隔轮询旋转编码器的角度变化和按键事件。"
       },
       "tags": [
         "example",
@@ -803,12 +803,12 @@
     {
       "id": "peripherals-flash",
       "name": {
-        "en": "flash",
-        "zh-CN": "flash"
+        "en": "Flash Read/Write",
+        "zh-CN": "Flash 读写"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Erases, writes, and reads back test data on an on-chip user flash partition.",
+        "zh-CN": "对片上用户 Flash 分区执行擦除、写入和回读验证操作。"
       },
       "tags": [
         "example",
@@ -826,12 +826,12 @@
     {
       "id": "peripherals-gpio",
       "name": {
-        "en": "GPIO",
-        "zh-CN": "GPIO"
+        "en": "GPIO Input/Output",
+        "zh-CN": "GPIO 输入输出"
       },
       "summary": {
-        "en": "",
-        "zh-CN": "GPIO（General Purpose Input/Output）即通用输入输出接口，是嵌入式系统中用于**控制外部设备或读取外部信号**的基本数字接口。每个 GPIO 引脚可以被软件配置为输入或输出模式，在输入模式下可以读取引脚的电平状态（高电平或低电平），在输出模式下可以控制引脚输出高电平或低电平。GPIO 还支持中断功能，当引脚电平发生变化时可以触发中断处理函数，实现事件驱动的程序设..."
+        "en": "Demonstrates GPIO pin input, output, and interrupt handling.",
+        "zh-CN": "演示 GPIO 引脚的输入、输出及中断功能的使用方法。"
       },
       "tags": [
         "example",
@@ -849,12 +849,12 @@
     {
       "id": "peripherals-i2c-i2c-scan",
       "name": {
-        "en": "i2c scan",
-        "zh-CN": "i2c scan"
+        "en": "I2C Bus Scanner",
+        "zh-CN": "I2C 总线扫描"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Scans all 7-bit I2C addresses and reports detected device addresses.",
+        "zh-CN": "扫描所有 7 位 I2C 地址并输出已检测到的设备地址。"
       },
       "tags": [
         "example",
@@ -872,12 +872,12 @@
     {
       "id": "peripherals-i2c-sht3x-4x-sensor",
       "name": {
-        "en": "sht3x 4x sensor",
-        "zh-CN": "sht3x 4x sensor"
+        "en": "SHT3x/SHT4x Temperature Sensor",
+        "zh-CN": "SHT3x/SHT4x 温湿度传感器"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Reads temperature and humidity from SHT3x or SHT4x sensors over I2C.",
+        "zh-CN": "通过 I2C 读取 SHT3x 或 SHT4x 传感器的温湿度数据。"
       },
       "tags": [
         "example",
@@ -895,12 +895,12 @@
     {
       "id": "peripherals-imu-bmi270",
       "name": {
-        "en": "bmi270",
-        "zh-CN": "bmi270"
+        "en": "BMI270 IMU Sensor",
+        "zh-CN": "BMI270 惯性传感器"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Reads accelerometer and gyroscope data from a BMI270 IMU sensor over I2C.",
+        "zh-CN": "通过 I2C 读取 BMI270 IMU 传感器的加速度和陀螺仪数据。"
       },
       "tags": [
         "example",
@@ -918,12 +918,12 @@
     {
       "id": "peripherals-ir",
       "name": {
-        "en": "ir",
-        "zh-CN": "ir"
+        "en": "Infrared Transceiver",
+        "zh-CN": "红外收发"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Transmits and receives infrared signals using NEC protocol and raw timecode modes.",
+        "zh-CN": "使用 NEC 协议和原始时序模式收发红外信号。"
       },
       "tags": [
         "example",
@@ -943,12 +943,12 @@
     {
       "id": "peripherals-joystick",
       "name": {
-        "en": "JOYSTICK",
-        "zh-CN": "JOYSTICK"
+        "en": "Joystick Input",
+        "zh-CN": "摇杆输入"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Reads analog joystick direction and button events via ADC and GPIO.",
+        "zh-CN": "通过 ADC 和 GPIO 读取摇杆方向及按键事件。"
       },
       "tags": [
         "example",
@@ -968,12 +968,12 @@
     {
       "id": "peripherals-led",
       "name": {
-        "en": "led",
-        "zh-CN": "led"
+        "en": "LED Control",
+        "zh-CN": "LED 控制"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Controls an LED with on/off switching, configurable blink count, and continuous flash modes.",
+        "zh-CN": "控制 LED 实现开关切换、可配置次数闪烁及持续闪烁模式。"
       },
       "tags": [
         "example",
@@ -997,12 +997,12 @@
     {
       "id": "peripherals-leds-pixel",
       "name": {
-        "en": "leds pixel",
-        "zh-CN": "leds pixel"
+        "en": "LED Pixel Strip",
+        "zh-CN": "LED 像素灯带"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Drives addressable LED strips (WS2812, SK6812) with sequential RGB color cycling.",
+        "zh-CN": "驱动可寻址 LED 灯带(WS2812、SK6812)进行 RGB 颜色循环。"
       },
       "tags": [
         "example",
@@ -1023,12 +1023,12 @@
     {
       "id": "peripherals-pwm",
       "name": {
-        "en": "PWM",
-        "zh-CN": "PWM"
+        "en": "PWM Pulse Width Modulation",
+        "zh-CN": "PWM 脉宽调制"
       },
       "summary": {
-        "en": "PWM (Pulse Width Modulation) is a digital technique that controls analog circuits by **varying the duty cycle of a pulse signal**. A PWM signal consists of periodic square waves. By adjusting the r...",
-        "zh-CN": ""
+        "en": "Outputs PWM signals with configurable frequency and duty cycle for analog control.",
+        "zh-CN": "输出可配置频率和占空比的 PWM 信号，用于模拟控制。"
       },
       "tags": [
         "example",
@@ -1046,12 +1046,12 @@
     {
       "id": "peripherals-sd",
       "name": {
-        "en": "sd",
-        "zh-CN": "sd"
+        "en": "SD Card File I/O",
+        "zh-CN": "SD 卡文件读写"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Mounts an SD card and performs file write, read, and content comparison verification.",
+        "zh-CN": "挂载 SD 卡并执行文件写入、读取和内容比对验证。"
       },
       "tags": [
         "example",
@@ -1072,12 +1072,12 @@
     {
       "id": "peripherals-spi",
       "name": {
-        "en": "SPI",
-        "zh-CN": "SPI 串行外设接口"
+        "en": "SPI Master/Slave",
+        "zh-CN": "SPI 主从通信"
       },
       "summary": {
-        "en": "",
-        "zh-CN": "SPI（Serial Peripheral Interface）即串行外设接口，是一种**高速、全双工、同步**的串行通信协议。SPI 使用四根信号线（SCLK时钟线、MOSI主出从入、MISO主入从出、CS片选信号）实现主从设备间的数据传输。 本示例的代码主要向您演示模组作为主机通过 SPI 接口发送数据的功能。关于 SPI 接口的详细说明请查看: [TKL_SPI](https://ww..."
+        "en": "Configures SPI master to send data and slave to receive, demonstrating full-duplex communication.",
+        "zh-CN": "配置 SPI 主机发送数据、从机接收，演示全双工串行通信。"
       },
       "tags": [
         "example",
@@ -1095,12 +1095,12 @@
     {
       "id": "peripherals-timer",
       "name": {
-        "en": "TIMER",
-        "zh-CN": "TIMER"
+        "en": "Hardware Timer",
+        "zh-CN": "硬件定时器"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Creates a periodic hardware timer that fires callbacks and self-releases after a set count.",
+        "zh-CN": "创建周期性硬件定时器，回调指定次数后自行释放。"
       },
       "tags": [
         "example",
@@ -1118,12 +1118,12 @@
     {
       "id": "peripherals-touch",
       "name": {
-        "en": "Touch Driver Example",
-        "zh-CN": "触摸驱动例程"
+        "en": "Capacitive Touch Driver",
+        "zh-CN": "电容触摸驱动"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Drives a capacitive touch sensor to detect touch events and report coordinates.",
+        "zh-CN": "驱动电容触摸传感器检测触摸事件并上报坐标。"
       },
       "tags": [
         "example",
@@ -1141,12 +1141,12 @@
     {
       "id": "peripherals-tp",
       "name": {
-        "en": "tp",
-        "zh-CN": "tp"
+        "en": "Touch Panel Input",
+        "zh-CN": "触摸屏输入"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Reads multi-point touch coordinates from a touch panel in a continuous polling loop.",
+        "zh-CN": "在持续轮询循环中读取触摸屏的多点触控坐标。"
       },
       "tags": [
         "example",
@@ -1165,12 +1165,12 @@
     {
       "id": "peripherals-uart",
       "name": {
-        "en": "UART",
-        "zh-CN": "UART"
+        "en": "UART Serial Communication",
+        "zh-CN": "UART 串口通信"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Sends and receives data over UART with configurable baud rate, data bits, and parity.",
+        "zh-CN": "通过 UART 收发数据，支持配置波特率、数据位和校验位。"
       },
       "tags": [
         "example",
@@ -1188,12 +1188,12 @@
     {
       "id": "peripherals-watchdog",
       "name": {
-        "en": "WATCHDOG",
-        "zh-CN": "WATCHDOG"
+        "en": "Watchdog Timer",
+        "zh-CN": "看门狗定时器"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Initializes a watchdog timer, feeds it periodically, then stops to trigger a reset.",
+        "zh-CN": "初始化看门狗并定期喂狗，停止后触发系统复位。"
       },
       "tags": [
         "example",
@@ -1211,12 +1211,12 @@
     {
       "id": "protocols-http-client",
       "name": {
-        "en": "HTTP Introduction",
-        "zh-CN": "HTTP  简介"
+        "en": "HTTP Client",
+        "zh-CN": "HTTP 客户端"
       },
       "summary": {
-        "en": "The `example_http` routine demonstrates how to use the native HTTP interface.",
-        "zh-CN": "example_http 例程演示了如何使用原生http接口。"
+        "en": "Sends an HTTP GET request and prints the response after network link-up.",
+        "zh-CN": "网络连接后发送 HTTP GET 请求并打印响应内容。"
       },
       "tags": [
         "example",
@@ -1233,12 +1233,12 @@
     {
       "id": "protocols-https-client",
       "name": {
-        "en": "HTTP Introduction",
-        "zh-CN": "HTTP  简介"
+        "en": "HTTPS Client",
+        "zh-CN": "HTTPS 客户端"
       },
       "summary": {
-        "en": "The `example_https_client` routine demonstrates how to use the native HTTPS interface.",
-        "zh-CN": "example_https_client 例程演示了如何使用原生 https 接口。"
+        "en": "Sends an HTTPS GET request with TLS certificate verification.",
+        "zh-CN": "使用 TLS 证书验证发送 HTTPS GET 请求。"
       },
       "tags": [
         "example",
@@ -1255,12 +1255,12 @@
     {
       "id": "protocols-mqtt-client",
       "name": {
-        "en": "MQTT Introduction",
-        "zh-CN": "HTTP  简介"
+        "en": "MQTT Client",
+        "zh-CN": "MQTT 客户端"
       },
       "summary": {
-        "en": "The `example_mqtt` routine demonstrates how to use the native MQTT interface.",
-        "zh-CN": "example_http 例程演示了如何使用原生http接口。"
+        "en": "Connects to an MQTT broker, subscribes to a topic, and publishes messages.",
+        "zh-CN": "连接 MQTT Broker，订阅主题并发布消息。"
       },
       "tags": [
         "example",
@@ -1277,12 +1277,12 @@
     {
       "id": "protocols-tcp-client",
       "name": {
-        "en": "NETWORK CLIENT Introduction",
-        "zh-CN": "NETWORK CLIENT 简介"
+        "en": "TCP Client",
+        "zh-CN": "TCP 客户端"
       },
       "summary": {
-        "en": "This example demonstrates a TCP client. After connecting to the server, the TCP client will send `Hello Tuya` five times, then close the TCP client socket and thread. Note that it should be called ...",
-        "zh-CN": "该示例为 TCP 客户端的一个示例演示，TCP 客户端在连接上服务器后会发送 5 次 `Hello Tuya`，然后关闭 TCP 客户端 socket 套接字和线程。注意需要在模组连上 WiFi 之后调用，TCP 客户端可以使用 `NetAssist` 等网络调试助手。需要注意的是模组连接的网络要和网络调试助手在同一个局域网下。 该示例演示连接的是当前主机的echo服务，需要手动开启，你也可..."
+        "en": "Creates a TCP socket, connects to a server, and sends data repeatedly.",
+        "zh-CN": "创建 TCP 连接并向服务器重复发送数据。"
       },
       "tags": [
         "example",
@@ -1299,12 +1299,12 @@
     {
       "id": "protocols-tcp-server",
       "name": {
-        "en": "NETWORK SERVER",
-        "zh-CN": "NETWORK SERVER"
+        "en": "TCP Echo Server",
+        "zh-CN": "TCP 回显服务器"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Listens on a TCP port, accepts connections, and echoes received data back.",
+        "zh-CN": "监听 TCP 端口，接受连接并将收到的数据回传。"
       },
       "tags": [
         "example",
@@ -1321,12 +1321,12 @@
     {
       "id": "system-os-event",
       "name": {
-        "en": "TuyaOS event subscription",
-        "zh-CN": "TuyaOS event subscribe"
+        "en": "OS Event System",
+        "zh-CN": "OS 事件系统"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Subscribes to and publishes named events between threads.",
+        "zh-CN": "在线程间订阅和发布命名事件。"
       },
       "tags": [
         "example",
@@ -1343,12 +1343,12 @@
     {
       "id": "system-os-kv",
       "name": {
-        "en": "KV COMMON",
-        "zh-CN": "KV COMMON"
+        "en": "Key-Value Storage",
+        "zh-CN": "KV 键值存储"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Writes, reads, and deletes persistent key-value pairs in flash.",
+        "zh-CN": "在 Flash 中写入、读取和删除持久化键值对。"
       },
       "tags": [
         "example",
@@ -1365,12 +1365,12 @@
     {
       "id": "system-os-mutex",
       "name": {
-        "en": "SYSTEM MUTEX",
-        "zh-CN": "SYSTEM MUTEX"
+        "en": "Mutex Synchronization",
+        "zh-CN": "互斥锁同步"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Two threads share a counter protected by a mutex to demonstrate safe access.",
+        "zh-CN": "两个线程通过互斥锁保护共享计数器，演示安全访问。"
       },
       "tags": [
         "example",
@@ -1387,12 +1387,12 @@
     {
       "id": "system-os-queue",
       "name": {
-        "en": "SYSTEM QUEUE",
-        "zh-CN": "SYSTEM QUEUE"
+        "en": "Message Queue",
+        "zh-CN": "消息队列"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "One thread posts messages to a queue and another receives them.",
+        "zh-CN": "一个线程向队列投递消息，另一个线程接收处理。"
       },
       "tags": [
         "example",
@@ -1409,12 +1409,12 @@
     {
       "id": "system-os-semaphore",
       "name": {
-        "en": "SYSTEM SEMAPHORE",
-        "zh-CN": "SYSTEM SEMAPHORE"
+        "en": "Semaphore Synchronization",
+        "zh-CN": "信号量同步"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Producer thread posts a semaphore and consumer thread waits on it.",
+        "zh-CN": "生产者线程释放信号量，消费者线程等待并获取。"
       },
       "tags": [
         "example",
@@ -1431,12 +1431,12 @@
     {
       "id": "system-os-sw-timer",
       "name": {
-        "en": "SYSTEM SW TIMER",
-        "zh-CN": "SYSTEM SW TIMER"
+        "en": "Software Timer",
+        "zh-CN": "软件定时器"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Creates a periodic software timer and stops it after a set number of callbacks.",
+        "zh-CN": "创建周期性软件定时器，回调指定次数后停止。"
       },
       "tags": [
         "example",
@@ -1454,12 +1454,12 @@
     {
       "id": "system-os-thread",
       "name": {
-        "en": "SYSTEM THREAD",
-        "zh-CN": "SYSTEM THREAD"
+        "en": "Thread Management",
+        "zh-CN": "线程管理"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Creates a thread that runs a loop task and self-deletes after completion.",
+        "zh-CN": "创建线程执行循环任务，完成后自行删除。"
       },
       "tags": [
         "example",
@@ -1476,12 +1476,12 @@
     {
       "id": "tflite-tflite-helloworld",
       "name": {
-        "en": "tflite helloworld",
-        "zh-CN": "tflite helloworld"
+        "en": "TFLite Micro Inference",
+        "zh-CN": "TFLite Micro 推理"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Runs a TensorFlow Lite Micro model that approximates a sine function on-device.",
+        "zh-CN": "在设备端运行 TensorFlow Lite Micro 模型，近似计算正弦函数。"
       },
       "tags": [
         "example",
@@ -1498,12 +1498,12 @@
     {
       "id": "tuya-ai-ai-components",
       "name": {
-        "en": "ai components",
-        "zh-CN": "ai components"
+        "en": "AI Chat Component Library",
+        "zh-CN": "AI 对话组件库"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Reusable AI chat components: agent, audio I/O, MCP server, skills, and voice modes.",
+        "zh-CN": "可复用 AI 对话组件，含 Agent、音频 I/O、MCP 服务器和语音模式。"
       },
       "tags": [
         "app",
@@ -1520,12 +1520,12 @@
     {
       "id": "tuya-ai-duo-eye-mood",
       "name": {
-        "en": "duo eye mood",
-        "zh-CN": "duo eye mood"
+        "en": "AI Chatbot with Mood Eyes",
+        "zh-CN": "AI 情绪眼睛聊天"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "AI voice chatbot that displays animated mood-based eye expressions on dual OLED screens.",
+        "zh-CN": "AI 语音聊天机器人，在双 OLED 屏上显示情绪动画眼睛表情。"
       },
       "tags": [
         "app",
@@ -1545,12 +1545,12 @@
     {
       "id": "tuya-ai-your-chat-bot",
       "name": {
-        "en": "your_chat_bot",
-        "zh-CN": "your_chat_bot"
+        "en": "AI Voice Chatbot",
+        "zh-CN": "AI 语音聊天机器人"
       },
       "summary": {
-        "en": "[your_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_chat_bot) is an open-source large model intelligent chatbot based on tuya.ai. It collects voice through a microphone, ...",
-        "zh-CN": "[your_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_chat_bot) 是基于 tuya.ai 开源的大模型智能聊天机器人。通过麦克风采集语音，语音识别，实现对话、互动、调侃，还能通过屏幕看到实时聊天内容。 **注意：在 TUYA AI V1.0 和 V2.0 之间切换需要先在 APP ..."
+        "en": "An open-source LLM chatbot that captures voice, performs speech recognition, and displays conversations on screen.",
+        "zh-CN": "基于涂鸦 AI 的大模型语音聊天机器人，支持语音识别与屏幕实时显示对话。"
       },
       "tags": [
         "app",
@@ -1585,12 +1585,12 @@
     {
       "id": "tuya-ai-your-desk-emoji",
       "name": {
-        "en": "your_desk_emoji",
-        "zh-CN": "your_desk_emoji"
+        "en": "AI Desk Emoji Robot",
+        "zh-CN": "AI 桌面表情机器人"
       },
       "summary": {
-        "en": "[your_desk_emoji](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_desk_emoji) is an intelligent desk emoji robot based on tuya.ai. It combines AI conversation, gesture recognition, s...",
-        "zh-CN": "[your_desk_emoji](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_desk_emoji) 是基于 tuya.ai 的智能桌面表情机器人。结合AI对话、手势识别、舵机控制、表情显示和天气信息，打造一个互动的桌面伙伴。"
+        "en": "AI desk companion with gesture recognition, servo control, emoji display, and weather clock.",
+        "zh-CN": "集手势识别、舵机控制、表情显示和天气时钟的 AI 桌面伴侣。"
       },
       "tags": [
         "app",
@@ -1613,8 +1613,8 @@
         "zh-CN": "DIY Otto Robot 指南"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Otto Robot is an open-source humanoid robot platform that supports multiple functional extensions.",
+        "zh-CN": "Otto Robot 是一个开源的人形机器人平台，支持多种功能扩展。本指南将帮助您快速搭建和配置属于自己的 Otto 机器人，并通过涂鸦智能APP实现远程控制。"
       },
       "tags": [
         "app",
@@ -1638,12 +1638,12 @@
     {
       "id": "tuya-ai-your-robot-dog",
       "name": {
-        "en": "your_robot_dog",
-        "zh-CN": "your_robot_dog"
+        "en": "AI Robot Dog",
+        "zh-CN": "AI 机器狗"
       },
       "summary": {
-        "en": "[your_robot_dog](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_robot_dog) is ported from TuyaOS's `tuyaos_demo_ai_toy` project, based on TuyaOpen's `your_chat_bot`. It adds vivid f...",
-        "zh-CN": "[your_robot_dog](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_robot_dog) 是基于 TuyaOS 的 `tuyaos_demo_ai_toy` 项目在 TuyaOpen 的 `your_chat_bot` 基础上移植而来，添加机器狗生动表情变化与控制舵机动作，移植开源的大模型智能聊天机器..."
+        "en": "Voice-driven AI chat robot dog with servo actions and emotion display on LCD.",
+        "zh-CN": "语音驱动的 AI 聊天机器狗，支持舵机动作和表情显示。"
       },
       "tags": [
         "app",
@@ -1663,12 +1663,12 @@
     {
       "id": "tuya-ai-your-serial-chat-bot",
       "name": {
-        "en": "your_serial_chat_bot",
-        "zh-CN": "your_serial_chat_bot"
+        "en": "AI Serial Chat Bot",
+        "zh-CN": "AI 串口聊天机器人"
       },
       "summary": {
-        "en": "[your_serial_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot) is an open-source large model intelligent chatbot based on tuya.ai. It receives text conversat...",
-        "zh-CN": "[your_serial_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot) 是基于 tuya.ai 开源的大模型智能聊天机器人。通过串口从外部设备（如PC）接收文本对话，将内容上报云端进行AI处理，并通过串口将AI响应返回给外部设备。**仅需要最小核心板就可以实现..."
+        "en": "Relays UART text to cloud AI and returns responses over serial.",
+        "zh-CN": "将 UART 文本转发至云端 AI 并通过串口返回回复。"
       },
       "tags": [
         "app",
@@ -1690,12 +1690,12 @@
     {
       "id": "tuya-cloud-camera-demo",
       "name": {
-        "en": "camera demo",
-        "zh-CN": "camera demo"
+        "en": "Cloud IPC Camera",
+        "zh-CN": "云端 IPC 摄像头"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Implements IPC with P2P video streaming, OTA, and cloud device management.",
+        "zh-CN": "实现 IPC 功能，支持 P2P 视频流、OTA 和云端设备管理。"
       },
       "tags": [
         "app",
@@ -1715,12 +1715,12 @@
     {
       "id": "tuya-cloud-switch-demo",
       "name": {
-        "en": "switch_demo",
-        "zh-CN": "switch_demo"
+        "en": "Cloud Switch",
+        "zh-CN": "云端开关"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Cloud-connected switch with app pairing, remote control, LAN, and Bluetooth control.",
+        "zh-CN": "支持 App 配网、远程控制、局域网和蓝牙控制的云端开关。"
       },
       "tags": [
         "app",
@@ -1738,12 +1738,12 @@
     {
       "id": "tuya-cloud-weather-get-demo",
       "name": {
-        "en": "weather get demo",
-        "zh-CN": "weather get demo"
+        "en": "Cloud Weather Query",
+        "zh-CN": "云端天气查询"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Fetches weather data (conditions, forecasts, sunrise/sunset) from a cloud weather API.",
+        "zh-CN": "从云端天气 API 获取实况天气、预报和日出日落数据。"
       },
       "tags": [
         "app",
@@ -1760,12 +1760,12 @@
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-bongocat-kb",
       "name": {
-        "en": "tuya t5 pixel bongocat kb",
-        "zh-CN": "tuya t5 pixel bongocat kb"
+        "en": "Pixel Bongo Cat Keyboard",
+        "zh-CN": "像素 Bongo Cat 键盘"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Displays animated Bongo Cat pixel art on a 32x32 LED matrix that reacts to keyboard input.",
+        "zh-CN": "在 32x32 LED 矩阵上显示 Bongo Cat 动画，响应键盘输入。"
       },
       "tags": [
         "app",
@@ -1785,12 +1785,12 @@
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-demo",
       "name": {
-        "en": "tuya t5 pixel demo",
-        "zh-CN": "tuya t5 pixel demo"
+        "en": "Pixel Art with Sand Physics",
+        "zh-CN": "像素动画与沙粒物理"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Plays pixel art animations with accelerometer-driven sand physics on a 32x32 LED matrix.",
+        "zh-CN": "在 32x32 LED 矩阵上播放像素动画，支持加速度计沙粒物理效果。"
       },
       "tags": [
         "app",
@@ -1810,12 +1810,12 @@
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-mic-spectrum-meter",
       "name": {
-        "en": "tuya t5 pixel mic spectrum meter",
-        "zh-CN": "tuya t5 pixel mic spectrum meter"
+        "en": "Pixel Audio Spectrum Meter",
+        "zh-CN": "像素音频频谱仪"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Performs FFT on microphone input and displays an 8-band spectrum on a 32x32 LED matrix.",
+        "zh-CN": "对麦克风输入做 FFT，在 32x32 LED 矩阵上显示 8 频段频谱。"
       },
       "tags": [
         "app",
@@ -1835,12 +1835,12 @@
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-simple-shapes",
       "name": {
-        "en": "tuya t5 pixel simple shapes",
-        "zh-CN": "tuya t5 pixel simple shapes"
+        "en": "Pixel Shape Drawing",
+        "zh-CN": "像素基础图形绘制"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Draws boxes, circles, lines, and triangles on a 32x32 LED pixel matrix.",
+        "zh-CN": "在 32x32 LED 矩阵上绘制方框、圆形、线条和三角形。"
       },
       "tags": [
         "app",
@@ -1860,12 +1860,12 @@
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-sphere-effect",
       "name": {
-        "en": "tuya t5 pixel sphere effect",
-        "zh-CN": "tuya t5 pixel sphere effect"
+        "en": "Pixel 3D Sphere Effect",
+        "zh-CN": "像素 3D 球体效果"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Renders a rotating 3D sphere on a 32x32 LED matrix with audio-reactive rotation speed.",
+        "zh-CN": "在 32x32 LED 矩阵上渲染旋转 3D 球体，速度随音频变化。"
       },
       "tags": [
         "app",
@@ -1885,12 +1885,12 @@
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-weather",
       "name": {
-        "en": "tuya t5 pixel weather",
-        "zh-CN": "tuya t5 pixel weather"
+        "en": "Pixel Weather Clock",
+        "zh-CN": "像素天气时钟"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Displays weather icons, temperature, and time cycling on a 32x32 LED pixel matrix.",
+        "zh-CN": "在 32x32 LED 矩阵上循环显示天气图标、温度和时间。"
       },
       "tags": [
         "app",
@@ -1910,12 +1910,12 @@
     {
       "id": "tuya-t5-pocket-tuya-t5-pocket-ai",
       "name": {
-        "en": "tuya t5 pocket ai",
-        "zh-CN": "tuya t5 pocket ai"
+        "en": "Pocket AI Virtual Pet",
+        "zh-CN": "口袋 AI 虚拟宠物"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Virtual pet device with AI chat, LVGL UI, mini-games, camera, and peripheral sensors.",
+        "zh-CN": "虚拟宠物设备，集成 AI 对话、LVGL 界面、小游戏、摄像头和传感器。"
       },
       "tags": [
         "app",
@@ -1935,12 +1935,12 @@
     {
       "id": "wifi-ap",
       "name": {
-        "en": "WiFi AP",
-        "zh-CN": "WiFi AP"
+        "en": "Wi-Fi Access Point",
+        "zh-CN": "Wi-Fi 热点"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Starts a Wi-Fi AP with configurable SSID and broadcasts UDP packets.",
+        "zh-CN": "启动可配置 SSID 的 Wi-Fi 热点并发送 UDP 广播。"
       },
       "tags": [
         "example",
@@ -1957,12 +1957,12 @@
     {
       "id": "wifi-low-power",
       "name": {
-        "en": "WIFI LOW POWER",
-        "zh-CN": "WIFI LOW POWER"
+        "en": "Wi-Fi Low Power",
+        "zh-CN": "Wi-Fi 低功耗"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Toggles Wi-Fi low-power mode on and off from multiple tasks.",
+        "zh-CN": "在多任务中交替启用和禁用 Wi-Fi 低功耗模式。"
       },
       "tags": [
         "example",
@@ -1979,12 +1979,12 @@
     {
       "id": "wifi-scan",
       "name": {
-        "en": "WIFI SCAN",
-        "zh-CN": "WIFI SCAN"
+        "en": "Wi-Fi Scan",
+        "zh-CN": "Wi-Fi 扫描"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Scans nearby Wi-Fi networks and reports channel numbers and SSIDs.",
+        "zh-CN": "扫描附近 Wi-Fi 网络并输出信道号和 SSID。"
       },
       "tags": [
         "example",
@@ -2001,12 +2001,12 @@
     {
       "id": "wifi-sta",
       "name": {
-        "en": "WIFI STATION",
-        "zh-CN": "WIFI STATION"
+        "en": "Wi-Fi Station Connect",
+        "zh-CN": "Wi-Fi Station 连接"
       },
       "summary": {
-        "en": "",
-        "zh-CN": ""
+        "en": "Connects to a Wi-Fi access point in station mode and reports link status.",
+        "zh-CN": "以 Station 模式连接指定 Wi-Fi 热点并上报连接状态。"
       },
       "tags": [
         "example",

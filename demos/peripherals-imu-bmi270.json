@@ -1,12 +1,12 @@
 {
   "id": "peripherals-imu-bmi270",
   "name": {
-    "en": "bmi270",
-    "zh-CN": "bmi270"
+    "en": "BMI270 IMU Sensor",
+    "zh-CN": "BMI270 惯性传感器"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Reads accelerometer and gyroscope data from a BMI270 IMU sensor over I2C.",
+    "zh-CN": "通过 I2C 读取 BMI270 IMU 传感器的加速度和陀螺仪数据。"
   },
   "tags": [
     "example",

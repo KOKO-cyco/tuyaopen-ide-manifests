@@ -1,12 +1,12 @@
 {
   "id": "ble-ble-peripher",
   "name": {
-    "en": "BLE PERIPHERAL",
-    "zh-CN": "BLE PERIPHERAL"
+    "en": "BLE Peripheral",
+    "zh-CN": "BLE Peripheral"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Enables Bluetooth Peripheral (slave) mode and allows a phone to connect as the central device.",
+    "zh-CN": "启用蓝牙外围设备（从机）模式，允许手机作为中心设备连接。"
   },
   "tags": [
     "example",

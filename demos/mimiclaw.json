@@ -1,12 +1,12 @@
 {
   "id": "mimiclaw",
   "name": {
-    "en": "mimiclaw",
-    "zh-CN": "mimiclaw"
+    "en": "MimiClaw AI Agent",
+    "zh-CN": "MimiClaw AI 智能体"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Local-first AI assistant with LLM chat via Feishu, Telegram, or Discord.",
+    "zh-CN": "本地优先的 AI 助手，支持飞书/Telegram/Discord 聊天。"
   },
   "tags": [
     "app"

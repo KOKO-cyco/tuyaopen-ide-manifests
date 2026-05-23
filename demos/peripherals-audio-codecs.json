@@ -1,12 +1,12 @@
 {
   "id": "peripherals-audio-codecs",
   "name": {
-    "en": "audio codecs",
-    "zh-CN": "audio codecs"
+    "en": "Audio Codec Record/Playback",
+    "zh-CN": "Audio Codec 录放音"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Records PCM audio into a ring buffer on button press and plays it back through the codec.",
+    "zh-CN": "按键录制 PCM 音频到环形缓冲区并通过编解码器回放。"
   },
   "tags": [
     "example",

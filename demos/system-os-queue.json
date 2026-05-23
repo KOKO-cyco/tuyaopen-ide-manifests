@@ -1,12 +1,12 @@
 {
   "id": "system-os-queue",
   "name": {
-    "en": "SYSTEM QUEUE",
-    "zh-CN": "SYSTEM QUEUE"
+    "en": "Message Queue",
+    "zh-CN": "消息队列"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "One thread posts messages to a queue and another receives them.",
+    "zh-CN": "一个线程向队列投递消息，另一个线程接收处理。"
   },
   "tags": [
     "example",

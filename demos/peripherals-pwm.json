@@ -1,12 +1,12 @@
 {
   "id": "peripherals-pwm",
   "name": {
-    "en": "PWM",
-    "zh-CN": "PWM"
+    "en": "PWM Pulse Width Modulation",
+    "zh-CN": "PWM 脉宽调制"
   },
   "summary": {
-    "en": "PWM (Pulse Width Modulation) is a digital technique that controls analog circuits by **varying the duty cycle of a pulse signal**. A PWM signal consists of periodic square waves. By adjusting the r...",
-    "zh-CN": ""
+    "en": "Outputs PWM signals with configurable frequency and duty cycle for analog control.",
+    "zh-CN": "输出可配置频率和占空比的 PWM 信号，用于模拟控制。"
   },
   "tags": [
     "example",

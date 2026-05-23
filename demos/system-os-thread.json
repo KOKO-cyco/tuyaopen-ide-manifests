@@ -1,12 +1,12 @@
 {
   "id": "system-os-thread",
   "name": {
-    "en": "SYSTEM THREAD",
-    "zh-CN": "SYSTEM THREAD"
+    "en": "Thread Management",
+    "zh-CN": "线程管理"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Creates a thread that runs a loop task and self-deletes after completion.",
+    "zh-CN": "创建线程执行循环任务，完成后自行删除。"
   },
   "tags": [
     "example",

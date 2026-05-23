@@ -1,12 +1,12 @@
 {
   "id": "graphics-u8g2-i2c",
   "name": {
-    "en": "u8g2 i2c",
-    "zh-CN": "u8g2 i2c"
+    "en": "U8g2 OLED via I2C",
+    "zh-CN": "U8g2 I2C OLED 显示"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Drives an SSD1306 128x64 OLED over I2C using U8g2 page-mode rendering.",
+    "zh-CN": "使用 U8g2 页模式通过 I2C 驱动 SSD1306 128x64 OLED。"
   },
   "tags": [
     "example",

@@ -1,12 +1,12 @@
 {
   "id": "graphics-lvgl-camera",
   "name": {
-    "en": "LVGL2Camera 示例",
-    "zh-CN": "LVGL2Camera 示例"
+    "en": "LVGL Camera Preview",
+    "zh-CN": "LVGL 摄像头预览"
   },
   "summary": {
-    "en": "[English](#english-version) | [中文](#中文版本) ---",
-    "zh-CN": ""
+    "en": "Switches between an LVGL GUI and live camera preview on an LCD via button press.",
+    "zh-CN": "通过按键在 LVGL 界面与摄像头实时预览之间切换显示。"
   },
   "tags": [
     "example",

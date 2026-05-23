@@ -1,12 +1,12 @@
 {
   "id": "peripherals-display-picture",
   "name": {
-    "en": "picture",
-    "zh-CN": "picture"
+    "en": "Display Image Rendering",
+    "zh-CN": "显示屏图片渲染"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Renders a pre-stored RGB565 image array onto the display with pixel format conversion.",
+    "zh-CN": "将预存的 RGB565 图片数组经像素格式转换渲染到显示屏。"
   },
   "tags": [
     "example",

@@ -1,12 +1,12 @@
 {
   "id": "micropython-mpy-minimal",
   "name": {
-    "en": "mpy minimal",
-    "zh-CN": "mpy minimal"
+    "en": "MicroPython Minimal Boot",
+    "zh-CN": "MicroPython 最小启动"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Boots a minimal firmware that initializes a MicroPython REPL on UART.",
+    "zh-CN": "启动最小固件，在 UART 上初始化 MicroPython REPL 交互环境。"
   },
   "tags": [
     "app",

@@ -1,12 +1,12 @@
 {
   "id": "protocols-https-client",
   "name": {
-    "en": "HTTP Introduction",
-    "zh-CN": "HTTP  简介"
+    "en": "HTTPS Client",
+    "zh-CN": "HTTPS 客户端"
   },
   "summary": {
-    "en": "The `example_https_client` routine demonstrates how to use the native HTTPS interface.",
-    "zh-CN": "example_https_client 例程演示了如何使用原生 https 接口。"
+    "en": "Sends an HTTPS GET request with TLS certificate verification.",
+    "zh-CN": "使用 TLS 证书验证发送 HTTPS GET 请求。"
   },
   "tags": [
     "example",

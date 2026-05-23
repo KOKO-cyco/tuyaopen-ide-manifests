@@ -1,12 +1,12 @@
 {
   "id": "tuya-cloud-switch-demo",
   "name": {
-    "en": "switch_demo",
-    "zh-CN": "switch_demo"
+    "en": "Cloud Switch",
+    "zh-CN": "云端开关"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Cloud-connected switch with app pairing, remote control, LAN, and Bluetooth control.",
+    "zh-CN": "支持 App 配网、远程控制、局域网和蓝牙控制的云端开关。"
   },
   "tags": [
     "app",

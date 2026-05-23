@@ -1,12 +1,12 @@
 {
   "id": "multimedia-audio-kws",
   "name": {
-    "en": "audio kws",
-    "zh-CN": "audio kws"
+    "en": "Audio Keyword Spotting",
+    "zh-CN": "语音关键词唤醒"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Captures microphone audio and performs on-device keyword wake-word recognition.",
+    "zh-CN": "采集麦克风音频并在设备端执行关键词唤醒识别。"
   },
   "tags": [
     "example",

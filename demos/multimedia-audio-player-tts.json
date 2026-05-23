@@ -1,12 +1,12 @@
 {
   "id": "multimedia-audio-player-tts",
   "name": {
-    "en": "tts",
-    "zh-CN": "tts"
+    "en": "TTS Audio Playback",
+    "zh-CN": "TTS 语音播放"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Plays a pre-embedded MP3 speech audio array through the audio player service.",
+    "zh-CN": "通过音频播放服务播放预嵌入的 MP3 语音数组。"
   },
   "tags": [
     "example",

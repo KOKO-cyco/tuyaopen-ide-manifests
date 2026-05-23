@@ -1,12 +1,12 @@
 {
   "id": "graphics-u8g2-tdl-disp",
   "name": {
-    "en": "u8g2 tdl disp",
-    "zh-CN": "u8g2 tdl disp"
+    "en": "U8g2 via TDL Display Layer",
+    "zh-CN": "U8g2 TDL 显示驱动"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Renders U8g2 graphics through the TDL display abstraction layer for hardware-agnostic output.",
+    "zh-CN": "通过 TDL 显示抽象层渲染 U8g2 图形，实现硬件无关输出。"
   },
   "tags": [
     "example",

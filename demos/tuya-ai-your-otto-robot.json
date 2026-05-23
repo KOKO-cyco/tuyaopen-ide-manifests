@@ -5,8 +5,8 @@
     "zh-CN": "DIY Otto Robot 指南"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Otto Robot is an open-source humanoid robot platform that supports multiple functional extensions.",
+    "zh-CN": "Otto Robot 是一个开源的人形机器人平台，支持多种功能扩展。本指南将帮助您快速搭建和配置属于自己的 Otto 机器人，并通过涂鸦智能APP实现远程控制。"
   },
   "tags": [
     "app",

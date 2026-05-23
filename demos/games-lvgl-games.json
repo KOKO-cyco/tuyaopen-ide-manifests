@@ -1,12 +1,12 @@
 {
   "id": "games-lvgl-games",
   "name": {
-    "en": "一、硬件环境",
-    "zh-CN": "一、硬件环境"
+    "en": "LVGL Retro Games",
+    "zh-CN": "LVGL 复古游戏合集"
   },
   "summary": {
-    "en": "实物使用`T5AI-Board`开发板，搭载一个3.5寸屏幕，开发环境使用`TuyaOpen`。 涂鸦 T5AI-Board 是一款基于 T5-E1-IPEX 的语音和屏幕多交互开发板，T5-E1-IPEX 是涂鸦智能开发的嵌入式 Wi-Fi 和蓝牙组合模块。该开发板配备 2 个麦克风和 1 个扬声器，支持语音识别和播放，提供语音交互功能。 通过开发板上的 I/O 连接器，您可以使用 LCD...",
-    "zh-CN": ""
+    "en": "Runs classic retro games (2048, Plants vs Zombies, match-3) using LVGL on T5AI touchscreen boards.",
+    "zh-CN": "在 T5AI 触摸屏开发板上运行基于 LVGL 的经典游戏（2048、植物大战僵尸、消消乐）。"
   },
   "tags": [
     "app",

@@ -1,12 +1,12 @@
 {
   "id": "graphics-lvgl-gif",
   "name": {
-    "en": "lvgl_demo",
-    "zh-CN": "lvgl_demo"
+    "en": "LVGL GIF Animation",
+    "zh-CN": "LVGL GIF 动画播放"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Displays animated GIF images on one or two LCD screens using LVGL.",
+    "zh-CN": "使用 LVGL 在单屏或双屏上显示 GIF 动画图像。"
   },
   "tags": [
     "example",

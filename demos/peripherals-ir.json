@@ -1,12 +1,12 @@
 {
   "id": "peripherals-ir",
   "name": {
-    "en": "ir",
-    "zh-CN": "ir"
+    "en": "Infrared Transceiver",
+    "zh-CN": "红外收发"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Transmits and receives infrared signals using NEC protocol and raw timecode modes.",
+    "zh-CN": "使用 NEC 协议和原始时序模式收发红外信号。"
   },
   "tags": [
     "example",

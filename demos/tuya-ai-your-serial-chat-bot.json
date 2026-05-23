@@ -1,12 +1,12 @@
 {
   "id": "tuya-ai-your-serial-chat-bot",
   "name": {
-    "en": "your_serial_chat_bot",
-    "zh-CN": "your_serial_chat_bot"
+    "en": "AI Serial Chat Bot",
+    "zh-CN": "AI 串口聊天机器人"
   },
   "summary": {
-    "en": "[your_serial_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot) is an open-source large model intelligent chatbot based on tuya.ai. It receives text conversat...",
-    "zh-CN": "[your_serial_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot) 是基于 tuya.ai 开源的大模型智能聊天机器人。通过串口从外部设备（如PC）接收文本对话，将内容上报云端进行AI处理，并通过串口将AI响应返回给外部设备。**仅需要最小核心板就可以实现..."
+    "en": "Relays UART text to cloud AI and returns responses over serial.",
+    "zh-CN": "将 UART 文本转发至云端 AI 并通过串口返回回复。"
   },
   "tags": [
     "app",

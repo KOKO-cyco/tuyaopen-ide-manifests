@@ -1,12 +1,12 @@
 {
   "id": "tflite-tflite-helloworld",
   "name": {
-    "en": "tflite helloworld",
-    "zh-CN": "tflite helloworld"
+    "en": "TFLite Micro Inference",
+    "zh-CN": "TFLite Micro 推理"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Runs a TensorFlow Lite Micro model that approximates a sine function on-device.",
+    "zh-CN": "在设备端运行 TensorFlow Lite Micro 模型，近似计算正弦函数。"
   },
   "tags": [
     "example",

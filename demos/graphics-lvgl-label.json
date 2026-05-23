@@ -1,12 +1,12 @@
 {
   "id": "graphics-lvgl-label",
   "name": {
-    "en": "lvgl label",
-    "zh-CN": "lvgl label"
+    "en": "LVGL Label Rendering",
+    "zh-CN": "LVGL 标签显示"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Initializes the LVGL graphics library and renders a centered text label on the screen.",
+    "zh-CN": "初始化 LVGL 图形库并在屏幕居中渲染文本标签。"
   },
   "tags": [
     "example",

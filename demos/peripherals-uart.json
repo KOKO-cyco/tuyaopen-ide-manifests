@@ -1,12 +1,12 @@
 {
   "id": "peripherals-uart",
   "name": {
-    "en": "UART",
-    "zh-CN": "UART"
+    "en": "UART Serial Communication",
+    "zh-CN": "UART 串口通信"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Sends and receives data over UART with configurable baud rate, data bits, and parity.",
+    "zh-CN": "通过 UART 收发数据，支持配置波特率、数据位和校验位。"
   },
   "tags": [
     "example",

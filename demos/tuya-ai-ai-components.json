@@ -1,12 +1,12 @@
 {
   "id": "tuya-ai-ai-components",
   "name": {
-    "en": "ai components",
-    "zh-CN": "ai components"
+    "en": "AI Chat Component Library",
+    "zh-CN": "AI 对话组件库"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Reusable AI chat components: agent, audio I/O, MCP server, skills, and voice modes.",
+    "zh-CN": "可复用 AI 对话组件，含 Agent、音频 I/O、MCP 服务器和语音模式。"
   },
   "tags": [
     "app",

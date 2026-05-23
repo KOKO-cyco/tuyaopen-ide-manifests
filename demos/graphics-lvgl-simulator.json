@@ -1,12 +1,12 @@
 {
   "id": "graphics-lvgl-simulator",
   "name": {
-    "en": "lvgl simulator",
+    "en": "LVGL PC Simulator",
     "zh-CN": "LVGL PC 模拟器"
   },
   "summary": {
-    "en": "",
-    "zh-CN": "在桌面上运行 TuyaOpen App 的 LVGL UI，无需烧录硬件。UI 源码直接编译为原生可执行文件，通过 SDL2 窗口渲染 LVGL 界面。 模拟器同时编译了 `platform/LINUX` 的 TKL 适配层和 `src/tal_system` 的 TAL 层，使得 UI 代码可以直接调用 `tal_*` / `tkl_*` 接口，并使用 `PR_xxx` 宏输出日志。 ---"
+    "en": "Runs LVGL UIs on desktop via SDL2 without hardware.",
+    "zh-CN": "通过 SDL2 在桌面端运行 LVGL 界面，无需硬件。"
   },
   "tags": [
     "example",

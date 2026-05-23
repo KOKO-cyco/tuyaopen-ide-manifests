@@ -1,12 +1,12 @@
 {
   "id": "system-os-semaphore",
   "name": {
-    "en": "SYSTEM SEMAPHORE",
-    "zh-CN": "SYSTEM SEMAPHORE"
+    "en": "Semaphore Synchronization",
+    "zh-CN": "信号量同步"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Producer thread posts a semaphore and consumer thread waits on it.",
+    "zh-CN": "生产者线程释放信号量，消费者线程等待并获取。"
   },
   "tags": [
     "example",

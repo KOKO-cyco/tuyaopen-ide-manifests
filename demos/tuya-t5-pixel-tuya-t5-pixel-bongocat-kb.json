@@ -1,12 +1,12 @@
 {
   "id": "tuya-t5-pixel-tuya-t5-pixel-bongocat-kb",
   "name": {
-    "en": "tuya t5 pixel bongocat kb",
-    "zh-CN": "tuya t5 pixel bongocat kb"
+    "en": "Pixel Bongo Cat Keyboard",
+    "zh-CN": "像素 Bongo Cat 键盘"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Displays animated Bongo Cat pixel art on a 32x32 LED matrix that reacts to keyboard input.",
+    "zh-CN": "在 32x32 LED 矩阵上显示 Bongo Cat 动画，响应键盘输入。"
   },
   "tags": [
     "app",

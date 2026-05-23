@@ -1,12 +1,12 @@
 {
   "id": "protocols-http-client",
   "name": {
-    "en": "HTTP Introduction",
-    "zh-CN": "HTTP  简介"
+    "en": "HTTP Client",
+    "zh-CN": "HTTP 客户端"
   },
   "summary": {
-    "en": "The `example_http` routine demonstrates how to use the native HTTP interface.",
-    "zh-CN": "example_http 例程演示了如何使用原生http接口。"
+    "en": "Sends an HTTP GET request and prints the response after network link-up.",
+    "zh-CN": "网络连接后发送 HTTP GET 请求并打印响应内容。"
   },
   "tags": [
     "example",

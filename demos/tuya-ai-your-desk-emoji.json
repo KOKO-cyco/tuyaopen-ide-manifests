@@ -1,12 +1,12 @@
 {
   "id": "tuya-ai-your-desk-emoji",
   "name": {
-    "en": "your_desk_emoji",
-    "zh-CN": "your_desk_emoji"
+    "en": "AI Desk Emoji Robot",
+    "zh-CN": "AI 桌面表情机器人"
   },
   "summary": {
-    "en": "[your_desk_emoji](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_desk_emoji) is an intelligent desk emoji robot based on tuya.ai. It combines AI conversation, gesture recognition, s...",
-    "zh-CN": "[your_desk_emoji](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_desk_emoji) 是基于 tuya.ai 的智能桌面表情机器人。结合AI对话、手势识别、舵机控制、表情显示和天气信息，打造一个互动的桌面伙伴。"
+    "en": "AI desk companion with gesture recognition, servo control, emoji display, and weather clock.",
+    "zh-CN": "集手势识别、舵机控制、表情显示和天气时钟的 AI 桌面伴侣。"
   },
   "tags": [
     "app",

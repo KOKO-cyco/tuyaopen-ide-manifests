@@ -1,12 +1,12 @@
 {
   "id": "peripherals-button",
   "name": {
-    "en": "button",
-    "zh-CN": "button"
+    "en": "Button Input",
+    "zh-CN": "按键输入"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Detects button press-down and long-press events via callback-driven event handling.",
+    "zh-CN": "通过回调驱动的事件处理检测按键按下和长按事件。"
   },
   "tags": [
     "example",

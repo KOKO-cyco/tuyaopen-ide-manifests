@@ -1,12 +1,12 @@
 {
   "id": "e-paper-4-26inch-e-paper",
   "name": {
-    "en": "4.26inch e Paper",
-    "zh-CN": "4.26inch e Paper"
+    "en": "E-Paper 4.26\" Display",
+    "zh-CN": "4.26 寸电子墨水屏"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Drives a 4.26-inch e-Paper display via SPI to render images, text, and graphics.",
+    "zh-CN": "通过 SPI 驱动 4.26 寸电子墨水屏，渲染图像、文字和图形。"
   },
   "tags": [
     "example",

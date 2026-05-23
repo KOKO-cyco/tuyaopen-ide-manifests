@@ -1,12 +1,12 @@
 {
   "id": "tuya-ai-your-robot-dog",
   "name": {
-    "en": "your_robot_dog",
-    "zh-CN": "your_robot_dog"
+    "en": "AI Robot Dog",
+    "zh-CN": "AI 机器狗"
   },
   "summary": {
-    "en": "[your_robot_dog](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_robot_dog) is ported from TuyaOS's `tuyaos_demo_ai_toy` project, based on TuyaOpen's `your_chat_bot`. It adds vivid f...",
-    "zh-CN": "[your_robot_dog](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_robot_dog) 是基于 TuyaOS 的 `tuyaos_demo_ai_toy` 项目在 TuyaOpen 的 `your_chat_bot` 基础上移植而来，添加机器狗生动表情变化与控制舵机动作，移植开源的大模型智能聊天机器..."
+    "en": "Voice-driven AI chat robot dog with servo actions and emotion display on LCD.",
+    "zh-CN": "语音驱动的 AI 聊天机器狗，支持舵机动作和表情显示。"
   },
   "tags": [
     "app",

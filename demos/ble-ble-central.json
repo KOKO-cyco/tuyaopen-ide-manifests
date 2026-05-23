@@ -1,12 +1,12 @@
 {
   "id": "ble-ble-central",
   "name": {
-    "en": "BLE CENTRAL",
-    "zh-CN": "BLE CENTRAL"
+    "en": "BLE Central",
+    "zh-CN": "BLE Central"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Enables Bluetooth Central (host) mode, scans for nearby BLE devices, and reports discovery results.",
+    "zh-CN": "启用蓝牙中心设备（主机）模式，扫描附近 BLE 设备并上报发现结果。"
   },
   "tags": [
     "example",

@@ -1,12 +1,12 @@
 {
   "id": "tuya-ai-your-chat-bot",
   "name": {
-    "en": "your_chat_bot",
-    "zh-CN": "your_chat_bot"
+    "en": "AI Voice Chatbot",
+    "zh-CN": "AI 语音聊天机器人"
   },
   "summary": {
-    "en": "[your_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_chat_bot) is an open-source large model intelligent chatbot based on tuya.ai. It collects voice through a microphone, ...",
-    "zh-CN": "[your_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_chat_bot) 是基于 tuya.ai 开源的大模型智能聊天机器人。通过麦克风采集语音，语音识别，实现对话、互动、调侃，还能通过屏幕看到实时聊天内容。 **注意：在 TUYA AI V1.0 和 V2.0 之间切换需要先在 APP ..."
+    "en": "An open-source LLM chatbot that captures voice, performs speech recognition, and displays conversations on screen.",
+    "zh-CN": "基于涂鸦 AI 的大模型语音聊天机器人，支持语音识别与屏幕实时显示对话。"
   },
   "tags": [
     "app",

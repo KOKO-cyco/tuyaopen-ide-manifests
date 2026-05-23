@@ -1,12 +1,12 @@
 {
   "id": "tuya-t5-pixel-tuya-t5-pixel-simple-shapes",
   "name": {
-    "en": "tuya t5 pixel simple shapes",
-    "zh-CN": "tuya t5 pixel simple shapes"
+    "en": "Pixel Shape Drawing",
+    "zh-CN": "像素基础图形绘制"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Draws boxes, circles, lines, and triangles on a 32x32 LED pixel matrix.",
+    "zh-CN": "在 32x32 LED 矩阵上绘制方框、圆形、线条和三角形。"
   },
   "tags": [
     "app",

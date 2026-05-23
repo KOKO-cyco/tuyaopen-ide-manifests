@@ -1,12 +1,12 @@
 {
   "id": "system-os-sw-timer",
   "name": {
-    "en": "SYSTEM SW TIMER",
-    "zh-CN": "SYSTEM SW TIMER"
+    "en": "Software Timer",
+    "zh-CN": "软件定时器"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Creates a periodic software timer and stops it after a set number of callbacks.",
+    "zh-CN": "创建周期性软件定时器，回调指定次数后停止。"
   },
   "tags": [
     "example",

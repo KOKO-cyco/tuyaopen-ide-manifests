@@ -1,12 +1,12 @@
 {
   "id": "protocols-tcp-server",
   "name": {
-    "en": "NETWORK SERVER",
-    "zh-CN": "NETWORK SERVER"
+    "en": "TCP Echo Server",
+    "zh-CN": "TCP 回显服务器"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Listens on a TCP port, accepts connections, and echoes received data back.",
+    "zh-CN": "监听 TCP 端口，接受连接并将收到的数据回传。"
   },
   "tags": [
     "example",

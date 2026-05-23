@@ -1,12 +1,12 @@
 {
   "id": "peripherals-display-fill-color",
   "name": {
-    "en": "fill color",
-    "zh-CN": "fill color"
+    "en": "Display Color Fill",
+    "zh-CN": "显示屏颜色填充"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Fills the entire display with random colors in a continuous loop to verify the driver.",
+    "zh-CN": "以随机颜色持续填充整块显示屏以验证驱动程序。"
   },
   "tags": [
     "example",

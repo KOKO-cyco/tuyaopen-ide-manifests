@@ -1,12 +1,12 @@
 {
   "id": "graphics-lvgl-demo",
   "name": {
-    "en": "lvgl_demo",
-    "zh-CN": "lvgl_demo"
+    "en": "LVGL Widgets Demo",
+    "zh-CN": "LVGL 控件演示"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Runs the built-in LVGL widgets demo on a display with touch and encoder support.",
+    "zh-CN": "在屏幕上运行 LVGL 内置控件演示，支持触摸和编码器。"
   },
   "tags": [
     "example",

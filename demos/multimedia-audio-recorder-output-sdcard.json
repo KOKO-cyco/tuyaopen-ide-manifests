@@ -1,12 +1,12 @@
 {
   "id": "multimedia-audio-recorder-output-sdcard",
   "name": {
-    "en": "output sdcard",
-    "zh-CN": "output sdcard"
+    "en": "Audio Recorder to SD Card",
+    "zh-CN": "录音存 SD 卡"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Records microphone audio as PCM, encodes it to WAV, and saves the file to an SD card.",
+    "zh-CN": "录制麦克风 PCM 音频，编码为 WAV 格式并保存到 SD 卡。"
   },
   "tags": [
     "example",

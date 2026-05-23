@@ -1,12 +1,12 @@
 {
   "id": "get-started-sample-project",
   "name": {
-    "en": "sample project",
-    "zh-CN": "sample project"
+    "en": "Minimal Project Template",
+    "zh-CN": "最小工程模板"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Minimal hello-world project template with logging and basic control flow.",
+    "zh-CN": "包含日志输出和基本控制流的最小 hello-world 工程模板。"
   },
   "tags": [
     "example",

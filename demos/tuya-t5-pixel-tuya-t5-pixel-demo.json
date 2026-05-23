@@ -1,12 +1,12 @@
 {
   "id": "tuya-t5-pixel-tuya-t5-pixel-demo",
   "name": {
-    "en": "tuya t5 pixel demo",
-    "zh-CN": "tuya t5 pixel demo"
+    "en": "Pixel Art with Sand Physics",
+    "zh-CN": "像素动画与沙粒物理"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Plays pixel art animations with accelerometer-driven sand physics on a 32x32 LED matrix.",
+    "zh-CN": "在 32x32 LED 矩阵上播放像素动画，支持加速度计沙粒物理效果。"
   },
   "tags": [
     "app",

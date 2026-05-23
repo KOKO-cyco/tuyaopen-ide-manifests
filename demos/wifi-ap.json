@@ -1,12 +1,12 @@
 {
   "id": "wifi-ap",
   "name": {
-    "en": "WiFi AP",
-    "zh-CN": "WiFi AP"
+    "en": "Wi-Fi Access Point",
+    "zh-CN": "Wi-Fi 热点"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Starts a Wi-Fi AP with configurable SSID and broadcasts UDP packets.",
+    "zh-CN": "启动可配置 SSID 的 Wi-Fi 热点并发送 UDP 广播。"
   },
   "tags": [
     "example",

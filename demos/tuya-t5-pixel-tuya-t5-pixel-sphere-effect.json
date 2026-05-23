@@ -1,12 +1,12 @@
 {
   "id": "tuya-t5-pixel-tuya-t5-pixel-sphere-effect",
   "name": {
-    "en": "tuya t5 pixel sphere effect",
-    "zh-CN": "tuya t5 pixel sphere effect"
+    "en": "Pixel 3D Sphere Effect",
+    "zh-CN": "像素 3D 球体效果"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Renders a rotating 3D sphere on a 32x32 LED matrix with audio-reactive rotation speed.",
+    "zh-CN": "在 32x32 LED 矩阵上渲染旋转 3D 球体，速度随音频变化。"
   },
   "tags": [
     "app",

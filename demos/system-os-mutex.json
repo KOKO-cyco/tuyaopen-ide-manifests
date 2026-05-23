@@ -1,12 +1,12 @@
 {
   "id": "system-os-mutex",
   "name": {
-    "en": "SYSTEM MUTEX",
-    "zh-CN": "SYSTEM MUTEX"
+    "en": "Mutex Synchronization",
+    "zh-CN": "互斥锁同步"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Two threads share a counter protected by a mutex to demonstrate safe access.",
+    "zh-CN": "两个线程通过互斥锁保护共享计数器，演示安全访问。"
   },
   "tags": [
     "example",

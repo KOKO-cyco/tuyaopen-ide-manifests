@@ -1,12 +1,12 @@
 {
   "id": "graphics-u8g2-spi",
   "name": {
-    "en": "u8g2 spi",
-    "zh-CN": "u8g2 spi"
+    "en": "U8g2 Display via SPI",
+    "zh-CN": "U8g2 SPI 显示"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Drives an ST7305 display over SPI using U8g2 full-buffer mode rendering.",
+    "zh-CN": "使用 U8g2 全缓冲模式通过 SPI 驱动 ST7305 显示屏。"
   },
   "tags": [
     "example",

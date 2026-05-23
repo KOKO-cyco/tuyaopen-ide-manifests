@@ -1,12 +1,12 @@
 {
   "id": "peripherals-watchdog",
   "name": {
-    "en": "WATCHDOG",
-    "zh-CN": "WATCHDOG"
+    "en": "Watchdog Timer",
+    "zh-CN": "看门狗定时器"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Initializes a watchdog timer, feeds it periodically, then stops to trigger a reset.",
+    "zh-CN": "初始化看门狗并定期喂狗，停止后触发系统复位。"
   },
   "tags": [
     "example",

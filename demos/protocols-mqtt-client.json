@@ -1,12 +1,12 @@
 {
   "id": "protocols-mqtt-client",
   "name": {
-    "en": "MQTT Introduction",
-    "zh-CN": "HTTP  简介"
+    "en": "MQTT Client",
+    "zh-CN": "MQTT 客户端"
   },
   "summary": {
-    "en": "The `example_mqtt` routine demonstrates how to use the native MQTT interface.",
-    "zh-CN": "example_http 例程演示了如何使用原生http接口。"
+    "en": "Connects to an MQTT broker, subscribes to a topic, and publishes messages.",
+    "zh-CN": "连接 MQTT Broker，订阅主题并发布消息。"
   },
   "tags": [
     "example",

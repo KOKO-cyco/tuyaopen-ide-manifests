@@ -1,12 +1,12 @@
 {
   "id": "wifi-sta",
   "name": {
-    "en": "WIFI STATION",
-    "zh-CN": "WIFI STATION"
+    "en": "Wi-Fi Station Connect",
+    "zh-CN": "Wi-Fi Station 连接"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Connects to a Wi-Fi access point in station mode and reports link status.",
+    "zh-CN": "以 Station 模式连接指定 Wi-Fi 热点并上报连接状态。"
   },
   "tags": [
     "example",

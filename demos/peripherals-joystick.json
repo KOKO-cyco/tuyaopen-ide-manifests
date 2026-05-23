@@ -1,12 +1,12 @@
 {
   "id": "peripherals-joystick",
   "name": {
-    "en": "JOYSTICK",
-    "zh-CN": "JOYSTICK"
+    "en": "Joystick Input",
+    "zh-CN": "摇杆输入"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Reads analog joystick direction and button events via ADC and GPIO.",
+    "zh-CN": "通过 ADC 和 GPIO 读取摇杆方向及按键事件。"
   },
   "tags": [
     "example",

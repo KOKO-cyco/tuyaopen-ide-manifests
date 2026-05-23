@@ -1,12 +1,12 @@
 {
   "id": "tuya-t5-pocket-tuya-t5-pocket-ai",
   "name": {
-    "en": "tuya t5 pocket ai",
-    "zh-CN": "tuya t5 pocket ai"
+    "en": "Pocket AI Virtual Pet",
+    "zh-CN": "口袋 AI 虚拟宠物"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Virtual pet device with AI chat, LVGL UI, mini-games, camera, and peripheral sensors.",
+    "zh-CN": "虚拟宠物设备，集成 AI 对话、LVGL 界面、小游戏、摄像头和传感器。"
   },
   "tags": [
     "app",

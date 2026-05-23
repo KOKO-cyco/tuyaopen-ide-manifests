@@ -1,12 +1,12 @@
 {
   "id": "tuya-t5-pixel-tuya-t5-pixel-mic-spectrum-meter",
   "name": {
-    "en": "tuya t5 pixel mic spectrum meter",
-    "zh-CN": "tuya t5 pixel mic spectrum meter"
+    "en": "Pixel Audio Spectrum Meter",
+    "zh-CN": "像素音频频谱仪"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Performs FFT on microphone input and displays an 8-band spectrum on a 32x32 LED matrix.",
+    "zh-CN": "对麦克风输入做 FFT，在 32x32 LED 矩阵上显示 8 频段频谱。"
   },
   "tags": [
     "app",

@@ -1,12 +1,12 @@
 {
   "id": "peripherals-sd",
   "name": {
-    "en": "sd",
-    "zh-CN": "sd"
+    "en": "SD Card File I/O",
+    "zh-CN": "SD 卡文件读写"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Mounts an SD card and performs file write, read, and content comparison verification.",
+    "zh-CN": "挂载 SD 卡并执行文件写入、读取和内容比对验证。"
   },
   "tags": [
     "example",

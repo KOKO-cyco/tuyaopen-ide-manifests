@@ -1,12 +1,12 @@
 {
   "id": "peripherals-touch",
   "name": {
-    "en": "Touch Driver Example",
-    "zh-CN": "触摸驱动例程"
+    "en": "Capacitive Touch Driver",
+    "zh-CN": "电容触摸驱动"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Drives a capacitive touch sensor to detect touch events and report coordinates.",
+    "zh-CN": "驱动电容触摸传感器检测触摸事件并上报坐标。"
   },
   "tags": [
     "example",

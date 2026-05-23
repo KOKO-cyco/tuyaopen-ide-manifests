@@ -1,12 +1,12 @@
 {
   "id": "peripherals-camera-output-display",
   "name": {
-    "en": "output display",
-    "zh-CN": "相机输出显示数据流向文档"
+    "en": "Camera Display Output",
+    "zh-CN": "摄像头屏幕输出"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Captures camera frames and renders them on an LCD with optional rotation.",
+    "zh-CN": "采集摄像头画面并输出到 LCD 显示，支持旋转。"
   },
   "tags": [
     "example",

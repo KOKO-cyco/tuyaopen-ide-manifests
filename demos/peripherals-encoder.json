@@ -1,12 +1,12 @@
 {
   "id": "peripherals-encoder",
   "name": {
-    "en": "encoder",
-    "zh-CN": "encoder"
+    "en": "Rotary Encoder Input",
+    "zh-CN": "旋转编码器输入"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Polls a rotary encoder for angle changes and button press events at fixed intervals.",
+    "zh-CN": "以固定间隔轮询旋转编码器的角度变化和按键事件。"
   },
   "tags": [
     "example",

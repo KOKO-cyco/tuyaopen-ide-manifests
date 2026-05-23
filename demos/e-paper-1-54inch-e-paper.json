@@ -1,12 +1,12 @@
 {
   "id": "e-paper-1-54inch-e-paper",
   "name": {
-    "en": "1.54inch e Paper",
-    "zh-CN": "1.54inch e Paper"
+    "en": "E-Paper 1.54\" Display",
+    "zh-CN": "1.54 寸电子墨水屏"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "Drives a 1.54-inch e-Paper display via SPI to render images, text, and graphics.",
+    "zh-CN": "通过 SPI 驱动 1.54 寸电子墨水屏，渲染图像、文字和图形。"
   },
   "tags": [
     "example",

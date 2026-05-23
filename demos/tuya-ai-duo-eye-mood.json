@@ -1,12 +1,12 @@
 {
   "id": "tuya-ai-duo-eye-mood",
   "name": {
-    "en": "duo eye mood",
-    "zh-CN": "duo eye mood"
+    "en": "AI Chatbot with Mood Eyes",
+    "zh-CN": "AI 情绪眼睛聊天"
   },
   "summary": {
-    "en": "",
-    "zh-CN": ""
+    "en": "AI voice chatbot that displays animated mood-based eye expressions on dual OLED screens.",
+    "zh-CN": "AI 语音聊天机器人，在双 OLED 屏上显示情绪动画眼睛表情。"
   },
   "tags": [
     "app",
