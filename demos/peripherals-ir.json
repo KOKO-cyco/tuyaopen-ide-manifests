@@ -1,0 +1,31 @@
+{
+  "id": "peripherals-ir",
+  "name": {
+    "en": "ir",
+    "zh-CN": "ir"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "ir"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "t5ai"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/ir",
+    "ref": "master"
+  },
+  "configs": {
+    "T5AI": {
+      "file": "config/T5AI.config",
+      "overrides": {}
+    }
+  }
+}

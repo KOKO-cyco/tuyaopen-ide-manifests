@@ -40,6 +40,9 @@
           <button class="nav-item active" data-tab="boards" data-i18n="boards">
             📦 Boards
           </button>
+          <button class="nav-item" data-tab="demos" data-i18n="navDemos">
+            🎮 Demos
+          </button>
           <button class="nav-item" data-tab="git-history" data-i18n="gitHistory">
             📜 Git History
           </button>
@@ -90,6 +93,42 @@
               </div>
               <div class="modal-body board-tab-content" id="peripheralEditorContainer" data-board-tab-content="peripherals" style="display:none">
                 <!-- Peripheral editor injected here -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Demos Tab -->
+        <section id="demos-tab" class="tab-content">
+          <div class="section-header">
+            <h2 data-i18n="demosTitle">Demos & Examples</h2>
+            <button id="addDemoBtn" class="btn btn-primary" data-i18n="demoAdd">+ Add Demo</button>
+          </div>
+
+          <!-- Filters -->
+          <div class="demos-filters">
+            <input type="text" id="demoSearch" class="form-input" placeholder="Search demos..." data-i18n-placeholder="demoSearchPlaceholder">
+            <select id="demoFilterType" class="form-input demo-filter-select">
+              <option value="" data-i18n="demoFilterAll">All Types</option>
+              <option value="app" data-i18n="demoFilterApps">Apps (Board-specific)</option>
+              <option value="example" data-i18n="demoFilterExamples">Examples (Universal)</option>
+            </select>
+          </div>
+
+          <!-- Demos List -->
+          <div id="demosList" class="demos-list">
+            <p class="loading-text" data-i18n="loadingDemos">Loading demos...</p>
+          </div>
+
+          <!-- Demo Edit Modal -->
+          <div id="demoModal" class="modal hidden">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 id="demoModalTitle" data-i18n="demoFormTitle">Add Demo</h2>
+                <button class="close-btn" id="closeDemoModalBtn">&times;</button>
+              </div>
+              <div class="modal-body" id="demoFormContainer">
+                <!-- Demo form injected here -->
               </div>
             </div>
           </div>

@@ -1,0 +1,23 @@
+{
+  "id": "e-paper-1-54inch-e-paper",
+  "name": {
+    "en": "1.54inch e Paper",
+    "zh-CN": "1.54inch e Paper"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "e-paper"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/e-Paper/1.54inch_e-Paper",
+    "ref": "master"
+  },
+  "configs": {}
+}

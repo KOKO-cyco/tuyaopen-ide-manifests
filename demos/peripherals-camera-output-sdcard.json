@@ -1,0 +1,37 @@
+{
+  "id": "peripherals-camera-output-sdcard",
+  "name": {
+    "en": "output sdcard",
+    "zh-CN": "output sdcard"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "camera",
+    "sd-card"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-board-camera-lcd-3-5",
+    "tuya-t5ai-pocket"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/camera/output_sdcard",
+    "ref": "master"
+  },
+  "configs": {
+    "TUYA_T5AI_BOARD_CAMERA_LCD_3.5": {
+      "file": "config/TUYA_T5AI_BOARD_CAMERA_LCD_3.5.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_POCKET": {
+      "file": "config/TUYA_T5AI_POCKET.config",
+      "overrides": {}
+    }
+  }
+}

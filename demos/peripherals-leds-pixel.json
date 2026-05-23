@@ -1,0 +1,32 @@
+{
+  "id": "peripherals-leds-pixel",
+  "name": {
+    "en": "leds pixel",
+    "zh-CN": "leds pixel"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "pixel-art",
+    "led"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-pixel"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/leds-pixel",
+    "ref": "master"
+  },
+  "configs": {
+    "TUYA_T5AI_PIXEL": {
+      "file": "config/TUYA_T5AI_PIXEL.config",
+      "overrides": {}
+    }
+  }
+}

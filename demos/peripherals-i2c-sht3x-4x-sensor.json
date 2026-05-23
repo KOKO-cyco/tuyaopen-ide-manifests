@@ -1,0 +1,33 @@
+{
+  "id": "peripherals-i2c-sht3x-4x-sensor",
+  "name": {
+    "en": "sht3x 4x sensor",
+    "zh-CN": "sht3x 4x sensor"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "i2c"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/i2c/sht3x_4x_sensor",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "EXAMPLE_I2C_SCL_PIN": "20",
+    "EXAMPLE_I2C_SDA_PIN": "21"
+  },
+  "configs": {},
+  "documentation": {
+    "readme": {
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/i2c/sht3x_4x_sensor/README_CN.md"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "tuya-ai-your-otto-robot",
+  "name": {
+    "en": "DIY Otto Robot Guide",
+    "zh-CN": "DIY Otto Robot 指南"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "app",
+    "ai",
+    "robotics",
+    "lvgl",
+    "tuya-iot"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "t5ai-otto-lcd-gc9d01",
+    "t5ai-otto-lcd-st7735s",
+    "t5ai-otto-lcd-st7789"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "apps/tuya.ai/your_otto_robot",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "PROJECT_VERSION": "1.0.2",
+    "TUYA_PRODUCT_ID": "b05nl7xoijx4fwae",
+    "APP_UI_EYES_160_160": "y",
+    "T5AI_OTTO_GC9D01_BL_ACTIVE_LOW": "y",
+    "ENABLE_LIBLVGL": "y"
+  },
+  "configs": {
+    "T5AI_OTTO_LCD_GC9D01": {
+      "file": "config/T5AI_OTTO_LCD_GC9D01.config",
+      "overrides": {}
+    },
+    "T5AI_OTTO_LCD_ST7735S": {
+      "file": "config/T5AI_OTTO_LCD_ST7735S.config",
+      "overrides": {}
+    },
+    "T5AI_OTTO_LCD_ST7789": {
+      "file": "config/T5AI_OTTO_LCD_ST7789.config",
+      "overrides": {}
+    }
+  },
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_otto_robot/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_otto_robot/README_zh.md"
+    }
+  }
+}

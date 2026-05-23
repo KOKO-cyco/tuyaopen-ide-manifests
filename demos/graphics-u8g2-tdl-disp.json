@@ -1,0 +1,45 @@
+{
+  "id": "graphics-u8g2-tdl-disp",
+  "name": {
+    "en": "u8g2 tdl disp",
+    "zh-CN": "u8g2 tdl disp"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "display"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-board-0-96oled",
+    "tuya-t5ai-eink-nfc",
+    "tuya-t5ai-pocket"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/graphics/u8g2_tdl_disp",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "TUYA_T5AI_POCKET_LCD_ROTATION_0": "y",
+    "ENABLE_MBEDTLS_SSL_MAX_CONTENT_LEN": "4096",
+    "ENABLE_LIBU8G2": "y"
+  },
+  "configs": {
+    "TUYA_T5AI_BOARD_0.96OLED": {
+      "file": "config/TUYA_T5AI_BOARD_0.96OLED.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_EINK_NFC": {
+      "file": "config/TUYA_T5AI_EINK_NFC.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_POCKET": {
+      "file": "config/TUYA_T5AI_POCKET.config",
+      "overrides": {}
+    }
+  }
+}

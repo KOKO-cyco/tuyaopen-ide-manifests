@@ -111,6 +111,61 @@ export function renderBoardForm(board = null) {
         <div class="form-error" id="platformError"></div>
       </div>
 
+      <!-- Kconfig ID -->
+      <div class="form-group">
+        <label class="form-label" for="kconfigId" data-i18n="boardKconfigId">Kconfig ID</label>
+        <input
+          type="text"
+          id="kconfigId"
+          name="kconfigId"
+          class="form-input"
+          pattern="^[A-Z0-9][A-Z0-9_.]*$"
+          placeholder="TUYA_T5AI_EVB"
+          value="${board ? escapeHtml(board.kconfigId || '') : ''}"
+        >
+        <small style="color: var(--color-muted);" data-i18n="boardKconfigIdHint">Must match SDK board directory name (e.g. TUYA_T5AI_EVB)</small>
+      </div>
+
+      <!-- Scaffold Settings -->
+      <fieldset class="form-fieldset" style="border: 1px solid var(--color-border); border-radius: 6px; padding: 16px; margin-bottom: 24px;">
+        <legend style="font-weight: 600; font-size: 0.9em; padding: 0 8px;" data-i18n="boardScaffold">Scaffold Settings</legend>
+        <div class="form-group">
+          <label class="form-label" for="scaffoldTemplate" data-i18n="boardScaffoldTemplate">Template Path</label>
+          <input
+            type="text"
+            id="scaffoldTemplate"
+            name="scaffoldTemplate"
+            class="form-input"
+            placeholder="tools/app_template/base"
+            value="${board && board.scaffold ? escapeHtml(board.scaffold.template || '') : 'tools/app_template/base'}"
+          >
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="scaffoldBaseConfig" data-i18n="boardScaffoldBaseConfig">Base Config (JSON)</label>
+          <textarea
+            id="scaffoldBaseConfig"
+            name="scaffoldBaseConfig"
+            class="form-textarea form-monospace"
+            rows="4"
+            placeholder='{"CONFIG_PLATFORM_CHOICE": "T5AI", "CONFIG_BOARD_CHOICE_TUYA_T5AI_EVB": "y"}'
+          >${board && board.scaffold?.baseConfig ? escapeHtml(JSON.stringify(board.scaffold.baseConfig, null, 2)) : ''}</textarea>
+        </div>
+      </fieldset>
+
+      <!-- Associated Demos (read-only) -->
+      <div class="form-group">
+        <label class="form-label" data-i18n="boardAssociatedDemos">Associated Demos</label>
+        <input
+          type="text"
+          id="boardAssociatedDemos"
+          class="form-input"
+          value="${board && board.demos ? escapeHtml(board.demos.join(', ')) : ''}"
+          readonly
+          style="background: var(--color-hover); color: var(--color-muted);"
+        >
+        <small style="color: var(--color-muted);">Read-only — managed via demo definitions</small>
+      </div>
+
       <!-- EN/ZH Pair: Summary -->
       <div class="form-group form-row-2col">
         <div class="form-col-half">
@@ -453,6 +508,22 @@ export async function saveBoardForm(formElement) {
     return false;
   }
 
+  // Collect kconfigId
+  const kconfigId = document.getElementById('kconfigId')?.value?.trim();
+
+  // Collect scaffold settings
+  const scaffoldTemplate = document.getElementById('scaffoldTemplate')?.value?.trim();
+  const scaffoldBaseConfigRaw = document.getElementById('scaffoldBaseConfig')?.value?.trim();
+  let scaffoldBaseConfig = null;
+  if (scaffoldBaseConfigRaw) {
+    try {
+      scaffoldBaseConfig = JSON.parse(scaffoldBaseConfigRaw);
+    } catch {
+      showError('Invalid JSON', 'Scaffold Base Config must be valid JSON');
+      return false;
+    }
+  }
+
   const boardData = {
     id: boardId,
     name: { en: nameEn },
@@ -463,6 +534,22 @@ export async function saveBoardForm(formElement) {
     tags,
     autoCommit: true,
   };
+
+  // Add kconfigId if provided
+  if (kconfigId) {
+    boardData.kconfigId = kconfigId;
+  }
+
+  // Add scaffold if any field is set
+  if (scaffoldTemplate || scaffoldBaseConfig) {
+    boardData.scaffold = {};
+    if (scaffoldTemplate) {
+      boardData.scaffold.template = scaffoldTemplate;
+    }
+    if (scaffoldBaseConfig) {
+      boardData.scaffold.baseConfig = scaffoldBaseConfig;
+    }
+  }
 
   if (nameZh) {
     boardData.name['zh-CN'] = nameZh;

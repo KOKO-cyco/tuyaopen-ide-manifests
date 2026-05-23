@@ -1,0 +1,23 @@
+{
+  "id": "tuya-ai-ai-components",
+  "name": {
+    "en": "ai components",
+    "zh-CN": "ai components"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "app",
+    "ai"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "apps/tuya.ai/ai_components",
+    "ref": "master"
+  },
+  "configs": {}
+}

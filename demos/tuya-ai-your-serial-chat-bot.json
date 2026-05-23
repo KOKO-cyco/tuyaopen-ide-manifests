@@ -1,0 +1,51 @@
+{
+  "id": "tuya-ai-your-serial-chat-bot",
+  "name": {
+    "en": "your_serial_chat_bot",
+    "zh-CN": "your_serial_chat_bot"
+  },
+  "summary": {
+    "en": "[your_serial_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot) is an open-source large model intelligent chatbot based on tuya.ai. It receives text conversat...",
+    "zh-CN": "[your_serial_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot) 是基于 tuya.ai 开源的大模型智能聊天机器人。通过串口从外部设备（如PC）接收文本对话，将内容上报云端进行AI处理，并通过串口将AI响应返回给外部设备。**仅需要最小核心板就可以实现..."
+  },
+  "tags": [
+    "app",
+    "ai"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-board-lcd-3-5",
+    "tuya-t5ai-core",
+    "waveshare-esp32s3-touch-amoled-1-8",
+    "xingzhi-esp32s3-cube-0-96oled-wifi"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "apps/tuya.ai/your_serial_chat_bot",
+    "ref": "master"
+  },
+  "configs": {
+    "TUYA_T5AI_BOARD_LCD_3.5": {
+      "file": "config/TUYA_T5AI_BOARD_LCD_3.5.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_CORE": {
+      "file": "config/TUYA_T5AI_CORE.config",
+      "overrides": {}
+    },
+    "WAVESHARE_ESP32S3_TOUCH_AMOLED_1_8": {
+      "file": "config/WAVESHARE_ESP32S3_TOUCH_AMOLED_1_8.config",
+      "overrides": {}
+    },
+    "XINGZHI_ESP32S3_Cube_0_96OLED_WIFI": {
+      "file": "config/XINGZHI_ESP32S3_Cube_0_96OLED_WIFI.config",
+      "overrides": {}
+    }
+  },
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot/README_zh.md"
+    }
+  }
+}

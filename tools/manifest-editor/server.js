@@ -8,6 +8,7 @@ import { errorHandler } from './backend/middleware/error-handler.js';
 // Routes
 import statusRouter from './backend/routes/status.js';
 import boardsRouter from './backend/routes/boards.js';
+import demosRouter from './backend/routes/demos.js';
 import imagesRouter from './backend/routes/images.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -26,6 +27,7 @@ app.get('/health', (req, res) => {
 // API Routes
 app.use('/api/status', statusRouter);
 app.use('/api/boards', boardsRouter);
+app.use('/api/demos', demosRouter);
 app.use('/api/images', imagesRouter);
 
 // Serve frontend

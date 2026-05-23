@@ -1,0 +1,33 @@
+{
+  "id": "peripherals-gpio",
+  "name": {
+    "en": "GPIO",
+    "zh-CN": "GPIO"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": "GPIO（General Purpose Input/Output）即通用输入输出接口，是嵌入式系统中用于**控制外部设备或读取外部信号**的基本数字接口。每个 GPIO 引脚可以被软件配置为输入或输出模式，在输入模式下可以读取引脚的电平状态（高电平或低电平），在输出模式下可以控制引脚输出高电平或低电平。GPIO 还支持中断功能，当引脚电平发生变化时可以触发中断处理函数，实现事件驱动的程序设..."
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "gpio"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/gpio",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "EXAMPLE_IRQ_PIN": "12"
+  },
+  "configs": {},
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/gpio/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/gpio/README_CN.md"
+    }
+  }
+}

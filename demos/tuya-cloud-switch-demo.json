@@ -1,0 +1,30 @@
+{
+  "id": "tuya-cloud-switch-demo",
+  "name": {
+    "en": "switch_demo",
+    "zh-CN": "switch_demo"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "app",
+    "cloud",
+    "switch"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "apps/tuya_cloud/switch_demo",
+    "ref": "master"
+  },
+  "configs": {},
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya_cloud/switch_demo/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya_cloud/switch_demo/README_CN.md"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "peripherals-adc",
+  "name": {
+    "en": "ADC",
+    "zh-CN": "ADC"
+  },
+  "summary": {
+    "en": "ADC (Analog-to-Digital Converter) is a device that converts **continuous analog signals** into **discrete digital signals**. Through sampling and quantization, it converts analog voltage values int...",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/adc",
+    "ref": "master"
+  },
+  "configs": {},
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/adc/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/adc/README_CN.md"
+    }
+  }
+}

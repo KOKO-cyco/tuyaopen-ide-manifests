@@ -18,7 +18,7 @@ router.get('/', asyncHandler(async (req, res) => {
   });
 }));
 
-// GET /api/boards/:id - Get single board
+// GET /api/boards/:id - Get single board (index + detail merged)
 router.get('/:id', asyncHandler(async (req, res) => {
   const boards = await manifestLoader.loadBoards();
   const board = boards?.items?.find((b) => b.id === req.params.id);
@@ -30,9 +30,20 @@ router.get('/:id', asyncHandler(async (req, res) => {
     });
   }
 
+  // Merge detail fields (kconfigId, scaffold, demos, peripheralPatterns, links)
+  const detail = await manifestLoader.loadBoardDetail(req.params.id);
+  const merged = { ...board };
+  if (detail) {
+    if (detail.kconfigId) merged.kconfigId = detail.kconfigId;
+    if (detail.scaffold) merged.scaffold = detail.scaffold;
+    if (detail.demos) merged.demos = detail.demos;
+    if (detail.links) merged.links = detail.links;
+    if (detail.peripheralPatterns) merged.peripheralPatterns = detail.peripheralPatterns;
+  }
+
   res.json({
     success: true,
-    board,
+    board: merged,
   });
 }));
 
@@ -117,14 +128,41 @@ router.patch('/:id', asyncHandler(async (req, res) => {
 
   // Update board fields
   const board = boards.items[boardIndex];
-  const updates = req.body;
+  const updates = { ...req.body };
 
   // Don't allow changing ID
   delete updates.id;
   delete updates.schemaVersion;
+  delete updates.autoCommit;
 
-  // Merge updates
-  Object.assign(board, updates);
+  // Validate kconfigId if provided
+  if (updates.kconfigId !== undefined) {
+    if (updates.kconfigId && !/^[A-Z0-9][A-Z0-9_.]*$/.test(updates.kconfigId)) {
+      return res.status(400).json({
+        success: false,
+        error: 'kconfigId must be UPPER_CASE (letters, numbers, underscores, dots)',
+      });
+    }
+  }
+
+  // Validate scaffold.baseConfig keys
+  if (updates.scaffold?.baseConfig) {
+    const invalidKeys = Object.keys(updates.scaffold.baseConfig).filter(k => !k.startsWith('CONFIG_'));
+    if (invalidKeys.length > 0) {
+      return res.status(400).json({
+        success: false,
+        error: `scaffold.baseConfig keys must start with CONFIG_: ${invalidKeys.join(', ')}`,
+      });
+    }
+  }
+
+  // Fields that go to the index
+  const indexFields = ['name', 'platformId', 'variantId', 'manufacturer', 'brand', 'summary', 'tags', 'image'];
+  for (const key of indexFields) {
+    if (updates[key] !== undefined) {
+      board[key] = updates[key];
+    }
+  }
 
   // Validate updated board
   const validation = validator.validateBoard(board);
@@ -136,8 +174,34 @@ router.patch('/:id', asyncHandler(async (req, res) => {
     });
   }
 
-  // Save manifest
+  // Save index
   await manifestLoader.saveBoardsIndex(boards);
+
+  // Fields that go to the detail file: kconfigId, scaffold, demos, peripheralPatterns, links
+  const detailFields = ['kconfigId', 'scaffold', 'demos', 'links'];
+  const hasDetailUpdates = detailFields.some(k => updates[k] !== undefined);
+
+  if (hasDetailUpdates) {
+    let detail = await manifestLoader.loadBoardDetail(req.params.id);
+    if (!detail) {
+      detail = {
+        schemaVersion: 1,
+        id: req.params.id,
+        name: board.name,
+        summary: board.summary || {},
+        brand: board.brand || {},
+        manufacturer: board.manufacturer || {},
+        platformId: board.platformId,
+        variantId: board.variantId || board.platformId,
+      };
+    }
+    for (const key of detailFields) {
+      if (updates[key] !== undefined) {
+        detail[key] = updates[key];
+      }
+    }
+    await manifestLoader.saveBoardDetail(req.params.id, detail);
+  }
 
   // Auto-commit
   if (req.body.autoCommit !== false) {

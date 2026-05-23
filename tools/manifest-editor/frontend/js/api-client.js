@@ -136,6 +136,27 @@ class ApiClient {
   async updatePeripherals(boardId, data) {
     return this.request('PATCH', `/boards/${boardId}/peripherals`, data);
   }
+
+  // Demo endpoints
+  async getDemos() {
+    return this.request('GET', '/demos');
+  }
+
+  async getDemo(id) {
+    return this.request('GET', `/demos/${id}`);
+  }
+
+  async createDemo(data) {
+    return this.request('POST', '/demos', data);
+  }
+
+  async updateDemo(id, data) {
+    return this.request('PATCH', `/demos/${id}`, data);
+  }
+
+  async deleteDemo(id) {
+    return this.request('DELETE', `/demos/${id}`);
+  }
 }
 
 export const apiClient = new ApiClient();

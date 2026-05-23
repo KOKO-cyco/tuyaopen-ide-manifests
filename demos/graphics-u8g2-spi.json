@@ -1,0 +1,36 @@
+{
+  "id": "graphics-u8g2-spi",
+  "name": {
+    "en": "u8g2 spi",
+    "zh-CN": "u8g2 spi"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "display",
+    "spi"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "t5ai"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/graphics/u8g2_spi",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "TUYA_T5AI_POCKET_LCD_ROTATION_0": "y",
+    "ENABLE_MBEDTLS_SSL_MAX_CONTENT_LEN": "4096",
+    "ENABLE_LIBU8G2": "y"
+  },
+  "configs": {
+    "T5AI": {
+      "file": "config/T5AI.config",
+      "overrides": {}
+    }
+  }
+}

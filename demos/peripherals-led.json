@@ -1,0 +1,51 @@
+{
+  "id": "peripherals-led",
+  "name": {
+    "en": "led",
+    "zh-CN": "led"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "led"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "t5ai-mini",
+    "tuya-t5ai-board",
+    "tuya-t5ai-evb",
+    "tuya-t5ai-pocket",
+    "waveshare-esp32c6-dev-kit-n16"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/led",
+    "ref": "master"
+  },
+  "configs": {
+    "T5AI_MINI": {
+      "file": "config/T5AI_MINI.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_BOARD": {
+      "file": "config/TUYA_T5AI_BOARD.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_EVB": {
+      "file": "config/TUYA_T5AI_EVB.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_POCKET": {
+      "file": "config/TUYA_T5AI_POCKET.config",
+      "overrides": {}
+    },
+    "WAVESHARE_ESP32C6_DEV_KIT_N16": {
+      "file": "config/WAVESHARE_ESP32C6_DEV_KIT_N16.config",
+      "overrides": {}
+    }
+  }
+}

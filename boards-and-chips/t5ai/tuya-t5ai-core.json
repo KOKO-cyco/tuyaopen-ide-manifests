@@ -1,26 +1,39 @@
 {
   "schemaVersion": 1,
   "id": "tuya-t5ai-core",
-  "name": { "en": "Tuya T5AI Core", "zh-CN": "涂鸦 T5AI 核心板" },
+  "name": {
+    "en": "Tuya T5AI Core",
+    "zh-CN": "涂鸦 T5AI 核心板"
+  },
   "summary": {
     "en": "Compact T5AI core module with audio AEC, designed for voice-enabled product integration",
     "zh-CN": "搭载音频 AEC 的 T5AI 紧凑核心模块，专为语音类产品集成设计"
   },
-  "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
-  "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "brand": {
+    "en": "Tuya",
+    "zh-CN": "涂鸦智能"
+  },
+  "manufacturer": {
+    "en": "Tuya",
+    "zh-CN": "涂鸦智能"
+  },
   "platformId": "t5ai",
   "variantId": "t5ai",
-
   "peripheralPatterns": {
-
     "audio": [
       {
         "model": null,
-        "name": { "en": "Audio", "zh-CN": "音频" },
+        "name": {
+          "en": "Audio",
+          "zh-CN": "音频"
+        },
         "interface": "INTERNAL",
         "pins": {
           "INTERNAL": [
-            { "role": "spk_en", "gpio": 39 }
+            {
+              "role": "spk_en",
+              "gpio": 39
+            }
           ]
         },
         "optional": false,
@@ -31,16 +44,21 @@
         }
       }
     ],
-
     "led": [
       {
         "model": null,
-        "name": { "en": "Indicator LED", "zh-CN": "指示灯" },
+        "name": {
+          "en": "Indicator LED",
+          "zh-CN": "指示灯"
+        },
         "count": 1,
         "interface": "GPIO",
         "pins": {
           "GPIO": [
-            { "role": "led", "gpio": 9 }
+            {
+              "role": "led",
+              "gpio": 9
+            }
           ]
         },
         "optional": false,
@@ -51,15 +69,20 @@
         }
       }
     ],
-
     "button": [
       {
-        "name": { "en": "User Button", "zh-CN": "用户按键" },
+        "name": {
+          "en": "User Button",
+          "zh-CN": "用户按键"
+        },
         "count": 1,
         "interface": "GPIO",
         "pins": {
           "GPIO": [
-            { "role": "btn", "gpio": 29 }
+            {
+              "role": "btn",
+              "gpio": 29
+            }
           ]
         },
         "optional": false,
@@ -70,13 +93,28 @@
         }
       }
     ]
-
   },
-
   "links": {
     "schematic": null,
     "datasheet": null,
     "productPage": null
   },
-  "tags": ["wifi", "ble", "edge-ai", "audio"]
+  "tags": [
+    "wifi",
+    "ble",
+    "edge-ai",
+    "audio"
+  ],
+  "kconfigId": "TUYA_T5AI_CORE",
+  "scaffold": {
+    "template": "tools/app_template/base",
+    "baseConfig": {
+      "CONFIG_PLATFORM_CHOICE": "T5AI",
+      "CONFIG_BOARD_CHOICE_TUYA_T5AI_CORE": "y"
+    }
+  },
+  "demos": [
+    "tuya-ai-your-chat-bot",
+    "tuya-ai-your-serial-chat-bot"
+  ]
 }

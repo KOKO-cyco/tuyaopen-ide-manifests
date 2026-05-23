@@ -5,6 +5,7 @@ import { formatDate, showNotification, showError, debounce, escapeHtml } from '.
 import imageUploader from './image-uploader.js';
 import { renderBoardCard, renderBoardForm, saveBoardForm, deleteBoardPrompt, setupFormValidation, initGlobalTags } from './board-editor.js';
 import { renderPeripheralEditor, isDirty as periIsDirty } from './peripheral-editor.js';
+import { renderDemoCard, renderDemoForm, saveDemoForm, deleteDemoAction } from './demo-editor.js';
 import i18n from './i18n.js';
 
 let currentTab = 'boards';
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Set up event listeners
     setupNavigation();
     setupBoardsTab();
+    setupDemosTab();
     setupGitHistoryTab();
 
     // Load initial data
@@ -74,6 +76,8 @@ function updateUILanguage() {
   const currentTab = document.querySelector('.nav-item.active')?.dataset.tab;
   if (currentTab === 'boards') {
     loadBoards();
+  } else if (currentTab === 'demos') {
+    loadDemos();
   } else if (currentTab === 'git-history') {
     loadCommitHistory();
   }
@@ -83,7 +87,7 @@ function updateUILanguage() {
 function setupNavigation() {
   document.querySelectorAll('.nav-item').forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      const tab = e.target.dataset.tab;
+      const tab = e.currentTarget.dataset.tab;
       if (tab) {
         if (formDirty) {
           showUnsavedChangesConfirm(() => switchTab(tab));
@@ -115,6 +119,8 @@ function switchTab(tab) {
   // Load tab-specific data
   if (tab === 'git-history') {
     loadCommitHistory();
+  } else if (tab === 'demos') {
+    loadDemos();
   }
 }
 
@@ -372,6 +378,182 @@ async function openBoardForm(boardId = null) {
       infoPane.style.display = '';
     }
   }
+}
+
+// ========== Demos Tab ==========
+let demosCache = [];
+
+function setupDemosTab() {
+  const addBtn = document.getElementById('addDemoBtn');
+  const searchInput = document.getElementById('demoSearch');
+  const filterSelect = document.getElementById('demoFilterType');
+
+  if (addBtn) {
+    addBtn.addEventListener('click', () => openDemoForm(null));
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', debounce(() => filterDemos(), 200));
+  }
+
+  if (filterSelect) {
+    filterSelect.addEventListener('change', () => filterDemos());
+  }
+}
+
+async function loadDemos() {
+  const demosList = document.getElementById('demosList');
+  if (!demosList) return;
+
+  demosList.innerHTML = `<p class="loading-text">${i18n.t('loadingDemos')}</p>`;
+
+  try {
+    const result = await apiClient.getDemos();
+    demosCache = result.demos || result.items || [];
+    renderDemosList(demosCache);
+  } catch (error) {
+    console.error('[loadDemos] error:', error);
+    demosList.innerHTML = `<p class="loading-text" style="color: var(--color-error);">Error: ${error.message}</p>`;
+  }
+}
+
+function filterDemos() {
+  const searchVal = (document.getElementById('demoSearch')?.value || '').toLowerCase();
+  const filterVal = document.getElementById('demoFilterType')?.value || '';
+
+  let filtered = demosCache;
+
+  if (filterVal) {
+    filtered = filtered.filter(d => d.tags?.includes(filterVal));
+  }
+
+  if (searchVal) {
+    filtered = filtered.filter(d => {
+      const nameEn = (typeof d.name === 'object' ? d.name.en : d.name) || '';
+      const nameZh = (typeof d.name === 'object' ? d.name['zh-CN'] : '') || '';
+      const summaryEn = (typeof d.summary === 'object' ? d.summary.en : '') || '';
+      const tagsStr = (d.tags || []).join(' ');
+      const searchable = `${d.id} ${nameEn} ${nameZh} ${summaryEn} ${tagsStr} ${d.source?.subpath || ''}`.toLowerCase();
+      return searchable.includes(searchVal);
+    });
+  }
+
+  renderDemosList(filtered);
+}
+
+function renderDemosList(demos) {
+  const demosList = document.getElementById('demosList');
+  if (!demosList) return;
+
+  if (demos.length === 0) {
+    demosList.innerHTML = `<p class="loading-text">${i18n.t('demosEmpty') || 'No demos found.'}</p>`;
+    return;
+  }
+
+  demosList.innerHTML = demos.map(d => renderDemoCard(d)).join('');
+
+  // Attach event listeners
+  demosList.querySelectorAll('.demo-edit-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openDemoForm(btn.dataset.demoId);
+    });
+  });
+
+  demosList.querySelectorAll('.demo-delete-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const success = await deleteDemoAction(btn.dataset.demoId);
+      if (success) loadDemos();
+    });
+  });
+}
+
+async function openDemoForm(demoId = null) {
+  const modal = document.getElementById('demoModal');
+  const modalTitle = document.getElementById('demoModalTitle');
+  const formContainer = document.getElementById('demoFormContainer');
+  const closeBtn = document.getElementById('closeDemoModalBtn');
+
+  if (!modal) return;
+
+  let demo = null;
+  if (demoId) {
+    try {
+      const result = await apiClient.getDemo(demoId);
+      demo = result.demo;
+      modalTitle.textContent = `${i18n.t('demoFormTitleEdit') || 'Edit Demo'}: ${demoId}`;
+    } catch (error) {
+      showError('Load Failed', error.message);
+      return;
+    }
+  } else {
+    modalTitle.textContent = i18n.t('demoFormTitle') || 'Add Demo';
+  }
+
+  formContainer.innerHTML = renderDemoForm(demo);
+
+  // Wire compatibility radio → boards field visibility
+  const radios = formContainer.querySelectorAll('input[name="compatibilityType"]');
+  const boardsGroup = document.getElementById('demoBoardsGroup');
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (boardsGroup) {
+        boardsGroup.style.display = radio.value === 'universal' && radio.checked ? 'none' : '';
+      }
+    });
+  });
+
+  // Wire configs map add/remove buttons
+  const addConfigRowBtn = document.getElementById('addConfigRowBtn');
+  const configsRowsContainer = document.getElementById('configsRows');
+
+  if (addConfigRowBtn && configsRowsContainer) {
+    addConfigRowBtn.addEventListener('click', () => {
+      const idx = configsRowsContainer.querySelectorAll('.configs-row').length;
+      const rowHtml = `
+        <div class="configs-row" data-row-idx="${idx}">
+          <input type="text" class="form-input configs-key" value="" placeholder="TUYA_T5AI_EVB" pattern="^[A-Z0-9][A-Z0-9_.]*$">
+          <input type="text" class="form-input configs-value" value="" placeholder="config/TUYA_T5AI_EVB.config">
+          <button type="button" class="btn btn-sm btn-danger btn-remove configs-remove-btn">✕</button>
+        </div>
+      `;
+      configsRowsContainer.insertAdjacentHTML('beforeend', rowHtml);
+    });
+
+    // Delegate remove button clicks
+    configsRowsContainer.addEventListener('click', (e) => {
+      const removeBtn = e.target.closest('.configs-remove-btn');
+      if (removeBtn) {
+        removeBtn.closest('.configs-row').remove();
+      }
+    });
+  }
+
+  // Wire form submission
+  const form = document.getElementById('demoForm');
+  const cancelBtn = document.getElementById('demoCancelBtn');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const success = await saveDemoForm(form, demoId);
+      if (success) {
+        modal.classList.add('hidden');
+        loadDemos();
+      }
+    });
+  }
+
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => modal.classList.add('hidden'));
+  }
+
+  if (closeBtn) {
+    closeBtn.onclick = () => modal.classList.add('hidden');
+  }
+
+  modal.classList.remove('hidden');
 }
 
 // ========== Git History Tab ==========

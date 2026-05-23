@@ -33,10 +33,10 @@ export const config = {
 
   // Paths
   paths: {
-    boards: path.join(process.env.GIT_REPO_PATH || '../..', 'boards-and-chips'),
-    demos: path.join(process.env.GIT_REPO_PATH || '../..', 'demos'),
-    platforms: path.join(process.env.GIT_REPO_PATH || '../..', 'platforms'),
-    images: path.join(process.env.GIT_REPO_PATH || '../..', 'boards-and-chips', 'images'),
+    boards: path.resolve(__dirname, process.env.GIT_REPO_PATH || '../..', 'boards-and-chips'),
+    demos: path.resolve(__dirname, process.env.GIT_REPO_PATH || '../..', 'demos'),
+    platforms: path.resolve(__dirname, process.env.GIT_REPO_PATH || '../..', 'platforms'),
+    images: path.resolve(__dirname, process.env.GIT_REPO_PATH || '../..', 'boards-and-chips', 'images'),
     uploads: path.join(__dirname, 'uploads'), // Temporary upload directory
   },
 };

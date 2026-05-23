@@ -1,0 +1,39 @@
+{
+  "id": "multimedia-audio-player-music",
+  "name": {
+    "en": "music",
+    "zh-CN": "music"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "audio"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-board",
+    "tuya-t5ai-pocket"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/multimedia/audio_player/music",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "ENABLE_AI_PLAYER": "y",
+    "ENABLE_MBEDTLS_SSL_MAX_CONTENT_LEN": "4096"
+  },
+  "configs": {
+    "TUYA_T5AI_BOARD": {
+      "file": "config/TUYA_T5AI_BOARD.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_POCKET": {
+      "file": "config/TUYA_T5AI_POCKET.config",
+      "overrides": {}
+    }
+  }
+}

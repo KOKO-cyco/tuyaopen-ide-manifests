@@ -1,0 +1,30 @@
+{
+  "id": "peripherals-tp",
+  "name": {
+    "en": "tp",
+    "zh-CN": "tp"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-desktop-robot"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/tp",
+    "ref": "master"
+  },
+  "configs": {
+    "TUYA_T5AI_DESKTOP_ROBOT": {
+      "file": "config/TUYA_T5AI_DESKTOP_ROBOT.config",
+      "overrides": {}
+    }
+  }
+}

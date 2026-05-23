@@ -1,0 +1,23 @@
+{
+  "id": "tflite-tflite-helloworld",
+  "name": {
+    "en": "tflite helloworld",
+    "zh-CN": "tflite helloworld"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "tflite"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/tflite/tflite-helloworld",
+    "ref": "master"
+  },
+  "configs": {}
+}

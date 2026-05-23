@@ -1,0 +1,41 @@
+{
+  "id": "peripherals-audio-codecs",
+  "name": {
+    "en": "audio codecs",
+    "zh-CN": "audio codecs"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "audio"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "raspberrypi",
+    "tuya-t5ai-board",
+    "tuya-t5ai-pocket"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/audio_codecs",
+    "ref": "master"
+  },
+  "configs": {
+    "RaspberryPi": {
+      "file": "config/RaspberryPi.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_BOARD": {
+      "file": "config/TUYA_T5AI_BOARD.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_POCKET": {
+      "file": "config/TUYA_T5AI_POCKET.config",
+      "overrides": {}
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "peripherals-timer",
+  "name": {
+    "en": "TIMER",
+    "zh-CN": "TIMER"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "timer"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/timer",
+    "ref": "master"
+  },
+  "configs": {},
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/timer/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/timer/README_CN.md"
+    }
+  }
+}

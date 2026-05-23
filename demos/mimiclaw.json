@@ -1,0 +1,49 @@
+{
+  "id": "mimiclaw",
+  "name": {
+    "en": "mimiclaw",
+    "zh-CN": "mimiclaw"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "app"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "linux",
+    "t5ai"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "apps/mimiclaw",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "ENABLE_MBEDTLS_SSL_MAX_FRAGMENT_LENGTH": "y",
+    "ENABLE_MBEDTLS_SSL_MAX_CONTENT_LEN": "4096",
+    "ENABLE_CUSTOM_CONFIG": "y",
+    "ENABLE_MBEDTLS_ECP_DP_SECP256R1_ENABLED": "y",
+    "ENABLE_MBEDTLS_KEY_EXCHANGE_ECDHE_PSK": "y",
+    "ENABLE_MBEDTLS_ECP_DP_SECP384R1_ENABLED": "y",
+    "ENABLE_MBEDTLS_ECP_DP_CURVE25519_ENABLED": "y"
+  },
+  "configs": {
+    "Linux": {
+      "file": "config/Linux.config",
+      "overrides": {}
+    },
+    "T5AI": {
+      "file": "config/T5AI.config",
+      "overrides": {}
+    }
+  },
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/mimiclaw/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/apps/mimiclaw/README_zh.md"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "peripherals-i2c-i2c-scan",
+  "name": {
+    "en": "i2c scan",
+    "zh-CN": "i2c scan"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "i2c"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/i2c/i2c_scan",
+    "ref": "master"
+  },
+  "configs": {},
+  "documentation": {
+    "readme": {
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/i2c/i2c_scan/README_CN.md"
+    }
+  }
+}

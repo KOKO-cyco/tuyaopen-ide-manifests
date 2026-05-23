@@ -1,0 +1,80 @@
+{
+  "id": "games-lvgl-games",
+  "name": {
+    "en": "一、硬件环境",
+    "zh-CN": "一、硬件环境"
+  },
+  "summary": {
+    "en": "实物使用`T5AI-Board`开发板，搭载一个3.5寸屏幕，开发环境使用`TuyaOpen`。 涂鸦 T5AI-Board 是一款基于 T5-E1-IPEX 的语音和屏幕多交互开发板，T5-E1-IPEX 是涂鸦智能开发的嵌入式 Wi-Fi 和蓝牙组合模块。该开发板配备 2 个麦克风和 1 个扬声器，支持语音识别和播放，提供语音交互功能。 通过开发板上的 I/O 连接器，您可以使用 LCD...",
+    "zh-CN": ""
+  },
+  "tags": [
+    "app",
+    "display",
+    "game",
+    "lvgl"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "t3-lcd-devkit-1-28",
+    "tuya-t5ai-board-eyes",
+    "tuya-t5ai-board-lcd-3-5",
+    "tuya-t5ai-evb",
+    "tuya-t5ai-moji-1-28"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "apps/games/lvgl_games",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "PROJECT_NAME": "lvgl_games",
+    "MEM_SIZE": "51200",
+    "MEMP_NUM_UDP_PCB": "10",
+    "MEMP_NUM_TCP_SEG": "80",
+    "PBUF_LINK_ENCAPSULATION_HLEN": "96",
+    "TCP_SND_BUF": "32768",
+    "TCP_SND_QUEUELEN": "44",
+    "MEMP_NUM_NETBUF": "32",
+    "DEFAULT_UDP_RECVMBOX_SIZE": "24",
+    "MEMP_NUM_SYS_TIMEOUT": "12",
+    "LWIP_EAPOL_SUPPORT": "0",
+    "LWIP_TX_PBUF_ZERO_COPY": "0",
+    "CONFIG_TUYA_SOCK_SHIM": "0",
+    "LWIP_DHCPC_STATIC_IPADDR_ENABLE": "1",
+    "ETHARP_SUPPORT_STATIC_ENTRIES": "1",
+    "LWIP_NETIF_STATUS_CALLBACK": "1",
+    "LWIP_TIMEVAL_PRIVATE": "0",
+    "IN_ADDR_T_DEFINED": "y",
+    "ENABLE_LIBLVGL": "y",
+    "LVGL_ENABLE_TOUCH": "y",
+    "ENABLE_LVGL_DEMO": "y"
+  },
+  "configs": {
+    "T3_LCD_DEVKIT_1_28": {
+      "file": "config/T3_LCD_DEVKIT_1_28.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_BOARD_EYES": {
+      "file": "config/TUYA_T5AI_BOARD_EYES.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_BOARD_LCD_3.5": {
+      "file": "config/TUYA_T5AI_BOARD_LCD_3.5.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_EVB": {
+      "file": "config/TUYA_T5AI_EVB.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_MOJI_1_28": {
+      "file": "config/TUYA_T5AI_MOJI_1_28.config",
+      "overrides": {}
+    }
+  },
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/games/lvgl_games/README.md"
+    }
+  }
+}

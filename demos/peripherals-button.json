@@ -1,0 +1,51 @@
+{
+  "id": "peripherals-button",
+  "name": {
+    "en": "button",
+    "zh-CN": "button"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "button"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "raspberrypi",
+    "t5ai-mini",
+    "tuya-t5ai-board",
+    "tuya-t5ai-evb",
+    "tuya-t5ai-pocket"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/button",
+    "ref": "master"
+  },
+  "configs": {
+    "RaspberryPi": {
+      "file": "config/RaspberryPi.config",
+      "overrides": {}
+    },
+    "T5AI_MINI": {
+      "file": "config/T5AI_MINI.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_BOARD": {
+      "file": "config/TUYA_T5AI_BOARD.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_EVB": {
+      "file": "config/TUYA_T5AI_EVB.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_POCKET": {
+      "file": "config/TUYA_T5AI_POCKET.config",
+      "overrides": {}
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "tuya-cloud-camera-demo",
+  "name": {
+    "en": "camera demo",
+    "zh-CN": "camera demo"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "app",
+    "cloud",
+    "camera"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "ubuntu"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "apps/tuya_cloud/camera_demo",
+    "ref": "master"
+  },
+  "configs": {
+    "Ubuntu": {
+      "file": "config/Ubuntu.config",
+      "overrides": {}
+    }
+  }
+}

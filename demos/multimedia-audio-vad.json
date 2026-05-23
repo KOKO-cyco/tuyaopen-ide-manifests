@@ -1,0 +1,35 @@
+{
+  "id": "multimedia-audio-vad",
+  "name": {
+    "en": "audio vad",
+    "zh-CN": "audio vad"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "audio"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-board",
+    "tuya-t5ai-pocket"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/multimedia/audio_vad",
+    "ref": "master"
+  },
+  "configs": {
+    "TUYA_T5AI_BOARD": {
+      "file": "config/TUYA_T5AI_BOARD.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_POCKET": {
+      "file": "config/TUYA_T5AI_POCKET.config",
+      "overrides": {}
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "graphics-lvgl-camera",
+  "name": {
+    "en": "LVGL2Camera 示例",
+    "zh-CN": "LVGL2Camera 示例"
+  },
+  "summary": {
+    "en": "[English](#english-version) | [中文](#中文版本) ---",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "display",
+    "camera",
+    "lvgl"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-board-lcd-3-5"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/graphics/lvgl_camera",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "ENABLE_LIBLVGL": "y"
+  },
+  "configs": {
+    "TUYA_T5AI_BOARD_LCD_3.5": {
+      "file": "config/TUYA_T5AI_BOARD_LCD_3.5.config",
+      "overrides": {}
+    }
+  },
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/examples/graphics/lvgl_camera/README.md"
+    }
+  }
+}

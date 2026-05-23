@@ -1113,3 +1113,212 @@ body {
   padding-top: var(--spacing-md);
   border-top: 1px solid var(--color-border);
 }
+
+/* ========== Demos Tab ========== */
+
+.demos-filters {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  align-items: center;
+}
+
+.demos-filters .form-input {
+  flex: 1;
+  max-width: 360px;
+}
+
+.demo-filter-select {
+  width: 200px;
+  flex: none !important;
+}
+
+.demos-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.demo-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  background: var(--color-bg);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.demo-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.demo-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.demo-card-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-fg);
+  word-break: break-word;
+}
+
+.demo-card-badges {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.demo-badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.demo-badge-app {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+}
+
+.demo-badge-example {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.demo-badge-universal {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+.demo-badge-boards {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+.demo-card-summary {
+  font-size: var(--font-size-sm);
+  color: var(--color-muted);
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.demo-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.demo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.demo-tag {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--color-hover);
+  color: var(--color-muted);
+}
+
+.demo-card-source {
+  font-size: 11px;
+  color: var(--color-muted);
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.demo-card-actions {
+  display: flex;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Demo Form */
+.demo-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.demo-form .form-fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+}
+
+.demo-form .form-fieldset legend {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  padding: 0 8px;
+  color: var(--color-fg);
+}
+
+.demo-form .form-radio-group {
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.demo-form .form-radio {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+}
+
+.demo-form .form-hint {
+  font-size: 11px;
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+
+.demo-form .form-monospace {
+  font-family: monospace;
+  font-size: 12px;
+}
+
+/* ========== Configs Map Editor (Demos) ========== */
+.configs-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.configs-row .form-input {
+  flex: 1;
+}
+
+.configs-row .btn-remove,
+.configs-row .configs-remove-btn {
+  flex-shrink: 0;
+}
+
+.demo-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}

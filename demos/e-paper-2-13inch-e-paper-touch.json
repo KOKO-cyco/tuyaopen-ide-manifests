@@ -1,0 +1,24 @@
+{
+  "id": "e-paper-2-13inch-e-paper-touch",
+  "name": {
+    "en": "2.13inch e Paper Touch",
+    "zh-CN": "2.13inch e Paper Touch"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "e-paper",
+    "touch"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/e-Paper/2.13inch_e-Paper_Touch",
+    "ref": "master"
+  },
+  "configs": {}
+}

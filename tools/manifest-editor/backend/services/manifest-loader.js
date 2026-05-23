@@ -161,6 +161,48 @@ class ManifestLoader {
     await fs.writeFile(filePath, jsonContent, 'utf-8');
     return filePath;
   }
+
+  // --- Demos ---
+
+  async saveDemosIndex(data) {
+    try {
+      const filePath = path.join(config.paths.demos, 'index.json');
+      const jsonContent = JSON.stringify(data, null, 2) + '\n';
+      await fs.writeFile(filePath, jsonContent, 'utf-8');
+      this.cache.demos = data;
+      return true;
+    } catch (error) {
+      console.error('Error saving demos manifest:', error.message);
+      throw new Error(`Failed to save demos manifest: ${error.message}`);
+    }
+  }
+
+  async loadDemoDetail(demoId) {
+    try {
+      const filePath = path.join(config.paths.demos, `${demoId}.json`);
+      await fs.access(filePath);
+      const content = await fs.readFile(filePath, 'utf-8');
+      return JSON.parse(content);
+    } catch {
+      return null;
+    }
+  }
+
+  async saveDemoDetail(demoId, data) {
+    const filePath = path.join(config.paths.demos, `${demoId}.json`);
+    const jsonContent = JSON.stringify(data, null, 2) + '\n';
+    await fs.writeFile(filePath, jsonContent, 'utf-8');
+    return filePath;
+  }
+
+  async deleteDemoDetail(demoId) {
+    try {
+      const filePath = path.join(config.paths.demos, `${demoId}.json`);
+      await fs.unlink(filePath);
+    } catch {
+      // File may not exist — ignore
+    }
+  }
 }
 
 export const manifestLoader = new ManifestLoader();

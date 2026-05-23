@@ -1,0 +1,36 @@
+{
+  "id": "peripherals-touch",
+  "name": {
+    "en": "Touch Driver Example",
+    "zh-CN": "触摸驱动例程"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "touch"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/touch",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "ENABLE_BUTTON": "y",
+    "ENABLE_LED": "y",
+    "ENABLE_AUDIO_CODECS": "y",
+    "ENABLE_AUDIO_AEC": "y"
+  },
+  "configs": {},
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/touch/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/touch/README_CN.md"
+    }
+  }
+}

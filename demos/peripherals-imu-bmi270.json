@@ -1,0 +1,27 @@
+{
+  "id": "peripherals-imu-bmi270",
+  "name": {
+    "en": "bmi270",
+    "zh-CN": "bmi270"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "imu"
+  ],
+  "compatibilityType": "universal",
+  "boards": [],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/imu/bmi270",
+    "ref": "master"
+  },
+  "defaultConfig": {
+    "ENABLE_IMU": "y"
+  },
+  "configs": {}
+}

@@ -1,36 +1,2023 @@
 {
   "schemaVersion": 1,
   "domain": "demos",
-  "publishedAt": "2026-05-13T00:00:00Z",
+  "publishedAt": "2026-05-23T00:00:00Z",
   "items": [
     {
-      "id": "switch-3-iot",
-      "name": { "en": "3-Switch IoT Demo", "zh-CN": "三路开关 IoT 示例" },
-      "summary": {
-        "en": "Three-channel smart switch with Tuya cloud integration.",
-        "zh-CN": "三路智能开关 + 涂鸦云端联动示例。"
+      "id": "ble-ble-central",
+      "name": {
+        "en": "BLE CENTRAL",
+        "zh-CN": "BLE CENTRAL"
       },
-      "tags": ["wifi", "switch", "device-control"],
-      "boards": ["tuya-t5ai-board"],
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "ble"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
       "source": {
         "repo": "https://github.com/tuya/TuyaOpen",
-        "subpath": "examples/3-switches-iot",
-        "ref": "main"
+        "subpath": "examples/ble/ble_central",
+        "ref": "master"
       }
     },
     {
-      "id": "voice-assistant",
-      "name": { "en": "Voice Assistant Demo", "zh-CN": "语音助手示例" },
-      "summary": {
-        "en": "On-device wake word + cloud LLM round-trip on T5AI.",
-        "zh-CN": "T5AI 上的本地唤醒 + 云端 LLM 推理示例。"
+      "id": "ble-ble-peripher",
+      "name": {
+        "en": "BLE PERIPHERAL",
+        "zh-CN": "BLE PERIPHERAL"
       },
-      "tags": ["ai", "voice", "edge-cloud"],
-      "boards": ["tuya-t5ai-board", "tuya-t5ai-evb", "tuya-t5ai-core", "tuya-t5ai-pixel", "tuya-t5ai-pocket", "t5ai-mini"],
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "ble"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
       "source": {
         "repo": "https://github.com/tuya/TuyaOpen",
-        "subpath": "examples/voice-assistant",
-        "ref": "main"
+        "subpath": "examples/ble/ble_peripher",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "e-paper-1-54inch-e-paper",
+      "name": {
+        "en": "1.54inch e Paper",
+        "zh-CN": "1.54inch e Paper"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "e-paper"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/e-Paper/1.54inch_e-Paper",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "e-paper-2-13inch-e-paper-touch",
+      "name": {
+        "en": "2.13inch e Paper Touch",
+        "zh-CN": "2.13inch e Paper Touch"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "e-paper",
+        "touch"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/e-Paper/2.13inch_e-Paper_Touch",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "e-paper-4-26inch-e-paper",
+      "name": {
+        "en": "4.26inch e Paper",
+        "zh-CN": "4.26inch e Paper"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "e-paper"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/e-Paper/4.26inch_e-Paper",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "games-lvgl-games",
+      "name": {
+        "en": "一、硬件环境",
+        "zh-CN": "一、硬件环境"
+      },
+      "summary": {
+        "en": "实物使用`T5AI-Board`开发板，搭载一个3.5寸屏幕，开发环境使用`TuyaOpen`。 涂鸦 T5AI-Board 是一款基于 T5-E1-IPEX 的语音和屏幕多交互开发板，T5-E1-IPEX 是涂鸦智能开发的嵌入式 Wi-Fi 和蓝牙组合模块。该开发板配备 2 个麦克风和 1 个扬声器，支持语音识别和播放，提供语音交互功能。 通过开发板上的 I/O 连接器，您可以使用 LCD...",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "display",
+        "game",
+        "lvgl"
+      ],
+      "boards": [
+        "t3-lcd-devkit-1-28",
+        "tuya-t5ai-board-eyes",
+        "tuya-t5ai-board-lcd-3-5",
+        "tuya-t5ai-evb",
+        "tuya-t5ai-moji-1-28"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/games/lvgl_games",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "get-started-cxx",
+      "name": {
+        "en": "cxx",
+        "zh-CN": "cxx"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "getting-started"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/get-started/cxx",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "get-started-sample-project",
+      "name": {
+        "en": "sample project",
+        "zh-CN": "sample project"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "getting-started"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/get-started/sample_project",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "graphics-lvgl-camera",
+      "name": {
+        "en": "LVGL2Camera 示例",
+        "zh-CN": "LVGL2Camera 示例"
+      },
+      "summary": {
+        "en": "[English](#english-version) | [中文](#中文版本) ---",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "display",
+        "camera",
+        "lvgl"
+      ],
+      "boards": [
+        "tuya-t5ai-board-lcd-3-5"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/graphics/lvgl_camera",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "graphics-lvgl-demo",
+      "name": {
+        "en": "lvgl_demo",
+        "zh-CN": "lvgl_demo"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "display",
+        "lvgl"
+      ],
+      "boards": [
+        "atk-t5ai-mini-board-rgb-md0700r",
+        "atk-t5ai-mini-board-spi-md0240",
+        "dnesp32s3-box",
+        "esp32-bread-board",
+        "t3-lcd-devkit-1-28",
+        "tuya-t5ai-board-eyes",
+        "tuya-t5ai-board-lcd-3-5",
+        "tuya-t5ai-desktop-robot",
+        "tuya-t5ai-evb",
+        "tuya-t5ai-moji-1-28",
+        "tuya-t5ai-pocket",
+        "waveshare-t5ai-touch-amoled-1-75"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/graphics/lvgl_demo",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "graphics-lvgl-gif",
+      "name": {
+        "en": "lvgl_demo",
+        "zh-CN": "lvgl_demo"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "display",
+        "lvgl"
+      ],
+      "boards": [
+        "atk-t5ai-mini-board",
+        "tuya-t5ai-board-29-e-ink",
+        "tuya-t5ai-board-eyes",
+        "tuya-t5ai-board-eyes-two-lcd",
+        "tuya-t5ai-board-lcd-3-5",
+        "tuya-t5ai-pocket",
+        "waveshare-t5ai-touch-amoled-1-75"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/graphics/lvgl_gif",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "graphics-lvgl-label",
+      "name": {
+        "en": "lvgl label",
+        "zh-CN": "lvgl label"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "display",
+        "lvgl"
+      ],
+      "boards": [
+        "atk-t5ai-mini-board",
+        "tuya-t5ai-board-096-oled",
+        "tuya-t5ai-board-29-e-ink",
+        "tuya-t5ai-board-lcd-3-5",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/graphics/lvgl_label",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "graphics-lvgl-simulator",
+      "name": {
+        "en": "lvgl simulator",
+        "zh-CN": "LVGL PC 模拟器"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": "在桌面上运行 TuyaOpen App 的 LVGL UI，无需烧录硬件。UI 源码直接编译为原生可执行文件，通过 SDL2 窗口渲染 LVGL 界面。 模拟器同时编译了 `platform/LINUX` 的 TKL 适配层和 `src/tal_system` 的 TAL 层，使得 UI 代码可以直接调用 `tal_*` / `tkl_*` 接口，并使用 `PR_xxx` 宏输出日志。 ---"
+      },
+      "tags": [
+        "example",
+        "display",
+        "imu"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/graphics/lvgl_simulator",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "graphics-u8g2-i2c",
+      "name": {
+        "en": "u8g2 i2c",
+        "zh-CN": "u8g2 i2c"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "display",
+        "i2c"
+      ],
+      "boards": [
+        "t5ai"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/graphics/u8g2_i2c",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "graphics-u8g2-spi",
+      "name": {
+        "en": "u8g2 spi",
+        "zh-CN": "u8g2 spi"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "display",
+        "spi"
+      ],
+      "boards": [
+        "t5ai"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/graphics/u8g2_spi",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "graphics-u8g2-tdl-disp",
+      "name": {
+        "en": "u8g2 tdl disp",
+        "zh-CN": "u8g2 tdl disp"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "display"
+      ],
+      "boards": [
+        "tuya-t5ai-board-0-96oled",
+        "tuya-t5ai-eink-nfc",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/graphics/u8g2_tdl_disp",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "micropython-mpy-minimal",
+      "name": {
+        "en": "mpy minimal",
+        "zh-CN": "mpy minimal"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "micropython"
+      ],
+      "boards": [
+        "t5ai-core"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/micropython/mpy_minimal",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "mimiclaw",
+      "name": {
+        "en": "mimiclaw",
+        "zh-CN": "mimiclaw"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app"
+      ],
+      "boards": [
+        "linux",
+        "t5ai"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/mimiclaw",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "multimedia-audio-kws",
+      "name": {
+        "en": "audio kws",
+        "zh-CN": "audio kws"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "audio"
+      ],
+      "boards": [
+        "tuya-t5ai-board",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/multimedia/audio_kws",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "multimedia-audio-player-music",
+      "name": {
+        "en": "music",
+        "zh-CN": "music"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "audio"
+      ],
+      "boards": [
+        "tuya-t5ai-board",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/multimedia/audio_player/music",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "multimedia-audio-player-tts",
+      "name": {
+        "en": "tts",
+        "zh-CN": "tts"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "audio"
+      ],
+      "boards": [
+        "tuya-t5ai-board",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/multimedia/audio_player/tts",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "multimedia-audio-recorder-output-sdcard",
+      "name": {
+        "en": "output sdcard",
+        "zh-CN": "output sdcard"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "audio",
+        "sd-card"
+      ],
+      "boards": [
+        "tuya-t5ai-board",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/multimedia/audio_recorder/output_sdcard",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "multimedia-audio-vad",
+      "name": {
+        "en": "audio vad",
+        "zh-CN": "audio vad"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "audio"
+      ],
+      "boards": [
+        "tuya-t5ai-board",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/multimedia/audio_vad",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-adc",
+      "name": {
+        "en": "ADC",
+        "zh-CN": "ADC"
+      },
+      "summary": {
+        "en": "ADC (Analog-to-Digital Converter) is a device that converts **continuous analog signals** into **discrete digital signals**. Through sampling and quantization, it converts analog voltage values int...",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/adc",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-audio-codecs",
+      "name": {
+        "en": "audio codecs",
+        "zh-CN": "audio codecs"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "audio"
+      ],
+      "boards": [
+        "raspberrypi",
+        "tuya-t5ai-board",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/audio_codecs",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-button",
+      "name": {
+        "en": "button",
+        "zh-CN": "button"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "button"
+      ],
+      "boards": [
+        "raspberrypi",
+        "t5ai-mini",
+        "tuya-t5ai-board",
+        "tuya-t5ai-evb",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/button",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-camera-output-display",
+      "name": {
+        "en": "output display",
+        "zh-CN": "相机输出显示数据流向文档"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "display",
+        "camera"
+      ],
+      "boards": [
+        "atk-t5ai-mini-board-camera-8080-md0240",
+        "atk-t5ai-mini-board-camera-rgb-md0700r",
+        "tuya-t5ai-board-camera-lcd-3-5",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/camera/output_display",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-camera-output-sdcard",
+      "name": {
+        "en": "output sdcard",
+        "zh-CN": "output sdcard"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "camera",
+        "sd-card"
+      ],
+      "boards": [
+        "tuya-t5ai-board-camera-lcd-3-5",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/camera/output_sdcard",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-display-fill-color",
+      "name": {
+        "en": "fill color",
+        "zh-CN": "fill color"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "display"
+      ],
+      "boards": [
+        "atk-t5ai-mini-board-rgb-md0700r",
+        "atk-t5ai-mini-board-spi-md0240",
+        "tuya-t5ai-board-lcd-3-5",
+        "tuya-t5ai-evb",
+        "tuya-t5ai-pocket",
+        "waveshare-t5ai-touch-amoled-1-75"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/display/fill_color",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-display-picture",
+      "name": {
+        "en": "picture",
+        "zh-CN": "picture"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "display"
+      ],
+      "boards": [
+        "atk-t5ai-mini-board-rgb-md0700r",
+        "atk-t5ai-mini-board-spi-md0240",
+        "tuya-t5ai-board-lcd-3-5",
+        "tuya-t5ai-evb",
+        "tuya-t5ai-pocket",
+        "waveshare-t5ai-touch-amoled-1-75"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/display/picture",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-encoder",
+      "name": {
+        "en": "encoder",
+        "zh-CN": "encoder"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "encoder"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/encoder",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-flash",
+      "name": {
+        "en": "flash",
+        "zh-CN": "flash"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "flash"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/flash",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-gpio",
+      "name": {
+        "en": "GPIO",
+        "zh-CN": "GPIO"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": "GPIO（General Purpose Input/Output）即通用输入输出接口，是嵌入式系统中用于**控制外部设备或读取外部信号**的基本数字接口。每个 GPIO 引脚可以被软件配置为输入或输出模式，在输入模式下可以读取引脚的电平状态（高电平或低电平），在输出模式下可以控制引脚输出高电平或低电平。GPIO 还支持中断功能，当引脚电平发生变化时可以触发中断处理函数，实现事件驱动的程序设..."
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "gpio"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/gpio",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-i2c-i2c-scan",
+      "name": {
+        "en": "i2c scan",
+        "zh-CN": "i2c scan"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "i2c"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/i2c/i2c_scan",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-i2c-sht3x-4x-sensor",
+      "name": {
+        "en": "sht3x 4x sensor",
+        "zh-CN": "sht3x 4x sensor"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "i2c"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/i2c/sht3x_4x_sensor",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-imu-bmi270",
+      "name": {
+        "en": "bmi270",
+        "zh-CN": "bmi270"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "imu"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/imu/bmi270",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-ir",
+      "name": {
+        "en": "ir",
+        "zh-CN": "ir"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "ir"
+      ],
+      "boards": [
+        "t5ai"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/ir",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-joystick",
+      "name": {
+        "en": "JOYSTICK",
+        "zh-CN": "JOYSTICK"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "joystick"
+      ],
+      "boards": [
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/joystick",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-led",
+      "name": {
+        "en": "led",
+        "zh-CN": "led"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "led"
+      ],
+      "boards": [
+        "t5ai-mini",
+        "tuya-t5ai-board",
+        "tuya-t5ai-evb",
+        "tuya-t5ai-pocket",
+        "waveshare-esp32c6-dev-kit-n16"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/led",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-leds-pixel",
+      "name": {
+        "en": "leds pixel",
+        "zh-CN": "leds pixel"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "pixel-art",
+        "led"
+      ],
+      "boards": [
+        "tuya-t5ai-pixel"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/leds-pixel",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-pwm",
+      "name": {
+        "en": "PWM",
+        "zh-CN": "PWM"
+      },
+      "summary": {
+        "en": "PWM (Pulse Width Modulation) is a digital technique that controls analog circuits by **varying the duty cycle of a pulse signal**. A PWM signal consists of periodic square waves. By adjusting the r...",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "pwm"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/pwm",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-sd",
+      "name": {
+        "en": "sd",
+        "zh-CN": "sd"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "sd-card"
+      ],
+      "boards": [
+        "tuya-t5ai-board",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/sd",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-spi",
+      "name": {
+        "en": "SPI",
+        "zh-CN": "SPI 串行外设接口"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": "SPI（Serial Peripheral Interface）即串行外设接口，是一种**高速、全双工、同步**的串行通信协议。SPI 使用四根信号线（SCLK时钟线、MOSI主出从入、MISO主入从出、CS片选信号）实现主从设备间的数据传输。 本示例的代码主要向您演示模组作为主机通过 SPI 接口发送数据的功能。关于 SPI 接口的详细说明请查看: [TKL_SPI](https://ww..."
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "spi"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/spi",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-timer",
+      "name": {
+        "en": "TIMER",
+        "zh-CN": "TIMER"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "timer"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/timer",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-touch",
+      "name": {
+        "en": "Touch Driver Example",
+        "zh-CN": "触摸驱动例程"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "touch"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/touch",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-tp",
+      "name": {
+        "en": "tp",
+        "zh-CN": "tp"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral"
+      ],
+      "boards": [
+        "tuya-t5ai-desktop-robot"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/tp",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-uart",
+      "name": {
+        "en": "UART",
+        "zh-CN": "UART"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "uart"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/uart",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "peripherals-watchdog",
+      "name": {
+        "en": "WATCHDOG",
+        "zh-CN": "WATCHDOG"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "peripheral",
+        "watchdog"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/peripherals/watchdog",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "protocols-http-client",
+      "name": {
+        "en": "HTTP Introduction",
+        "zh-CN": "HTTP  简介"
+      },
+      "summary": {
+        "en": "The `example_http` routine demonstrates how to use the native HTTP interface.",
+        "zh-CN": "example_http 例程演示了如何使用原生http接口。"
+      },
+      "tags": [
+        "example",
+        "networking"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/protocols/http_client",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "protocols-https-client",
+      "name": {
+        "en": "HTTP Introduction",
+        "zh-CN": "HTTP  简介"
+      },
+      "summary": {
+        "en": "The `example_https_client` routine demonstrates how to use the native HTTPS interface.",
+        "zh-CN": "example_https_client 例程演示了如何使用原生 https 接口。"
+      },
+      "tags": [
+        "example",
+        "networking"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/protocols/https_client",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "protocols-mqtt-client",
+      "name": {
+        "en": "MQTT Introduction",
+        "zh-CN": "HTTP  简介"
+      },
+      "summary": {
+        "en": "The `example_mqtt` routine demonstrates how to use the native MQTT interface.",
+        "zh-CN": "example_http 例程演示了如何使用原生http接口。"
+      },
+      "tags": [
+        "example",
+        "networking"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/protocols/mqtt_client",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "protocols-tcp-client",
+      "name": {
+        "en": "NETWORK CLIENT Introduction",
+        "zh-CN": "NETWORK CLIENT 简介"
+      },
+      "summary": {
+        "en": "This example demonstrates a TCP client. After connecting to the server, the TCP client will send `Hello Tuya` five times, then close the TCP client socket and thread. Note that it should be called ...",
+        "zh-CN": "该示例为 TCP 客户端的一个示例演示，TCP 客户端在连接上服务器后会发送 5 次 `Hello Tuya`，然后关闭 TCP 客户端 socket 套接字和线程。注意需要在模组连上 WiFi 之后调用，TCP 客户端可以使用 `NetAssist` 等网络调试助手。需要注意的是模组连接的网络要和网络调试助手在同一个局域网下。 该示例演示连接的是当前主机的echo服务，需要手动开启，你也可..."
+      },
+      "tags": [
+        "example",
+        "networking"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/protocols/tcp_client",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "protocols-tcp-server",
+      "name": {
+        "en": "NETWORK SERVER",
+        "zh-CN": "NETWORK SERVER"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "networking"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/protocols/tcp_server",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "system-os-event",
+      "name": {
+        "en": "TuyaOS event subscription",
+        "zh-CN": "TuyaOS event subscribe"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "system"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/system/os_event",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "system-os-kv",
+      "name": {
+        "en": "KV COMMON",
+        "zh-CN": "KV COMMON"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "system"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/system/os_kv",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "system-os-mutex",
+      "name": {
+        "en": "SYSTEM MUTEX",
+        "zh-CN": "SYSTEM MUTEX"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "system"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/system/os_mutex",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "system-os-queue",
+      "name": {
+        "en": "SYSTEM QUEUE",
+        "zh-CN": "SYSTEM QUEUE"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "system"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/system/os_queue",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "system-os-semaphore",
+      "name": {
+        "en": "SYSTEM SEMAPHORE",
+        "zh-CN": "SYSTEM SEMAPHORE"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "system"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/system/os_semaphore",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "system-os-sw-timer",
+      "name": {
+        "en": "SYSTEM SW TIMER",
+        "zh-CN": "SYSTEM SW TIMER"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "system",
+        "timer"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/system/os_sw_timer",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "system-os-thread",
+      "name": {
+        "en": "SYSTEM THREAD",
+        "zh-CN": "SYSTEM THREAD"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "system"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/system/os_thread",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tflite-tflite-helloworld",
+      "name": {
+        "en": "tflite helloworld",
+        "zh-CN": "tflite helloworld"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "tflite"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/tflite/tflite-helloworld",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-ai-ai-components",
+      "name": {
+        "en": "ai components",
+        "zh-CN": "ai components"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "ai"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya.ai/ai_components",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-ai-duo-eye-mood",
+      "name": {
+        "en": "duo eye mood",
+        "zh-CN": "duo eye mood"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "ai"
+      ],
+      "boards": [
+        "tuya-t5ai-board-eyes",
+        "tuya-t5ai-board-eyes-two-lcd"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya.ai/duo_eye_mood",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-ai-your-chat-bot",
+      "name": {
+        "en": "your_chat_bot",
+        "zh-CN": "your_chat_bot"
+      },
+      "summary": {
+        "en": "[your_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_chat_bot) is an open-source large model intelligent chatbot based on tuya.ai. It collects voice through a microphone, ...",
+        "zh-CN": "[your_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_chat_bot) 是基于 tuya.ai 开源的大模型智能聊天机器人。通过麦克风采集语音，语音识别，实现对话、互动、调侃，还能通过屏幕看到实时聊天内容。 **注意：在 TUYA AI V1.0 和 V2.0 之间切换需要先在 APP ..."
+      },
+      "tags": [
+        "app",
+        "ai",
+        "tuya-iot"
+      ],
+      "boards": [
+        "dnesp32s3",
+        "dnesp32s3-box",
+        "dnesp32s3-box2-wifi",
+        "dshanpi-a1",
+        "esp32s3-bread-compact-wifi",
+        "raspberrypi",
+        "t5ai-mini-lcd-1-54",
+        "t5ai-moji-1-28",
+        "tuya-t5ai-board-lcd-3-5",
+        "tuya-t5ai-board-lcd-3-5-camera",
+        "tuya-t5ai-board-lcd-3-5-v101",
+        "tuya-t5ai-core",
+        "tuya-t5ai-evb",
+        "waveshare-esp32s3-touch-amoled-1-8",
+        "waveshare-t5ai-touch-amoled-1-75",
+        "xingzhi-esp32s3-cube-0-96oled-wifi"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya.ai/your_chat_bot",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-ai-your-desk-emoji",
+      "name": {
+        "en": "your_desk_emoji",
+        "zh-CN": "your_desk_emoji"
+      },
+      "summary": {
+        "en": "[your_desk_emoji](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_desk_emoji) is an intelligent desk emoji robot based on tuya.ai. It combines AI conversation, gesture recognition, s...",
+        "zh-CN": "[your_desk_emoji](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_desk_emoji) 是基于 tuya.ai 的智能桌面表情机器人。结合AI对话、手势识别、舵机控制、表情显示和天气信息，打造一个互动的桌面伙伴。"
+      },
+      "tags": [
+        "app",
+        "ai"
+      ],
+      "boards": [
+        "t5ai-mini"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya.ai/your_desk_emoji",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-ai-your-otto-robot",
+      "name": {
+        "en": "DIY Otto Robot Guide",
+        "zh-CN": "DIY Otto Robot 指南"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "ai",
+        "robotics",
+        "lvgl",
+        "tuya-iot"
+      ],
+      "boards": [
+        "t5ai-otto-lcd-gc9d01",
+        "t5ai-otto-lcd-st7735s",
+        "t5ai-otto-lcd-st7789"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya.ai/your_otto_robot",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-ai-your-robot-dog",
+      "name": {
+        "en": "your_robot_dog",
+        "zh-CN": "your_robot_dog"
+      },
+      "summary": {
+        "en": "[your_robot_dog](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_robot_dog) is ported from TuyaOS's `tuyaos_demo_ai_toy` project, based on TuyaOpen's `your_chat_bot`. It adds vivid f...",
+        "zh-CN": "[your_robot_dog](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_robot_dog) 是基于 TuyaOS 的 `tuyaos_demo_ai_toy` 项目在 TuyaOpen 的 `your_chat_bot` 基础上移植而来，添加机器狗生动表情变化与控制舵机动作，移植开源的大模型智能聊天机器..."
+      },
+      "tags": [
+        "app",
+        "ai",
+        "robotics"
+      ],
+      "boards": [
+        "tuya-t5ai-robot-dog"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya.ai/your_robot_dog",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-ai-your-serial-chat-bot",
+      "name": {
+        "en": "your_serial_chat_bot",
+        "zh-CN": "your_serial_chat_bot"
+      },
+      "summary": {
+        "en": "[your_serial_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot) is an open-source large model intelligent chatbot based on tuya.ai. It receives text conversat...",
+        "zh-CN": "[your_serial_chat_bot](https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot) 是基于 tuya.ai 开源的大模型智能聊天机器人。通过串口从外部设备（如PC）接收文本对话，将内容上报云端进行AI处理，并通过串口将AI响应返回给外部设备。**仅需要最小核心板就可以实现..."
+      },
+      "tags": [
+        "app",
+        "ai"
+      ],
+      "boards": [
+        "tuya-t5ai-board-lcd-3-5",
+        "tuya-t5ai-core",
+        "waveshare-esp32s3-touch-amoled-1-8",
+        "xingzhi-esp32s3-cube-0-96oled-wifi"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya.ai/your_serial_chat_bot",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-cloud-camera-demo",
+      "name": {
+        "en": "camera demo",
+        "zh-CN": "camera demo"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "cloud",
+        "camera"
+      ],
+      "boards": [
+        "ubuntu"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_cloud/camera_demo",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-cloud-switch-demo",
+      "name": {
+        "en": "switch_demo",
+        "zh-CN": "switch_demo"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "cloud",
+        "switch"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_cloud/switch_demo",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-cloud-weather-get-demo",
+      "name": {
+        "en": "weather get demo",
+        "zh-CN": "weather get demo"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "cloud"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_cloud/weather_get_demo",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-t5-pixel-tuya-t5-pixel-bongocat-kb",
+      "name": {
+        "en": "tuya t5 pixel bongocat kb",
+        "zh-CN": "tuya t5 pixel bongocat kb"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "pixel-art",
+        "tuya-iot"
+      ],
+      "boards": [
+        "tuya-t5ai-pixel"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_bongocat_kb",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-t5-pixel-tuya-t5-pixel-demo",
+      "name": {
+        "en": "tuya t5 pixel demo",
+        "zh-CN": "tuya t5 pixel demo"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "pixel-art",
+        "tuya-iot"
+      ],
+      "boards": [
+        "tuya-t5ai-pixel"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_demo",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-t5-pixel-tuya-t5-pixel-mic-spectrum-meter",
+      "name": {
+        "en": "tuya t5 pixel mic spectrum meter",
+        "zh-CN": "tuya t5 pixel mic spectrum meter"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "pixel-art",
+        "tuya-iot"
+      ],
+      "boards": [
+        "tuya-t5ai-pixel"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_mic_spectrum_meter",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-t5-pixel-tuya-t5-pixel-simple-shapes",
+      "name": {
+        "en": "tuya t5 pixel simple shapes",
+        "zh-CN": "tuya t5 pixel simple shapes"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "pixel-art",
+        "tuya-iot"
+      ],
+      "boards": [
+        "tuya-t5ai-pixel"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_simple_shapes",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-t5-pixel-tuya-t5-pixel-sphere-effect",
+      "name": {
+        "en": "tuya t5 pixel sphere effect",
+        "zh-CN": "tuya t5 pixel sphere effect"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "pixel-art",
+        "tuya-iot"
+      ],
+      "boards": [
+        "tuya-t5ai-pixel"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_sphere_effect",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-t5-pixel-tuya-t5-pixel-weather",
+      "name": {
+        "en": "tuya t5 pixel weather",
+        "zh-CN": "tuya t5 pixel weather"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "pixel-art",
+        "tuya-iot"
+      ],
+      "boards": [
+        "tuya-t5ai-pixel"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_weather",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "tuya-t5-pocket-tuya-t5-pocket-ai",
+      "name": {
+        "en": "tuya t5 pocket ai",
+        "zh-CN": "tuya t5 pocket ai"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "app",
+        "ai"
+      ],
+      "boards": [
+        "tuya-linux-lvgl-simulator",
+        "tuya-t5ai-pocket"
+      ],
+      "compatibilityType": "board-specific",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "apps/tuya_t5_pocket/tuya_t5_pocket_ai",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "wifi-ap",
+      "name": {
+        "en": "WiFi AP",
+        "zh-CN": "WiFi AP"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "wifi"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/wifi/ap",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "wifi-low-power",
+      "name": {
+        "en": "WIFI LOW POWER",
+        "zh-CN": "WIFI LOW POWER"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "wifi"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/wifi/low_power",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "wifi-scan",
+      "name": {
+        "en": "WIFI SCAN",
+        "zh-CN": "WIFI SCAN"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "wifi"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/wifi/scan",
+        "ref": "master"
+      }
+    },
+    {
+      "id": "wifi-sta",
+      "name": {
+        "en": "WIFI STATION",
+        "zh-CN": "WIFI STATION"
+      },
+      "summary": {
+        "en": "",
+        "zh-CN": ""
+      },
+      "tags": [
+        "example",
+        "wifi"
+      ],
+      "boards": [],
+      "compatibilityType": "universal",
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen",
+        "subpath": "examples/wifi/sta",
+        "ref": "master"
       }
     }
   ]

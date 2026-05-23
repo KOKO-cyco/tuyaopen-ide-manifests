@@ -1,0 +1,31 @@
+{
+  "id": "graphics-u8g2-i2c",
+  "name": {
+    "en": "u8g2 i2c",
+    "zh-CN": "u8g2 i2c"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "display",
+    "i2c"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "t5ai"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/graphics/u8g2_i2c",
+    "ref": "master"
+  },
+  "configs": {
+    "T5AI": {
+      "file": "config/T5AI.config",
+      "overrides": {}
+    }
+  }
+}

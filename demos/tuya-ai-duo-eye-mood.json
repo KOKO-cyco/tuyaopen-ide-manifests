@@ -1,0 +1,35 @@
+{
+  "id": "tuya-ai-duo-eye-mood",
+  "name": {
+    "en": "duo eye mood",
+    "zh-CN": "duo eye mood"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "app",
+    "ai"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-board-eyes",
+    "tuya-t5ai-board-eyes-two-lcd"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "apps/tuya.ai/duo_eye_mood",
+    "ref": "master"
+  },
+  "configs": {
+    "TUYA_T5AI_BOARD_EYES": {
+      "file": "config/TUYA_T5AI_BOARD_EYES.config",
+      "overrides": {}
+    },
+    "TUYA_T5AI_BOARD_EYES_TWO_LCD": {
+      "file": "config/TUYA_T5AI_BOARD_EYES_TWO_LCD.config",
+      "overrides": {}
+    }
+  }
+}

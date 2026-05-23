@@ -1,26 +1,39 @@
 {
   "schemaVersion": 1,
   "id": "tuya-t5ai-pixel",
-  "name": { "en": "Tuya T5AI Pixel", "zh-CN": "涂鸦 T5AI Pixel 板" },
+  "name": {
+    "en": "Tuya T5AI Pixel",
+    "zh-CN": "涂鸦 T5AI Pixel 板"
+  },
   "summary": {
     "en": "T5AI evaluation board with audio AEC, 8× WS2812B pixel LED matrix, BMI270 6-axis IMU, and 3 user buttons",
     "zh-CN": "搭载音频 AEC、8 颗 WS2812B 像素灯珠矩阵、BMI270 六轴 IMU 和 3 颗用户按键的 T5AI 评估板"
   },
-  "brand": { "en": "Tuya", "zh-CN": "涂鸦智能" },
-  "manufacturer": { "en": "Tuya", "zh-CN": "涂鸦智能" },
+  "brand": {
+    "en": "Tuya",
+    "zh-CN": "涂鸦智能"
+  },
+  "manufacturer": {
+    "en": "Tuya",
+    "zh-CN": "涂鸦智能"
+  },
   "platformId": "t5ai",
   "variantId": "t5ai",
-
   "peripheralPatterns": {
-
     "audio": [
       {
         "model": null,
-        "name": { "en": "Audio", "zh-CN": "音频" },
+        "name": {
+          "en": "Audio",
+          "zh-CN": "音频"
+        },
         "interface": "INTERNAL",
         "pins": {
           "INTERNAL": [
-            { "role": "spk_en", "gpio": 42 }
+            {
+              "role": "spk_en",
+              "gpio": 42
+            }
           ]
         },
         "optional": false,
@@ -31,17 +44,25 @@
         }
       }
     ],
-
     "imu": [
       {
         "model": "BMI270",
-        "name": { "en": "6-Axis IMU", "zh-CN": "六轴 IMU" },
+        "name": {
+          "en": "6-Axis IMU",
+          "zh-CN": "六轴 IMU"
+        },
         "axes": 6,
         "interface": "I2C",
         "pins": {
           "I2C": [
-            { "role": "scl", "gpio": 20 },
-            { "role": "sda", "gpio": 21 }
+            {
+              "role": "scl",
+              "gpio": 20
+            },
+            {
+              "role": "sda",
+              "gpio": 21
+            }
           ]
         },
         "optional": false,
@@ -49,16 +70,21 @@
         "note": null
       }
     ],
-
     "led-pixel": [
       {
         "model": "WS2812B",
-        "name": { "en": "RGB LED Matrix", "zh-CN": "RGB 灯矩阵" },
+        "name": {
+          "en": "RGB LED Matrix",
+          "zh-CN": "RGB 灯矩阵"
+        },
         "count": 8,
         "interface": "SPI",
         "pins": {
           "SPI": [
-            { "role": "data", "gpio": 16 }
+            {
+              "role": "data",
+              "gpio": 16
+            }
           ]
         },
         "optional": false,
@@ -69,16 +95,21 @@
         }
       }
     ],
-
     "led": [
       {
         "model": null,
-        "name": { "en": "Indicator LED", "zh-CN": "指示灯" },
+        "name": {
+          "en": "Indicator LED",
+          "zh-CN": "指示灯"
+        },
         "count": 1,
         "interface": "GPIO",
         "pins": {
           "GPIO": [
-            { "role": "led", "gpio": 47 }
+            {
+              "role": "led",
+              "gpio": 47
+            }
           ]
         },
         "optional": false,
@@ -89,17 +120,28 @@
         }
       }
     ],
-
     "button": [
       {
-        "name": { "en": "User Buttons", "zh-CN": "用户按键" },
+        "name": {
+          "en": "User Buttons",
+          "zh-CN": "用户按键"
+        },
         "count": 3,
         "interface": "GPIO",
         "pins": {
           "GPIO": [
-            { "role": "ok", "gpio": 44 },
-            { "role": "a",  "gpio": 45 },
-            { "role": "b",  "gpio": 46 }
+            {
+              "role": "ok",
+              "gpio": 44
+            },
+            {
+              "role": "a",
+              "gpio": 45
+            },
+            {
+              "role": "b",
+              "gpio": 46
+            }
           ]
         },
         "optional": false,
@@ -110,13 +152,35 @@
         }
       }
     ]
-
   },
-
   "links": {
     "schematic": null,
     "datasheet": null,
     "productPage": null
   },
-  "tags": ["wifi", "ble", "edge-ai", "audio", "led-pixel", "imu"]
+  "tags": [
+    "wifi",
+    "ble",
+    "edge-ai",
+    "audio",
+    "led-pixel",
+    "imu"
+  ],
+  "kconfigId": "TUYA_T5AI_PIXEL",
+  "scaffold": {
+    "template": "tools/app_template/base",
+    "baseConfig": {
+      "CONFIG_PLATFORM_CHOICE": "T5AI",
+      "CONFIG_BOARD_CHOICE_TUYA_T5AI_PIXEL": "y"
+    }
+  },
+  "demos": [
+    "tuya-t5-pixel-tuya-t5-pixel-bongocat-kb",
+    "tuya-t5-pixel-tuya-t5-pixel-demo",
+    "tuya-t5-pixel-tuya-t5-pixel-mic-spectrum-meter",
+    "tuya-t5-pixel-tuya-t5-pixel-simple-shapes",
+    "tuya-t5-pixel-tuya-t5-pixel-sphere-effect",
+    "tuya-t5-pixel-tuya-t5-pixel-weather",
+    "peripherals-leds-pixel"
+  ]
 }

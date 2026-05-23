@@ -1,0 +1,37 @@
+{
+  "id": "peripherals-joystick",
+  "name": {
+    "en": "JOYSTICK",
+    "zh-CN": "JOYSTICK"
+  },
+  "summary": {
+    "en": "",
+    "zh-CN": ""
+  },
+  "tags": [
+    "example",
+    "peripheral",
+    "joystick"
+  ],
+  "compatibilityType": "board-specific",
+  "boards": [
+    "tuya-t5ai-pocket"
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen",
+    "subpath": "examples/peripherals/joystick",
+    "ref": "master"
+  },
+  "configs": {
+    "TUYA_T5AI_POCKET": {
+      "file": "config/TUYA_T5AI_POCKET.config",
+      "overrides": {}
+    }
+  },
+  "documentation": {
+    "readme": {
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/joystick/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/examples/peripherals/joystick/README_CN.md"
+    }
+  }
+}
