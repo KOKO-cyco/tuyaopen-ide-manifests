@@ -59,7 +59,6 @@ router.post('/', asyncHandler(async (req, res) => {
     summary: summary || {},
     tags: tags || [],
     image: null,
-    onboardPeripherals: null,
   };
 
   // Validate board
@@ -200,6 +199,51 @@ router.post('/:id/validate', asyncHandler(async (req, res) => {
     valid: validation.valid,
     errors: validation.errors,
   });
+}));
+
+// GET /api/boards/:id/peripherals - Get peripheral patterns for a board
+router.get('/:id/peripherals', asyncHandler(async (req, res) => {
+  const detail = await manifestLoader.loadBoardDetail(req.params.id);
+  if (!detail) {
+    return res.json({ success: true, peripheralPatterns: {} });
+  }
+  res.json({ success: true, peripheralPatterns: detail.peripheralPatterns || {} });
+}));
+
+// PATCH /api/boards/:id/peripherals - Update peripheral patterns
+router.patch('/:id/peripherals', asyncHandler(async (req, res) => {
+  const { peripheralPatterns } = req.body;
+  if (!peripheralPatterns || typeof peripheralPatterns !== 'object') {
+    return res.status(400).json({ success: false, error: 'Missing peripheralPatterns object' });
+  }
+
+  let detail = await manifestLoader.loadBoardDetail(req.params.id);
+  if (!detail) {
+    const boards = await manifestLoader.loadBoards();
+    const item = boards?.items?.find(b => b.id === req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, error: `Board "${req.params.id}" not found` });
+    }
+    detail = {
+      schemaVersion: 1,
+      id: req.params.id,
+      name: item.name,
+      summary: item.summary || {},
+      brand: item.brand || {},
+      manufacturer: item.manufacturer || {},
+      platformId: item.platformId,
+      variantId: item.variantId || item.platformId,
+    };
+  }
+
+  detail.peripheralPatterns = peripheralPatterns;
+  await manifestLoader.saveBoardDetail(req.params.id, detail);
+
+  if (req.body.autoCommit !== false) {
+    await gitSync.autoCommit(`feat(boards): update ${req.params.id} peripheral patterns`);
+  }
+
+  res.json({ success: true, peripheralPatterns, message: `Peripheral patterns updated for "${req.params.id}"` });
 }));
 
 export default router;

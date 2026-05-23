@@ -123,6 +123,44 @@ class ManifestLoader {
       throw new Error(`Failed to save boards manifest: ${error.message}`);
     }
   }
+
+  async findBoardDetailPath(boardId) {
+    const boardsDir = config.paths.boards;
+    const entries = await fs.readdir(boardsDir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
+      const candidate = path.join(boardsDir, entry.name, `${boardId}.json`);
+      try {
+        await fs.access(candidate);
+        return candidate;
+      } catch {
+        // not in this directory
+      }
+    }
+    return null;
+  }
+
+  async loadBoardDetail(boardId) {
+    const filePath = await this.findBoardDetailPath(boardId);
+    if (!filePath) return null;
+    const content = await fs.readFile(filePath, 'utf-8');
+    return JSON.parse(content);
+  }
+
+  async saveBoardDetail(boardId, data) {
+    let filePath = await this.findBoardDetailPath(boardId);
+    if (!filePath) {
+      const boards = this.cache.boards || await this.loadBoards();
+      const item = boards.items.find(b => b.id === boardId);
+      const platformId = item ? item.platformId : 'unknown';
+      const dir = path.join(config.paths.boards, platformId);
+      await fs.mkdir(dir, { recursive: true });
+      filePath = path.join(dir, `${boardId}.json`);
+    }
+    const jsonContent = JSON.stringify(data, null, 2) + '\n';
+    await fs.writeFile(filePath, jsonContent, 'utf-8');
+    return filePath;
+  }
 }
 
 export const manifestLoader = new ManifestLoader();

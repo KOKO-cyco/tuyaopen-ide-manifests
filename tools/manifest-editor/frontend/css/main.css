@@ -929,3 +929,187 @@ body {
   line-height: 1.6;
   color: var(--color-muted);
 }
+
+/* ========== Board Modal Tabs ========== */
+.board-modal-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 var(--spacing-lg);
+}
+.board-tab {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.board-tab:hover { color: var(--color-fg); }
+.board-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+.board-tab-content { display: block; }
+.board-tab-content:not(.active) { display: none; }
+
+/* ========== Peripheral Editor ========== */
+.peri-editor {
+  padding: var(--spacing-md);
+}
+.peri-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+}
+.peri-list-count {
+  font-size: 13px;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+.peri-empty {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 13px;
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+}
+.peri-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: border-color 0.12s;
+}
+.peri-card:hover { border-color: var(--color-primary); }
+.peri-card-name { font-weight: 600; font-size: 13px; color: var(--color-fg); }
+.peri-card-type-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(14, 165, 233, 0.1);
+  color: var(--color-primary);
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 6px;
+  text-transform: capitalize;
+}
+.peri-card-opt {
+  font-size: 10px;
+  background: var(--color-warning);
+  color: #fff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  font-weight: 500;
+}
+.peri-card-meta { font-size: 11px; color: var(--color-muted); margin-top: 2px; }
+.peri-card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+/* Peripheral Form */
+.peri-form {
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  background: var(--color-hover);
+}
+.peri-form-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+.peri-field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+}
+.peri-field-row {
+  margin-bottom: 0;
+}
+.peri-field-row label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-muted);
+  margin-bottom: 4px;
+}
+.peri-input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 13px;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  box-sizing: border-box;
+}
+.peri-input:focus { outline: none; border-color: var(--color-primary); }
+.peri-checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px !important;
+  cursor: pointer;
+  padding-top: 18px;
+}
+.peri-checkbox-label input[type="checkbox"] { width: auto; }
+
+/* Pin Table */
+.peri-pin-section { margin-bottom: 12px; }
+.peri-pin-section > label { font-size: 12px; font-weight: 500; color: var(--color-muted); margin-bottom: 6px; display: block; }
+.peri-pin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.peri-pin-table th {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+  color: var(--color-muted);
+  font-size: 11px;
+}
+.peri-pin-table td { padding: 3px 4px; }
+.peri-pin-table input {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+  background: var(--color-bg);
+}
+.peri-pin-table input[readonly] { background: var(--color-hover); color: var(--color-muted); }
+.peri-pin-add-btn { margin-top: 4px; }
+.peri-pin-remove-btn {
+  background: none;
+  border: none;
+  color: var(--color-error);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1;
+}
+.peri-pin-remove-btn:hover { background: rgba(239, 68, 68, 0.1); }
+
+.peri-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}

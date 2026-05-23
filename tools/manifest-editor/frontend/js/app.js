@@ -4,6 +4,7 @@ import { apiClient } from './api-client.js';
 import { formatDate, showNotification, showError, debounce, escapeHtml } from './utils.js';
 import imageUploader from './image-uploader.js';
 import { renderBoardCard, renderBoardForm, saveBoardForm, deleteBoardPrompt, setupFormValidation, initGlobalTags } from './board-editor.js';
+import { renderPeripheralEditor, isDirty as periIsDirty } from './peripheral-editor.js';
 import i18n from './i18n.js';
 
 let currentTab = 'boards';
@@ -343,6 +344,33 @@ async function openBoardForm(boardId = null) {
   // Set up inline image upload for existing boards
   if (boardId) {
     imageUploader.setupInlineUpload(boardId);
+  }
+
+  // Set up modal tabs (show only in edit mode)
+  const tabsEl = document.getElementById('boardModalTabs');
+  const infoPane = document.getElementById('boardFormContainer');
+  const periPane = document.getElementById('peripheralEditorContainer');
+  if (tabsEl && infoPane && periPane) {
+    if (boardId) {
+      tabsEl.style.display = '';
+      tabsEl.querySelectorAll('.board-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.boardTab === 'info');
+        tab.addEventListener('click', () => {
+          tabsEl.querySelectorAll('.board-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const target = tab.dataset.boardTab;
+          infoPane.style.display = target === 'info' ? '' : 'none';
+          infoPane.classList.toggle('active', target === 'info');
+          periPane.style.display = target === 'peripherals' ? '' : 'none';
+          periPane.classList.toggle('active', target === 'peripherals');
+        });
+      });
+      renderPeripheralEditor('peripheralEditorContainer', boardId);
+    } else {
+      tabsEl.style.display = 'none';
+      periPane.style.display = 'none';
+      infoPane.style.display = '';
+    }
   }
 }
 

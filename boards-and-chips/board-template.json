@@ -26,45 +26,6 @@
     "<demo-id-2>"
   ],
 
-  "onboardPeripherals": {
-    "default": [
-      {
-        "model": "<IC model or null if unknown>",
-        "name": { "en": "<peripheral display name>", "zh-CN": "<外设显示名称>" },
-        "interface": "<I2S | PDM | SPI | I2C | GPIO | ADC | ...>",
-        "pins": {
-          "<interface-type>": [
-            { "role": "<pin-role>", "gpio": "<gpio-number>" }
-          ]
-        },
-        "optional": false,
-        "kconfig": "<{ SYMBOL: value, ... } or null>",
-        "group": "<optional: kebab-case id>",
-        "role": "<optional: role within group, e.g. primary | secondary>",
-        "note": {
-          "en": "<non-obvious notes only; null if nothing special>",
-          "zh-CN": "<仅填特殊说明，无则填 null>"
-        }
-      }
-    ],
-    "expandable": [
-      {
-        "model": "<IC model or null>",
-        "name": { "en": "<peripheral display name>", "zh-CN": "<外设显示名称>" },
-        "interface": "<interface type>",
-        "pins": {},
-        "optional": true,
-        "kconfig": "<{ SYMBOL: value, ... } or null>",
-        "group": "<optional: kebab-case id>",
-        "role": "<optional: role>",
-        "note": {
-          "en": "<notes or null>",
-          "zh-CN": "<说明或 null>"
-        }
-      }
-    ]
-  },
-
   "peripheralPatterns": {
     "audio": [
       {

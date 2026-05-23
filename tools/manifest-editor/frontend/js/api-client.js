@@ -127,6 +127,15 @@ class ApiClient {
   async deleteImage(boardId, filename, autoCommit = true) {
     return this.request('DELETE', `/images/${boardId}/${filename}`, { autoCommit });
   }
+
+  // Peripheral endpoints
+  async getPeripherals(boardId) {
+    return this.request('GET', `/boards/${boardId}/peripherals`);
+  }
+
+  async updatePeripherals(boardId, data) {
+    return this.request('PATCH', `/boards/${boardId}/peripherals`, data);
+  }
 }
 
 export const apiClient = new ApiClient();
