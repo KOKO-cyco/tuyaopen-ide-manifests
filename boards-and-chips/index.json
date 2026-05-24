@@ -34,6 +34,14 @@
         "url": "images/tuya-t5ai-board/board-1779453323400.jpg"
       },
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-board.json",
+      "kconfigId": "TUYA_T5AI_BOARD",
+      "scaffold": {
+        "template": "tools/app_template/base",
+        "baseConfig": {
+          "CONFIG_BOARD_CHOICE_T5AI": "y",
+          "CONFIG_BOARD_CHOICE_TUYA_T5AI_BOARD": "y"
+        }
+      },
       "recommendedDemos": [
         "voice-assistant",
         "switch-3-iot"
@@ -68,6 +76,14 @@
       ],
       "image": null,
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-evb.json",
+      "kconfigId": "TUYA_T5AI_EVB",
+      "scaffold": {
+        "template": "tools/app_template/base",
+        "baseConfig": {
+          "CONFIG_BOARD_CHOICE_T5AI": "y",
+          "CONFIG_BOARD_CHOICE_TUYA_T5AI_EVB": "y"
+        }
+      },
       "recommendedDemos": [
         "voice-assistant"
       ]
@@ -101,6 +117,14 @@
       ],
       "image": null,
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-core.json",
+      "kconfigId": "TUYA_T5AI_CORE",
+      "scaffold": {
+        "template": "tools/app_template/base",
+        "baseConfig": {
+          "CONFIG_BOARD_CHOICE_T5AI": "y",
+          "CONFIG_BOARD_CHOICE_TUYA_T5AI_CORE": "y"
+        }
+      },
       "recommendedDemos": [
         "voice-assistant"
       ]
@@ -135,6 +159,14 @@
       ],
       "image": null,
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-pixel.json",
+      "kconfigId": "TUYA_T5AI_PIXEL",
+      "scaffold": {
+        "template": "tools/app_template/base",
+        "baseConfig": {
+          "CONFIG_BOARD_CHOICE_T5AI": "y",
+          "CONFIG_BOARD_CHOICE_TUYA_T5AI_PIXEL": "y"
+        }
+      },
       "recommendedDemos": [
         "voice-assistant"
       ]
@@ -171,6 +203,14 @@
       ],
       "image": null,
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-pocket.json",
+      "kconfigId": "TUYA_T5AI_POCKET",
+      "scaffold": {
+        "template": "tools/app_template/base",
+        "baseConfig": {
+          "CONFIG_BOARD_CHOICE_T5AI": "y",
+          "CONFIG_BOARD_CHOICE_TUYA_T5AI_POCKET": "y"
+        }
+      },
       "recommendedDemos": [
         "voice-assistant"
       ]
@@ -206,6 +246,14 @@
       ],
       "image": null,
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-eink-nfc.json",
+      "kconfigId": "TUYA_T5AI_EINK_NFC",
+      "scaffold": {
+        "template": "tools/app_template/base",
+        "baseConfig": {
+          "CONFIG_BOARD_CHOICE_T5AI": "y",
+          "CONFIG_BOARD_CHOICE_TUYA_T5AI_EINK_NFC": "y"
+        }
+      },
       "recommendedDemos": []
     },
     {
@@ -237,6 +285,14 @@
       ],
       "image": null,
       "detailUrl": "boards-and-chips/t5ai/t5ai-mini.json",
+      "kconfigId": "T5AI_MINI",
+      "scaffold": {
+        "template": "tools/app_template/base",
+        "baseConfig": {
+          "CONFIG_BOARD_CHOICE_T5AI": "y",
+          "CONFIG_BOARD_CHOICE_T5AI_MINI": "y"
+        }
+      },
       "recommendedDemos": [
         "voice-assistant"
       ]
