@@ -1252,6 +1252,34 @@ body {
   border-top: 1px solid var(--color-border);
 }
 
+.demo-card-unpublished {
+  opacity: 0.5;
+  border-left: 3px solid var(--color-danger, #e53e3e);
+}
+.demo-badge-published {
+  background: #c6f6d5;
+  color: #22543d;
+}
+.demo-badge-unpublished {
+  background: #fed7d7;
+  color: #742a2a;
+}
+
+.form-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.form-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+.form-toggle-label {
+  font-size: 13px;
+  color: var(--color-text-secondary, #666);
+}
+
 /* Demo Form */
 .demo-form .form-row {
   display: grid;

@@ -18,6 +18,11 @@ export function renderDemoCard(demo) {
   const compatLabel = demo.compatibilityType === 'universal' ? i18n.t('demoUniversal') : `${demo.boards?.length || 0} boards`;
   const compatClass = demo.compatibilityType === 'universal' ? 'demo-badge-universal' : 'demo-badge-boards';
 
+  const isPublished = demo.publish !== false;
+  const publishBadge = isPublished
+    ? '<span class="demo-badge demo-badge-published">Published</span>'
+    : '<span class="demo-badge demo-badge-unpublished">Unpublished</span>';
+
   const tagsHtml = (demo.tags || [])
     .filter(t => t !== 'app' && t !== 'example')
     .slice(0, 5)
@@ -27,10 +32,11 @@ export function renderDemoCard(demo) {
   const sourceLink = demo.source?.subpath || '';
 
   return `
-    <div class="demo-card" data-demo-id="${escapeHtml(demo.id)}">
+    <div class="demo-card${!isPublished ? ' demo-card-unpublished' : ''}" data-demo-id="${escapeHtml(demo.id)}">
       <div class="demo-card-header">
         <h3 class="demo-card-title">${escapeHtml(nameEn)}</h3>
         <div class="demo-card-badges">
+          ${publishBadge}
           <span class="demo-badge ${categoryClass}">${categoryLabel}</span>
           <span class="demo-badge ${compatClass}">${compatLabel}</span>
         </div>
@@ -60,6 +66,7 @@ export function renderDemoForm(demo = null) {
   const tags = (d.tags || []).filter(t => t !== 'app' && t !== 'example').join(', ');
   const boards = (d.boards || []).join(', ');
   const isUniversal = d.compatibilityType === 'universal';
+  const isPublished = d.publish !== false;
   const sourceRepo = d.source?.repo || 'https://github.com/tuya/TuyaOpen';
   const sourceSubpath = d.source?.subpath || '';
   const sourceRef = d.source?.ref || 'master';
@@ -74,6 +81,14 @@ export function renderDemoForm(demo = null) {
         <input type="text" id="demoId" class="form-input" value="${escapeHtml(d.id || '')}"
           ${isEdit ? 'readonly' : ''} placeholder="my-demo-name" pattern="^[a-z0-9]+(?:-[a-z0-9]+)*$" required>
         ${!isEdit ? '<small class="form-hint">Kebab-case: lowercase letters, numbers, hyphens only</small>' : ''}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Publish</label>
+        <label class="form-toggle">
+          <input type="checkbox" id="demoPublish" ${isPublished ? 'checked' : ''}>
+          <span class="form-toggle-label">${isPublished ? 'Published — visible in IDE' : 'Unpublished — hidden in IDE'}</span>
+        </label>
       </div>
 
       <div class="form-row">
@@ -222,6 +237,7 @@ export async function saveDemoForm(form, demoId = null) {
 
   const data = {
     id,
+    publish: document.getElementById('demoPublish').checked,
     name: {
       en: document.getElementById('demoNameEn').value.trim(),
       'zh-CN': document.getElementById('demoNameZh').value.trim(),

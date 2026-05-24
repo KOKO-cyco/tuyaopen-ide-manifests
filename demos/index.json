@@ -23,7 +23,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/ble/ble_central",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "ble-ble-peripher",
@@ -45,7 +46,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/ble/ble_peripher",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "e-paper-1-54inch-e-paper",
@@ -67,7 +69,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/e-Paper/1.54inch_e-Paper",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "e-paper-2-13inch-e-paper-touch",
@@ -90,7 +93,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/e-Paper/2.13inch_e-Paper_Touch",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "e-paper-4-26inch-e-paper",
@@ -112,7 +116,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/e-Paper/4.26inch_e-Paper",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "games-lvgl-games",
@@ -142,7 +147,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/games/lvgl_games",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "get-started-cxx",
@@ -164,7 +170,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/get-started/cxx",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "get-started-sample-project",
@@ -186,7 +193,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/get-started/sample_project",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "graphics-lvgl-camera",
@@ -212,7 +220,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/graphics/lvgl_camera",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "graphics-lvgl-demo",
@@ -248,7 +257,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/graphics/lvgl_demo",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "graphics-lvgl-gif",
@@ -279,7 +289,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/graphics/lvgl_gif",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "graphics-lvgl-label",
@@ -308,7 +319,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/graphics/lvgl_label",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "graphics-lvgl-simulator",
@@ -331,7 +343,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/graphics/lvgl_simulator",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "graphics-u8g2-i2c",
@@ -356,7 +369,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/graphics/u8g2_i2c",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "graphics-u8g2-spi",
@@ -381,7 +395,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/graphics/u8g2_spi",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "graphics-u8g2-tdl-disp",
@@ -407,7 +422,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/graphics/u8g2_tdl_disp",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "micropython-mpy-minimal",
@@ -431,7 +447,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/micropython/mpy_minimal",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "mimiclaw",
@@ -455,7 +472,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/mimiclaw",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "multimedia-audio-kws",
@@ -480,7 +498,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/multimedia/audio_kws",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "multimedia-audio-player-music",
@@ -505,7 +524,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/multimedia/audio_player/music",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "multimedia-audio-player-tts",
@@ -530,7 +550,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/multimedia/audio_player/tts",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "multimedia-audio-recorder-output-sdcard",
@@ -556,7 +577,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/multimedia/audio_recorder/output_sdcard",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "multimedia-audio-vad",
@@ -581,7 +603,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/multimedia/audio_vad",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-adc",
@@ -603,7 +626,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/adc",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-audio-codecs",
@@ -630,7 +654,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/audio_codecs",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-button",
@@ -659,7 +684,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/button",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-camera-output-display",
@@ -688,7 +714,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/camera/output_display",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-camera-output-sdcard",
@@ -715,7 +742,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/camera/output_sdcard",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-display-fill-color",
@@ -745,7 +773,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/display/fill_color",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-display-picture",
@@ -775,7 +804,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/display/picture",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-encoder",
@@ -798,7 +828,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/encoder",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-flash",
@@ -821,7 +852,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/flash",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-gpio",
@@ -844,7 +876,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/gpio",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-i2c-i2c-scan",
@@ -867,7 +900,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/i2c/i2c_scan",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-i2c-sht3x-4x-sensor",
@@ -890,7 +924,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/i2c/sht3x_4x_sensor",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-imu-bmi270",
@@ -913,7 +948,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/imu/bmi270",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-ir",
@@ -938,7 +974,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/ir",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-joystick",
@@ -963,7 +1000,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/joystick",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-led",
@@ -992,7 +1030,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/led",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-leds-pixel",
@@ -1018,7 +1057,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/leds-pixel",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-pwm",
@@ -1041,7 +1081,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/pwm",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-sd",
@@ -1067,7 +1108,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/sd",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-spi",
@@ -1090,7 +1132,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/spi",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-timer",
@@ -1113,7 +1156,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/timer",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-touch",
@@ -1136,7 +1180,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/touch",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-tp",
@@ -1160,7 +1205,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/tp",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-uart",
@@ -1183,7 +1229,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/uart",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "peripherals-watchdog",
@@ -1206,7 +1253,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/peripherals/watchdog",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "protocols-http-client",
@@ -1228,7 +1276,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/protocols/http_client",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "protocols-https-client",
@@ -1250,7 +1299,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/protocols/https_client",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "protocols-mqtt-client",
@@ -1272,7 +1322,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/protocols/mqtt_client",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "protocols-tcp-client",
@@ -1294,7 +1345,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/protocols/tcp_client",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "protocols-tcp-server",
@@ -1316,7 +1368,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/protocols/tcp_server",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "system-os-event",
@@ -1338,7 +1391,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/system/os_event",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "system-os-kv",
@@ -1360,7 +1414,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/system/os_kv",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "system-os-mutex",
@@ -1382,7 +1437,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/system/os_mutex",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "system-os-queue",
@@ -1404,7 +1460,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/system/os_queue",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "system-os-semaphore",
@@ -1426,7 +1483,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/system/os_semaphore",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "system-os-sw-timer",
@@ -1449,7 +1507,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/system/os_sw_timer",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "system-os-thread",
@@ -1471,7 +1530,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/system/os_thread",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tflite-tflite-helloworld",
@@ -1493,7 +1553,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/tflite/tflite-helloworld",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-ai-ai-components",
@@ -1515,7 +1576,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya.ai/ai_components",
         "ref": "master"
-      }
+      },
+      "publish": false
     },
     {
       "id": "tuya-ai-duo-eye-mood",
@@ -1540,7 +1602,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya.ai/duo_eye_mood",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-ai-your-chat-bot",
@@ -1580,7 +1643,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya.ai/your_chat_bot",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-ai-your-desk-emoji",
@@ -1604,7 +1668,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya.ai/your_desk_emoji",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-ai-your-otto-robot",
@@ -1633,7 +1698,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya.ai/your_otto_robot",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-ai-your-robot-dog",
@@ -1658,7 +1724,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya.ai/your_robot_dog",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-ai-your-serial-chat-bot",
@@ -1685,7 +1752,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya.ai/your_serial_chat_bot",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-cloud-camera-demo",
@@ -1710,7 +1778,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_cloud/camera_demo",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-cloud-switch-demo",
@@ -1733,7 +1802,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_cloud/switch_demo",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-cloud-weather-get-demo",
@@ -1755,7 +1825,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_cloud/weather_get_demo",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-bongocat-kb",
@@ -1780,7 +1851,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_bongocat_kb",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-demo",
@@ -1805,7 +1877,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_demo",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-mic-spectrum-meter",
@@ -1830,7 +1903,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_mic_spectrum_meter",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-simple-shapes",
@@ -1855,7 +1929,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_simple_shapes",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-sphere-effect",
@@ -1880,7 +1955,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_sphere_effect",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-weather",
@@ -1905,7 +1981,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_weather",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "tuya-t5-pocket-tuya-t5-pocket-ai",
@@ -1930,7 +2007,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "apps/tuya_t5_pocket/tuya_t5_pocket_ai",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "wifi-ap",
@@ -1952,7 +2030,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/wifi/ap",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "wifi-low-power",
@@ -1974,7 +2053,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/wifi/low_power",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "wifi-scan",
@@ -1996,7 +2076,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/wifi/scan",
         "ref": "master"
-      }
+      },
+      "publish": true
     },
     {
       "id": "wifi-sta",
@@ -2018,7 +2099,8 @@
         "repo": "https://github.com/tuya/TuyaOpen",
         "subpath": "examples/wifi/sta",
         "ref": "master"
-      }
+      },
+      "publish": true
     }
   ]
 }
