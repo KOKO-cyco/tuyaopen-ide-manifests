@@ -311,12 +311,29 @@ body {
   cursor: pointer;
   transition: var(--transition);
   box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
 }
 
 .board-card:hover {
   border-color: var(--color-primary);
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
+}
+
+.board-card-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+  background: var(--color-hover);
+}
+
+.board-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .board-card-header {
@@ -353,12 +370,27 @@ body {
   color: var(--color-muted);
   margin-bottom: var(--spacing-md);
   line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .board-card-footer {
   display: flex;
   gap: var(--spacing-sm);
   justify-content: flex-end;
+  margin-top: auto;
+}
+
+.board-card-draft {
+  font-size: var(--font-size-xs);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  margin-right: auto;
 }
 
 /* ========== Modal ========== */
@@ -673,10 +705,27 @@ body {
 
 .image-crop-footer {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
   gap: 12px;
   padding: 16px 24px;
   border-top: 1px solid var(--color-border);
+}
+
+.image-crop-fit-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: auto;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--color-fg);
+  user-select: none;
+}
+
+.image-crop-fit-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
 
 /* ========== Tag Chip Selector ========== */

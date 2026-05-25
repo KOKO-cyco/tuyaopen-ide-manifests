@@ -35,6 +35,10 @@ function createCropperModal() {
         </div>
       </div>
       <div class="image-crop-footer">
+        <label class="image-crop-fit-toggle" title="Fit entire image with white padding instead of cropping">
+          <input type="checkbox" id="cropperFitMode">
+          <span>Fit (white padding)</span>
+        </label>
         <button type="button" id="cropperCancelBtn" class="btn btn-outline">Cancel</button>
         <button type="button" id="cropperConfirmBtn" class="btn btn-primary">Crop & Upload</button>
       </div>
@@ -91,6 +95,8 @@ function openCropperModal(imageSrc, imageType, onConfirm) {
 
   // Set up confirm handler
   const confirmBtn = modal.querySelector('#cropperConfirmBtn');
+  const fitCheckbox = modal.querySelector('#cropperFitMode');
+  fitCheckbox.checked = false;
   const newConfirmBtn = confirmBtn.cloneNode(true);
   confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
   newConfirmBtn.addEventListener('click', async () => {
@@ -98,13 +104,18 @@ function openCropperModal(imageSrc, imageType, onConfirm) {
     newConfirmBtn.disabled = true;
     newConfirmBtn.textContent = 'Processing...';
     try {
-      const canvas = activeCropper.getCroppedCanvas({
-        width: spec.width,
-        height: spec.height,
-        imageSmoothingEnabled: true,
-        imageSmoothingQuality: 'high',
-      });
-      const blob = await compressToTarget(canvas, MAX_FILE_SIZE);
+      let blob;
+      if (fitCheckbox.checked) {
+        blob = await fitImageOnWhiteCanvas(img.src, spec);
+      } else {
+        const canvas = activeCropper.getCroppedCanvas({
+          width: spec.width,
+          height: spec.height,
+          imageSmoothingEnabled: true,
+          imageSmoothingQuality: 'high',
+        });
+        blob = await compressToTarget(canvas, MAX_FILE_SIZE);
+      }
       closeCropperModal();
       onConfirm(blob);
     } catch (err) {
@@ -136,6 +147,40 @@ async function compressToTarget(canvas, maxBytes) {
     quality -= 0.05;
   } while (blob.size > maxBytes && quality > 0.3);
   return blob;
+}
+
+async function fitImageOnWhiteCanvas(imageSrc, spec) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = async () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = spec.width;
+      canvas.height = spec.height;
+      const ctx = canvas.getContext('2d');
+
+      // Fill white background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, spec.width, spec.height);
+
+      // Scale image to fit within target, preserving aspect ratio
+      const scale = Math.min(spec.width / img.naturalWidth, spec.height / img.naturalHeight);
+      const drawW = img.naturalWidth * scale;
+      const drawH = img.naturalHeight * scale;
+      const offsetX = (spec.width - drawW) / 2;
+      const offsetY = (spec.height - drawH) / 2;
+
+      ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
+
+      try {
+        const blob = await compressToTarget(canvas, MAX_FILE_SIZE);
+        resolve(blob);
+      } catch (err) {
+        reject(err);
+      }
+    };
+    img.onerror = () => reject(new Error('Failed to load image for fit mode'));
+    img.src = imageSrc;
+  });
 }
 
 // --- Dimension Validation ---
