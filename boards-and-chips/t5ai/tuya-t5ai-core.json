@@ -95,9 +95,12 @@
     ]
   },
   "links": {
-    "schematic": null,
+    "schematic": "https://www.tuyaopen.ai/zh/assets/files/T5AI-Core_V101-SCH-a69f7b5a91b4bf21a39bdb7c17812373.pdf",
     "datasheet": null,
-    "productPage": null
+    "productPage": {
+      "en": "",
+      "zh-CN": "https://e.tb.cn/h.R2qapnn6SYUlKya?tk=2Ll65ucyTCW"
+    }
   },
   "tags": [
     "wifi",

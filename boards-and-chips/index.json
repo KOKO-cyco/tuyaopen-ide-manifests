@@ -89,7 +89,8 @@
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-core.json",
       "recommendedDemos": [
         "voice-assistant"
-      ]
+      ],
+      "published": true
     },
     {
       "id": "tuya-t5ai-pixel",
