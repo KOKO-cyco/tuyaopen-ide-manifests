@@ -103,7 +103,7 @@
       "platformId": "t5ai",
       "summary": {
         "en": "T5AI board with WS2812B pixel LEDs, BMI270 6-axis IMU, buzzer, and multi-button layout.",
-        "zh-CN": "搭载 WS2812B 像素灯珠、BMI270 六轴 IMU、蜂鸣器和多按键的 T5AI 评估板。"
+        "zh-CN": "如果你既痴迷像素艺术的复古趣味，又想玩转 AI 语音交互，那这款Tuya-T5-Pixels 高密度紧凑像素屏绝对是你的理想项目 —— 基于 TuyaOpen 开源框架打造，搭配高性能 涂鸦T5 WIFI/蓝牙芯片模组，从硬件到软件全开源，让你轻松实现 “语音喊一声，像素动起来” 的创意场景。能与手机APP做定制化APP组件，搭配Tuya开发者平台能实现前沿的AI Agent整合。MCP AI 文生图等等能力。尺寸仅85mm x 75mm。放在左面上很合适！"
       },
       "tags": [
         "wifi",
@@ -119,7 +119,8 @@
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-pixel.json",
       "recommendedDemos": [
         "voice-assistant"
-      ]
+      ],
+      "published": true
     },
     {
       "id": "tuya-t5ai-pocket",
