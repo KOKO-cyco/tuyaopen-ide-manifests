@@ -20,8 +20,7 @@
         "wifi",
         "ble",
         "edge-ai",
-        "audio",
-        "configurable"
+        "audio"
       ],
       "image": {
         "url": "images/tuya-t5ai-board/tuya-t5ai-board.jpg"
@@ -30,7 +29,8 @@
       "recommendedDemos": [
         "voice-assistant",
         "switch-3-iot"
-      ]
+      ],
+      "published": true
     },
     {
       "id": "tuya-t5ai-evb",

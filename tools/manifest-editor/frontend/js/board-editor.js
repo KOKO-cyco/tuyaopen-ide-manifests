@@ -340,32 +340,22 @@ export function renderBoardForm(board = null) {
 
       <!-- Source: Board BSP -->
       <div class="form-group">
-        <label class="form-label">Board BSP Source / 板级BSP驱动源代码</label>
-        <div class="form-row-2col" style="margin-bottom:8px">
-          <div class="form-col-half">
-            <label class="form-label" for="sourceRepo" style="font-size:12px">Repository URL</label>
-            <input
-              type="url"
-              id="sourceRepo"
-              name="sourceRepo"
-              class="form-input url-input"
-              placeholder="https://github.com/tuya/tuyaopen.git"
-              value="${board?.source?.repo ? escapeHtml(board.source.repo) : ''}"
-              data-url-type="sourceRepo"
-            >
-            <div class="form-error" id="sourceRepoError"></div>
-          </div>
-          <div class="form-col-half">
-            <label class="form-label" for="sourceRef" style="font-size:12px">Branch / Tag</label>
-            <input
-              type="text"
-              id="sourceRef"
-              name="sourceRef"
-              class="form-input"
-              placeholder="master"
-              value="${board?.source?.ref ? escapeHtml(board.source.ref) : ''}"
-            >
-          </div>
+        <label class="form-label" style="display:inline-flex;align-items:center;gap:6px">
+          Board BSP Source / 板级BSP驱动源代码
+          <span title="此链接供用户跳转查看源代码。创建项目时，对应板级的 BSP 驱动代码会自动初始化到项目中。" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--color-border,#ddd);color:var(--color-muted,#666);font-size:11px;font-weight:700;cursor:help;">?</span>
+        </label>
+        <div style="margin-bottom:8px">
+          <label class="form-label" for="sourceRepo" style="font-size:12px">Repository URL</label>
+          <input
+            type="url"
+            id="sourceRepo"
+            name="sourceRepo"
+            class="form-input url-input"
+            placeholder="https://github.com/tuya/tuyaopen.git"
+            value="${board?.source?.repo ? escapeHtml(board.source.repo) : ''}"
+            data-url-type="sourceRepo"
+          >
+          <div class="form-error" id="sourceRepoError"></div>
         </div>
         <label class="form-label" for="sourceSubpath" style="font-size:12px">Subpath within repo</label>
         <input
@@ -376,7 +366,7 @@ export function renderBoardForm(board = null) {
           placeholder="platform/t5ai/boards/tuya-t5-e1"
           value="${board?.source?.subpath ? escapeHtml(board.source.subpath) : ''}"
         >
-        <small style="color: var(--color-muted);">BSP driver source in the TuyaOpen SDK repository</small>
+        <small style="color: var(--color-muted);">用户可通过此链接查看板级 BSP 驱动源代码</small>
       </div>
 
       <!-- Image Section -->
