@@ -203,7 +203,8 @@
       "detailUrl": "boards-and-chips/t5ai/t5ai-mini.json",
       "recommendedDemos": [
         "voice-assistant"
-      ]
+      ],
+      "published": true
     }
   ]
 }
