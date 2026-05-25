@@ -481,5 +481,8 @@
     "graphics-lvgl-gif",
     "peripherals-display-fill-color",
     "peripherals-display-picture"
-  ]
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen/tree/master/boards/T5AI/WAVESHARE_T5AI_TOUCH_AMOLED_1_75"
+  }
 }
