@@ -338,6 +338,47 @@ export function renderBoardForm(board = null) {
         <div class="form-error" id="threeDModelLinkError"></div>
       </div>
 
+      <!-- Source: Board BSP -->
+      <div class="form-group">
+        <label class="form-label">Board BSP Source / 板级BSP驱动源代码</label>
+        <div class="form-row-2col" style="margin-bottom:8px">
+          <div class="form-col-half">
+            <label class="form-label" for="sourceRepo" style="font-size:12px">Repository URL</label>
+            <input
+              type="url"
+              id="sourceRepo"
+              name="sourceRepo"
+              class="form-input url-input"
+              placeholder="https://github.com/tuya/tuyaopen.git"
+              value="${board?.source?.repo ? escapeHtml(board.source.repo) : ''}"
+              data-url-type="sourceRepo"
+            >
+            <div class="form-error" id="sourceRepoError"></div>
+          </div>
+          <div class="form-col-half">
+            <label class="form-label" for="sourceRef" style="font-size:12px">Branch / Tag</label>
+            <input
+              type="text"
+              id="sourceRef"
+              name="sourceRef"
+              class="form-input"
+              placeholder="master"
+              value="${board?.source?.ref ? escapeHtml(board.source.ref) : ''}"
+            >
+          </div>
+        </div>
+        <label class="form-label" for="sourceSubpath" style="font-size:12px">Subpath within repo</label>
+        <input
+          type="text"
+          id="sourceSubpath"
+          name="sourceSubpath"
+          class="form-input"
+          placeholder="platform/t5ai/boards/tuya-t5-e1"
+          value="${board?.source?.subpath ? escapeHtml(board.source.subpath) : ''}"
+        >
+        <small style="color: var(--color-muted);">BSP driver source in the TuyaOpen SDK repository</small>
+      </div>
+
       <!-- Image Section -->
       <div class="form-group">
         <label class="form-label">Board Image</label>
@@ -519,6 +560,7 @@ export async function saveBoardForm(formElement) {
     'Purchase Link (EN)': { url: purchaseLinkEn, id: 'purchaseLink' },
     'Purchase Link (ZH)': { url: purchaseLinkZh, id: 'purchaseLinkZh' },
     '3D Model Link': { url: threeDModelLink, id: 'threeDModelLink' },
+    'BSP Source Repo': { url: document.getElementById('sourceRepo')?.value?.trim(), id: 'sourceRepo' },
   };
 
   for (const [fieldName, { url }] of Object.entries(urlFields)) {
@@ -609,6 +651,16 @@ export async function saveBoardForm(formElement) {
 
   if (threeDModelLink) {
     boardData.threeDModelLink = threeDModelLink;
+  }
+
+  // Collect source (BSP repo)
+  const sourceRepo = document.getElementById('sourceRepo')?.value?.trim();
+  const sourceRef = document.getElementById('sourceRef')?.value?.trim();
+  const sourceSubpath = document.getElementById('sourceSubpath')?.value?.trim();
+  if (sourceRepo) {
+    boardData.source = { repo: sourceRepo };
+    if (sourceRef) boardData.source.ref = sourceRef;
+    if (sourceSubpath) boardData.source.subpath = sourceSubpath;
   }
 
   try {
