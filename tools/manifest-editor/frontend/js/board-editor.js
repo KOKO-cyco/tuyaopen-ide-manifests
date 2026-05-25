@@ -223,13 +223,16 @@ export function renderBoardForm(board = null) {
       <!-- Tags Selection -->
       <div class="form-group">
         <label class="form-label" for="tags">Tags / 标签</label>
-        <div id="tagsContainer" class="tags-selector">
-          <div id="selectedTags" class="tags-selected" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;"></div>
-          <select id="tags" name="tags" class="form-select" multiple style="min-height: 120px;">
-            <!-- Options populated by JavaScript -->
-          </select>
+        <div id="tagsContainer" class="tags-chip-input">
+          <div id="selectedTags" class="tags-chips"></div>
+          <div class="tags-add-wrapper">
+            <input type="text" id="tagsSearchInput" class="form-input tags-search" placeholder="Type to search tags..." autocomplete="off">
+            <div id="tagsDropdown" class="tags-dropdown" style="display: none;"></div>
+          </div>
         </div>
-        <small style="color: var(--color-muted);">Select from available tags. Tags are managed globally from tags.json registry.</small>
+        <input type="hidden" id="tags" name="tags">
+        <small style="color: var(--color-muted);">Click tags below to add, or type to filter. Click × to remove.</small>
+        <div id="tagsAvailablePool" class="tags-available-pool"></div>
       </div>
 
       <!-- Links: Schematic -->
@@ -472,7 +475,6 @@ export async function saveBoardForm(formElement) {
   const brand = document.getElementById('brand')?.value;
   const summaryEn = document.getElementById('boardSummary')?.value;
   const summaryZh = document.getElementById('boardSummaryZh')?.value;
-  const tagsStr = document.getElementById('tags')?.value;
   const schematicLink = document.getElementById('schematicLink')?.value;
   const guideDocsEn = document.getElementById('guideDocs')?.value;
   const guideDocsZh = document.getElementById('guideDocsZh')?.value;
@@ -501,9 +503,8 @@ export async function saveBoardForm(formElement) {
     }
   }
 
-  // Validate tags format
-  const tagsSelect = document.getElementById('tags');
-  const tags = Array.from(tagsSelect?.selectedOptions || []).map(opt => opt.value);
+  // Validate tags
+  const tags = getSelectedTags();
 
   if (tags.length === 0) {
     showError('Validation Error', 'Please select at least one tag');
@@ -639,22 +640,127 @@ export function setupFormValidation() {
     }
   });
 
-  // Populate tags multi-select dropdown
-  const tagsSelect = document.getElementById('tags');
-  if (tagsSelect && globalTagsList.length > 0) {
-    tagsSelect.innerHTML = globalTagsList.map(tag => `
-      <option value="${escapeHtml(tag.id)}">${escapeHtml(tag.label)}</option>
-    `).join('');
-
-    // Pre-select existing tags from board data if editing
-    const boardForm = document.getElementById('boardForm');
-    if (boardForm && boardForm.dataset.isEdit === 'true') {
-      const boardId = document.getElementById('boardId')?.value;
-      // Tags should be pre-selected by the form rendering logic
-    }
-  }
+  // Initialize chip-based tag selector
+  initTagsChipSelector();
 }
 
+// --- Chip-based Tag Selector ---
+
+let selectedTagIds = [];
+
+function initTagsChipSelector() {
+  const chipsContainer = document.getElementById('selectedTags');
+  const searchInput = document.getElementById('tagsSearchInput');
+  const dropdown = document.getElementById('tagsDropdown');
+  const pool = document.getElementById('tagsAvailablePool');
+
+  if (!chipsContainer || !searchInput || !pool) return;
+
+  selectedTagIds = [];
+
+  renderAvailablePool();
+  renderChips();
+
+  // Search input — filter dropdown
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase().trim();
+    if (!query) {
+      dropdown.style.display = 'none';
+      return;
+    }
+    const matches = globalTagsList.filter(t =>
+      !selectedTagIds.includes(t.id) &&
+      (t.id.includes(query) || t.label.toLowerCase().includes(query))
+    );
+    if (matches.length === 0) {
+      dropdown.style.display = 'none';
+      return;
+    }
+    dropdown.innerHTML = matches.map(t =>
+      `<div class="tags-dropdown-item" data-tag-id="${escapeHtml(t.id)}">${escapeHtml(t.label)}</div>`
+    ).join('');
+    dropdown.style.display = 'block';
+  });
+
+  // Click dropdown item
+  dropdown.addEventListener('click', (e) => {
+    const item = e.target.closest('.tags-dropdown-item');
+    if (!item) return;
+    addTag(item.dataset.tagId);
+    searchInput.value = '';
+    dropdown.style.display = 'none';
+  });
+
+  // Hide dropdown on blur (with delay for click)
+  searchInput.addEventListener('blur', () => {
+    setTimeout(() => { dropdown.style.display = 'none'; }, 200);
+  });
+
+  // Pool click
+  pool.addEventListener('click', (e) => {
+    const chip = e.target.closest('.tag-pool-item');
+    if (!chip) return;
+    addTag(chip.dataset.tagId);
+  });
+
+  // Chips container — remove on × click
+  chipsContainer.addEventListener('click', (e) => {
+    const removeBtn = e.target.closest('.tag-chip-remove');
+    if (!removeBtn) return;
+    const chip = removeBtn.closest('.tag-chip');
+    if (chip) removeTag(chip.dataset.tagId);
+  });
+}
+
+function addTag(tagId) {
+  if (selectedTagIds.includes(tagId)) return;
+  selectedTagIds.push(tagId);
+  renderChips();
+  renderAvailablePool();
+  syncHiddenInput();
+}
+
+function removeTag(tagId) {
+  selectedTagIds = selectedTagIds.filter(id => id !== tagId);
+  renderChips();
+  renderAvailablePool();
+  syncHiddenInput();
+}
+
+function renderChips() {
+  const container = document.getElementById('selectedTags');
+  if (!container) return;
+  container.innerHTML = selectedTagIds.map(id => {
+    const tag = globalTagsList.find(t => t.id === id);
+    const label = tag ? tag.label : id;
+    return `<span class="tag-chip" data-tag-id="${escapeHtml(id)}">${escapeHtml(label)}<button type="button" class="tag-chip-remove">&times;</button></span>`;
+  }).join('');
+}
+
+function renderAvailablePool() {
+  const pool = document.getElementById('tagsAvailablePool');
+  if (!pool) return;
+  const available = globalTagsList.filter(t => !selectedTagIds.includes(t.id));
+  pool.innerHTML = available.map(t =>
+    `<span class="tag-pool-item" data-tag-id="${escapeHtml(t.id)}">${escapeHtml(t.label)}</span>`
+  ).join('');
+}
+
+function syncHiddenInput() {
+  const hidden = document.getElementById('tags');
+  if (hidden) hidden.value = selectedTagIds.join(',');
+}
+
+export function getSelectedTags() {
+  return [...selectedTagIds];
+}
+
+export function setSelectedTags(tags) {
+  selectedTagIds = Array.isArray(tags) ? [...tags] : [];
+  renderChips();
+  renderAvailablePool();
+  syncHiddenInput();
+}
 
 export async function deleteBoardPrompt(boardId) {
   // First confirmation

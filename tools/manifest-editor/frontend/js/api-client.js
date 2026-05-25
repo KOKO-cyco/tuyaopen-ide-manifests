@@ -28,7 +28,10 @@ class ApiClient {
         } catch {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
-        throw new Error(errorData.error?.message || errorData.error || 'Request failed');
+        const detail = errorData.errors?.length
+          ? `: ${errorData.errors.map(e => typeof e === 'string' ? e : `${e.path} ${e.message}`).join('; ')}`
+          : '';
+        throw new Error((errorData.error?.message || errorData.error || 'Request failed') + detail);
       }
 
       return await response.json();

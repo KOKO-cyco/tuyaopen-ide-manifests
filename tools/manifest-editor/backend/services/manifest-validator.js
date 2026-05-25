@@ -59,22 +59,27 @@ const BOARD_SCHEMA = {
       ],
     },
     image: {
-      type: 'object',
-      properties: {
-        url: { type: 'string' },
-        alt: {
-          oneOf: [
-            { type: 'string' },
-            {
-              type: 'object',
-              properties: {
-                en: { type: 'string' },
-                'zh-CN': { type: 'string' },
-              },
+      oneOf: [
+        { type: 'null' },
+        {
+          type: 'object',
+          properties: {
+            url: { type: 'string' },
+            alt: {
+              oneOf: [
+                { type: 'string' },
+                {
+                  type: 'object',
+                  properties: {
+                    en: { type: 'string' },
+                    'zh-CN': { type: 'string' },
+                  },
+                },
+              ],
             },
-          ],
+          },
         },
-      },
+      ],
     },
     tags: { type: 'array', items: { type: 'string' } },
     purchaseLink: {
@@ -103,7 +108,7 @@ const BOARD_SCHEMA = {
     },
     schematicLink: { type: 'string' },
   },
-  required: ['schemaVersion', 'id', 'name', 'platformId'],
+  required: ['id', 'platformId'],
 };
 
 export class ManifestValidator {

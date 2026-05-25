@@ -3,7 +3,7 @@
 import { apiClient } from './api-client.js';
 import { formatDate, showNotification, showError, debounce, escapeHtml } from './utils.js';
 import imageUploader from './image-uploader.js';
-import { renderBoardCard, renderBoardForm, saveBoardForm, deleteBoardPrompt, setupFormValidation, initGlobalTags } from './board-editor.js';
+import { renderBoardCard, renderBoardForm, saveBoardForm, deleteBoardPrompt, setupFormValidation, initGlobalTags, setSelectedTags } from './board-editor.js';
 import { renderPeripheralEditor, isDirty as periIsDirty } from './peripheral-editor.js';
 import { renderDemoCard, renderDemoForm, saveDemoForm, deleteDemoAction } from './demo-editor.js';
 import i18n from './i18n.js';
@@ -339,13 +339,7 @@ async function openBoardForm(boardId = null) {
 
   // Pre-select existing tags for editing
   if (boardId && board && Array.isArray(board.tags)) {
-    const tagsSelect = document.getElementById('tags');
-    if (tagsSelect) {
-      const tagSet = new Set(board.tags);
-      Array.from(tagsSelect.options).forEach(opt => {
-        opt.selected = tagSet.has(opt.value);
-      });
-    }
+    setSelectedTags(board.tags);
   }
 
   modal.classList.remove('hidden');

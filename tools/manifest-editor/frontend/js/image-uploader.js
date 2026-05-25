@@ -249,7 +249,7 @@ async function uploadImage() {
     return;
   }
 
-  const filename = `board-${Date.now()}.jpg`;
+  const filename = `${currentBoardId}.jpg`;
   const progressDiv = document.getElementById('uploadProgress');
   const uploadZone = document.getElementById('imageUploadZone');
   const confirmBtn = document.getElementById('confirmUploadBtn');
@@ -443,8 +443,7 @@ export function setupInlineUpload(boardId, imageType = 'board') {
         // Open cropper for URL-sourced images too
         openCropperModal(url, uploadContext.imageType, async (blob) => {
           try {
-            const filename = `board-${Date.now()}.jpg`;
-            const result = await apiClient.uploadImage(uploadContext.boardId, blob, filename, true);
+            const filename = `${uploadContext.boardId}.jpg`;            const result = await apiClient.uploadImage(uploadContext.boardId, blob, filename, true);
             if (result.success) {
               showNotification('Image uploaded successfully');
               resetUrlUI(container, imageUrlInput, confirmUrlBtn, uploadContext);
@@ -556,7 +555,7 @@ async function uploadInlineImage(context, zone) {
     progress.style.display = 'block';
     confirmBtn.disabled = true;
 
-    const filename = `board-${Date.now()}.jpg`;
+    const filename = `${context.boardId}.jpg`;
     const result = await apiClient.uploadImage(context.boardId, context.selectedFile, filename, true);
 
     if (result.success) {

@@ -61,7 +61,6 @@ router.post('/', asyncHandler(async (req, res) => {
 
   // Create new board object
   const newBoard = {
-    schemaVersion: 1,
     id,
     name,
     platformId,
@@ -71,16 +70,6 @@ router.post('/', asyncHandler(async (req, res) => {
     tags: tags || [],
     image: null,
   };
-
-  // Validate board
-  const validation = validator.validateBoard(newBoard);
-  if (!validation.valid) {
-    return res.status(400).json({
-      success: false,
-      error: 'Validation failed',
-      errors: validation.errors,
-    });
-  }
 
   // Validate ID uniqueness
   const boards = await manifestLoader.loadBoards();
@@ -162,16 +151,6 @@ router.patch('/:id', asyncHandler(async (req, res) => {
     if (updates[key] !== undefined) {
       board[key] = updates[key];
     }
-  }
-
-  // Validate updated board
-  const validation = validator.validateBoard(board);
-  if (!validation.valid) {
-    return res.status(400).json({
-      success: false,
-      error: 'Validation failed',
-      errors: validation.errors,
-    });
   }
 
   // Save index
