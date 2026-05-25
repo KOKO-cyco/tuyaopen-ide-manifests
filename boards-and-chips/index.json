@@ -132,8 +132,8 @@
       "manufacturer": "Tuya",
       "platformId": "t5ai",
       "summary": {
-        "en": "Portable T5AI board with display, camera, AXP2101 PMIC, BMI270 IMU, joystick, and cellular.",
-        "zh-CN": "便携式 T5AI 板，集成显示屏、摄像头、AXP2101 电源管理、BMI270 IMU、摇杆与蜂窝模块。"
+        "en": "Tuya-T5-Pocket is a portable handheld device built on the open-source TuyaOpen framework. It supports deep integration with multimodal AI Agent and large language models, as well as audio-video multimodal large models.\nPowered by Tuya T5 Wi-Fi & Bluetooth chip module, the project features fully open-source hardware design and software code. It comes with abundant onboard sensors and powerful external expansion compatibility.\nThis compact T5 AI board integrates mono display screen, camera, AXP2101 power management unit, BMI270 IMU, joystick and cellular module.",
+        "zh-CN": "Tuya-T5-Pocket 是一款基于 TuyaOpen 开源框架打造的便携掌机。可深度接入多模态 AI-Agent LLM 大模型和音视频多模态大模型。本项目搭配涂鸦 T5 WiFi/蓝牙芯片模组，从硬件设计到软件代码完全开源，内置丰富的传感器并具备强大的外置扩展能力。.便携式 T5AI 板，集成显示屏、摄像头、AXP2101 电源管理、BMI270 IMU、摇杆与蜂窝模块。"
       },
       "tags": [
         "wifi",
@@ -151,7 +151,8 @@
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-pocket.json",
       "recommendedDemos": [
         "voice-assistant"
-      ]
+      ],
+      "published": true
     },
     {
       "id": "tuya-t5ai-eink-nfc",

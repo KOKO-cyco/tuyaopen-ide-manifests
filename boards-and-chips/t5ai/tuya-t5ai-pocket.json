@@ -317,8 +317,11 @@
     ]
   },
   "links": {
-    "schematic": null,
-    "datasheet": null,
+    "schematic": "https://oshwhub.com/tuyaopen/graffiti-t5pocket-pocket-machine",
+    "datasheet": {
+      "en": "https://oshwhub.com/tuyaopen/graffiti-t5pocket-pocket-machine",
+      "zh-CN": "https://oshwhub.com/tuyaopen/graffiti-t5pocket-pocket-machine"
+    },
     "productPage": null
   },
   "tags": [
@@ -360,5 +363,8 @@
     "peripherals-joystick",
     "peripherals-led",
     "peripherals-sd"
-  ]
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen/tree/master/boards/T5AI/TUYA_T5AI_POCKET"
+  }
 }
