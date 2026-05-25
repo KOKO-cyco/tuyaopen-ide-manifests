@@ -154,8 +154,11 @@
     ]
   },
   "links": {
-    "schematic": null,
-    "datasheet": null,
+    "schematic": "https://oshwhub.com/tuyaopen/tuya-t5-pixels",
+    "datasheet": {
+      "en": "https://oshwhub.com/tuyaopen/tuya-t5-pixels",
+      "zh-CN": "https://oshwhub.com/tuyaopen/tuya-t5-pixels"
+    },
     "productPage": null
   },
   "tags": [
@@ -182,5 +185,8 @@
     "tuya-t5-pixel-tuya-t5-pixel-sphere-effect",
     "tuya-t5-pixel-tuya-t5-pixel-weather",
     "peripherals-leds-pixel"
-  ]
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen/tree/master/boards/T5AI/TUYA_T5AI_PIXEL"
+  }
 }
