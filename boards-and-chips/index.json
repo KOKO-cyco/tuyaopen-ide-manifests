@@ -171,14 +171,8 @@
         "en": "Tuya T5AI Pocket",
         "zh-CN": "涂鸦 T5AI Pocket 板"
       },
-      "brand": {
-        "en": "Tuya",
-        "zh-CN": "涂鸦智能"
-      },
-      "manufacturer": {
-        "en": "Tuya",
-        "zh-CN": "涂鸦智能"
-      },
+      "brand": "Tuya",
+      "manufacturer": "Tuya",
       "platformId": "t5ai",
       "variantId": "t5ai",
       "summary": {
