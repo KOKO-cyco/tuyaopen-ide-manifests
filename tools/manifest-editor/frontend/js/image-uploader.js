@@ -30,8 +30,11 @@ function createCropperModal() {
         <span class="image-crop-recommendation"></span>
       </div>
       <div class="image-crop-body">
-        <div class="image-crop-canvas">
+        <div class="image-crop-canvas" id="cropperCropView">
           <img id="cropperImage" alt="Crop preview">
+        </div>
+        <div class="image-crop-fit-preview hidden" id="cropperFitView">
+          <canvas id="cropperFitCanvas"></canvas>
         </div>
       </div>
       <div class="image-crop-footer">
@@ -64,16 +67,44 @@ function openCropperModal(imageSrc, imageType, onConfirm) {
   const modal = document.getElementById('cropperModal');
   const img = modal.querySelector('#cropperImage');
   const recommendation = modal.querySelector('.image-crop-recommendation');
+  const cropView = modal.querySelector('#cropperCropView');
+  const fitView = modal.querySelector('#cropperFitView');
+  const fitCanvas = modal.querySelector('#cropperFitCanvas');
   const spec = IMAGE_SPECS[imageType] || IMAGE_SPECS.board;
 
   recommendation.textContent = `Recommended: ${spec.label}. Must be at least ${MIN_DIMENSION}px.`;
 
   img.src = imageSrc;
   modal.classList.remove('hidden');
+  cropView.classList.remove('hidden');
+  fitView.classList.add('hidden');
 
   if (activeCropper) {
     activeCropper.destroy();
     activeCropper = null;
+  }
+
+  // Render fit preview on the canvas
+  function renderFitPreview() {
+    const previewImg = new Image();
+    previewImg.onload = () => {
+      const displaySize = 400;
+      const canvasW = spec.aspectRatio >= 1 ? displaySize : displaySize * spec.aspectRatio;
+      const canvasH = spec.aspectRatio >= 1 ? displaySize / spec.aspectRatio : displaySize;
+      fitCanvas.width = canvasW;
+      fitCanvas.height = canvasH;
+      const ctx = fitCanvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvasW, canvasH);
+
+      const scale = Math.min(canvasW / previewImg.naturalWidth, canvasH / previewImg.naturalHeight);
+      const drawW = previewImg.naturalWidth * scale;
+      const drawH = previewImg.naturalHeight * scale;
+      const offsetX = (canvasW - drawW) / 2;
+      const offsetY = (canvasH - drawH) / 2;
+      ctx.drawImage(previewImg, offsetX, offsetY, drawW, drawH);
+    };
+    previewImg.src = imageSrc;
   }
 
   // Wait for image to load before initializing cropper
@@ -93,10 +124,24 @@ function openCropperModal(imageSrc, imageType, onConfirm) {
     });
   };
 
-  // Set up confirm handler
-  const confirmBtn = modal.querySelector('#cropperConfirmBtn');
+  // Fit mode toggle
   const fitCheckbox = modal.querySelector('#cropperFitMode');
   fitCheckbox.checked = false;
+  const newFitCheckbox = fitCheckbox.cloneNode(true);
+  fitCheckbox.parentNode.replaceChild(newFitCheckbox, fitCheckbox);
+  newFitCheckbox.addEventListener('change', () => {
+    if (newFitCheckbox.checked) {
+      cropView.classList.add('hidden');
+      fitView.classList.remove('hidden');
+      renderFitPreview();
+    } else {
+      cropView.classList.remove('hidden');
+      fitView.classList.add('hidden');
+    }
+  });
+
+  // Set up confirm handler
+  const confirmBtn = modal.querySelector('#cropperConfirmBtn');
   const newConfirmBtn = confirmBtn.cloneNode(true);
   confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
   newConfirmBtn.addEventListener('click', async () => {
@@ -105,8 +150,8 @@ function openCropperModal(imageSrc, imageType, onConfirm) {
     newConfirmBtn.textContent = 'Processing...';
     try {
       let blob;
-      if (fitCheckbox.checked) {
-        blob = await fitImageOnWhiteCanvas(img.src, spec);
+      if (newFitCheckbox.checked) {
+        blob = await fitImageOnWhiteCanvas(imageSrc, spec);
       } else {
         const canvas = activeCropper.getCroppedCanvas({
           width: spec.width,

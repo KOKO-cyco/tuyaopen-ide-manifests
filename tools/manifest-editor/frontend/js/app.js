@@ -611,11 +611,20 @@ function updateGitStatusDisplay(gitStatus) {
 
   if (!statusIndicator || !statusText) return;
 
+  const hasUnpushed = gitStatus.ahead > 0;
+
   if (gitStatus.dirty) {
     statusIndicator.classList.add('dirty');
     statusIndicator.classList.remove('clean');
     const count = Array.isArray(gitStatus.uncommitted) ? gitStatus.uncommitted.length : gitStatus.uncommitted;
     statusText.textContent = `${i18n.t('dirty')} (${count} ${i18n.t('files')}) - ${i18n.t('waitingToPush')}`;
+    if (pushBtn) {
+      pushBtn.style.display = 'inline-block';
+    }
+  } else if (hasUnpushed) {
+    statusIndicator.classList.add('dirty');
+    statusIndicator.classList.remove('clean');
+    statusText.textContent = `${gitStatus.ahead} commit(s) ahead — ready to push`;
     if (pushBtn) {
       pushBtn.style.display = 'inline-block';
     }

@@ -447,9 +447,11 @@ export function renderBoardCard(board) {
   const imageUrl = board.image?.url
     ? `/api/images/${board.image.url.replace('images/', '')}`
     : null;
+  const isUnpublished = board.published === false;
 
   return `
-    <div class="board-card" data-board-id="${escapeHtml(board.id)}">
+    <div class="board-card ${isUnpublished ? 'board-card--unpublished' : ''}" data-board-id="${escapeHtml(board.id)}">
+      ${isUnpublished ? '<span class="board-card-unpublished-badge">Unpublished / 未发布</span>' : ''}
       ${imageUrl ? `<div class="board-card-image"><img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(getLocalizedString(board.name) || board.id)}"></div>` : ''}
       <div class="board-card-header">
         <div>
@@ -460,7 +462,6 @@ export function renderBoardCard(board) {
       </div>
       ${board.summary ? `<p class="board-card-summary">${escapeHtml(getLocalizedString(board.summary))}</p>` : ''}
       <div class="board-card-footer">
-        ${board.published === false ? '<span class="board-card-draft">Draft</span>' : ''}
         <button class="btn btn-sm btn-outline edit-btn" data-board-id="${escapeHtml(board.id)}">
           ✏️ Edit
         </button>
