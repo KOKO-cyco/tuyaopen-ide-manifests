@@ -173,7 +173,9 @@
         "touch",
         "battery"
       ],
-      "image": null,
+      "image": {
+        "url": "images/tuya-t5ai-eink-nfc/tuya-t5ai-eink-nfc.jpg"
+      },
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-eink-nfc.json",
       "recommendedDemos": []
     },
