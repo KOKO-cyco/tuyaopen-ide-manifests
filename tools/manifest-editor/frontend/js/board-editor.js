@@ -342,7 +342,7 @@ export function renderBoardForm(board = null) {
       <div class="form-group">
         <label class="form-label" style="display:inline-flex;align-items:center;gap:6px">
           Board BSP Source / 板级BSP驱动源代码
-          <span title="此链接供用户跳转查看源代码。创建项目时，对应板级的 BSP 驱动代码会自动初始化到项目中。" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--color-border,#ddd);color:var(--color-muted,#666);font-size:11px;font-weight:700;cursor:help;">?</span>
+          <span title="提供板级 BSP 驱动源代码链接供用户参考，与实际创建项目的代码无逻辑关联。" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--color-border,#ddd);color:var(--color-muted,#666);font-size:11px;font-weight:700;cursor:help;">?</span>
         </label>
         <div style="margin-bottom:8px">
           <label class="form-label" for="sourceRepo" style="font-size:12px">Repository URL</label>
@@ -366,7 +366,7 @@ export function renderBoardForm(board = null) {
           placeholder="platform/t5ai/boards/tuya-t5-e1"
           value="${board?.source?.subpath ? escapeHtml(board.source.subpath) : ''}"
         >
-        <small style="color: var(--color-muted);">用户可通过此链接查看板级 BSP 驱动源代码</small>
+        <small style="color: var(--color-muted);">供用户参考的 BSP 源代码链接，与项目生成逻辑无关</small>
       </div>
 
       <!-- Image Section -->
