@@ -182,6 +182,33 @@
       "published": true
     },
     {
+      "id": "tuya-t5-e1",
+      "name": {
+        "en": "Tuya T5-E1 Module",
+        "zh-CN": "涂鸦 T5-E1 模组"
+      },
+      "brand": "Tuya",
+      "manufacturer": "Tuya",
+      "platformId": "t5ai",
+      "summary": {
+        "en": "T5-E1 Wi-Fi & Bluetooth chip module. Two packages: T5-E1 (onboard antenna) and T5-E1-IPEX (IPEX connector). Start from scratch with default platform overlay.",
+        "zh-CN": "T5-E1 Wi-Fi 和蓝牙芯片模组。两种封装：T5-E1（板载天线）和 T5-E1-IPEX（IPEX 接口）。使用默认平台配置从零开始开发。"
+      },
+      "tags": [
+        "wifi",
+        "ble",
+        "edge-ai",
+        "module",
+        "chip"
+      ],
+      "image": {
+        "url": "images/tuya-t5-e1/tuya-t5-e1.jpg"
+      },
+      "detailUrl": "boards-and-chips/t5ai/tuya-t5-e1.json",
+      "recommendedDemos": [],
+      "published": true
+    },
+    {
       "id": "t5ai-mini",
       "name": {
         "en": "T5AI Mini",
