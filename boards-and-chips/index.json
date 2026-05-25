@@ -13,8 +13,8 @@
       "manufacturer": "Tuya",
       "platformId": "t5ai",
       "summary": {
-        "en": "Tuya T5AI flagship evaluation board with audio codec, LED, and configurable display/camera modules.",
-        "zh-CN": "涂鸦 T5AI 旗舰评估板，搭载音频编解码器、LED，支持可配置显示屏与摄像头模块。"
+        "en": "Tuya T5AI-Board is a voice and screen multi-interaction development board based on the T5-E1-IPEX module, which is an embedded Wi-Fi and Bluetooth combo module developed by Tuya. The board is equipped with 2 microphones and 1 speaker, supporting voice recognition and playback to enable voice interaction functionality.\n\nThrough the I/O connectors on the board, you can use an LCD display stack module to implement touchscreen and camera capture capabilities. You can also design your own LCD screen, supporting multiple interfaces including I2C, SPI, 8080, and RGB.",
+        "zh-CN": "涂鸦 T5AI-Board 是一款基于 T5-E1-IPEX 的语音和屏幕多交互开发板，T5-E1-IPEX 是涂鸦智能开发的嵌入式 Wi-Fi 和蓝牙组合模块。该开发板配备 2 个麦克风和 1 个扬声器，支持语音识别和播放，提供语音交互功能。\n\n通过开发板上的 I/O 连接器，您可以使用 LCD 显示堆叠模块来实现触摸屏和摄像头捕获功能。您还可以设计自己的 LCD 屏幕，支持多种接口，包括 I2C、SPI、8080 和 RGB 接口"
       },
       "tags": [
         "wifi",
