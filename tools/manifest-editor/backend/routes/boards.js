@@ -30,10 +30,11 @@ router.get('/:id', asyncHandler(async (req, res) => {
     });
   }
 
-  // Merge detail fields (kconfigId, scaffold, demos, peripheralPatterns, links)
+  // Merge detail fields (kconfigId, scaffold, variantId, demos, peripheralPatterns, links)
   const detail = await manifestLoader.loadBoardDetail(req.params.id);
   const merged = { ...board };
   if (detail) {
+    if (detail.variantId) merged.variantId = detail.variantId;
     if (detail.kconfigId) merged.kconfigId = detail.kconfigId;
     if (detail.scaffold) merged.scaffold = detail.scaffold;
     if (detail.demos) merged.demos = detail.demos;
@@ -69,7 +70,9 @@ router.post('/', asyncHandler(async (req, res) => {
     summary: summary || {},
     tags: tags || [],
     image: null,
+    detailUrl: `boards-and-chips/${platformId}/${id}.json`,
     published: published !== undefined ? published : true,
+    recommendedDemos: [],
   };
 
   // Validate ID uniqueness
@@ -91,6 +94,25 @@ router.post('/', asyncHandler(async (req, res) => {
 
   // Save manifest
   await manifestLoader.saveBoardsIndex(boards);
+
+  // Create initial detail file
+  const initialDetail = {
+    schemaVersion: 1,
+    id,
+    name,
+    summary: summary || {},
+    brand: brand || { en: 'Ecosystem' },
+    manufacturer: manufacturer || { en: 'Unknown' },
+    platformId,
+    variantId: platformId,
+    peripheralPatterns: {},
+    links: { schematic: null, datasheet: null, productPage: null },
+    tags: tags || [],
+    kconfigId: '',
+    scaffold: { template: 'tools/app_template/base', baseConfig: {} },
+    demos: [],
+  };
+  await manifestLoader.saveBoardDetail(id, initialDetail);
 
   // Auto-commit
   if (req.body.autoCommit !== false) {
@@ -147,7 +169,7 @@ router.patch('/:id', asyncHandler(async (req, res) => {
   }
 
   // Fields that go to the index
-  const indexFields = ['name', 'platformId', 'variantId', 'manufacturer', 'brand', 'summary', 'tags', 'image', 'published'];
+  const indexFields = ['name', 'platformId', 'manufacturer', 'brand', 'summary', 'tags', 'image', 'published'];
   for (const key of indexFields) {
     if (updates[key] !== undefined) {
       board[key] = updates[key];
@@ -157,8 +179,8 @@ router.patch('/:id', asyncHandler(async (req, res) => {
   // Save index
   await manifestLoader.saveBoardsIndex(boards);
 
-  // Fields that go to the detail file: kconfigId, scaffold, demos, peripheralPatterns, links
-  const detailFields = ['kconfigId', 'scaffold', 'demos', 'links'];
+  // Fields that go to the detail file: kconfigId, scaffold, variantId, demos, peripheralPatterns, links
+  const detailFields = ['kconfigId', 'scaffold', 'variantId', 'demos', 'links'];
   const hasDetailUpdates = detailFields.some(k => updates[k] !== undefined);
 
   if (hasDetailUpdates) {

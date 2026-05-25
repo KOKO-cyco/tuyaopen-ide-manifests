@@ -3,11 +3,11 @@
   "id": "tuya-t5ai-board",
   "name": {
     "en": "Tuya T5AI Board",
-    "zh-CN": "涂鸦 T5AI 评估板"
+    "zh-CN": "涂鸦 T5AI-Board 开发板"
   },
   "summary": {
-    "en": "Tuya T5AI general-purpose board with audio codec, LED, and button; optional display, camera, and printer expansion via Kconfig",
-    "zh-CN": "涂鸦 T5AI 通用评估板，配备音频编解码器、LED 和按键，支持可选显示屏、摄像头及打印机扩展"
+    "en": "Tuya T5AI flagship evaluation board with audio codec, LED, and configurable display/camera modules.",
+    "zh-CN": "涂鸦 T5AI 旗舰评估板，搭载音频编解码器、LED，支持可配置显示屏与摄像头模块。"
   },
   "brand": {
     "en": "Tuya",
@@ -520,7 +520,8 @@
     "wifi",
     "ble",
     "edge-ai",
-    "audio"
+    "audio",
+    "configurable"
   ],
   "kconfigId": "TUYA_T5AI_BOARD",
   "scaffold": {

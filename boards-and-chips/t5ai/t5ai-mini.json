@@ -146,7 +146,8 @@
     "wifi",
     "ble",
     "edge-ai",
-    "audio"
+    "audio",
+    "compact"
   ],
   "kconfigId": "T5AI_MINI",
   "scaffold": {
