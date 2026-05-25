@@ -74,7 +74,8 @@
       },
       "recommendedDemos": [
         "voice-assistant"
-      ]
+      ],
+      "published": false
     },
     {
       "id": "tuya-t5ai-core",
