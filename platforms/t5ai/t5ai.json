@@ -5,6 +5,7 @@
   "name": "T5AI",
   "arch": "arm-cortex-m33",
   "flashInterface": "qspi",
+  "gpioDisplayPrefix": "P",
   "connectivity": {
     "wifi": {
       "enabled": true,
@@ -540,5 +541,131 @@
       "count": 1
     }
   },
+  "power": {
+    "vdd": {"min": 3.0, "typical": 3.3, "max": 3.6, "unit": "V"},
+    "ioLevel": {"min": 3.0, "max": 3.3, "unit": "V"},
+    "deepSleepCurrent": {"typical": 14, "unit": "uA"},
+    "activeCurrent": {"wifi": 260, "ble": 35, "unit": "mA"}
+  },
+  "flashAndDebug": {
+    "flash": {
+      "interface": "UART",
+      "baudrate": {"default": 921600, "max": 2000000, "unit": "bps"},
+      "pins": {"tx": 11, "rx": 10},
+      "physicalPins": {"tx": 37, "rx": 36},
+      "autoReset": true,
+      "usbUart": {
+        "channels": 2,
+        "note": {
+          "en": "Onboard dual-channel USB-to-UART chip; Channel 1 for flashing, Channel 2 for debug log.",
+          "zh-CN": "板载双路 USB 转 UART 芯片；通道 1 用于烧录，通道 2 用于调试日志。"
+        }
+      },
+      "guide": {
+        "en": [
+          "Open the serial debug tool from the TuyaOpen IDE menu to flash manually, or instruct the coding agent (e.g. Claude Code, Cursor) to auto-flash.",
+          "The chip module uses UART protocol natively. The module itself has no USB-to-UART — use a dev board with onboard converter or an external USB-to-UART adapter.",
+          "Flashing auto-resets via the dev board's USB-UART chip (no manual reset needed).",
+          "Default baudrate 921600 bps (up to 2 Mbps)."
+        ],
+        "zh-CN": [
+          "通过 TuyaOpen IDE 菜单打开串口调试工具进行手动烧写，或直接告诉 Coding Agent（如 Claude Code、Cursor）实现自动烧写。",
+          "芯片模组本身使用 UART 协议，模组不带 USB 转 UART 芯片。可使用成品开发板上的板载转换芯片，或外接 USB 转 UART 适配器。",
+          "烧录时通过开发板 USB-UART 芯片自动复位模组（无需手动复位）。",
+          "默认波特率 921600 bps（最高支持 2 Mbps）。"
+        ]
+      }
+    },
+    "debug": {
+      "interface": "UART2",
+      "baudrate": {"default": 460800, "unit": "bps"},
+      "pins": {"tx": 0, "rx": 1},
+      "physicalPins": {"tx": 15, "rx": 12},
+      "guide": {
+        "en": [
+          "Open the serial debug tool from the TuyaOpen IDE menu to view runtime logs.",
+          "The second channel of the USB-UART chip serves as debug log output (UART1, 460800 bps).",
+          "Log port: UART1 TX = GPIO0 (pin 15), RX = GPIO1 (pin 12)."
+        ],
+        "zh-CN": [
+          "通过 TuyaOpen IDE 菜单打开串口调试工具查看运行日志。",
+          "板载 USB 转 UART 芯片的第二通道作为调试日志输出（UART1，460800 bps）。",
+          "日志端口：UART1 TX = GPIO0（管脚 15），RX = GPIO1（管脚 12）。"
+        ]
+      }
+    }
+  },
+  "pinout": [
+    {"pin": 1, "name": "GND", "gpio": null, "type": "P", "functions": ["GND"]},
+    {"pin": 2, "name": "3V3", "gpio": null, "type": "P", "functions": ["VCC_3.3V"]},
+    {"pin": 3, "name": "RST", "gpio": null, "type": "I", "functions": ["RESET (active low, internal pull-up)"]},
+    {"pin": 4, "name": "P20", "gpio": 20, "type": "I/O", "functions": ["GPIO20", "I2C0_SCL", "SWCLK", "RGB_R6", "I8080_D9", "SEG10"]},
+    {"pin": 5, "name": "P21", "gpio": 21, "type": "I/O", "functions": ["GPIO21", "I2C0_SDA", "SWDIO", "ADC6", "RGB_R5", "I8080_D8", "SEG9"]},
+    {"pin": 6, "name": "P22", "gpio": 22, "type": "I/O", "functions": ["GPIO22", "CLK26M", "ADC5", "QSPI0_SCK", "RGB_R4", "I8080_CSX", "SEG8"]},
+    {"pin": 7, "name": "P23", "gpio": 23, "type": "I/O", "functions": ["GPIO23", "ADC3", "QSPI0_CS", "RGB_R3", "I8080_RESET", "SEG7"]},
+    {"pin": 8, "name": "P24", "gpio": 24, "type": "I/O", "functions": ["GPIO24", "LPO_CLK", "PWM4", "ADC2", "QSPI0_IO0", "RGB_G7", "I8080_RSX", "SEG6"]},
+    {"pin": 9, "name": "P25", "gpio": 25, "type": "I/O", "functions": ["GPIO25", "IRDA", "ADC1", "QSPI0_IO1", "RGB_G6", "I8080_WRX", "SEG5"]},
+    {"pin": 10, "name": "P26", "gpio": 26, "type": "I/O", "functions": ["GPIO26", "QSPI0_IO2", "RGB_G5", "I8080_RDX", "SEG4"]},
+    {"pin": 11, "name": "P28", "gpio": 28, "type": "I/O", "functions": ["GPIO28", "I2S_MCLK", "ADC4", "TOUCH2", "CLK_AUXS_CIS", "SEG18"]},
+    {"pin": 12, "name": "P1", "gpio": 1, "type": "I/O", "functions": ["GPIO1", "UART1_RX", "I2C1_SDA", "SWDIO", "SC_CLK", "ADC13", "LIN_RXD"], "note": "Debug log RX (UART1)"},
+    {"pin": 13, "name": "DN", "gpio": null, "type": "I/O", "functions": ["USB_D-"]},
+    {"pin": 14, "name": "DP", "gpio": null, "type": "I/O", "functions": ["USB_D+"]},
+    {"pin": 15, "name": "P0", "gpio": 0, "type": "I/O", "functions": ["GPIO0", "UART1_TX", "I2C1_SCL", "SWCLK", "SC_IO", "ADC12", "LIN_TXD"], "note": "Debug log TX (UART1)"},
+    {"pin": 16, "name": "P9", "gpio": 9, "type": "I/O", "functions": ["GPIO9", "I2S0_DOUT", "DMIC_DAT", "32K_XI"]},
+    {"pin": 17, "name": "P8", "gpio": 8, "type": "I/O", "functions": ["GPIO8", "I2S0_DIN", "DMIC_CLK", "ADC10", "32K_XO"]},
+    {"pin": 18, "name": "P7", "gpio": 7, "type": "I/O", "functions": ["GPIO7", "I2S0_SYNC", "QSPI1_IO3"]},
+    {"pin": 19, "name": "P6", "gpio": 6, "type": "I/O", "functions": ["GPIO6", "I2S0_SCK", "QSPI1_IO2"]},
+    {"pin": 20, "name": "P5", "gpio": 5, "type": "I/O", "functions": ["GPIO5", "SPI1_MISO", "SDIO_DATA1", "COM7", "QSPI1_IO1", "SEG31"]},
+    {"pin": 21, "name": "P4", "gpio": 4, "type": "I/O", "functions": ["GPIO4", "SPI1_MOSI", "SDIO_DATA0", "COM6", "QSPI1_IO0", "SEG30"]},
+    {"pin": 22, "name": "P3", "gpio": 3, "type": "I/O", "functions": ["GPIO3", "SPI1_CSN", "SDIO_CMD", "SC_VCC", "QSPI1_CS"]},
+    {"pin": 23, "name": "P2", "gpio": 2, "type": "I/O", "functions": ["GPIO2", "SPI1_SCK", "SDIO_CLK", "SC_RSTN", "LIN_SLEEP", "QSPI1_SCK"]},
+    {"pin": 24, "name": "P12", "gpio": 12, "type": "I/O", "functions": ["GPIO12", "UART0_RTS", "TOUCH0", "ADC14"]},
+    {"pin": 25, "name": "P13", "gpio": 13, "type": "I/O", "functions": ["GPIO13", "UART0_CTS", "TOUCH1", "ADC15"]},
+    {"pin": 26, "name": "P15", "gpio": 15, "type": "I/O", "functions": ["GPIO15", "SDIO_CMD", "SPI0_CSN", "I2C1_SDA", "RGB_DISP", "I8080_D14", "SEG15"]},
+    {"pin": 27, "name": "P14", "gpio": 14, "type": "I/O", "functions": ["GPIO14", "SDIO_CLK", "SPI0_SCK", "I2C1_SCL", "RGB_DCLK", "I8080_D15", "SEG16"]},
+    {"pin": 28, "name": "P16", "gpio": 16, "type": "I/O", "functions": ["GPIO16", "SDIO_DATA0", "SPI0_MOSI", "RGB_DE", "I8080_D13", "SEG14"]},
+    {"pin": 29, "name": "P17", "gpio": 17, "type": "I/O", "functions": ["GPIO17", "SDIO_DATA1", "SPI0_MISO", "RGB_HSYNC", "I8080_D12", "SEG13"]},
+    {"pin": 30, "name": "P18", "gpio": 18, "type": "I/O", "functions": ["GPIO18", "SDIO_DATA2", "PWM0", "RGB_VSYNC", "I8080_D11", "SEG12"]},
+    {"pin": 31, "name": "P19", "gpio": 19, "type": "I/O", "functions": ["GPIO19", "SDIO_DATA3", "RGB_R7", "I8080_D10", "SEG11"]},
+    {"pin": 32, "name": "P47", "gpio": 47, "type": "I/O", "functions": ["GPIO47", "SPI0_MISO", "ENET_MDC", "TOUCH15", "RGB_B3", "I8080_D0", "COM0", "I2S2_DOUT"]},
+    {"pin": 33, "name": "P46", "gpio": 46, "type": "I/O", "functions": ["GPIO46", "CAN_STBY", "SPI0_MOSI", "ENET_PHY_INT", "TOUCH14", "RGB_B4", "I8080_D1", "COM1", "I2S2_DIN"]},
+    {"pin": 34, "name": "P45", "gpio": 45, "type": "I/O", "functions": ["GPIO45", "CAN_RX", "SPI0_CSN", "RGB_B5", "I8080_D2", "COM2", "I2S2_SYNC"]},
+    {"pin": 35, "name": "P44", "gpio": 44, "type": "I/O", "functions": ["GPIO44", "CAN_TX", "SPI0_SCK", "RGB_B6", "I8080_D3", "COM3", "I2S2_SCK"]},
+    {"pin": 36, "name": "RXD", "gpio": 10, "type": "I/O", "functions": ["GPIO10", "DL_UART_RX", "SDIO_DATA2", "CLK_AUXS_CIS", "UART0_RX"], "note": "Firmware download RX"},
+    {"pin": 37, "name": "TXD", "gpio": 11, "type": "I/O", "functions": ["GPIO11", "DL_UART_TX", "UART0_TX", "SDIO_DATA3"], "note": "Firmware download TX"},
+    {"pin": 38, "name": "P43", "gpio": 43, "type": "I/O", "functions": ["GPIO43", "I2C1_SDA", "I2S1_DOUT", "SC_VCC", "RGB_B7", "I8080_D4", "SEG0"]},
+    {"pin": 39, "name": "P42", "gpio": 42, "type": "I/O", "functions": ["GPIO42", "I2C1_SCL", "I2S1_DIN", "LIN_SLEEP", "SC_RSTN", "RGB_G2", "I8080_D5", "SEG1"]},
+    {"pin": 40, "name": "GND", "gpio": null, "type": "P", "functions": ["GND"]},
+    {"pin": 41, "name": "P27", "gpio": 27, "type": "I/O", "functions": ["GPIO27", "CIS_MCLK", "CLK_AUXS_CIS", "ENET_PHY_INT", "QSPI0_IO3", "SEG17"]},
+    {"pin": 42, "name": "P29", "gpio": 29, "type": "I/O", "functions": ["GPIO29", "CIS_PCLK", "ENET_MDC", "TOUCH3", "SEG19"]},
+    {"pin": 43, "name": "P50", "gpio": 50, "type": "I/O", "functions": ["GPIO50", "ENET_RXD1", "RGB_R0"]},
+    {"pin": 44, "name": "P49", "gpio": 49, "type": "I/O", "functions": ["GPIO49", "ENET_RXD0", "RGB_R1", "I8080_D17"]},
+    {"pin": 45, "name": "P41", "gpio": 41, "type": "I/O", "functions": ["GPIO41", "UART2_TX", "I2S1_SYNC", "LIN_TXD", "SC_IO", "RGB_G3", "I8080_D6", "SEG2"]},
+    {"pin": 46, "name": "P31", "gpio": 31, "type": "I/O", "functions": ["GPIO31", "CIS_VSYNC", "UART2_TX", "LIN_TXD", "TOUCH5", "SC_IO", "SEG21"]},
+    {"pin": 47, "name": "P30", "gpio": 30, "type": "I/O", "functions": ["GPIO30", "CIS_HSYNC", "UART2_RX", "LIN_RXD", "TOUCH4", "SC_CLK", "SEG20"]},
+    {"pin": 48, "name": "P33", "gpio": 33, "type": "I/O", "functions": ["GPIO33", "CIS_PXD1", "ENET_RXD0", "TOUCH7", "SPI0_SCK", "SEG23"]},
+    {"pin": 49, "name": "P32", "gpio": 32, "type": "I/O", "functions": ["GPIO32", "CIS_PXD0", "PWM_G1_0", "ENET_MDIO", "TOUCH6", "SC_RSTN", "SEG22"]},
+    {"pin": 50, "name": "P48", "gpio": 48, "type": "I/O", "functions": ["GPIO48", "ENET_MDIO", "RGB_R2", "I8080_D16"]},
+    {"pin": 51, "name": "P34", "gpio": 34, "type": "I/O", "functions": ["GPIO34", "CIS_PXD2", "PWM_G1_2", "ENET_RXD1", "TOUCH8", "SPI0_CSN", "SEG24"]},
+    {"pin": 52, "name": "P35", "gpio": 35, "type": "I/O", "functions": ["GPIO35", "CIS_PXD3", "ENET_RXDV", "TOUCH9", "SPI0_MOSI", "SEG25"]},
+    {"pin": 53, "name": "P53", "gpio": 53, "type": "I/O", "functions": ["GPIO53", "ENET_TXD1", "RGB_B2"]},
+    {"pin": 54, "name": "P54", "gpio": 54, "type": "I/O", "functions": ["GPIO54", "ENET_TXEN", "RGB_B1"]},
+    {"pin": 55, "name": "P55", "gpio": 55, "type": "I/O", "functions": ["GPIO55", "ENET_REF_CLK", "RGB_B0"]},
+    {"pin": 56, "name": "P36", "gpio": 36, "type": "I/O", "functions": ["GPIO36", "CIS_PXD4", "PWM_G1_4", "ENET_TXD0", "TOUCH10", "SPI0_MISO", "SEG26"]},
+    {"pin": 57, "name": "P37", "gpio": 37, "type": "I/O", "functions": ["GPIO37", "CIS_PXD5", "ENET_TXD1", "TOUCH11", "SEG27"]},
+    {"pin": 58, "name": "P52", "gpio": 52, "type": "I/O", "functions": ["GPIO52", "ENET_TXD0", "RGB_G0"]},
+    {"pin": 59, "name": "P51", "gpio": 51, "type": "I/O", "functions": ["GPIO51", "ENET_RXDV", "RGB_G1"]},
+    {"pin": 60, "name": "GND", "gpio": null, "type": "P", "functions": ["GND"]},
+    {"pin": 61, "name": "LN", "gpio": null, "type": "AO", "functions": ["Audio left channel negative output"], "note": "Speaker output"},
+    {"pin": 62, "name": "LP", "gpio": null, "type": "AO", "functions": ["Audio left channel positive output"], "note": "Speaker output"},
+    {"pin": 63, "name": "P38", "gpio": 38, "type": "I/O", "functions": ["GPIO38", "CIS_PXD6", "I2C1_SCL", "ENET_TXEN", "TOUCH12", "COM4", "SEG28"]},
+    {"pin": 64, "name": "P39", "gpio": 39, "type": "I/O", "functions": ["GPIO39", "CIS_PXD7", "I2C1_SDA", "ENET_REF_CLK", "TOUCH13", "COM5", "SEG29"]},
+    {"pin": 65, "name": "P40", "gpio": 40, "type": "I/O", "functions": ["GPIO40", "UART2_RX", "I2S1_SCK", "LIN_RXD", "SC_CLK", "RGB_G4", "I8080_D7", "SEG3"]},
+    {"pin": 66, "name": "MP1", "gpio": null, "type": "AI", "functions": ["Microphone 1 positive input (MIC1_P)"], "note": "MIC input"},
+    {"pin": 67, "name": "MN1", "gpio": null, "type": "AI", "functions": ["Microphone 1 negative input (MIC1_N)"], "note": "MIC input"},
+    {"pin": 68, "name": "MN2", "gpio": null, "type": "AI", "functions": ["Microphone 2 negative input (MIC2_N)"], "note": "Speaker AEC reference"},
+    {"pin": 69, "name": "MP2", "gpio": null, "type": "AI", "functions": ["Microphone 2 positive input (MIC2_P)"], "note": "Speaker AEC reference"},
+    {"pin": 70, "name": "MBS", "gpio": null, "type": "AO", "functions": ["Microphone bias output (MICBIAS)"]}
+  ],
   "kconfig": {"PLATFORM_CHOICE": "T5AI"}
 }
