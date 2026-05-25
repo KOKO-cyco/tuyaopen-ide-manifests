@@ -342,13 +342,6 @@ export function renderBoardForm(board = null) {
                 <p class="image-recommendation">Recommended: 500×500 (1:1 square). Must be at least 500px.</p>
                 <input type="file" id="boardImageInput" style="display: none;" accept="image/*" data-board-id="${escapeHtml(board.id)}">
               </div>
-              <div id="imagePreview" class="image-preview" style="display: none;">
-                <img id="previewImage" alt="Preview">
-                <div class="preview-actions">
-                  <button type="button" id="confirmUploadBtn" class="btn btn-primary">Confirm Upload</button>
-                  <button type="button" id="cancelUploadBtn" class="btn btn-outline">Cancel</button>
-                </div>
-              </div>
               <div id="uploadProgress" class="upload-progress" style="display: none;">
                 <div class="progress-bar"></div>
                 <p id="uploadStatus">Uploading...</p>

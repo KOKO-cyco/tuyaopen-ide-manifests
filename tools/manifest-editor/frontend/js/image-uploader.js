@@ -310,8 +310,6 @@ export function setupInlineUpload(boardId, imageType = 'board') {
 
   const zone = container.querySelector('.image-upload-zone');
   const input = container.querySelector('input[type="file"]');
-  const confirmBtn = container.querySelector('#confirmUploadBtn');
-  const cancelBtn = container.querySelector('#cancelUploadBtn');
 
   const imageUrlInput = container.querySelector('#imageUrl');
   const confirmUrlBtn = container.querySelector('#confirmUrlBtn');
@@ -393,21 +391,6 @@ export function setupInlineUpload(boardId, imageType = 'board') {
       handleInlineFileSelect(e.target.files[0], uploadContext, zone);
     }
   });
-
-  // Confirm button triggers cropper flow (file is already cropped by the time it gets here)
-  if (confirmBtn) {
-    confirmBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      uploadInlineImage(uploadContext, zone);
-    });
-  }
-
-  if (cancelBtn) {
-    cancelBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      cancelInlineUpload(uploadContext, zone);
-    });
-  }
 
   // URL input handlers
   if (confirmUrlBtn) {
@@ -519,71 +502,25 @@ async function handleInlineFileSelect(file, context, zone) {
     const { img, dataUrl } = await loadImageFromFile(file);
     if (!validateImageDimensions(img)) return;
 
-    // Open cropper instead of just showing preview
+    // Open cropper — upload immediately on confirm (no second step)
     openCropperModal(dataUrl, context.imageType, async (blob) => {
-      context.selectedFile = blob;
-      showInlineFilePreview(blob, zone);
+      try {
+        const filename = `${context.boardId}.jpg`;
+        const result = await apiClient.uploadImage(context.boardId, blob, filename, true);
+        if (result.success) {
+          showNotification('Image uploaded successfully');
+          const event = new CustomEvent('imageUploaded', {
+            detail: { boardId: context.boardId, imageUrl: result.image.url },
+          });
+          window.dispatchEvent(event);
+        }
+      } catch (error) {
+        showError('Upload Failed', error.message);
+      }
     });
   } catch (err) {
     showError('Error', err.message);
   }
-}
-
-function showInlineFilePreview(blob, zone) {
-  const container = zone.closest('.image-upload-inline');
-  const preview = container.querySelector('#imagePreview');
-  const previewImg = container.querySelector('#previewImage');
-
-  const url = URL.createObjectURL(blob);
-  previewImg.src = url;
-  previewImg.onload = () => URL.revokeObjectURL(url);
-  preview.style.display = 'block';
-  zone.style.display = 'none';
-}
-
-async function uploadInlineImage(context, zone) {
-  if (!context.selectedFile || !context.boardId) {
-    showError('Error', 'No file or board selected');
-    return;
-  }
-
-  const container = zone.closest('.image-upload-inline');
-  const confirmBtn = container.querySelector('#confirmUploadBtn');
-  const progress = container.querySelector('#uploadProgress');
-
-  try {
-    progress.style.display = 'block';
-    confirmBtn.disabled = true;
-
-    const filename = `${context.boardId}.jpg`;
-    const result = await apiClient.uploadImage(context.boardId, context.selectedFile, filename, true);
-
-    if (result.success) {
-      showNotification('Image uploaded successfully');
-      cancelInlineUpload(context, zone);
-
-      const event = new CustomEvent('imageUploaded', {
-        detail: { boardId: context.boardId, imageUrl: result.image.url },
-      });
-      window.dispatchEvent(event);
-    }
-  } catch (error) {
-    showError('Upload Failed', error.message);
-  } finally {
-    progress.style.display = 'none';
-    confirmBtn.disabled = false;
-  }
-}
-
-function cancelInlineUpload(context, zone) {
-  const container = zone.closest('.image-upload-inline');
-  const preview = container.querySelector('#imagePreview');
-  const input = container.querySelector('input[type="file"]');
-
-  zone.style.display = 'block';
-  preview.style.display = 'none';
-  input.value = '';
-  context.selectedFile = null;
 }
 
 async function uploadUrlImage(context, sourceContainer) {
