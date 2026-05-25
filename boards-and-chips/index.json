@@ -195,7 +195,9 @@
         "pmic",
         "cellular"
       ],
-      "image": null,
+      "image": {
+        "url": "images/tuya-t5ai-pocket/tuya-t5ai-pocket.jpg"
+      },
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-pocket.json",
       "kconfigId": "TUYA_T5AI_POCKET",
       "scaffold": {
