@@ -322,6 +322,22 @@ export function renderBoardForm(board = null) {
         </div>
       </div>
 
+      <!-- Links: 3D Model -->
+      <div class="form-group">
+        <label class="form-label" for="threeDModelLink">3D Model Link (HTTPS) / 3D 模型链接</label>
+        <input
+          type="url"
+          id="threeDModelLink"
+          name="threeDModelLink"
+          class="form-input url-input"
+          placeholder="https://..."
+          value="${board ? escapeHtml(board.threeDModelLink || '') : ''}"
+          data-url-type="threeDModelLink"
+        >
+        <small style="color: var(--color-muted);">Link to 3D model file (STEP/ZIP)</small>
+        <div class="form-error" id="threeDModelLinkError"></div>
+      </div>
+
       <!-- Image Section -->
       <div class="form-group">
         <label class="form-label">Board Image</label>
@@ -487,6 +503,7 @@ export async function saveBoardForm(formElement) {
   const guideDocsZh = document.getElementById('guideDocsZh')?.value;
   const purchaseLinkEn = document.getElementById('purchaseLink')?.value;
   const purchaseLinkZh = document.getElementById('purchaseLinkZh')?.value;
+  const threeDModelLink = document.getElementById('threeDModelLink')?.value;
 
   // Validate required fields
   if (!boardId || !nameEn || !platformId) {
@@ -501,6 +518,7 @@ export async function saveBoardForm(formElement) {
     'Guide Docs (ZH)': { url: guideDocsZh, id: 'guideDocsZh' },
     'Purchase Link (EN)': { url: purchaseLinkEn, id: 'purchaseLink' },
     'Purchase Link (ZH)': { url: purchaseLinkZh, id: 'purchaseLinkZh' },
+    '3D Model Link': { url: threeDModelLink, id: 'threeDModelLink' },
   };
 
   for (const [fieldName, { url }] of Object.entries(urlFields)) {
@@ -587,6 +605,10 @@ export async function saveBoardForm(formElement) {
     if (purchaseLinkZh) {
       boardData.purchaseLink['zh-CN'] = purchaseLinkZh;
     }
+  }
+
+  if (threeDModelLink) {
+    boardData.threeDModelLink = threeDModelLink;
   }
 
   try {

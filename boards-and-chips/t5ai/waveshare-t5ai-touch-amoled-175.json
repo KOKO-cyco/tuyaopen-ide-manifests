@@ -6,8 +6,8 @@
     "zh-CN": "微雪 T5AI 1.75 寸触摸 AMOLED"
   },
   "summary": {
-    "en": "Waveshare 1.75-inch Touch AMOLED board based on T5AI with audio AEC, capacitive touch, and LVGL support.",
-    "zh-CN": "基于 T5AI 的微雪 1.75 寸触摸 AMOLED 开发板，支持音频 AEC、电容触控与 LVGL。"
+    "en": "Waveshare 1.75-inch 466×466 Touch AMOLED board based on T5-E1 module with CO5300 display driver, CST9217 capacitive touch, QMI8658 6-axis IMU, PCF85063 RTC, audio AEC with speaker output, battery management, Micro SD slot, and LVGL support.",
+    "zh-CN": "基于 T5-E1 模组的微雪 1.75 寸 466×466 触摸 AMOLED 开发板，搭载 CO5300 显示驱动、CST9217 电容触控、QMI8658 六轴 IMU、PCF85063 实时时钟、音频 AEC 及扬声器输出、电池管理、Micro SD 卡槽，支持 LVGL。"
   },
   "brand": {
     "en": "Waveshare",
@@ -32,27 +32,91 @@
         "optional": false,
         "kconfig": null,
         "note": {
-          "en": "AEC enabled by default.",
-          "zh-CN": "默认启用 AEC。"
+          "en": "AEC enabled. 2 audio ADCs (mic), 1 DAC. Speaker via MX1.25 connector (8Ω 1W/2W).",
+          "zh-CN": "已启用 AEC。2 路音频 ADC（麦克风），1 路 DAC。扬声器通过 MX1.25 接口（8Ω 1W/2W）。"
         }
       }
     ],
     "display": [
       {
-        "model": "AMOLED",
+        "model": "CO5300",
         "name": {
-          "en": "1.75-inch Touch AMOLED",
-          "zh-CN": "1.75 寸触摸 AMOLED 屏"
+          "en": "1.75-inch AMOLED Display",
+          "zh-CN": "1.75 寸 AMOLED 屏"
         },
-        "resolution": null,
-        "interface": "SPI",
+        "resolution": "466x466",
+        "interface": "QSPI",
         "pins": {},
         "optional": false,
         "kconfig": null,
         "note": {
-          "en": "LVGL supported. Capacitive touch panel integrated.",
-          "zh-CN": "支持 LVGL。集成电容触控面板。"
+          "en": "16.7M colors. LVGL supported with dual display buffer.",
+          "zh-CN": "1670 万色。支持 LVGL 双显示缓冲。"
         }
+      }
+    ],
+    "touchpad": [
+      {
+        "model": "CST9217",
+        "name": {
+          "en": "Capacitive Touch",
+          "zh-CN": "电容触控"
+        },
+        "interface": "I2C",
+        "pins": {},
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "Tempered glass with self-capacitance design. I2C 10kHz–400kHz.",
+          "zh-CN": "钢化玻璃自电容设计。I2C 10kHz–400kHz。"
+        }
+      }
+    ],
+    "imu": [
+      {
+        "model": "QMI8658",
+        "name": {
+          "en": "6-Axis IMU",
+          "zh-CN": "六轴 IMU"
+        },
+        "axes": 6,
+        "interface": "I2C",
+        "pins": {},
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "3-axis accelerometer + 3-axis gyroscope.",
+          "zh-CN": "三轴加速度计 + 三轴陀螺仪。"
+        }
+      }
+    ],
+    "rtc": [
+      {
+        "model": "PCF85063",
+        "name": {
+          "en": "Real-Time Clock",
+          "zh-CN": "实时时钟"
+        },
+        "interface": "I2C",
+        "pins": {},
+        "optional": false,
+        "kconfig": null,
+        "note": null
+      }
+    ],
+    "led": [
+      {
+        "model": null,
+        "name": {
+          "en": "Indicator LED",
+          "zh-CN": "指示灯"
+        },
+        "count": 1,
+        "interface": "GPIO",
+        "pins": {},
+        "optional": false,
+        "kconfig": null,
+        "note": null
       }
     ],
     "button": [
@@ -66,14 +130,24 @@
         "pins": {},
         "optional": false,
         "kconfig": null,
-        "note": null
+        "note": {
+          "en": "PWR (power) and KEY (user) buttons. Separate reset button also present.",
+          "zh-CN": "PWR（电源）和 KEY（用户）按键。另有独立复位按键。"
+        }
       }
     ]
   },
   "links": {
-    "schematic": null,
-    "datasheet": null,
-    "productPage": null
+    "schematic": "https://www.waveshare.net/w/upload/b/b1/T5-E1-Touch-AMOLED-1.75_schematic.pdf",
+    "3dModel": "https://www.waveshare.net/w/upload/6/66/T5-E1-Touch-AMOLED-1.75-3D.zip",
+    "datasheet": {
+      "en": "https://www.waveshare.com/wiki/T5-E1-Touch-AMOLED-1.75",
+      "zh-CN": "https://www.waveshare.com/wiki/T5-E1-Touch-AMOLED-1.75"
+    },
+    "productPage": {
+      "en": "https://www.waveshare.com/t5-e1-touch-amoled-1.75.htm",
+      "zh-CN": "https://www.waveshare.net/shop/T5-E1-Touch-AMOLED-1.75.htm"
+    }
   },
   "tags": [
     "wifi",
@@ -82,7 +156,11 @@
     "audio",
     "display",
     "touch",
-    "amoled"
+    "amoled",
+    "imu",
+    "rtc",
+    "battery",
+    "sd-card"
   ],
   "kconfigId": "WAVESHARE_T5AI_TOUCH_AMOLED_1_75",
   "scaffold": {

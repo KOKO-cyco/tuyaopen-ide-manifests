@@ -219,8 +219,8 @@
       "manufacturer": "Waveshare",
       "platformId": "t5ai",
       "summary": {
-        "en": "Waveshare 1.75-inch Touch AMOLED board based on T5AI with audio AEC, capacitive touch, and LVGL support.",
-        "zh-CN": "基于 T5AI 的微雪 1.75 寸触摸 AMOLED 开发板，支持音频 AEC、电容触控与 LVGL。"
+        "en": "Waveshare 1.75\" 466×466 AMOLED board with T5-E1 module, capacitive touch, QMI8658 IMU, RTC, audio AEC, battery management, and SD card.",
+        "zh-CN": "微雪 1.75 寸 466×466 AMOLED 开发板，基于 T5-E1 模组，搭载电容触控、QMI8658 IMU、RTC、音频 AEC、电池管理与 SD 卡。"
       },
       "tags": [
         "wifi",
@@ -229,7 +229,11 @@
         "audio",
         "display",
         "touch",
-        "amoled"
+        "amoled",
+        "imu",
+        "rtc",
+        "battery",
+        "sd-card"
       ],
       "image": {
         "url": "images/waveshare-t5ai-touch-amoled-175/waveshare-t5ai-touch-amoled-175.jpg"
@@ -237,7 +241,8 @@
       "detailUrl": "boards-and-chips/t5ai/waveshare-t5ai-touch-amoled-175.json",
       "recommendedDemos": [
         "voice-assistant"
-      ]
+      ],
+      "published": true
     }
   ]
 }

@@ -40,6 +40,25 @@ router.get('/:id', asyncHandler(async (req, res) => {
     if (detail.demos) merged.demos = detail.demos;
     if (detail.links) merged.links = detail.links;
     if (detail.peripheralPatterns) merged.peripheralPatterns = detail.peripheralPatterns;
+
+    // Map links to editor field names
+    const links = detail.links || {};
+    if (links.schematic) {
+      merged.schematicLink = typeof links.schematic === 'string'
+        ? links.schematic : links.schematic.en || '';
+    }
+    if (links.datasheet) {
+      merged.guideDocs = typeof links.datasheet === 'string'
+        ? { en: links.datasheet } : links.datasheet;
+    }
+    if (links.productPage) {
+      merged.purchaseLink = typeof links.productPage === 'string'
+        ? { en: links.productPage } : links.productPage;
+    }
+    if (links['3dModel']) {
+      merged.threeDModelLink = typeof links['3dModel'] === 'string'
+        ? links['3dModel'] : links['3dModel'].en || '';
+    }
   }
 
   res.json({
@@ -181,6 +200,29 @@ router.patch('/:id', asyncHandler(async (req, res) => {
 
   // Fields that go to the detail file: kconfigId, scaffold, variantId, demos, peripheralPatterns, links
   const detailFields = ['kconfigId', 'scaffold', 'variantId', 'demos', 'links'];
+  // Map editor link fields back to nested links object (merge with existing)
+  const editorLinkFields = ['schematicLink', 'guideDocs', 'purchaseLink', 'threeDModelLink'];
+  const hasEditorLinks = editorLinkFields.some(k => updates[k] !== undefined);
+  if (hasEditorLinks) {
+    updates._mergeLinks = true;
+    if (!updates.links) updates.links = {};
+    if (updates.schematicLink !== undefined) {
+      updates.links.schematic = updates.schematicLink || null;
+      delete updates.schematicLink;
+    }
+    if (updates.guideDocs !== undefined) {
+      updates.links.datasheet = updates.guideDocs || null;
+      delete updates.guideDocs;
+    }
+    if (updates.purchaseLink !== undefined) {
+      updates.links.productPage = updates.purchaseLink || null;
+      delete updates.purchaseLink;
+    }
+    if (updates.threeDModelLink !== undefined) {
+      updates.links['3dModel'] = updates.threeDModelLink || null;
+      delete updates.threeDModelLink;
+    }
+  }
   const hasDetailUpdates = detailFields.some(k => updates[k] !== undefined);
 
   if (hasDetailUpdates) {
@@ -199,9 +241,14 @@ router.patch('/:id', asyncHandler(async (req, res) => {
     }
     for (const key of detailFields) {
       if (updates[key] !== undefined) {
-        detail[key] = updates[key];
+        if (key === 'links' && updates._mergeLinks) {
+          detail.links = { ...(detail.links || {}), ...updates.links };
+        } else {
+          detail[key] = updates[key];
+        }
       }
     }
+    delete updates._mergeLinks;
     await manifestLoader.saveBoardDetail(req.params.id, detail);
   }
 
