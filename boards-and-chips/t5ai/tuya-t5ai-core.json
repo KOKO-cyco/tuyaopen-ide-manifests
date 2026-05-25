@@ -96,10 +96,13 @@
   },
   "links": {
     "schematic": "https://www.tuyaopen.ai/zh/assets/files/T5AI-Core_V101-SCH-a69f7b5a91b4bf21a39bdb7c17812373.pdf",
-    "datasheet": null,
+    "datasheet": {
+      "en": "https://tuyaopen.ai/docs/hardware-specific/tuya-t5/t5-ai-core/overview-t5-ai-core",
+      "zh-CN": "https://tuyaopen.ai/zh/docs/hardware-specific/tuya-t5/t5-ai-core/overview-t5-ai-core"
+    },
     "productPage": {
-      "en": "",
-      "zh-CN": "https://e.tb.cn/h.R2qapnn6SYUlKya?tk=2Ll65ucyTCW"
+      "en": "https://www.amazon.com/T5AI-Core-Development-Bluetooth-Cortex-M33-Prototyping/dp/B0G25MH2NF",
+      "zh-CN": "https://item.taobao.com/item.htm?id=978338733205&skuId=6099573727303&spm=a1z10.5-c-s.w4002-24402091062.12.27525cb0xGDZuY"
     }
   },
   "tags": [
@@ -124,5 +127,8 @@
   "demos": [
     "tuya-ai-your-chat-bot",
     "tuya-ai-your-serial-chat-bot"
-  ]
+  ],
+  "source": {
+    "repo": "https://github.com/tuya/TuyaOpen/tree/master/boards/T5AI/TUYA_T5AI_CORE"
+  }
 }
