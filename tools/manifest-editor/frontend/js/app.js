@@ -314,6 +314,21 @@ async function openBoardForm(boardId = null) {
         loadBoards();
       }
     });
+
+    // Auto-save published toggle immediately for existing boards
+    const publishedCheckbox = document.getElementById('boardPublished');
+    if (publishedCheckbox && boardId) {
+      publishedCheckbox.addEventListener('change', async () => {
+        try {
+          await apiClient.updateBoard(boardId, { published: publishedCheckbox.checked, autoCommit: true });
+          showNotification(`Board "${boardId}" ${publishedCheckbox.checked ? 'published' : 'unpublished'}`);
+          loadBoards();
+        } catch (error) {
+          showError('Update Failed', error.message);
+          publishedCheckbox.checked = !publishedCheckbox.checked;
+        }
+      });
+    }
   }
 
   if (cancelBtn) {

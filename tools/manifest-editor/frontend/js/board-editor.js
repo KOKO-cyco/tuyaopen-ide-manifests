@@ -591,7 +591,7 @@ export async function saveBoardForm(formElement) {
 
   try {
     let result;
-    const isNew = !formElement.dataset.isEdit;
+    const isNew = formElement.dataset.isEdit !== 'true';
 
     if (isNew) {
       result = await apiClient.createBoard(boardData);
