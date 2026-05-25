@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "domain": "skills",
-  "publishedAt": "2026-05-20T00:00:00Z",
+  "publishedAt": "2026-05-25T00:00:00Z",
   "publishedBy": "tuya/tuyaopen-ide-manifests",
   "items": [
     {
-      "id": "tuyaopen-build",
+      "id": "tuyaopen/build",
       "order": 1,
       "name": {
         "en": "TuyaOpen Build",
@@ -28,19 +28,19 @@
         "tuyaopen.skill.build"
       ],
       "defaultEnabled": true,
-      "installPayload": "embedded/tuyaopen-build",
+      "installPayload": "embedded/tuyaopen/build",
       "related": [
-        "tuyaopen-flash-monitor",
-        "tuyaopen-project-config"
+        "tuyaopen/dev-loop",
+        "tuyaopen/project-config"
       ],
       "source": {
         "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
-        "subpath": "skills/tuyaopen-build",
+        "subpath": "skills/tuyaopen/build",
         "ref": "master"
       }
     },
     {
-      "id": "tuyaopen-project-config",
+      "id": "tuyaopen/project-config",
       "order": 6,
       "name": {
         "en": "TuyaOpen Project Config",
@@ -63,13 +63,13 @@
         "tuyaopen.skill.editProjectConfig"
       ],
       "defaultEnabled": true,
-      "installPayload": "embedded/tuyaopen-project-config",
+      "installPayload": "embedded/tuyaopen/project-config",
       "related": [
-        "tuyaopen-build"
+        "tuyaopen/build"
       ],
       "source": {
         "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
-        "subpath": "skills/tuyaopen-project-config",
+        "subpath": "skills/tuyaopen/project-config",
         "ref": "master"
       }
     },
@@ -100,8 +100,8 @@
       "defaultEnabled": true,
       "installPayload": "embedded/ecosystem-wire-cmake",
       "related": [
-        "tuyaopen-build",
-        "tuyaopen-project-config"
+        "tuyaopen/build",
+        "tuyaopen/project-config"
       ],
       "source": {
         "localPath": "skills/embedded/ecosystem-wire-cmake"
@@ -136,40 +136,41 @@
       }
     },
     {
-      "id": "agent-hardware-debug-helper-tools",
+      "id": "tuyaopen/debug-helper",
       "order": 20,
       "name": {
-        "en": "Agent Hardware Debug Tools",
-        "zh-CN": "硬件调试代理工具"
+        "en": "TuyaOpen Debug Helper",
+        "zh-CN": "TuyaOpen 调试助手"
       },
       "surface": "embedded",
       "summary": {
-        "en": "AI-friendly serial helper for TuyaOpen hardware: USB enumeration, background logging, optional UART CLI, and tos.py wrappers.",
-        "zh-CN": "面向 AI 代理的 TuyaOpen 硬件调试工具：USB 枚举、后台日志、可选 UART CLI、tos.py 命令封装。"
+        "en": "Non-blocking background serial log capture for TuyaOpen devices. Runs tos.py monitor -l in background, writes logs to <project_dir>/.target_logging/, lets agent tail or stop at any time.",
+        "zh-CN": "TuyaOpen 设备非阻塞后台串口日志捕获。后台运行 tos.py monitor -l，日志写入 <project_dir>/.target_logging/，agent 可随时读取或停止。"
+      },
+      "whenToUse": {
+        "en": "Use when the agent needs to capture device serial logs without blocking, monitor UART output during a build-flash-analyze loop, or read device logs asynchronously.",
+        "zh-CN": "当 AI 代理需要在不阻塞的情况下捕获设备串口日志、在编译-烧录-分析闭环中监控 UART 输出，或异步读取设备日志时使用。"
       },
       "tags": [
         "debug",
         "serial",
-        "usb"
+        "monitor",
+        "log"
       ],
-      "installPayload": "embedded/agent-hardware-debug-helper-tools",
+      "defaultEnabled": false,
+      "installPayload": "embedded/tuyaopen/debug-helper",
+      "related": [
+        "tuyaopen/dev-loop",
+        "tuyaopen/device-auth"
+      ],
       "source": {
         "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
-        "subpath": "skills/agent-hardware-debug-helper-tools",
+        "subpath": "skills/tuyaopen/debug-helper",
         "ref": "master"
-      },
-      "whenToUse": {
-        "en": "Use when the AI agent needs to enumerate USB serial ports, start background logging, monitor UART output, or use tos.py wrappers for TuyaOpen hardware interaction.",
-        "zh-CN": "当 AI 代理需要枚举 USB 串口、启动后台日志、监控 UART 输出，或使用 tos.py 封装与 TuyaOpen 硬件交互时使用。"
-      },
-      "defaultEnabled": false,
-      "related": [
-        "tuyaopen-flash-monitor",
-        "tuyaopen-dev-loop"
-      ]
+      }
     },
     {
-      "id": "tuyaopen-add-board",
+      "id": "tuyaopen/add-board",
       "order": 21,
       "name": {
         "en": "Add Board (BSP)",
@@ -185,24 +186,24 @@
         "board",
         "hardware"
       ],
-      "installPayload": "embedded/tuyaopen-add-board",
-      "source": {
-        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
-        "subpath": "skills/tuyaopen-add-board",
-        "ref": "master"
-      },
+      "defaultEnabled": false,
+      "installPayload": "embedded/tuyaopen/add-board",
+      "related": [
+        "tuyaopen/build",
+        "tuyaopen/project-config"
+      ],
       "whenToUse": {
         "en": "Use when the user wants to add support for a new development board or BSP (Board Support Package) to the TuyaOpen SDK — creating directories, Kconfig entries, drivers, and pin maps.",
         "zh-CN": "当用户希望为 TuyaOpen SDK 新增开发板或 BSP（板级支持包）支持时使用，包括创建目录、Kconfig 条目、驱动及引脚映射。"
       },
-      "defaultEnabled": false,
-      "related": [
-        "tuyaopen-build",
-        "tuyaopen-project-config"
-      ]
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
+        "subpath": "skills/tuyaopen/add-board",
+        "ref": "master"
+      }
     },
     {
-      "id": "tuyaopen-code-check",
+      "id": "tuyaopen/code-check",
       "order": 22,
       "name": {
         "en": "Code Check",
@@ -210,31 +211,31 @@
       },
       "surface": "embedded",
       "summary": {
-        "en": "Validate C/C++ formatting, file headers, and forbidden Chinese characters via clang-format and check_format.py.",
-        "zh-CN": "通过 clang-format 与 check_format.py 校验 C/C++ 代码格式、文件头，并禁用中文字符。"
+        "en": "Validate C/C++ formatting, file headers (@copyright required), and forbidden Chinese characters via clang-format and check_format.py.",
+        "zh-CN": "通过 clang-format 与 check_format.py 校验 C/C++ 代码格式、文件头（@copyright 必填），并禁用中文字符。"
       },
       "tags": [
         "lint",
         "format",
         "quality"
       ],
-      "installPayload": "embedded/tuyaopen-code-check",
-      "source": {
-        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
-        "subpath": "skills/tuyaopen-code-check",
-        "ref": "master"
-      },
+      "defaultEnabled": false,
+      "installPayload": "embedded/tuyaopen/code-check",
+      "related": [
+        "tuyaopen/build"
+      ],
       "whenToUse": {
         "en": "Use when the user asks to check code formatting, validate file headers, run clang-format, or verify code quality before submitting or merging.",
         "zh-CN": "当用户要求检查代码格式、校验文件头、运行 clang-format 或在提交/合并前验证代码质量时使用。"
       },
-      "defaultEnabled": false,
-      "related": [
-        "tuyaopen-build"
-      ]
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
+        "subpath": "skills/tuyaopen/code-check",
+        "ref": "master"
+      }
     },
     {
-      "id": "tuyaopen-dev-loop",
+      "id": "tuyaopen/dev-loop",
       "order": 23,
       "name": {
         "en": "Build–Flash–Monitor Loop",
@@ -250,25 +251,24 @@
         "flash",
         "workflow"
       ],
-      "installPayload": "embedded/tuyaopen-dev-loop",
-      "source": {
-        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
-        "subpath": "skills/tuyaopen-dev-loop",
-        "ref": "master"
-      },
+      "defaultEnabled": false,
+      "installPayload": "embedded/tuyaopen/dev-loop",
+      "related": [
+        "tuyaopen/build",
+        "tuyaopen/debug-helper"
+      ],
       "whenToUse": {
         "en": "Use when the user wants a full automated build–flash–monitor cycle, log analysis, or error-pattern matching on a TuyaOpen device.",
         "zh-CN": "当用户希望执行完整的自动化编译—烧录—监控闭环、分析设备日志或匹配错误模式时使用。"
       },
-      "defaultEnabled": false,
-      "related": [
-        "tuyaopen-build",
-        "tuyaopen-flash-monitor",
-        "agent-hardware-debug-helper-tools"
-      ]
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
+        "subpath": "skills/tuyaopen/dev-loop",
+        "ref": "master"
+      }
     },
     {
-      "id": "tuyaopen-device-auth",
+      "id": "tuyaopen/device-auth",
       "order": 24,
       "name": {
         "en": "Device Authorization",
@@ -276,32 +276,32 @@
       },
       "surface": "embedded",
       "summary": {
-        "en": "Configure UUID / AuthKey / PID and network provisioning for TuyaOpen devices.",
-        "zh-CN": "配置 TuyaOpen 设备的 UUID / AuthKey / PID 与网络配网信息。"
+        "en": "Write UUID/AuthKey/PID to TuyaOpen devices — via tuya_config.h (source code) or serial KV flash (UART shell). Obtain authorization codes from platform.tuya.com.",
+        "zh-CN": "向 TuyaOpen 设备写入 UUID/AuthKey/PID，支持源码（tuya_config.h）和串口 KV flash（UART shell）两种方式。从 platform.tuya.com 获取授权码。"
       },
       "tags": [
         "provision",
         "auth",
         "uuid"
       ],
-      "installPayload": "embedded/tuyaopen-device-auth",
-      "source": {
-        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
-        "subpath": "skills/tuyaopen-device-auth",
-        "ref": "master"
-      },
+      "defaultEnabled": false,
+      "installPayload": "embedded/tuyaopen/device-auth",
+      "related": [
+        "tuyaopen/dev-loop",
+        "tuyaopen/project-config"
+      ],
       "whenToUse": {
         "en": "Use when the user mentions device authorization, UUID, AuthKey, PID configuration, network provisioning, device pairing, or cloud connection setup.",
         "zh-CN": "当用户提到设备授权、UUID、AuthKey、PID 配置、网络配网、设备配对或云连接设置时使用。"
       },
-      "defaultEnabled": false,
-      "related": [
-        "tuyaopen-flash-monitor",
-        "tuyaopen-project-config"
-      ]
+      "source": {
+        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
+        "subpath": "skills/tuyaopen/device-auth",
+        "ref": "master"
+      }
     },
     {
-      "id": "tuyaopen-env-setup",
+      "id": "tuyaopen/env-setup",
       "order": 25,
       "name": {
         "en": "Environment Setup",
@@ -309,62 +309,28 @@
       },
       "surface": "embedded",
       "summary": {
-        "en": "Install dependencies and activate the TuyaOpen development environment via export.sh.",
-        "zh-CN": "安装依赖并通过 export.sh 激活 TuyaOpen 开发环境。"
+        "en": "Install dependencies and activate the TuyaOpen development environment via export.sh / export.ps1 / export.bat. Sets OPEN_SDK_ROOT and OPEN_SDK_PYTHON.",
+        "zh-CN": "安装依赖并通过 export.sh / export.ps1 / export.bat 激活 TuyaOpen 开发环境，设置 OPEN_SDK_ROOT 和 OPEN_SDK_PYTHON。"
       },
       "tags": [
         "environment",
         "sdk",
         "deps"
       ],
-      "installPayload": "embedded/tuyaopen-env-setup",
-      "source": {
-        "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
-        "subpath": "skills/tuyaopen-env-setup",
-        "ref": "master"
-      },
-      "whenToUse": {
-        "en": "Use when the user first sets up the TuyaOpen development environment, installs dependencies, or needs to activate the SDK environment via export.sh.",
-        "zh-CN": "当用户首次搭建 TuyaOpen 开发环境、安装依赖，或需要通过 export.sh 激活 SDK 环境时使用。"
-      },
       "defaultEnabled": false,
+      "installPayload": "embedded/tuyaopen/env-setup",
       "related": [
-        "tuyaopen-build"
-      ]
-    },
-    {
-      "id": "tuyaopen-flash-monitor",
-      "order": 26,
-      "name": {
-        "en": "Flash & Monitor",
-        "zh-CN": "烧录与串口监视"
-      },
-      "surface": "embedded",
-      "summary": {
-        "en": "Flash firmware to a TuyaOpen device and stream the serial console for live logs.",
-        "zh-CN": "向 TuyaOpen 设备烧录固件，并实时查看串口日志。"
-      },
-      "tags": [
-        "flash",
-        "serial",
-        "monitor"
+        "tuyaopen/build"
       ],
-      "installPayload": "embedded/tuyaopen-flash-monitor",
+      "whenToUse": {
+        "en": "Use when the user first sets up the TuyaOpen development environment, installs dependencies, or needs to activate the SDK environment. Also use when tos.py is not found or OPEN_SDK_ROOT is not set.",
+        "zh-CN": "当用户首次搭建 TuyaOpen 开发环境、安装依赖，或需要激活 SDK 环境时使用。当 tos.py 找不到或 OPEN_SDK_ROOT 未设置时也使用。"
+      },
       "source": {
         "repo": "https://github.com/tuya/TuyaOpen-dev-skills",
-        "subpath": "skills/tuyaopen-flash-monitor",
+        "subpath": "skills/tuyaopen/env-setup",
         "ref": "master"
-      },
-      "whenToUse": {
-        "en": "Use when the user wants to flash firmware to a TuyaOpen device and view live serial logs, or when debugging device output after flashing.",
-        "zh-CN": "当用户希望向 TuyaOpen 设备烧录固件并实时查看串口日志，或在烧录后调试设备输出时使用。"
-      },
-      "defaultEnabled": false,
-      "related": [
-        "tuyaopen-build",
-        "tuyaopen-dev-loop",
-        "agent-hardware-debug-helper-tools"
-      ]
+      }
     }
   ]
 }
