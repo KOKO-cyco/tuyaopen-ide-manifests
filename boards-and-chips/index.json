@@ -220,8 +220,8 @@
       "manufacturer": "Tuya",
       "platformId": "t5ai",
       "summary": {
-        "en": "Compact T5AI board with audio AEC and optional LCD expansion module.",
-        "zh-CN": "紧凑型 T5AI 板，支持音频回声消除，可选 LCD 扩展模块。"
+        "en": "The T5-E1-Mini is a dedicated controller board for dual-mode intelligent robots, built on the open-source Otto DIY ecosystem and tailored for makers, students, and robotics enthusiasts. Equipped with the Tuya T5-E1 chip, it supports dual Wi-Fi and Bluetooth connectivity and features a lively display for expressive facial interaction. It delivers 6-channel servo control and supports one-click switching between walking mode and wheeled racing mode for flexible and versatile operation. Leveraging its mature hardware design and open-source ecosystem, it enables a wide range of creative applications, including desktop intelligent companionship, AI interaction, and real-time voice dialogue.",
+        "zh-CN": "T5-E1-Mini 是一款基于 Otto DIY 开源生态打造的双模式智能机器人专用板卡，专为创客、在校学生及机器人爱好者量身定制。设备搭载涂鸦 T5-E1 芯片，支持 Wi-Fi、蓝牙双模组连接，配备灵动可爱的显示屏表情交互设计。支持6路舵机控制。设备支持步行模式、轮式竞速模式一键自由切换，功能形态灵活多变。依托成熟的硬件配置与开源生态，可轻松实现桌面智能陪伴、AI 智能交互、实时语音对话等多元创意场景。"
       },
       "tags": [
         "wifi",

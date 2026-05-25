@@ -138,9 +138,13 @@
     ]
   },
   "links": {
-    "schematic": null,
-    "datasheet": null,
-    "productPage": null
+    "schematic": "https://oshwhub.com/robben.wang/ottorobot_ninja",
+    "datasheet": {
+      "en": "https://github.com/tuya/TuyaOpen/blob/master/apps/tuya.ai/your_otto_robot/README.md",
+      "zh-CN": "https://github.com/tuya/TuyaOpen/blob/master/apps/tuya.ai/your_otto_robot/README_zh.md"
+    },
+    "productPage": null,
+    "3dModel": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_otto_robot/src/otto_ninja/3D_Models"
   },
   "tags": [
     "wifi",
