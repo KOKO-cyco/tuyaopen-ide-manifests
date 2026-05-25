@@ -136,6 +136,40 @@
       }
     },
     {
+      "id": "tyutool/cli",
+      "order": 15,
+      "name": {
+        "en": "tyutool CLI",
+        "zh-CN": "tyutool 命令行工具"
+      },
+      "surface": "embedded",
+      "summary": {
+        "en": "Flash firmware, read flash, hardware reset (DTR/RTS), and authorize devices (UUID/AuthKey via UART) using tyutool_cli directly.",
+        "zh-CN": "直接使用 tyutool_cli 烧录固件、读取 Flash、硬件复位（DTR/RTS）、写入设备授权码（UUID/AuthKey）。"
+      },
+      "whenToUse": {
+        "en": "Use when the agent needs to flash firmware, read flash memory, hardware-reset a device, or write UUID/AuthKey credentials over UART using tyutool_cli directly.",
+        "zh-CN": "当需要直接使用 tyutool_cli 烧录固件、读取 Flash、硬件复位设备或通过 UART 写入 UUID/AuthKey 授权码时使用。"
+      },
+      "tags": [
+        "flash",
+        "tyutool",
+        "uart",
+        "authorize",
+        "reset"
+      ],
+      "defaultEnabled": false,
+      "installPayload": "embedded/tyutool_cli",
+      "related": [
+        "tuyaopen/dev-loop",
+        "tuyaopen/device-auth",
+        "tuyaopen/debug-helper"
+      ],
+      "source": {
+        "localPath": "skills/embedded/tyutool_cli"
+      }
+    },
+    {
       "id": "tuyaopen/debug-helper",
       "order": 20,
       "name": {
