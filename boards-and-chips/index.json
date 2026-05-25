@@ -107,7 +107,9 @@
         "development",
         "battery"
       ],
-      "image": null,
+      "image": {
+        "url": "images/tuya-t5ai-core/tuya-t5ai-core.jpg"
+      },
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-core.json",
       "kconfigId": "TUYA_T5AI_CORE",
       "scaffold": {
