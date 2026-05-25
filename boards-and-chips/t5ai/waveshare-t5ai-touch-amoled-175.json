@@ -28,12 +28,19 @@
           "zh-CN": "音频"
         },
         "interface": "INTERNAL",
-        "pins": {},
+        "pins": {
+          "INTERNAL": [
+            {
+              "role": "pa_ctrl",
+              "gpio": 28
+            }
+          ]
+        },
         "optional": false,
         "kconfig": null,
         "note": {
-          "en": "AEC enabled. 2 audio ADCs (mic), 1 DAC. Speaker via MX1.25 connector (8Ω 1W/2W).",
-          "zh-CN": "已启用 AEC。2 路音频 ADC（麦克风），1 路 DAC。扬声器通过 MX1.25 接口（8Ω 1W/2W）。"
+          "en": "AEC enabled. 2 audio ADCs (mic), 1 DAC. Speaker via MX1.25 connector (8Ω 1W/2W). pa_ctrl active low.",
+          "zh-CN": "已启用 AEC。2 路音频 ADC（麦克风），1 路 DAC。扬声器通过 MX1.25 接口（8Ω 1W/2W）。pa_ctrl 低有效。"
         }
       }
     ],
@@ -46,12 +53,47 @@
         },
         "resolution": "466x466",
         "interface": "QSPI",
-        "pins": {},
+        "pins": {
+          "QSPI": [
+            {
+              "role": "sck",
+              "gpio": 22
+            },
+            {
+              "role": "cs",
+              "gpio": 23
+            },
+            {
+              "role": "sio0",
+              "gpio": 24
+            },
+            {
+              "role": "sio1",
+              "gpio": 25
+            },
+            {
+              "role": "sio2",
+              "gpio": 26
+            },
+            {
+              "role": "sio3",
+              "gpio": 27
+            },
+            {
+              "role": "rst",
+              "gpio": 29
+            },
+            {
+              "role": "te",
+              "gpio": 31
+            }
+          ]
+        },
         "optional": false,
         "kconfig": null,
         "note": {
-          "en": "16.7M colors. LVGL supported with dual display buffer.",
-          "zh-CN": "1670 万色。支持 LVGL 双显示缓冲。"
+          "en": "QSPI Port 0, 80 MHz. 16.7M colors, RGB565. LVGL supported with dual display buffer. Backlight controlled via CO5300 command.",
+          "zh-CN": "QSPI 端口 0，80 MHz。1670 万色，RGB565。支持 LVGL 双显示缓冲。背光通过 CO5300 命令控制。"
         }
       }
     ],
@@ -63,12 +105,31 @@
           "zh-CN": "电容触控"
         },
         "interface": "I2C",
-        "pins": {},
+        "pins": {
+          "I2C": [
+            {
+              "role": "scl",
+              "gpio": 20
+            },
+            {
+              "role": "sda",
+              "gpio": 21
+            },
+            {
+              "role": "int",
+              "gpio": 42
+            },
+            {
+              "role": "rst",
+              "gpio": 43
+            }
+          ]
+        },
         "optional": false,
         "kconfig": null,
         "note": {
-          "en": "Tempered glass with self-capacitance design. I2C 10kHz–400kHz.",
-          "zh-CN": "钢化玻璃自电容设计。I2C 10kHz–400kHz。"
+          "en": "I2C0. Tempered glass with self-capacitance design. Mirror X/Y enabled.",
+          "zh-CN": "I2C0。钢化玻璃自电容设计。X/Y 轴镜像已启用。"
         }
       }
     ],
@@ -81,12 +142,31 @@
         },
         "axes": 6,
         "interface": "I2C",
-        "pins": {},
+        "pins": {
+          "I2C": [
+            {
+              "role": "scl",
+              "gpio": 20
+            },
+            {
+              "role": "sda",
+              "gpio": 21
+            },
+            {
+              "role": "int1",
+              "gpio": 7
+            },
+            {
+              "role": "int2",
+              "gpio": 9
+            }
+          ]
+        },
         "optional": false,
         "kconfig": null,
         "note": {
-          "en": "3-axis accelerometer + 3-axis gyroscope.",
-          "zh-CN": "三轴加速度计 + 三轴陀螺仪。"
+          "en": "I2C0 shared with touch and RTC. 3-axis accelerometer + 3-axis gyroscope.",
+          "zh-CN": "I2C0 与触控和 RTC 共享。三轴加速度计 + 三轴陀螺仪。"
         }
       }
     ],
@@ -98,10 +178,76 @@
           "zh-CN": "实时时钟"
         },
         "interface": "I2C",
-        "pins": {},
+        "pins": {
+          "I2C": [
+            {
+              "role": "scl",
+              "gpio": 20
+            },
+            {
+              "role": "sda",
+              "gpio": 21
+            },
+            {
+              "role": "int",
+              "gpio": 6
+            }
+          ]
+        },
         "optional": false,
         "kconfig": null,
-        "note": null
+        "note": {
+          "en": "I2C0 shared with touch and IMU.",
+          "zh-CN": "I2C0 与触控和 IMU 共享。"
+        }
+      }
+    ],
+    "sd_card": [
+      {
+        "model": null,
+        "name": {
+          "en": "Micro SD Card",
+          "zh-CN": "Micro SD 卡"
+        },
+        "interface": "SDIO",
+        "pins": {
+          "SDIO": [
+            {
+              "role": "clk",
+              "gpio": 2
+            },
+            {
+              "role": "cmd",
+              "gpio": 3
+            },
+            {
+              "role": "d0",
+              "gpio": 4
+            },
+            {
+              "role": "d1",
+              "gpio": 5
+            },
+            {
+              "role": "d2",
+              "gpio": 10
+            },
+            {
+              "role": "d3",
+              "gpio": 11
+            },
+            {
+              "role": "cd",
+              "gpio": 8
+            }
+          ]
+        },
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "4-bit SDIO. Card detect on GPIO 8.",
+          "zh-CN": "4 位 SDIO。卡检测引脚 GPIO 8。"
+        }
       }
     ],
     "led": [
@@ -113,26 +259,185 @@
         },
         "count": 1,
         "interface": "GPIO",
-        "pins": {},
+        "pins": {
+          "GPIO": [
+            {
+              "role": "led",
+              "gpio": 47
+            }
+          ]
+        },
         "optional": false,
         "kconfig": null,
-        "note": null
+        "note": {
+          "en": "Active high. Also exposed on breakout header.",
+          "zh-CN": "高有效。同时引出至排针。"
+        }
       }
     ],
     "button": [
       {
         "name": {
-          "en": "User Buttons",
+          "en": "User Button",
           "zh-CN": "用户按键"
         },
-        "count": 2,
+        "count": 1,
         "interface": "GPIO",
-        "pins": {},
+        "pins": {
+          "GPIO": [
+            {
+              "role": "key",
+              "gpio": 12
+            }
+          ]
+        },
         "optional": false,
         "kconfig": null,
         "note": {
-          "en": "PWR (power) and KEY (user) buttons. Separate reset button also present.",
-          "zh-CN": "PWR（电源）和 KEY（用户）按键。另有独立复位按键。"
+          "en": "Active low with pull-up. Separate reset button also present.",
+          "zh-CN": "低有效带上拉。另有独立复位按键。"
+        }
+      }
+    ],
+    "power": [
+      {
+        "model": null,
+        "name": {
+          "en": "Power Management",
+          "zh-CN": "电源管理"
+        },
+        "interface": "GPIO",
+        "pins": {
+          "GPIO": [
+            {
+              "role": "sys_en",
+              "gpio": 19
+            },
+            {
+              "role": "sys_out",
+              "gpio": 18
+            },
+            {
+              "role": "bat_adc",
+              "gpio": 13
+            },
+            {
+              "role": "bat_chg",
+              "gpio": 30
+            }
+          ]
+        },
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "sys_en: power latch, active high — hold high after boot. sys_out: power button detect, active low. bat_adc: battery voltage ADC. bat_chg: charge status.",
+          "zh-CN": "sys_en：电源锁存，高有效——启动后须保持高电平。sys_out：电源按键检测，低有效。bat_adc：电池电压 ADC。bat_chg：充电状态。"
+        }
+      }
+    ],
+    "expansion": [
+      {
+        "model": null,
+        "name": {
+          "en": "8P 2.54mm Expansion Header",
+          "zh-CN": "8P 2.54mm 扩展排针"
+        },
+        "interface": "GPIO",
+        "pins": {
+          "GPIO": [
+            {
+              "role": "io14",
+              "gpio": 14
+            },
+            {
+              "role": "io15",
+              "gpio": 15
+            },
+            {
+              "role": "io16",
+              "gpio": 16
+            },
+            {
+              "role": "io17",
+              "gpio": 17
+            },
+            {
+              "role": "io47",
+              "gpio": 47
+            }
+          ]
+        },
+        "optional": true,
+        "kconfig": null,
+        "note": {
+          "en": "8-pin 2.54mm header. Pin 1: 5V, Pin 2: GND, Pin 3: 3V3, Pin 4–8: IO14, IO15, IO16, IO17, IO47. IO47 also drives on-board LED.",
+          "zh-CN": "8 针 2.54mm 排针。Pin 1: 5V、Pin 2: GND、Pin 3: 3V3、Pin 4–8: IO14、IO15、IO16、IO17、IO47。IO47 同时驱动板载 LED。"
+        }
+      },
+      {
+        "model": null,
+        "name": {
+          "en": "Expansion Pads",
+          "zh-CN": "扩展焊盘"
+        },
+        "interface": "GPIO",
+        "pins": {
+          "GPIO": [
+            {
+              "role": "io40_uart2_rx",
+              "gpio": 40
+            },
+            {
+              "role": "io41_uart2_tx",
+              "gpio": 41
+            },
+            {
+              "role": "io44",
+              "gpio": 44
+            },
+            {
+              "role": "io45",
+              "gpio": 45
+            },
+            {
+              "role": "io46",
+              "gpio": 46
+            },
+            {
+              "role": "io32",
+              "gpio": 32
+            },
+            {
+              "role": "io33",
+              "gpio": 33
+            },
+            {
+              "role": "io34",
+              "gpio": 34
+            },
+            {
+              "role": "io35",
+              "gpio": 35
+            },
+            {
+              "role": "io36",
+              "gpio": 36
+            },
+            {
+              "role": "io37",
+              "gpio": 37
+            },
+            {
+              "role": "io38",
+              "gpio": 38
+            }
+          ]
+        },
+        "optional": true,
+        "kconfig": null,
+        "note": {
+          "en": "Solder pads. IO40/41 muxable as UART2 or GPS TX/RX. IO32–38 are space-reserved pads. USB host pads (T5D_N/T5D_P) also available.",
+          "zh-CN": "焊盘。IO40/41 可复用为 UART2 或 GPS TX/RX。IO32–38 为预留空间焊盘。另有 USB Host 焊盘（T5D_N/T5D_P）。"
         }
       }
     ]
