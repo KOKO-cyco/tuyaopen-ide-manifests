@@ -9,7 +9,7 @@ let globalTagsList = [];
 
 export async function initGlobalTags() {
   try {
-    const result = await apiClient.get('/api/status/tags');
+    const result = await apiClient.getTags();
     if (result.success && result.tags) {
       globalTagsList = result.tags.map(t => ({
         id: t.id,
@@ -376,8 +376,9 @@ export function renderBoardForm(board = null) {
             </div>
 
             ${board.image?.url ? `
-              <div style="margin-top: 12px; padding: 8px; background-color: var(--color-hover); border-radius: 4px;">
-                <small style="color: var(--color-muted);">Current: ${escapeHtml(board.image.url)}</small>
+              <div class="current-image-preview" style="margin-top: 12px; padding: 12px; background-color: var(--color-hover); border-radius: 8px; text-align: center;">
+                <img src="/api/images/${escapeHtml(board.image.url.replace('images/', ''))}" alt="Current board image" style="max-width: 200px; max-height: 200px; object-fit: contain; border-radius: 4px; border: 1px solid var(--color-border);">
+                <small style="display: block; margin-top: 8px; color: var(--color-muted);">Current: ${escapeHtml(board.image.url)}</small>
               </div>
             ` : '<small style="color: var(--color-muted);">No image set yet</small>'}
           </div>

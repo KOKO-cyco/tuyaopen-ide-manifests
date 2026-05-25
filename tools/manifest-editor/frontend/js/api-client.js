@@ -47,6 +47,10 @@ class ApiClient {
     return this.request('GET', '/status/git');
   }
 
+  async getTags() {
+    return this.request('GET', '/status/tags');
+  }
+
   async pullChanges() {
     return this.request('POST', '/status/pull');
   }

@@ -341,7 +341,10 @@ async function openBoardForm(boardId = null) {
   if (boardId && board && Array.isArray(board.tags)) {
     const tagsSelect = document.getElementById('tags');
     if (tagsSelect) {
-      tagsSelect.value = board.tags;
+      const tagSet = new Set(board.tags);
+      Array.from(tagsSelect.options).forEach(opt => {
+        opt.selected = tagSet.has(opt.value);
+      });
     }
   }
 
