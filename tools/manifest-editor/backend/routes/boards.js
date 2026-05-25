@@ -49,7 +49,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 // POST /api/boards - Create new board
 router.post('/', asyncHandler(async (req, res) => {
-  const { id, name, platformId, manufacturer, brand, summary, tags } = req.body;
+  const { id, name, platformId, manufacturer, brand, summary, tags, published } = req.body;
 
   // Validate required fields
   if (!id || !name || !platformId) {
@@ -69,6 +69,7 @@ router.post('/', asyncHandler(async (req, res) => {
     summary: summary || {},
     tags: tags || [],
     image: null,
+    published: published !== undefined ? published : true,
   };
 
   // Validate ID uniqueness
@@ -146,7 +147,7 @@ router.patch('/:id', asyncHandler(async (req, res) => {
   }
 
   // Fields that go to the index
-  const indexFields = ['name', 'platformId', 'variantId', 'manufacturer', 'brand', 'summary', 'tags', 'image'];
+  const indexFields = ['name', 'platformId', 'variantId', 'manufacturer', 'brand', 'summary', 'tags', 'image', 'published'];
   for (const key of indexFields) {
     if (updates[key] !== undefined) {
       board[key] = updates[key];

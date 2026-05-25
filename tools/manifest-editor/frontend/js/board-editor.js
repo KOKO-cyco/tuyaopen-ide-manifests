@@ -72,6 +72,13 @@ export function renderBoardForm(board = null) {
         <div class="form-error" id="idError"></div>
       </div>
 
+      <!-- Published Toggle -->
+      <div class="form-group" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--color-hover); border-radius: 6px;">
+        <input type="checkbox" id="boardPublished" name="published" ${board?.published !== false ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;">
+        <label for="boardPublished" style="margin: 0; cursor: pointer; font-weight: 500;">Published</label>
+        <small style="color: var(--color-muted); margin-left: auto;">Visible in IDE when checked</small>
+      </div>
+
       <!-- EN/ZH Pair: Board Name -->
       <div class="form-group form-row-2col">
         <div class="form-col-half">
@@ -528,6 +535,7 @@ export async function saveBoardForm(formElement) {
     brand: brand || { en: 'Ecosystem' },
     summary: { en: summaryEn },
     tags,
+    published: document.getElementById('boardPublished')?.checked ?? true,
     autoCommit: true,
   };
 
