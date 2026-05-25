@@ -645,11 +645,9 @@ export async function saveBoardForm(formElement) {
 
   // Collect source (BSP repo)
   const sourceRepo = document.getElementById('sourceRepo')?.value?.trim();
-  const sourceRef = document.getElementById('sourceRef')?.value?.trim();
   const sourceSubpath = document.getElementById('sourceSubpath')?.value?.trim();
   if (sourceRepo) {
     boardData.source = { repo: sourceRepo };
-    if (sourceRef) boardData.source.ref = sourceRef;
     if (sourceSubpath) boardData.source.subpath = sourceSubpath;
   }
 
