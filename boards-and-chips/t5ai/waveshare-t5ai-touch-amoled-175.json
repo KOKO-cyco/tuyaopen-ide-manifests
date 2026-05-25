@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "id": "waveshare-t5ai-touch-amoled-175",
+  "name": {
+    "en": "Waveshare T5AI Touch AMOLED 1.75\"",
+    "zh-CN": "微雪 T5AI 1.75 寸触摸 AMOLED"
+  },
+  "summary": {
+    "en": "Waveshare 1.75-inch Touch AMOLED board based on T5AI with audio AEC, capacitive touch, and LVGL support.",
+    "zh-CN": "基于 T5AI 的微雪 1.75 寸触摸 AMOLED 开发板，支持音频 AEC、电容触控与 LVGL。"
+  },
+  "brand": {
+    "en": "Waveshare",
+    "zh-CN": "微雪电子"
+  },
+  "manufacturer": {
+    "en": "Waveshare",
+    "zh-CN": "微雪电子"
+  },
+  "platformId": "t5ai",
+  "variantId": "t5ai",
+  "peripheralPatterns": {
+    "audio": [
+      {
+        "model": null,
+        "name": {
+          "en": "Audio",
+          "zh-CN": "音频"
+        },
+        "interface": "INTERNAL",
+        "pins": {},
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "AEC enabled by default.",
+          "zh-CN": "默认启用 AEC。"
+        }
+      }
+    ],
+    "display": [
+      {
+        "model": "AMOLED",
+        "name": {
+          "en": "1.75-inch Touch AMOLED",
+          "zh-CN": "1.75 寸触摸 AMOLED 屏"
+        },
+        "resolution": null,
+        "interface": "SPI",
+        "pins": {},
+        "optional": false,
+        "kconfig": null,
+        "note": {
+          "en": "LVGL supported. Capacitive touch panel integrated.",
+          "zh-CN": "支持 LVGL。集成电容触控面板。"
+        }
+      }
+    ],
+    "button": [
+      {
+        "name": {
+          "en": "User Buttons",
+          "zh-CN": "用户按键"
+        },
+        "count": 2,
+        "interface": "GPIO",
+        "pins": {},
+        "optional": false,
+        "kconfig": null,
+        "note": null
+      }
+    ]
+  },
+  "links": {
+    "schematic": null,
+    "datasheet": null,
+    "productPage": null
+  },
+  "tags": [
+    "wifi",
+    "ble",
+    "edge-ai",
+    "audio",
+    "display",
+    "touch",
+    "amoled"
+  ],
+  "kconfigId": "WAVESHARE_T5AI_TOUCH_AMOLED_1_75",
+  "scaffold": {
+    "template": "tools/app_template/base",
+    "baseConfig": {
+      "CONFIG_BOARD_CHOICE_T5AI": "y",
+      "CONFIG_BOARD_CHOICE_WAVESHARE_T5AI_TOUCH_AMOLED_1_75": "y"
+    }
+  },
+  "demos": [
+    "tuya-ai-your-chat-bot",
+    "graphics-lvgl-demo",
+    "graphics-lvgl-gif",
+    "peripherals-display-fill-color",
+    "peripherals-display-picture"
+  ]
+}
