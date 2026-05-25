@@ -95,7 +95,7 @@ class ApiClient {
     // Handle file-based image upload
     const formData = new FormData();
     formData.append('boardId', boardId);
-    formData.append('image', fileOrUrl);
+    formData.append('image', fileOrUrl, filename || 'image.jpg');
     if (filename) formData.append('filename', filename);
     formData.append('autoCommit', autoCommit);
     formData.append('autoUpdate', 'true');

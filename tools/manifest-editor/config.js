@@ -27,6 +27,12 @@ export const config = {
   imageQuality: parseInt(process.env.IMAGE_QUALITY || '85', 10),
   imageMaxWidth: parseInt(process.env.IMAGE_MAX_WIDTH || '500', 10),
   imageMaxHeight: parseInt(process.env.IMAGE_MAX_HEIGHT || '500', 10),
+  imageMinDimension: 500,
+  imageMaxFileSize: 1024 * 1024, // 1MB output target
+  imageSpecs: {
+    board: { width: 500, height: 500, aspectRatio: 1, label: '500×500 (1:1)' },
+    demo: { width: 960, height: 540, aspectRatio: 16 / 9, label: '960×540 (16:9)' },
+  },
 
   // CORS
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',

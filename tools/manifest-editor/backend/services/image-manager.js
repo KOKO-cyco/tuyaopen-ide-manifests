@@ -5,35 +5,53 @@ import { config } from '../../config.js';
 import { manifestLoader } from './manifest-loader.js';
 
 class ImageManager {
-  async uploadImage(boardId, filePath, filename) {
+  async uploadImage(boardId, filePath, filename, imageType = 'board') {
     try {
-      // Create board-specific image directory
       const boardImageDir = path.join(config.paths.images, boardId);
       await fs.mkdir(boardImageDir, { recursive: true });
 
-      // Resize and optimize image
       const targetPath = path.join(boardImageDir, filename);
-      const metadata = await sharp(filePath)
-        .resize(config.imageMaxWidth, config.imageMaxHeight, {
-          fit: 'inside',
-          withoutEnlargement: true,
-        })
-        .jpeg({ quality: config.imageQuality })
-        .toFile(targetPath);
 
-      // Get file stats
-      const stats = await fs.stat(targetPath);
+      // Read source metadata for validation
+      const metadata = await sharp(filePath).metadata();
+      const minSide = Math.min(metadata.width, metadata.height);
+      if (minSide < config.imageMinDimension) {
+        throw new Error(
+          `Image must be at least ${config.imageMinDimension}px on shortest side (got ${minSide}px)`
+        );
+      }
 
-      // Return relative path for manifest
+      // Select target spec based on image type
+      const spec = config.imageSpecs[imageType] || config.imageSpecs.board;
+
+      // Adaptive compression: resize then reduce quality until ≤ maxFileSize
+      let quality = config.imageQuality;
+      let outputBuffer;
+      do {
+        outputBuffer = await sharp(filePath)
+          .resize(spec.width, spec.height, {
+            fit: 'cover',
+            position: 'centre',
+          })
+          .jpeg({ quality })
+          .toBuffer();
+        quality -= 5;
+      } while (outputBuffer.length > config.imageMaxFileSize && quality > 30);
+
+      await fs.writeFile(targetPath, outputBuffer);
+
+      // Get final dimensions from the buffer
+      const outputMeta = await sharp(outputBuffer).metadata();
+
       const relativePath = `images/${boardId}/${filename}`;
 
       return {
         success: true,
         url: relativePath,
         filename,
-        size: stats.size,
-        width: metadata.width,
-        height: metadata.height,
+        size: outputBuffer.length,
+        width: outputMeta.width,
+        height: outputMeta.height,
       };
     } catch (error) {
       console.error('Error uploading image:', error.message);

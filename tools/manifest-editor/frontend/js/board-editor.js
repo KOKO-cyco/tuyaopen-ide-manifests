@@ -336,6 +336,7 @@ export function renderBoardForm(board = null) {
                   <line x1="12" y1="3" x2="12" y2="15"></line>
                 </svg>
                 <p class="upload-text">Drag and drop image here or <strong>click to select</strong></p>
+                <p class="image-recommendation">Recommended: 500×500 (1:1 square). Must be at least 500px.</p>
                 <input type="file" id="boardImageInput" style="display: none;" accept="image/*" data-board-id="${escapeHtml(board.id)}">
               </div>
               <div id="imagePreview" class="image-preview" style="display: none;">

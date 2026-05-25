@@ -47,7 +47,7 @@ const upload = multer({
 
 // POST /api/images/upload - Upload image for a board
 router.post('/upload', upload.single('image'), asyncHandler(async (req, res) => {
-  const { boardId, filename } = req.body;
+  const { boardId, filename, imageType } = req.body;
   const uploadedFile = req.file;
 
   if (!boardId) {
@@ -73,7 +73,7 @@ router.post('/upload', upload.single('image'), asyncHandler(async (req, res) => 
     const imageName = filename || `board-${Date.now()}.jpg`;
 
     // Process and move image
-    const result = await imageManager.uploadImage(boardId, uploadedFile.path, imageName);
+    const result = await imageManager.uploadImage(boardId, uploadedFile.path, imageName, imageType || 'board');
 
     // Clean up temp file
     await fs.unlink(uploadedFile.path).catch(() => {});

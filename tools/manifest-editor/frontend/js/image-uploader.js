@@ -1,10 +1,172 @@
-// Image Uploader module
+// Image Uploader module — with min-size validation, cropping, and compression
 
 import { apiClient } from './api-client.js';
 import { showNotification, showError } from './utils.js';
 
+const IMAGE_SPECS = {
+  board: { width: 500, height: 500, aspectRatio: 1, label: '500×500 (1:1 square)' },
+  demo: { width: 960, height: 540, aspectRatio: 16 / 9, label: '960×540 (16:9)' },
+};
+const MIN_DIMENSION = 500;
+const MAX_FILE_SIZE = 1024 * 1024; // 1MB
+
 let selectedFile = null;
 let currentBoardId = null;
+let activeCropper = null;
+
+// --- Cropper Modal ---
+
+function createCropperModal() {
+  if (document.getElementById('cropperModal')) return;
+
+  const modal = document.createElement('div');
+  modal.id = 'cropperModal';
+  modal.className = 'image-crop-dialog hidden';
+  modal.innerHTML = `
+    <div class="image-crop-backdrop"></div>
+    <div class="image-crop-content">
+      <div class="image-crop-header">
+        <h3>Crop Image</h3>
+        <span class="image-crop-recommendation"></span>
+      </div>
+      <div class="image-crop-body">
+        <div class="image-crop-canvas">
+          <img id="cropperImage" alt="Crop preview">
+        </div>
+      </div>
+      <div class="image-crop-footer">
+        <button type="button" id="cropperCancelBtn" class="btn btn-outline">Cancel</button>
+        <button type="button" id="cropperConfirmBtn" class="btn btn-primary">Crop & Upload</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.querySelector('.image-crop-backdrop').addEventListener('click', closeCropperModal);
+  modal.querySelector('#cropperCancelBtn').addEventListener('click', closeCropperModal);
+}
+
+function closeCropperModal() {
+  const modal = document.getElementById('cropperModal');
+  if (modal) modal.classList.add('hidden');
+  if (activeCropper) {
+    activeCropper.destroy();
+    activeCropper = null;
+  }
+}
+
+function openCropperModal(imageSrc, imageType, onConfirm) {
+  createCropperModal();
+  const modal = document.getElementById('cropperModal');
+  const img = modal.querySelector('#cropperImage');
+  const recommendation = modal.querySelector('.image-crop-recommendation');
+  const spec = IMAGE_SPECS[imageType] || IMAGE_SPECS.board;
+
+  recommendation.textContent = `Recommended: ${spec.label}. Must be at least ${MIN_DIMENSION}px.`;
+
+  img.src = imageSrc;
+  modal.classList.remove('hidden');
+
+  if (activeCropper) {
+    activeCropper.destroy();
+    activeCropper = null;
+  }
+
+  // Wait for image to load before initializing cropper
+  img.onload = () => {
+    activeCropper = new Cropper(img, {
+      aspectRatio: spec.aspectRatio,
+      viewMode: 1,
+      autoCropArea: 1,
+      responsive: true,
+      background: true,
+      guides: true,
+      center: true,
+      highlight: true,
+      cropBoxMovable: true,
+      cropBoxResizable: true,
+      toggleDragModeOnDblclick: false,
+    });
+  };
+
+  // Set up confirm handler
+  const confirmBtn = modal.querySelector('#cropperConfirmBtn');
+  const newConfirmBtn = confirmBtn.cloneNode(true);
+  confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+  newConfirmBtn.addEventListener('click', async () => {
+    if (!activeCropper) return;
+    newConfirmBtn.disabled = true;
+    newConfirmBtn.textContent = 'Processing...';
+    try {
+      const canvas = activeCropper.getCroppedCanvas({
+        width: spec.width,
+        height: spec.height,
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: 'high',
+      });
+      const blob = await compressToTarget(canvas, MAX_FILE_SIZE);
+      closeCropperModal();
+      onConfirm(blob);
+    } catch (err) {
+      showError('Crop Failed', err.message);
+    } finally {
+      newConfirmBtn.disabled = false;
+      newConfirmBtn.textContent = 'Crop & Upload';
+    }
+  });
+}
+
+// --- Compression ---
+
+function canvasToBlob(canvas, type, quality) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => (blob ? resolve(blob) : reject(new Error('Canvas to blob failed'))),
+      type,
+      quality
+    );
+  });
+}
+
+async function compressToTarget(canvas, maxBytes) {
+  let quality = 0.85;
+  let blob;
+  do {
+    blob = await canvasToBlob(canvas, 'image/jpeg', quality);
+    quality -= 0.05;
+  } while (blob.size > maxBytes && quality > 0.3);
+  return blob;
+}
+
+// --- Dimension Validation ---
+
+function validateImageDimensions(img) {
+  const minSide = Math.min(img.naturalWidth, img.naturalHeight);
+  if (minSide < MIN_DIMENSION) {
+    showError(
+      'Image Too Small',
+      `Minimum dimension is ${MIN_DIMENSION}px. This image is ${img.naturalWidth}×${img.naturalHeight}px.`
+    );
+    return false;
+  }
+  return true;
+}
+
+function loadImageFromFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => resolve({ img, dataUrl: e.target.result });
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+// --- Modal Uploader (legacy path) ---
 
 export function initImageUploader() {
   const modal = document.getElementById('imageUploadModal');
@@ -16,7 +178,6 @@ export function initImageUploader() {
 
   if (!modal || !zone) return;
 
-  // Drag and drop
   zone.addEventListener('dragover', (e) => {
     e.preventDefault();
     zone.style.borderColor = 'var(--color-primary)';
@@ -35,7 +196,6 @@ export function initImageUploader() {
     }
   });
 
-  // Click to select
   zone.addEventListener('click', () => {
     input.click();
   });
@@ -46,43 +206,41 @@ export function initImageUploader() {
     }
   });
 
-  // Buttons
   closeBtn.addEventListener('click', () => closeImageUploadModal());
   cancelBtn.addEventListener('click', () => closeImageUploadModal());
   confirmBtn.addEventListener('click', () => uploadImage());
 }
 
-function handleFileSelect(file) {
-  // Validate file type
+async function handleFileSelect(file) {
   if (!file.type.startsWith('image/')) {
     showError('Invalid File', 'Please select an image file (JPEG, PNG, WebP)');
     return;
   }
 
-  // Validate file size (5MB)
   if (file.size > 5242880) {
     showError('File Too Large', 'Maximum file size is 5MB');
     return;
   }
 
-  selectedFile = file;
-  showFilePreview(file);
+  try {
+    const { img, dataUrl } = await loadImageFromFile(file);
+    if (!validateImageDimensions(img)) return;
+
+    selectedFile = file;
+    showFilePreview(dataUrl);
+  } catch (err) {
+    showError('Error', err.message);
+  }
 }
 
-function showFilePreview(file) {
-  const reader = new FileReader();
+function showFilePreview(dataUrl) {
+  const preview = document.getElementById('previewImage');
+  const previewContainer = document.getElementById('imagePreview');
+  const uploadZone = document.getElementById('imageUploadZone');
 
-  reader.onload = (e) => {
-    const preview = document.getElementById('previewImage');
-    const previewContainer = document.getElementById('imagePreview');
-    const uploadZone = document.getElementById('imageUploadZone');
-
-    preview.src = e.target.result;
-    previewContainer.classList.remove('hidden');
-    uploadZone.style.display = 'none';
-  };
-
-  reader.readAsDataURL(file);
+  preview.src = dataUrl;
+  previewContainer.classList.remove('hidden');
+  uploadZone.style.display = 'none';
 }
 
 async function uploadImage() {
@@ -93,7 +251,6 @@ async function uploadImage() {
 
   const filename = `board-${Date.now()}.jpg`;
   const progressDiv = document.getElementById('uploadProgress');
-  const statusText = document.getElementById('uploadStatus');
   const uploadZone = document.getElementById('imageUploadZone');
   const confirmBtn = document.getElementById('confirmUploadBtn');
 
@@ -102,18 +259,12 @@ async function uploadImage() {
     uploadZone.style.display = 'none';
     confirmBtn.disabled = true;
 
-    const result = await apiClient.uploadImage(
-      currentBoardId,
-      selectedFile,
-      filename,
-      true
-    );
+    const result = await apiClient.uploadImage(currentBoardId, selectedFile, filename, true);
 
     if (result.success) {
       showNotification(`Image uploaded successfully: ${result.image.url}`);
       closeImageUploadModal();
 
-      // Trigger refresh of board to show new image
       const event = new CustomEvent('imageUploaded', {
         detail: { boardId: currentBoardId, imageUrl: result.image.url },
       });
@@ -136,7 +287,6 @@ export function openImageUploadModal(boardId) {
   const previewContainer = document.getElementById('imagePreview');
   const input = document.getElementById('imageInput');
 
-  // Reset form
   uploadZone.style.display = 'block';
   previewContainer.classList.add('hidden');
   input.value = '';
@@ -151,8 +301,9 @@ export function closeImageUploadModal() {
   currentBoardId = null;
 }
 
-export function setupInlineUpload(boardId) {
-  // Find the container with this board ID
+// --- Inline Uploader (board-editor integration with cropper) ---
+
+export function setupInlineUpload(boardId, imageType = 'board') {
   const container = document.querySelector(`.image-upload-inline [data-board-id="${boardId}"]`)?.closest('.image-upload-inline');
 
   if (!container) return;
@@ -162,13 +313,10 @@ export function setupInlineUpload(boardId) {
   const confirmBtn = container.querySelector('#confirmUploadBtn');
   const cancelBtn = container.querySelector('#cancelUploadBtn');
 
-  // URL source elements
   const imageUrlInput = container.querySelector('#imageUrl');
   const confirmUrlBtn = container.querySelector('#confirmUrlBtn');
   const confirmUrlPreviewBtn = container.querySelector('#confirmUrlPreviewBtn');
   const cancelUrlBtn = container.querySelector('#cancelUrlBtn');
-  const urlPreview = container.querySelector('#urlPreview');
-  const urlPreviewImage = container.querySelector('#urlPreviewImage');
   const sourceFileTabs = container.querySelectorAll('.image-source-tab');
   const imageSourceFile = container.querySelector('#imageSourceFile');
   const imageSourceUrl = container.querySelector('#imageSourceUrl');
@@ -178,7 +326,10 @@ export function setupInlineUpload(boardId) {
     return;
   }
 
-  const uploadContext = { boardId, selectedFile: null, selectedUrl: null, container };
+  const uploadContext = { boardId, selectedFile: null, selectedUrl: null, container, imageType };
+
+  // Inject recommendation text
+  injectRecommendationText(zone, imageType);
 
   // Tab switching
   sourceFileTabs.forEach(tab => {
@@ -187,7 +338,6 @@ export function setupInlineUpload(boardId) {
       e.stopPropagation();
       const source = tab.dataset.source;
 
-      // Update active tab style
       sourceFileTabs.forEach(t => {
         if (t.dataset.source === source) {
           t.style.color = 'var(--color-primary)';
@@ -200,7 +350,6 @@ export function setupInlineUpload(boardId) {
         }
       });
 
-      // Toggle content visibility
       if (source === 'file') {
         imageSourceFile.style.display = 'block';
         imageSourceUrl.style.display = 'none';
@@ -226,7 +375,7 @@ export function setupInlineUpload(boardId) {
     zone.style.borderColor = 'var(--color-border)';
     const files = e.dataTransfer.files;
     if (files.length > 0) {
-      handleInlineFileSelect(files[0], uploadContext, zone, input);
+      handleInlineFileSelect(files[0], uploadContext, zone);
     }
   });
 
@@ -241,15 +390,15 @@ export function setupInlineUpload(boardId) {
 
   input.addEventListener('change', (e) => {
     if (e.target.files.length > 0) {
-      handleInlineFileSelect(e.target.files[0], uploadContext, zone, input);
+      handleInlineFileSelect(e.target.files[0], uploadContext, zone);
     }
   });
 
-  // Buttons
+  // Confirm button triggers cropper flow (file is already cropped by the time it gets here)
   if (confirmBtn) {
     confirmBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      uploadInlineImage(uploadContext, zone, input);
+      uploadInlineImage(uploadContext, zone);
     });
   }
 
@@ -276,7 +425,6 @@ export function setupInlineUpload(boardId) {
         return;
       }
 
-      // Validate it's an image
       const validImageFormats = ['jpeg', 'jpg', 'png', 'webp', 'gif'];
       const urlLower = url.toLowerCase();
       const isValidImage = validImageFormats.some(fmt => urlLower.includes(`.${fmt}`));
@@ -286,16 +434,29 @@ export function setupInlineUpload(boardId) {
         return;
       }
 
-      // Try to load the image
+      // Validate dimensions by loading the image
       const img = new Image();
+      img.crossOrigin = 'anonymous';
       img.onload = () => {
-        uploadContext.selectedUrl = url;
-        const urlPreviewImg = container.querySelector('#urlPreviewImage');
-        const urlPreviewDiv = container.querySelector('#urlPreview');
-        urlPreviewImg.src = url;
-        urlPreviewDiv.style.display = 'block';
-        imageUrlInput.style.display = 'none';
-        confirmUrlBtn.style.display = 'none';
+        if (!validateImageDimensions(img)) return;
+
+        // Open cropper for URL-sourced images too
+        openCropperModal(url, uploadContext.imageType, async (blob) => {
+          try {
+            const filename = `board-${Date.now()}.jpg`;
+            const result = await apiClient.uploadImage(uploadContext.boardId, blob, filename, true);
+            if (result.success) {
+              showNotification('Image uploaded successfully');
+              resetUrlUI(container, imageUrlInput, confirmUrlBtn, uploadContext);
+              const event = new CustomEvent('imageUploaded', {
+                detail: { boardId: uploadContext.boardId, imageUrl: result.image.url },
+              });
+              window.dispatchEvent(event);
+            }
+          } catch (error) {
+            showError('Upload Failed', error.message);
+          }
+        });
       };
       img.onerror = () => {
         showError('Cannot Load Image', 'Failed to load image from URL. Make sure it\'s a valid HTTPS image URL.');
@@ -326,7 +487,25 @@ export function setupInlineUpload(boardId) {
   }
 }
 
-function handleInlineFileSelect(file, context, zone, input) {
+function injectRecommendationText(zone, imageType) {
+  if (zone.querySelector('.image-recommendation')) return;
+  const spec = IMAGE_SPECS[imageType] || IMAGE_SPECS.board;
+  const hint = document.createElement('p');
+  hint.className = 'image-recommendation';
+  hint.textContent = `Recommended: ${spec.label}. Must be at least ${MIN_DIMENSION}px.`;
+  zone.appendChild(hint);
+}
+
+function resetUrlUI(container, imageUrlInput, confirmUrlBtn, uploadContext) {
+  const urlPreview = container.querySelector('#urlPreview');
+  imageUrlInput.value = '';
+  imageUrlInput.style.display = 'block';
+  confirmUrlBtn.style.display = 'block';
+  if (urlPreview) urlPreview.style.display = 'none';
+  uploadContext.selectedUrl = null;
+}
+
+async function handleInlineFileSelect(file, context, zone) {
   if (!file.type.startsWith('image/')) {
     showError('Invalid File', 'Please select an image file (JPEG, PNG, WebP)');
     return;
@@ -337,33 +516,39 @@ function handleInlineFileSelect(file, context, zone, input) {
     return;
   }
 
-  context.selectedFile = file;
-  showInlineFilePreview(file, zone);
+  try {
+    const { img, dataUrl } = await loadImageFromFile(file);
+    if (!validateImageDimensions(img)) return;
+
+    // Open cropper instead of just showing preview
+    openCropperModal(dataUrl, context.imageType, async (blob) => {
+      context.selectedFile = blob;
+      showInlineFilePreview(blob, zone);
+    });
+  } catch (err) {
+    showError('Error', err.message);
+  }
 }
 
-function showInlineFilePreview(file, zone) {
-  const reader = new FileReader();
+function showInlineFilePreview(blob, zone) {
   const container = zone.closest('.image-upload-inline');
   const preview = container.querySelector('#imagePreview');
   const previewImg = container.querySelector('#previewImage');
 
-  reader.onload = (e) => {
-    previewImg.src = e.target.result;
-    preview.style.display = 'block';
-    zone.style.display = 'none';
-  };
-
-  reader.readAsDataURL(file);
+  const url = URL.createObjectURL(blob);
+  previewImg.src = url;
+  previewImg.onload = () => URL.revokeObjectURL(url);
+  preview.style.display = 'block';
+  zone.style.display = 'none';
 }
 
-async function uploadInlineImage(context, zone, input) {
+async function uploadInlineImage(context, zone) {
   if (!context.selectedFile || !context.boardId) {
     showError('Error', 'No file or board selected');
     return;
   }
 
   const container = zone.closest('.image-upload-inline');
-  const preview = container.querySelector('#imagePreview');
   const confirmBtn = container.querySelector('#confirmUploadBtn');
   const progress = container.querySelector('#uploadProgress');
 
@@ -375,10 +560,9 @@ async function uploadInlineImage(context, zone, input) {
     const result = await apiClient.uploadImage(context.boardId, context.selectedFile, filename, true);
 
     if (result.success) {
-      showNotification(`Image uploaded successfully`);
+      showNotification('Image uploaded successfully');
       cancelInlineUpload(context, zone);
 
-      // Trigger refresh of board to show new image
       const event = new CustomEvent('imageUploaded', {
         detail: { boardId: context.boardId, imageUrl: result.image.url },
       });
@@ -419,13 +603,12 @@ async function uploadUrlImage(context, sourceContainer) {
       context.selectedUrl,
       null,
       true,
-      true // isUrl flag
+      true
     );
 
     if (result.success) {
-      showNotification(`Image set successfully from URL`);
+      showNotification('Image set successfully from URL');
 
-      // Reset UI
       const imageUrlInput = sourceContainer.querySelector('#imageUrl');
       const confirmUrlBtn = sourceContainer.querySelector('#confirmUrlBtn');
       const urlPreview = sourceContainer.querySelector('#urlPreview');
@@ -435,7 +618,6 @@ async function uploadUrlImage(context, sourceContainer) {
       urlPreview.style.display = 'none';
       context.selectedUrl = null;
 
-      // Trigger refresh
       const event = new CustomEvent('imageUploaded', {
         detail: { boardId: context.boardId, imageUrl: result.image.url },
       });
@@ -448,7 +630,6 @@ async function uploadUrlImage(context, sourceContainer) {
   }
 }
 
-// Export for initialization
 export default {
   init: initImageUploader,
   open: openImageUploadModal,
