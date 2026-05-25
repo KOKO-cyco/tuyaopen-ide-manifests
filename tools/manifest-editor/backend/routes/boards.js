@@ -40,6 +40,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
     if (detail.demos) merged.demos = detail.demos;
     if (detail.links) merged.links = detail.links;
     if (detail.peripheralPatterns) merged.peripheralPatterns = detail.peripheralPatterns;
+    if (detail.source) merged.source = detail.source;
 
     // Map links to editor field names
     const links = detail.links || {};
@@ -198,8 +199,8 @@ router.patch('/:id', asyncHandler(async (req, res) => {
   // Save index
   await manifestLoader.saveBoardsIndex(boards);
 
-  // Fields that go to the detail file: kconfigId, scaffold, variantId, demos, peripheralPatterns, links
-  const detailFields = ['kconfigId', 'scaffold', 'variantId', 'demos', 'links'];
+  // Fields that go to the detail file: kconfigId, scaffold, variantId, demos, peripheralPatterns, links, source
+  const detailFields = ['kconfigId', 'scaffold', 'variantId', 'demos', 'links', 'source'];
   // Map editor link fields back to nested links object (merge with existing)
   const editorLinkFields = ['schematicLink', 'guideDocs', 'purchaseLink', 'threeDModelLink'];
   const hasEditorLinks = editorLinkFields.some(k => updates[k] !== undefined);
