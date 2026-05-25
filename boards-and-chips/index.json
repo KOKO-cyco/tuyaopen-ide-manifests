@@ -145,7 +145,9 @@
         "led-pixel",
         "imu"
       ],
-      "image": null,
+      "image": {
+        "url": "images/tuya-t5ai-pixel/tuya-t5ai-pixel.jpg"
+      },
       "detailUrl": "boards-and-chips/t5ai/tuya-t5ai-pixel.json",
       "kconfigId": "TUYA_T5AI_PIXEL",
       "scaffold": {
