@@ -129,8 +129,14 @@
         "dp",
         "tuya-devplat-cli"
       ],
+      "commands": [
+        "tuyaopen.skill.tuyaIotPlatform"
+      ],
       "defaultEnabled": false,
       "installPayload": "cloud/tuya-iot-platform",
+      "related": [
+        "tuyaopen/device-auth"
+      ],
       "source": {
         "localPath": "skills/cloud/tuya-iot-platform"
       }

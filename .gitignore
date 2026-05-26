@@ -15,3 +15,15 @@ Thumbs.db
 
 # manifest-gen tool dependencies
 tools/manifest-gen/node_modules/
+# tool dependencies and compiled output (covers all tools/ subdirectories)
+tools/*/node_modules/
+tools/*/dist/
+tools/*/out/
+tools/*/build/
+tools/*/.cache/
+
+# JS / TS build artifacts — source maps, declaration files
+*.js.map
+*.css.map
+*.d.ts
+*.d.ts.map
