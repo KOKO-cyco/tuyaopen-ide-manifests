@@ -132,7 +132,7 @@
       "commands": [
         "tuyaopen.skill.tuyaIotPlatform"
       ],
-      "defaultEnabled": false,
+      "defaultEnabled": true,
       "installPayload": "cloud/tuya-iot-platform",
       "related": [
         "tuyaopen/device-auth"
@@ -164,7 +164,7 @@
         "authorize",
         "reset"
       ],
-      "defaultEnabled": false,
+      "defaultEnabled": true,
       "installPayload": "embedded/tyutool_cli",
       "related": [
         "tuyaopen/dev-loop",
@@ -197,7 +197,7 @@
         "monitor",
         "log"
       ],
-      "defaultEnabled": false,
+      "defaultEnabled": true,
       "installPayload": "embedded/tuyaopen/debug-helper",
       "related": [
         "tuyaopen/dev-loop",
@@ -291,7 +291,7 @@
         "flash",
         "workflow"
       ],
-      "defaultEnabled": false,
+      "defaultEnabled": true,
       "installPayload": "embedded/tuyaopen/dev-loop",
       "related": [
         "tuyaopen/build",
@@ -324,7 +324,7 @@
         "auth",
         "uuid"
       ],
-      "defaultEnabled": false,
+      "defaultEnabled": true,
       "installPayload": "embedded/tuyaopen/device-auth",
       "related": [
         "tuyaopen/dev-loop",
@@ -357,7 +357,7 @@
         "sdk",
         "deps"
       ],
-      "defaultEnabled": false,
+      "defaultEnabled": true,
       "installPayload": "embedded/tuyaopen/env-setup",
       "related": [
         "tuyaopen/build"
