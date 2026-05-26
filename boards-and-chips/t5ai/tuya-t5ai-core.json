@@ -34,6 +34,15 @@
               "role": "spk_en",
               "gpio": 39
             }
+          ],
+          "ANALOG": [
+            { "role": "spk_p", "gpio": null, "pin": "LP" },
+            { "role": "spk_n", "gpio": null, "pin": "LN" },
+            { "role": "mic1_p", "gpio": null, "pin": "MP1" },
+            { "role": "mic1_n", "gpio": null, "pin": "MN1" },
+            { "role": "mic2_p", "gpio": null, "pin": "MP2" },
+            { "role": "mic2_n", "gpio": null, "pin": "MN2" },
+            { "role": "micbias", "gpio": null, "pin": "MBS" }
           ]
         },
         "optional": false,
