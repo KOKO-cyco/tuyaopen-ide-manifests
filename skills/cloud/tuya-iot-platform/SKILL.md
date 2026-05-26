@@ -54,8 +54,10 @@ Always verify auth before any operation:
 
 ```bash
 tuya-devplat-cli auth status    # must show "authenticated"
-tuya-devplat-cli auth login     # run if not authenticated
 ```
+
+If not authenticated, ask the developer to sign in via **TuyaOpen IDE → Developer Platform** sidebar.
+**Never run `auth login` directly** — it requires interactive browser input and will hang.
 
 ### Output format
 
