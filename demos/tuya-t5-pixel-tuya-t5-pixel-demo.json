@@ -32,5 +32,8 @@
       "file": "config/TUYA_T5AI_PIXEL.config",
       "overrides": {}
     }
+  },
+  "image": {
+    "url": "images/tuya-t5-pixel-tuya-t5-pixel-demo/tuya-t5-pixel-tuya-t5-pixel-demo.jpg"
   }
 }
