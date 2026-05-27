@@ -1609,7 +1609,7 @@
         "subpath": "apps/tuya.ai/duo_eye_mood",
         "ref": "master"
       },
-      "publish": true
+      "publish": false
     },
     {
       "id": "tuya-ai-your-chat-bot",

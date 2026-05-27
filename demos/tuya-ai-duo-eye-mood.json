@@ -31,5 +31,17 @@
       "file": "config/TUYA_T5AI_BOARD_EYES_TWO_LCD.config",
       "overrides": {}
     }
-  }
+  },
+  "publish": false,
+  "defaultConfig": {},
+  "documentation": {
+    "readme": {
+      "en": null,
+      "zh-CN": null
+    }
+  },
+  "boardConfigs": [
+    "TUYA_T5AI_BOARD_EYES",
+    "TUYA_T5AI_BOARD_EYES_TWO_LCD"
+  ]
 }
