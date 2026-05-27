@@ -50,5 +50,13 @@
   },
   "image": {
     "url": "images/tuya-ai-your-serial-chat-bot/tuya-ai-your-serial-chat-bot.jpg"
-  }
+  },
+  "publish": true,
+  "defaultConfig": {},
+  "boardConfigs": [
+    "TUYA_T5AI_BOARD_LCD_3.5",
+    "TUYA_T5AI_CORE",
+    "WAVESHARE_ESP32S3_TOUCH_AMOLED_1_8",
+    "XINGZHI_ESP32S3_Cube_0_96OLED_WIFI"
+  ]
 }
