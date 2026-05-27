@@ -38,5 +38,8 @@
       "file": "config/TUYA_T5AI_POCKET.config",
       "overrides": {}
     }
+  },
+  "image": {
+    "url": "images/tuya-t5-pocket-tuya-t5-pocket-ai/tuya-t5-pocket-tuya-t5-pocket-ai.jpg"
   }
 }
