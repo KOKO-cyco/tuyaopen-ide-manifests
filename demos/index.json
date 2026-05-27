@@ -1963,7 +1963,10 @@
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_simple_shapes",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/tuya-t5-pixel-tuya-t5-pixel-simple-shapes/tuya-t5-pixel-tuya-t5-pixel-simple-shapes.jpg"
+      }
     },
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-sphere-effect",
