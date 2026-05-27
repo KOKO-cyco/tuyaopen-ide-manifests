@@ -422,7 +422,7 @@ async function loadDemos() {
   try {
     const result = await apiClient.getDemos();
     demosCache = result.demos || result.items || [];
-    renderDemosList(demosCache);
+    filterDemos();
   } catch (error) {
     console.error('[loadDemos] error:', error);
     demosList.innerHTML = `<p class="loading-text" style="color: var(--color-error);">Error: ${error.message}</p>`;
