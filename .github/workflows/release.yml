@@ -110,8 +110,10 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          cp release.json /tmp/release.json
           git fetch origin main
           git checkout main
+          cp /tmp/release.json release.json
           git add release.json
           if git diff --cached --quiet; then
             echo "→ release.json unchanged, skip commit"
@@ -122,6 +124,7 @@ jobs:
           fi
 
       - name: Sync versioned Release to Gitee
+        continue-on-error: true
         env:
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
           GITEE_REPO: tuya-open/tuyaopen-ide-manifests
@@ -135,6 +138,7 @@ jobs:
           bash scripts/sync-gitee-release.sh
 
       - name: Sync latest Release to Gitee
+        continue-on-error: true
         env:
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
           GITEE_REPO: tuya-open/tuyaopen-ide-manifests
