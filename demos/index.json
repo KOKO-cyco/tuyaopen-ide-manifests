@@ -1768,7 +1768,10 @@
         "subpath": "apps/tuya.ai/your_serial_chat_bot",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/tuya-ai-your-serial-chat-bot/tuya-ai-your-serial-chat-bot.jpg"
+      }
     },
     {
       "id": "tuya-cloud-camera-demo",

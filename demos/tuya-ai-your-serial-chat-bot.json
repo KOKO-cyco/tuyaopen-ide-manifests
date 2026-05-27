@@ -47,5 +47,8 @@
       "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot/README.md",
       "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_serial_chat_bot/README_zh.md"
     }
+  },
+  "image": {
+    "url": "images/tuya-ai-your-serial-chat-bot/tuya-ai-your-serial-chat-bot.jpg"
   }
 }
