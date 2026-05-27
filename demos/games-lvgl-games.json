@@ -74,10 +74,19 @@
   },
   "documentation": {
     "readme": {
-      "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/games/lvgl_games/README.md"
+      "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/games/lvgl_games/README.md",
+      "zh-CN": null
     }
   },
   "image": {
     "url": "images/games-lvgl-games/games-lvgl-games.jpg"
-  }
+  },
+  "publish": true,
+  "boardConfigs": [
+    "T3_LCD_DEVKIT_1_28",
+    "TUYA_T5AI_BOARD_EYES",
+    "TUYA_T5AI_BOARD_LCD_3.5",
+    "TUYA_T5AI_EVB",
+    "TUYA_T5AI_MOJI_1_28"
+  ]
 }
