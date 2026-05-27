@@ -106,7 +106,7 @@
       },
       "tags": ["product", "dp", "pid", "embedded", "iot", "workflow", "orchestration"],
       "commands": ["tuyaopen.skill.smartProductDev"],
-      "defaultEnabled": false,
+      "defaultEnabled": true,
       "installPayload": "embedded/smart-product-dev",
       "related": ["tuya-iot-platform", "tuyaopen/dev-loop", "tuyaopen/project-config"],
       "source": { "localPath": "skills/embedded/smart-product-dev" }

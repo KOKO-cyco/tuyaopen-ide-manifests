@@ -15,7 +15,7 @@ id: smart-product-dev
 surface: embedded
 tags: [product, dp, pid, embedded, iot, workflow, orchestration]
 license: Apache-2.0
-defaultEnabled: false
+defaultEnabled: true
 related:
   - tuya-iot-platform
   - tuyaopen/dev-loop
