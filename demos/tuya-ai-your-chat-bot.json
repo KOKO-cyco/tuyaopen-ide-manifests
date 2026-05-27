@@ -119,5 +119,24 @@
   },
   "image": {
     "url": "images/tuya-ai-your-chat-bot/tuya-ai-your-chat-bot.jpg"
-  }
+  },
+  "publish": true,
+  "boardConfigs": [
+    "DNESP32S3",
+    "DNESP32S3_BOX",
+    "DNESP32S3_BOX2_WIFI",
+    "DshanPi_A1",
+    "ESP32S3_BREAD_COMPACT_WIFI",
+    "RaspberryPi",
+    "T5AI_MINI_LCD_1.54",
+    "T5AI_MOJI_1.28",
+    "TUYA_T5AI_BOARD_LCD_3.5",
+    "TUYA_T5AI_BOARD_LCD_3.5_CAMERA",
+    "TUYA_T5AI_BOARD_LCD_3.5_v101",
+    "TUYA_T5AI_CORE",
+    "TUYA_T5AI_EVB",
+    "WAVESHARE_ESP32S3_TOUCH_AMOLED_1_8",
+    "WAVESHARE_T5AI_TOUCH_AMOLED_1_75",
+    "XINGZHI_ESP32S3_Cube_0_96OLED_WIFI"
+  ]
 }
