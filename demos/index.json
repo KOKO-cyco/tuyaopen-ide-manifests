@@ -1653,7 +1653,10 @@
         "subpath": "apps/tuya.ai/your_chat_bot",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/tuya-ai-your-chat-bot/tuya-ai-your-chat-bot.jpg"
+      }
     },
     {
       "id": "tuya-ai-your-desk-emoji",
