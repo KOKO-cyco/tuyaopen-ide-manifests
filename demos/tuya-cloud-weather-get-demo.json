@@ -9,7 +9,7 @@
     "zh-CN": "从云端天气 API 获取实况天气、预报和日出日落数据。"
   },
   "tags": [
-    "app",
+    "example",
     "cloud"
   ],
   "compatibilityType": "universal",
@@ -41,5 +41,12 @@
   "configs": {},
   "image": {
     "url": "images/tuya-cloud-weather-get-demo/tuya-cloud-weather-get-demo.jpg"
+  },
+  "publish": true,
+  "documentation": {
+    "readme": {
+      "en": null,
+      "zh-CN": null
+    }
   }
 }

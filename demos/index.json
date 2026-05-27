@@ -1834,7 +1834,7 @@
         "zh-CN": "从云端天气 API 获取实况天气、预报和日出日落数据。"
       },
       "tags": [
-        "app",
+        "example",
         "cloud"
       ],
       "boards": [],
