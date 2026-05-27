@@ -1675,7 +1675,10 @@
         "subpath": "apps/tuya.ai/your_desk_emoji",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/tuya-ai-your-desk-emoji/tuya-ai-your-desk-emoji.jpg"
+      }
     },
     {
       "id": "tuya-ai-your-otto-robot",

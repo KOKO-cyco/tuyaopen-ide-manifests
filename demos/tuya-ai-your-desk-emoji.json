@@ -32,5 +32,8 @@
       "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_desk_emoji/README.md",
       "zh-CN": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/your_desk_emoji/README_zh.md"
     }
+  },
+  "image": {
+    "url": "images/tuya-ai-your-desk-emoji/tuya-ai-your-desk-emoji.jpg"
   }
 }
