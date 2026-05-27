@@ -35,5 +35,15 @@
   },
   "image": {
     "url": "images/tuya-t5-pixel-tuya-t5-pixel-demo/tuya-t5-pixel-tuya-t5-pixel-demo.jpg"
-  }
+  },
+  "publish": true,
+  "documentation": {
+    "readme": {
+      "en": null,
+      "zh-CN": null
+    }
+  },
+  "boardConfigs": [
+    "TUYA_T5AI_PIXEL"
+  ]
 }
