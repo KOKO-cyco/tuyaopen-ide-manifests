@@ -1818,7 +1818,10 @@
         "subpath": "apps/tuya_cloud/switch_demo",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/tuya-cloud-switch-demo/tuya-cloud-switch-demo.jpg"
+      }
     },
     {
       "id": "tuya-cloud-weather-get-demo",
