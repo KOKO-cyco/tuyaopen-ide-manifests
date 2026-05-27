@@ -92,6 +92,26 @@
       "source": { "localPath": "skills/cloud/tuya-iot-platform" }
     },
     {
+      "id": "smart-product-dev",
+      "order": 10,
+      "name": { "en": "Smart Product Dev", "zh-CN": "智能产品开发" },
+      "surface": "embedded",
+      "summary": {
+        "en": "End-to-end IoT product development: requirements → Tuya Platform product/DP creation → complete embedded firmware. State-machine detects project state and picks up from wherever development stands.",
+        "zh-CN": "端到端 IoT 产品开发：需求梳理 → 涂鸦平台建产品/DP → 完整嵌入式固件生成。状态机检测项目进度，从当前阶段继续。"
+      },
+      "whenToUse": {
+        "en": "Use when developer wants to build a complete IoT product from scratch, or to continue from any mid-point in the development flow.",
+        "zh-CN": "当开发者要从零开始做 IoT 产品，或从中途继续开发时使用。"
+      },
+      "tags": ["product", "dp", "pid", "embedded", "iot", "workflow", "orchestration"],
+      "commands": ["tuyaopen.skill.smartProductDev"],
+      "defaultEnabled": false,
+      "installPayload": "embedded/smart-product-dev",
+      "related": ["tuya-iot-platform", "tuyaopen/dev-loop", "tuyaopen/project-config"],
+      "source": { "localPath": "skills/embedded/smart-product-dev" }
+    },
+    {
       "id": "tyutool/cli",
       "order": 15,
       "name": { "en": "tyutool CLI", "zh-CN": "tyutool 命令行工具" },
