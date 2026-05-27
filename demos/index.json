@@ -1966,7 +1966,7 @@
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_simple_shapes",
         "ref": "master"
       },
-      "publish": true,
+      "publish": false,
       "image": {
         "url": "images/tuya-t5-pixel-tuya-t5-pixel-simple-shapes/tuya-t5-pixel-tuya-t5-pixel-simple-shapes.jpg"
       }
