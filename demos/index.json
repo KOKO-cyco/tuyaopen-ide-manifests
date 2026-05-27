@@ -1876,7 +1876,10 @@
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_bongocat_kb",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/tuya-t5-pixel-tuya-t5-pixel-bongocat-kb/tuya-t5-pixel-tuya-t5-pixel-bongocat-kb.jpg"
+      }
     },
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-demo",
