@@ -27,5 +27,8 @@
       "file": "config/Ubuntu.config",
       "overrides": {}
     }
+  },
+  "image": {
+    "url": "images/tuya-cloud-camera-demo/tuya-cloud-camera-demo.jpg"
   }
 }
