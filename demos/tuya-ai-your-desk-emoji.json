@@ -35,5 +35,10 @@
   },
   "image": {
     "url": "images/tuya-ai-your-desk-emoji/tuya-ai-your-desk-emoji.jpg"
-  }
+  },
+  "publish": true,
+  "defaultConfig": {},
+  "boardConfigs": [
+    "T5AI_MINI"
+  ]
 }
