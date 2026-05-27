@@ -48,5 +48,10 @@
   },
   "image": {
     "url": "images/mimiclaw/mimiclaw.jpg"
-  }
+  },
+  "publish": true,
+  "boardConfigs": [
+    "Linux",
+    "T5AI"
+  ]
 }
