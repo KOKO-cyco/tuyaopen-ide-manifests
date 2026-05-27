@@ -36,5 +36,10 @@
   },
   "image": {
     "url": "images/tuya-ai-your-robot-dog/tuya-ai-your-robot-dog.jpg"
-  }
+  },
+  "publish": true,
+  "defaultConfig": {},
+  "boardConfigs": [
+    "TUYA_T5AI_ROBOT_DOG"
+  ]
 }
