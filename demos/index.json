@@ -1617,8 +1617,8 @@
     {
       "id": "tuya-ai-your-chat-bot",
       "name": {
-        "en": "AI Voice Chatbot",
-        "zh-CN": "AI 语音聊天机器人"
+        "en": "[Multi Board Supported] AI Voice Chatbot",
+        "zh-CN": "【多板卡支持】AI 语音聊天机器人"
       },
       "summary": {
         "en": "An open-source LLM chatbot that captures voice, performs speech recognition, and displays conversations on screen.",
