@@ -1737,7 +1737,10 @@
         "subpath": "apps/tuya.ai/your_robot_dog",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/tuya-ai-your-robot-dog/tuya-ai-your-robot-dog.jpg"
+      }
     },
     {
       "id": "tuya-ai-your-serial-chat-bot",
