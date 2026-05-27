@@ -55,5 +55,11 @@
   },
   "image": {
     "url": "images/tuya-ai-your-otto-robot/tuya-ai-your-otto-robot.jpg"
-  }
+  },
+  "publish": true,
+  "boardConfigs": [
+    "T5AI_OTTO_LCD_GC9D01",
+    "T5AI_OTTO_LCD_ST7735S",
+    "T5AI_OTTO_LCD_ST7789"
+  ]
 }
