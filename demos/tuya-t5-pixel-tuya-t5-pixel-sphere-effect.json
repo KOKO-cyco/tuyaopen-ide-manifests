@@ -36,7 +36,7 @@
   "image": {
     "url": "images/tuya-t5-pixel-tuya-t5-pixel-sphere-effect/tuya-t5-pixel-tuya-t5-pixel-sphere-effect.jpg"
   },
-  "publish": true,
+  "publish": false,
   "documentation": {
     "readme": {
       "en": null,

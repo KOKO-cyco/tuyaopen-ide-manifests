@@ -1995,7 +1995,7 @@
         "subpath": "apps/tuya_t5_pixel/tuya_t5_pixel_sphere_effect",
         "ref": "master"
       },
-      "publish": true,
+      "publish": false,
       "image": {
         "url": "images/tuya-t5-pixel-tuya-t5-pixel-sphere-effect/tuya-t5-pixel-tuya-t5-pixel-sphere-effect.jpg"
       }
