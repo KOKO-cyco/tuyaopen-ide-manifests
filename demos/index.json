@@ -1797,7 +1797,7 @@
         "subpath": "apps/tuya_cloud/camera_demo",
         "ref": "master"
       },
-      "publish": true,
+      "publish": false,
       "image": {
         "url": "images/tuya-cloud-camera-demo/tuya-cloud-camera-demo.jpg"
       }

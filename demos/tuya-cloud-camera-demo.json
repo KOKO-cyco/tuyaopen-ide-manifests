@@ -31,7 +31,7 @@
   "image": {
     "url": "images/tuya-cloud-camera-demo/tuya-cloud-camera-demo.jpg"
   },
-  "publish": true,
+  "publish": false,
   "defaultConfig": {},
   "documentation": {
     "readme": {
