@@ -148,7 +148,10 @@
         "subpath": "apps/games/lvgl_games",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/games-lvgl-games/games-lvgl-games.jpg"
+      }
     },
     {
       "id": "get-started-cxx",

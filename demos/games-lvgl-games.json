@@ -76,5 +76,8 @@
     "readme": {
       "en": "https://github.com/tuya/TuyaOpen/tree/master/apps/games/lvgl_games/README.md"
     }
+  },
+  "image": {
+    "url": "images/games-lvgl-games/games-lvgl-games.jpg"
   }
 }

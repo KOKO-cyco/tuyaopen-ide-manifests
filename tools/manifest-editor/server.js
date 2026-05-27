@@ -10,6 +10,7 @@ import statusRouter from './backend/routes/status.js';
 import boardsRouter from './backend/routes/boards.js';
 import demosRouter from './backend/routes/demos.js';
 import imagesRouter from './backend/routes/images.js';
+import demoImagesRouter from './backend/routes/demo-images.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -29,6 +30,7 @@ app.use('/api/status', statusRouter);
 app.use('/api/boards', boardsRouter);
 app.use('/api/demos', demosRouter);
 app.use('/api/images', imagesRouter);
+app.use('/api/demo-images', demoImagesRouter);
 
 // Serve frontend
 app.get('/', (req, res) => {

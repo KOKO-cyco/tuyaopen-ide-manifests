@@ -43,6 +43,7 @@ export const config = {
     demos: path.resolve(__dirname, process.env.GIT_REPO_PATH || '../..', 'demos'),
     platforms: path.resolve(__dirname, process.env.GIT_REPO_PATH || '../..', 'platforms'),
     images: path.resolve(__dirname, process.env.GIT_REPO_PATH || '../..', 'boards-and-chips', 'images'),
+    demoImages: path.resolve(__dirname, process.env.GIT_REPO_PATH || '../..', 'demos', 'images'),
     uploads: path.join(__dirname, 'uploads'), // Temporary upload directory
   },
 };

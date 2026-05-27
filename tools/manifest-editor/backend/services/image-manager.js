@@ -153,6 +153,145 @@ class ImageManager {
       throw new Error(`Failed to update board image: ${error.message}`);
     }
   }
+
+  async uploadDemoImage(demoId, filePath, filename, imageType = 'demo') {
+    try {
+      const demoImageDir = path.join(config.paths.demoImages, demoId);
+      await fs.mkdir(demoImageDir, { recursive: true });
+
+      const targetPath = path.join(demoImageDir, filename);
+
+      const metadata = await sharp(filePath).metadata();
+      const minSide = Math.min(metadata.width, metadata.height);
+      if (minSide < config.imageMinDimension) {
+        throw new Error(
+          `Image must be at least ${config.imageMinDimension}px on shortest side (got ${minSide}px)`
+        );
+      }
+
+      const spec = config.imageSpecs[imageType] || config.imageSpecs.demo;
+
+      let quality = config.imageQuality;
+      let outputBuffer;
+      do {
+        outputBuffer = await sharp(filePath)
+          .resize(spec.width, spec.height, {
+            fit: 'cover',
+            position: 'centre',
+          })
+          .jpeg({ quality })
+          .toBuffer();
+        quality -= 5;
+      } while (outputBuffer.length > config.imageMaxFileSize && quality > 30);
+
+      await fs.writeFile(targetPath, outputBuffer);
+
+      const outputMeta = await sharp(outputBuffer).metadata();
+      const relativePath = `images/${demoId}/${filename}`;
+
+      return {
+        success: true,
+        url: relativePath,
+        filename,
+        size: outputBuffer.length,
+        width: outputMeta.width,
+        height: outputMeta.height,
+      };
+    } catch (error) {
+      console.error('Error uploading demo image:', error.message);
+      throw new Error(`Failed to upload demo image: ${error.message}`);
+    }
+  }
+
+  async updateDemoImage(demoId, imageUrl) {
+    try {
+      const demos = await manifestLoader.loadDemos();
+
+      if (demos.items) {
+        const demo = demos.items.find((d) => d.id === demoId);
+        if (demo) {
+          if (!demo.image) {
+            demo.image = {};
+          }
+          demo.image.url = imageUrl;
+
+          await manifestLoader.saveDemosIndex(demos);
+
+          // Also update detail file if it exists
+          let detail = await manifestLoader.loadDemoDetail(demoId);
+          if (detail) {
+            if (!detail.image) {
+              detail.image = {};
+            }
+            detail.image.url = imageUrl;
+            await manifestLoader.saveDemoDetail(demoId, detail);
+          }
+
+          return { success: true };
+        }
+      }
+
+      throw new Error(`Demo "${demoId}" not found`);
+    } catch (error) {
+      console.error('Error updating demo image:', error.message);
+      throw new Error(`Failed to update demo image: ${error.message}`);
+    }
+  }
+
+  async getDemoImages(demoId) {
+    try {
+      const demoImageDir = path.join(config.paths.demoImages, demoId);
+
+      try {
+        await fs.access(demoImageDir);
+      } catch {
+        return [];
+      }
+
+      const files = await fs.readdir(demoImageDir);
+      const images = [];
+
+      for (const file of files) {
+        const filePath = path.join(demoImageDir, file);
+        const stats = await fs.stat(filePath);
+
+        images.push({
+          filename: file,
+          url: `images/${demoId}/${file}`,
+          size: stats.size,
+        });
+      }
+
+      return images;
+    } catch (error) {
+      console.error('Error getting demo images:', error.message);
+      throw new Error(`Failed to get demo images: ${error.message}`);
+    }
+  }
+
+  async deleteDemoImage(demoId, filename) {
+    try {
+      const imagePath = path.join(config.paths.demoImages, demoId, filename);
+
+      await fs.access(imagePath);
+      await fs.unlink(imagePath);
+
+      try {
+        const demoDir = path.join(config.paths.demoImages, demoId);
+        const files = await fs.readdir(demoDir);
+        if (files.length === 0) {
+          await fs.rmdir(demoDir);
+        }
+      } catch {
+        // ignore
+      }
+
+      return { success: true, message: 'Demo image deleted' };
+    } catch (error) {
+      console.error('Error deleting demo image:', error.message);
+      throw new Error(`Failed to delete demo image: ${error.message}`);
+    }
+  }
 }
 
 export const imageManager = new ImageManager();

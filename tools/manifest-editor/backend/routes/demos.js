@@ -31,7 +31,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 // POST /api/demos - Create new demo
 router.post('/', asyncHandler(async (req, res) => {
-  const { id, name, summary, tags, boards, compatibilityType, source, defaultConfig, configs, documentation } = req.body;
+  const { id, name, summary, tags, boards, compatibilityType, source, defaultConfig, configs, documentation, publish } = req.body;
 
   if (!id || !name?.en || !source?.repo || !source?.subpath) {
     return res.status(400).json({
@@ -49,11 +49,11 @@ router.post('/', asyncHandler(async (req, res) => {
 
   // Validate configs keys if provided
   if (configs && typeof configs === 'object') {
-    const invalidKeys = Object.keys(configs).filter(k => !/^[A-Z0-9][A-Z0-9_.]*$/.test(k));
+    const invalidKeys = Object.keys(configs).filter(k => !/^[A-Za-z0-9][A-Za-z0-9_.]*$/.test(k));
     if (invalidKeys.length > 0) {
       return res.status(400).json({
         success: false,
-        error: `Invalid kconfigId keys in configs: ${invalidKeys.join(', ')}. Must be UPPER_CASE.`,
+        error: `Invalid kconfigId keys in configs: ${invalidKeys.join(', ')}. Must be alphanumeric with underscores/dots.`,
       });
     }
     for (const [key, val] of Object.entries(configs)) {
@@ -86,6 +86,7 @@ router.post('/', asyncHandler(async (req, res) => {
       subpath: source.subpath,
       ref: source.ref || 'master',
     },
+    publish: publish !== false,
   };
 
   demos.items.push(indexEntry);
@@ -122,11 +123,11 @@ router.patch('/:id', asyncHandler(async (req, res) => {
 
   // Validate configs keys if provided
   if (updates.configs && typeof updates.configs === 'object') {
-    const invalidKeys = Object.keys(updates.configs).filter(k => !/^[A-Z0-9][A-Z0-9_.]*$/.test(k));
+    const invalidKeys = Object.keys(updates.configs).filter(k => !/^[A-Za-z0-9][A-Za-z0-9_.]*$/.test(k));
     if (invalidKeys.length > 0) {
       return res.status(400).json({
         success: false,
-        error: `Invalid kconfigId keys in configs: ${invalidKeys.join(', ')}. Must be UPPER_CASE.`,
+        error: `Invalid kconfigId keys in configs: ${invalidKeys.join(', ')}. Must be alphanumeric with underscores/dots.`,
       });
     }
     // Regenerate boardConfigs from configs keys for backward compat
@@ -134,7 +135,7 @@ router.patch('/:id', asyncHandler(async (req, res) => {
   }
 
   // Update index entry (only index-level fields)
-  const indexFields = ['name', 'summary', 'tags', 'boards', 'compatibilityType', 'source'];
+  const indexFields = ['name', 'summary', 'tags', 'boards', 'compatibilityType', 'source', 'publish'];
   for (const key of indexFields) {
     if (updates[key] !== undefined) {
       demos.items[idx][key] = updates[key];

@@ -73,6 +73,7 @@ export function renderDemoForm(demo = null) {
   const defaultConfig = d.defaultConfig ? JSON.stringify(d.defaultConfig, null, 2) : '';
   const readmeEn = d.documentation?.readme?.en || '';
   const readmeZh = d.documentation?.readme?.['zh-CN'] || '';
+  const currentImageUrl = d.image?.url || '';
 
   return `
     <form id="demoForm" class="demo-form">
@@ -141,13 +142,15 @@ export function renderDemoForm(demo = null) {
         <legend data-i18n="demoConfigs">Board Configs</legend>
         <small class="form-hint" style="display: block; margin-bottom: 12px;" data-i18n="demoConfigsHint">Map kconfigId to config file path</small>
         <div id="configsRows">
-          ${d.configs ? Object.entries(d.configs).map(([key, val], idx) => `
+          ${d.configs ? Object.entries(d.configs).map(([key, val], idx) => {
+            const filePath = typeof val === 'object' ? (val.file || '') : (val || '');
+            return `
             <div class="configs-row" data-row-idx="${idx}">
-              <input type="text" class="form-input configs-key" value="${escapeHtml(key)}" placeholder="TUYA_T5AI_EVB" pattern="^[A-Z0-9][A-Z0-9_.]*$" data-i18n-placeholder="demoConfigsKconfigId">
-              <input type="text" class="form-input configs-value" value="${escapeHtml(val)}" placeholder="config/TUYA_T5AI_EVB.config" data-i18n-placeholder="demoConfigsFile">
+              <input type="text" class="form-input configs-key" value="${escapeHtml(key)}" placeholder="TUYA_T5AI_EVB" data-i18n-placeholder="demoConfigsKconfigId">
+              <input type="text" class="form-input configs-value" value="${escapeHtml(filePath)}" placeholder="config/TUYA_T5AI_EVB.config" data-i18n-placeholder="demoConfigsFile">
               <button type="button" class="btn btn-sm btn-danger btn-remove configs-remove-btn">✕</button>
             </div>
-          `).join('') : ''}
+          `;}).join('') : ''}
         </div>
         <button type="button" class="btn btn-sm btn-outline" id="addConfigRowBtn" data-i18n="demoConfigsAdd">+ Add Config</button>
       </fieldset>
@@ -183,6 +186,37 @@ export function renderDemoForm(demo = null) {
           </div>
         </div>
       </fieldset>
+
+      ${isEdit ? `
+      <fieldset class="form-fieldset">
+        <legend>Image</legend>
+        <div class="image-upload-inline" id="demoImageUploadSection">
+          ${currentImageUrl ? `
+          <div class="image-current-preview" id="demoCurrentImage">
+            <img src="/api/demo-images/${currentImageUrl.replace('images/', '')}" alt="Demo image" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--color-border);">
+            <button type="button" class="btn btn-sm btn-danger" id="demoDeleteImageBtn" style="margin-top: 8px;">Delete Image</button>
+          </div>
+          ` : ''}
+          <div class="image-source-tabs" style="display: flex; gap: 16px; margin-bottom: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 8px;">
+            <a href="#" class="image-source-tab" data-source="file" style="color: var(--color-primary); font-weight: 600; border-bottom: 2px solid var(--color-primary); text-decoration: none; font-size: 13px;">Upload File</a>
+            <a href="#" class="image-source-tab" data-source="url" style="color: var(--color-muted); font-weight: 500; text-decoration: none; font-size: 13px;">From URL</a>
+          </div>
+          <div id="demoImageSourceFile">
+            <div class="image-upload-zone" data-demo-id="${escapeHtml(d.id)}" style="border: 2px dashed var(--color-border); border-radius: 8px; padding: 24px; text-align: center; cursor: pointer; transition: border-color 0.2s;">
+              <p style="margin: 0; color: var(--color-muted);">Drag and drop image here or <strong>click to select</strong></p>
+              <p class="image-recommendation" style="margin: 8px 0 0; font-size: 12px; color: var(--color-muted);">Recommended: 960×540 (16:9). Must be at least 500px.</p>
+              <input type="file" id="demoImageInput" accept="image/*" style="display: none;">
+            </div>
+          </div>
+          <div id="demoImageSourceUrl" style="display: none;">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <input type="url" id="demoImageUrl" class="form-input" placeholder="https://example.com/image.jpg" style="flex: 1;">
+              <button type="button" class="btn btn-sm btn-outline" id="demoConfirmUrlBtn">Use URL</button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      ` : ''}
 
       <div class="form-group">
         <label class="form-label" data-i18n="demoDefaultConfig">Default Config (JSON)</label>
@@ -231,7 +265,7 @@ export async function saveDemoForm(form, demoId = null) {
     const key = row.querySelector('.configs-key')?.value?.trim();
     const val = row.querySelector('.configs-value')?.value?.trim();
     if (key && val) {
-      configs[key] = val;
+      configs[key] = { file: val, overrides: {} };
     }
   });
 

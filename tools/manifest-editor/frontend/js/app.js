@@ -525,7 +525,7 @@ async function openDemoForm(demoId = null) {
       const idx = configsRowsContainer.querySelectorAll('.configs-row').length;
       const rowHtml = `
         <div class="configs-row" data-row-idx="${idx}">
-          <input type="text" class="form-input configs-key" value="" placeholder="TUYA_T5AI_EVB" pattern="^[A-Z0-9][A-Z0-9_.]*$">
+          <input type="text" class="form-input configs-key" value="" placeholder="TUYA_T5AI_EVB">
           <input type="text" class="form-input configs-value" value="" placeholder="config/TUYA_T5AI_EVB.config">
           <button type="button" class="btn btn-sm btn-danger btn-remove configs-remove-btn">✕</button>
         </div>
@@ -565,7 +565,158 @@ async function openDemoForm(demoId = null) {
     closeBtn.onclick = () => modal.classList.add('hidden');
   }
 
+  // Wire demo image upload (only for existing demos)
+  if (demoId) {
+    setupDemoImageUpload(demoId, modal);
+  }
+
   modal.classList.remove('hidden');
+}
+
+function setupDemoImageUpload(demoId, modal) {
+  const section = modal.querySelector('#demoImageUploadSection');
+  if (!section) return;
+
+  const zone = section.querySelector('.image-upload-zone');
+  const fileInput = section.querySelector('#demoImageInput');
+  const sourceTabs = section.querySelectorAll('.image-source-tab');
+  const sourceFile = section.querySelector('#demoImageSourceFile');
+  const sourceUrl = section.querySelector('#demoImageSourceUrl');
+  const urlInput = section.querySelector('#demoImageUrl');
+  const confirmUrlBtn = section.querySelector('#demoConfirmUrlBtn');
+  const deleteBtn = section.querySelector('#demoDeleteImageBtn');
+
+  // Tab switching
+  if (sourceTabs.length) {
+    sourceTabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const source = tab.dataset.source;
+        sourceTabs.forEach(t => {
+          if (t.dataset.source === source) {
+            t.style.color = 'var(--color-primary)';
+            t.style.fontWeight = '600';
+            t.style.borderBottom = '2px solid var(--color-primary)';
+          } else {
+            t.style.color = 'var(--color-muted)';
+            t.style.fontWeight = '500';
+            t.style.borderBottom = 'none';
+          }
+        });
+        if (source === 'file') {
+          sourceFile.style.display = 'block';
+          sourceUrl.style.display = 'none';
+        } else {
+          sourceFile.style.display = 'none';
+          sourceUrl.style.display = 'block';
+        }
+      });
+    });
+  }
+
+  // File drag & drop
+  if (zone) {
+    zone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      zone.style.borderColor = 'var(--color-primary)';
+    });
+    zone.addEventListener('dragleave', () => {
+      zone.style.borderColor = 'var(--color-border)';
+    });
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      zone.style.borderColor = 'var(--color-border)';
+      if (e.dataTransfer.files.length > 0) {
+        handleDemoImageFile(e.dataTransfer.files[0], demoId);
+      }
+    });
+    zone.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      fileInput?.click();
+    });
+  }
+
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleDemoImageFile(e.target.files[0], demoId);
+      }
+    });
+  }
+
+  // URL upload
+  if (confirmUrlBtn) {
+    confirmUrlBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const url = urlInput?.value?.trim();
+      if (!url) {
+        showError('Missing URL', 'Please enter an image URL');
+        return;
+      }
+      if (!url.startsWith('https://')) {
+        showError('Invalid URL', 'URL must use HTTPS protocol');
+        return;
+      }
+      confirmUrlBtn.disabled = true;
+      confirmUrlBtn.textContent = 'Uploading...';
+      try {
+        const result = await apiClient.uploadDemoImage(demoId, url, null, true, true);
+        if (result.success) {
+          showNotification('Demo image uploaded from URL');
+          urlInput.value = '';
+          loadDemos();
+        }
+      } catch (error) {
+        showError('Upload Failed', error.message);
+      } finally {
+        confirmUrlBtn.disabled = false;
+        confirmUrlBtn.textContent = 'Use URL';
+      }
+    });
+  }
+
+  // Delete image
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (!confirm('Delete this demo image?')) return;
+      try {
+        const images = await apiClient.getDemoImages(demoId);
+        if (images.images?.length > 0) {
+          await apiClient.deleteDemoImage(demoId, images.images[0].filename);
+          showNotification('Demo image deleted');
+          const preview = section.querySelector('#demoCurrentImage');
+          if (preview) preview.remove();
+          loadDemos();
+        }
+      } catch (error) {
+        showError('Delete Failed', error.message);
+      }
+    });
+  }
+}
+
+async function handleDemoImageFile(file, demoId) {
+  if (!file.type.startsWith('image/')) {
+    showError('Invalid File', 'Please select an image file (JPEG, PNG, WebP)');
+    return;
+  }
+  if (file.size > 5242880) {
+    showError('File Too Large', 'Maximum file size is 5MB');
+    return;
+  }
+  try {
+    const filename = `${demoId}.jpg`;
+    const result = await apiClient.uploadDemoImage(demoId, file, filename, true);
+    if (result.success) {
+      showNotification('Demo image uploaded successfully');
+      loadDemos();
+    }
+  } catch (error) {
+    showError('Upload Failed', error.message);
+  }
 }
 
 // ========== Git History Tab ==========

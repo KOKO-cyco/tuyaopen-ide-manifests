@@ -164,6 +164,52 @@ class ApiClient {
   async deleteDemo(id) {
     return this.request('DELETE', `/demos/${id}`);
   }
+
+  // Demo image endpoints
+  async getDemoImages(demoId) {
+    return this.request('GET', `/demo-images/${demoId}`);
+  }
+
+  async uploadDemoImage(demoId, fileOrUrl, filename = null, autoCommit = true, isUrl = false) {
+    if (isUrl || (typeof fileOrUrl === 'string' && fileOrUrl.startsWith('https://'))) {
+      return this.request('POST', '/demo-images/upload', {
+        demoId,
+        imageUrl: fileOrUrl,
+        autoCommit,
+        autoUpdate: true,
+      });
+    }
+
+    const formData = new FormData();
+    formData.append('demoId', demoId);
+    formData.append('image', fileOrUrl, filename || 'image.jpg');
+    if (filename) formData.append('filename', filename);
+    formData.append('autoCommit', autoCommit);
+    formData.append('autoUpdate', 'true');
+
+    const url = `${this.baseUrl}/demo-images/upload`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || errorData.error || 'Upload failed');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Demo image upload error:', error);
+      throw error;
+    }
+  }
+
+  async deleteDemoImage(demoId, filename, autoCommit = true) {
+    return this.request('DELETE', `/demo-images/${demoId}/${filename}`, { autoCommit });
+  }
 }
 
 export const apiClient = new ApiClient();

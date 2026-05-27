@@ -1,6 +1,7 @@
 // Utility functions for frontend
 
 export function escapeHtml(text) {
+  const str = text == null ? '' : String(text);
   const map = {
     '&': '&amp;',
     '<': '&lt;',
@@ -8,7 +9,7 @@ export function escapeHtml(text) {
     '"': '&quot;',
     "'": '&#039;',
   };
-  return text.replace(/[&<>"']/g, (char) => map[char]);
+  return str.replace(/[&<>"']/g, (char) => map[char]);
 }
 
 export function formatDate(dateString) {
