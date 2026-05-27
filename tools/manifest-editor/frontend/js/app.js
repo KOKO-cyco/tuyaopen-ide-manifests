@@ -712,10 +712,51 @@ async function handleDemoImageFile(file, demoId) {
     const result = await apiClient.uploadDemoImage(demoId, file, filename, true);
     if (result.success) {
       showNotification('Demo image uploaded successfully');
+      refreshDemoImagePreview(demoId, result.image.url);
       loadDemos();
     }
   } catch (error) {
     showError('Upload Failed', error.message);
+  }
+}
+
+function refreshDemoImagePreview(demoId, imageUrl) {
+  const section = document.querySelector('#demoImageUploadSection');
+  if (!section) return;
+
+  let preview = section.querySelector('#demoCurrentImage');
+  const displayUrl = `/api/demo-images/${imageUrl.replace('images/', '')}?t=${Date.now()}`;
+
+  if (preview) {
+    const img = preview.querySelector('img');
+    if (img) img.src = displayUrl;
+  } else {
+    const html = `
+      <div class="image-current-preview" id="demoCurrentImage">
+        <img src="${displayUrl}" alt="Demo image" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--color-border);">
+        <button type="button" class="btn btn-sm btn-danger" id="demoDeleteImageBtn" style="margin-top: 8px;">Delete Image</button>
+      </div>
+    `;
+    section.insertAdjacentHTML('afterbegin', html);
+    const deleteBtn = section.querySelector('#demoDeleteImageBtn');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if (!confirm('Delete this demo image?')) return;
+        try {
+          const images = await apiClient.getDemoImages(demoId);
+          if (images.images?.length > 0) {
+            await apiClient.deleteDemoImage(demoId, images.images[0].filename);
+            showNotification('Demo image deleted');
+            const p = section.querySelector('#demoCurrentImage');
+            if (p) p.remove();
+            loadDemos();
+          }
+        } catch (error) {
+          showError('Delete Failed', error.message);
+        }
+      });
+    }
   }
 }
 

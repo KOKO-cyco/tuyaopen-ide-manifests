@@ -30,9 +30,14 @@ export function renderDemoCard(demo) {
     .join('');
 
   const sourceLink = demo.source?.subpath || '';
+  const imageUrl = demo.image?.url || '';
+  const imageHtml = imageUrl
+    ? `<div class="demo-card-image"><img src="/api/demo-images/${imageUrl.replace('images/', '')}" alt="${escapeHtml(nameEn)}" loading="lazy"></div>`
+    : '';
 
   return `
     <div class="demo-card${!isPublished ? ' demo-card-unpublished' : ''}" data-demo-id="${escapeHtml(demo.id)}">
+      ${imageHtml}
       <div class="demo-card-header">
         <h3 class="demo-card-title">${escapeHtml(nameEn)}</h3>
         <div class="demo-card-badges">
