@@ -1807,7 +1807,7 @@
         "zh-CN": "支持 App 配网、远程控制、局域网和蓝牙控制的云端开关。"
       },
       "tags": [
-        "app",
+        "example",
         "cloud",
         "switch"
       ],
