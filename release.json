@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "version": "0.0.5",
   "tag": "v0.0.5",
-  "publishedAt": "2026-05-27T01:58:59Z",
+  "publishedAt": "2026-05-27T03:27:52Z",
   "package": {
     "github": "https://github.com/tuya/tuyaopen-ide-manifests/releases/download/v0.0.5/manifests.tar.gz",
     "gitee": "https://gitee.com/tuya-open/tuyaopen-ide-manifests/releases/download/v0.0.5/manifests.tar.gz",
-    "sha256": "8c9adece6f3827e2f64e5503fdfefacd26563f07e16edc0e68922964690fb6e6",
-    "size": 404199
+    "sha256": "0abb9c3a705c54657530efdf73d7643561179b9dbf23d3e4358e58e4340e4e2c",
+    "size": 404203
   },
   "domains": {
     "boardsAndChips": {
