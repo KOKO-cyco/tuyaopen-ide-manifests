@@ -1844,7 +1844,10 @@
         "subpath": "apps/tuya_cloud/weather_get_demo",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/tuya-cloud-weather-get-demo/tuya-cloud-weather-get-demo.jpg"
+      }
     },
     {
       "id": "tuya-t5-pixel-tuya-t5-pixel-bongocat-kb",

@@ -38,5 +38,8 @@
     "LWIP_TIMEVAL_PRIVATE": "0",
     "IN_ADDR_T_DEFINED": "y"
   },
-  "configs": {}
+  "configs": {},
+  "image": {
+    "url": "images/tuya-cloud-weather-get-demo/tuya-cloud-weather-get-demo.jpg"
+  }
 }
