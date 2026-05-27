@@ -32,5 +32,15 @@
   },
   "image": {
     "url": "images/micropython-mpy-minimal/micropython-mpy-minimal.jpg"
-  }
+  },
+  "publish": true,
+  "documentation": {
+    "readme": {
+      "en": null,
+      "zh-CN": null
+    }
+  },
+  "boardConfigs": [
+    "T5AI_CORE"
+  ]
 }
