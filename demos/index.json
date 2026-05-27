@@ -1708,7 +1708,10 @@
         "subpath": "apps/tuya.ai/your_otto_robot",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/tuya-ai-your-otto-robot/tuya-ai-your-otto-robot.jpg"
+      }
     },
     {
       "id": "tuya-ai-your-robot-dog",
