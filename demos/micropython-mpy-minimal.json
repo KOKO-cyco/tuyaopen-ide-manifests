@@ -29,5 +29,8 @@
       "file": "config/T5AI_CORE.config",
       "overrides": {}
     }
+  },
+  "image": {
+    "url": "images/micropython-mpy-minimal/micropython-mpy-minimal.jpg"
   }
 }

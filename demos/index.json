@@ -451,7 +451,10 @@
         "subpath": "apps/micropython/mpy_minimal",
         "ref": "master"
       },
-      "publish": true
+      "publish": true,
+      "image": {
+        "url": "images/micropython-mpy-minimal/micropython-mpy-minimal.jpg"
+      }
     },
     {
       "id": "mimiclaw",
