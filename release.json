@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "version": "0.0.9",
   "tag": "v0.0.9",
-  "publishedAt": "2026-06-09T05:48:11Z",
+  "publishedAt": "2026-06-09T09:39:32Z",
   "package": {
     "github": "https://github.com/tuya/tuyaopen-ide-manifests/releases/download/v0.0.9/manifests.tar.gz",
     "gitee": "https://gitee.com/tuya-open/tuyaopen-ide-manifests/releases/download/v0.0.9/manifests.tar.gz",
-    "sha256": "dd5f82ee7c683d7dd1cef24cd075f35a29142f3df91e43b31f13095c525a8e7f",
+    "sha256": "4a8c5bebb9d728b75ba62672bfd0a9a65ce110375511b2601876c05e2a5c7dfe",
     "size": 1376765
   },
   "domains": {
