@@ -1,5 +1,5 @@
 ---
-name: tuyaopen/hardware-vibe-coding
+name: hardware-vibe-coding
 description: >-
   Hardware-aware code generation for TuyaOpen embedded projects. Reads the
   project's confirmed hardware (.tuyaopen/used-peripherals.json) + board catalog
