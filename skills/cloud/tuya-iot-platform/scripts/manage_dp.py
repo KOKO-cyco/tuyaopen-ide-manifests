@@ -22,6 +22,7 @@ import argparse
 import json
 import os
 import shlex
+import shutil
 import subprocess
 import sys
 
@@ -29,7 +30,17 @@ import sys
 def _resolve_cli() -> list[str]:
     env = os.environ.get("TUYA_DEVPLAT_CLI", "")
     if env:
-        return shlex.split(env)
+        parts = shlex.split(env)
+        if parts:
+            exe = parts[0]
+            if os.path.isabs(exe):
+                if not (os.path.isfile(exe) and os.access(exe, os.X_OK)):
+                    print(f"[error] TUYA_DEVPLAT_CLI is not executable: {exe!r}", file=sys.stderr)
+                    sys.exit(1)
+            elif shutil.which(exe) is None:
+                print(f"[error] TUYA_DEVPLAT_CLI not found in PATH: {exe!r}", file=sys.stderr)
+                sys.exit(1)
+        return parts
     search = os.path.abspath(os.getcwd())
     for _ in range(10):
         name = "tuya-devplat-cli.cmd" if sys.platform == "win32" else "tuya-devplat-cli"

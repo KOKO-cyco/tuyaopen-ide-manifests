@@ -133,6 +133,13 @@ $OPEN_SDK_ROOT/tools/tyutool/tyutool_cli --plain authorize \
 
 Obtain UUID/AuthKey from the Tuya platform — see skill `tuyaopen/device-auth`.
 
+> **Credential safety** — when handling UUID/AuthKey:
+> - Use placeholder values (`your_uuid_here`, `your_authkey_here`) in all code examples and documentation.
+> - Never display, log, or echo real credentials in conversation output or comments.
+> - If the user provides real credentials, write them only to the hardware via the `authorize` command; do not repeat them in any other context.
+> - Remind the user that files containing real credentials (e.g. `tuya_config.h`) must not be committed to version control.
+> - See skill `tuyaopen/device-auth` for the full placeholder convention and credential lifecycle.
+
 ## Troubleshooting
 
 | Symptom | Fix |
