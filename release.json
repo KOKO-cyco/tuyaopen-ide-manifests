@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "version": "0.0.9",
-  "tag": "v0.0.9",
-  "publishedAt": "2026-06-09T09:39:32Z",
+  "version": "0.0.10",
+  "tag": "v0.0.10",
+  "publishedAt": "2026-06-17T07:59:09Z",
   "package": {
-    "github": "https://github.com/tuya/tuyaopen-ide-manifests/releases/download/v0.0.9/manifests.tar.gz",
-    "gitee": "https://gitee.com/tuya-open/tuyaopen-ide-manifests/releases/download/v0.0.9/manifests.tar.gz",
-    "sha256": "4a8c5bebb9d728b75ba62672bfd0a9a65ce110375511b2601876c05e2a5c7dfe",
-    "size": 1376765
+    "github": "https://github.com/tuya/tuyaopen-ide-manifests/releases/download/v0.0.10/manifests.tar.gz",
+    "gitee": "https://gitee.com/tuya-open/tuyaopen-ide-manifests/releases/download/v0.0.10/manifests.tar.gz",
+    "sha256": "cada80e2bc52cff36cf7530af5a249159e20417aaf8a22684c4cafdfee4f612f",
+    "size": 1426836
   },
   "domains": {
     "boardsAndChips": {
