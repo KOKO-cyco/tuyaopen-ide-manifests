@@ -4,10 +4,10 @@
   "publishedAt": "2026-05-27T00:00:00Z",
   "publishedBy": "tuya/tuyaopen-ide-manifests",
   "devSkillsRelease": {
-    "version": "0.0.3",
-    "github": "https://github.com/tuya/TuyaOpen-dev-skills/releases/download/v0.0.3/TuyaOpen-dev-skills.tar.gz",
-    "gitee": "https://gitee.com/tuya-open/TuyaOpen-dev-skills/releases/download/v0.0.3/TuyaOpen-dev-skills.tar.gz",
-    "sha256": "a94199b5fcc9e56232f7d56201f16d7a5d64830347f0c56c585bdf8265e476b7",
+    "version": "0.0.7",
+    "github": "https://github.com/tuya/TuyaOpen-dev-skills/releases/download/v0.0.7/TuyaOpen-dev-skills.tar.gz",
+    "gitee": "https://gitee.com/tuya-open/TuyaOpen-dev-skills/releases/download/v0.0.7/TuyaOpen-dev-skills.tar.gz",
+    "sha256": "36869b0856cf18eda6232405babea81808e89b8e0625cfd919d9cf431687881f",
     "size": 27725
   },
   "items": [
