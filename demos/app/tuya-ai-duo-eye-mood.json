@@ -1,0 +1,60 @@
+{
+  "id": "tuya-ai-duo-eye-mood",
+  "source": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya.ai/duo_eye_mood",
+  "configs": [
+    {
+      "board": "tuya-t5ai-board",
+      "options": [
+        {
+          "file": "TUYA_T5AI_BOARD_EYES.config",
+          "name": {
+            "en": "Dual Sync Eyes",
+            "zh-CN": "双眼屏-同显"
+          },
+          "peripherals": [
+            "button",
+            "audio",
+            "led",
+            "lcd-eyes-a"
+          ]
+        }
+      ]
+    },
+    {
+      "board": "tuya-t5ai-board",
+      "options": [
+        {
+          "file": "TUYA_T5AI_BOARD_EYES_TWO_LCD.config",
+          "name": {
+            "en": "Dual Async Eyes",
+            "zh-CN": "双眼屏-异显"
+          },
+          "peripherals": [
+            "button",
+            "audio",
+            "led",
+            "lcd-eyes-b"
+          ]
+        }
+      ]
+    }
+  ],
+  "drivers": [
+    {
+      "driver": "display",
+      "level": "required"
+    },
+    {
+      "driver": "audio",
+      "level": "required"
+    },
+    {
+      "driver": "button",
+      "level": "required"
+    },
+    {
+      "driver": "led",
+      "level": "optional"
+    }
+  ]
+}

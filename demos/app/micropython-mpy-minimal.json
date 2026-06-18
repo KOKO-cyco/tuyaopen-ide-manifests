@@ -1,0 +1,14 @@
+{
+  "id": "micropython-mpy-minimal",
+  "source": "https://github.com/tuya/TuyaOpen/tree/master/apps/micropython/mpy_minimal",
+  "configs": [
+    {
+      "platform": "t5ai",
+      "options": [
+        {
+          "file": "T5AI_CORE.config"
+        }
+      ]
+    }
+  ]
+}

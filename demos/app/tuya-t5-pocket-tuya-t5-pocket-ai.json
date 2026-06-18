@@ -1,0 +1,56 @@
+{
+  "id": "tuya-t5-pocket-tuya-t5-pocket-ai",
+  "source": "https://github.com/tuya/TuyaOpen/tree/master/apps/tuya_t5_pocket/tuya_t5_pocket_ai",
+  "configs": [
+    {
+      "board": "tuya-t5ai-pocket",
+      "options": [
+        {
+          "file": "TUYA_T5AI_POCKET.config",
+          "name": {
+            "en": "Tuya T5AI Pocket",
+            "zh-CN": "涂鸦 T5AI Pocket 板"
+          }
+        }
+      ]
+    }
+  ],
+  "drivers": [
+    {
+      "driver": "display",
+      "level": "required"
+    },
+    {
+      "driver": "audio",
+      "level": "required"
+    },
+    {
+      "driver": "button",
+      "level": "required"
+    },
+    {
+      "driver": "pmic",
+      "level": "required"
+    },
+    {
+      "driver": "camera",
+      "level": "optional"
+    },
+    {
+      "driver": "led",
+      "level": "optional"
+    },
+    {
+      "driver": "imu",
+      "level": "optional"
+    },
+    {
+      "driver": "sensor",
+      "level": "optional"
+    },
+    {
+      "driver": "sd-card",
+      "level": "optional"
+    }
+  ]
+}

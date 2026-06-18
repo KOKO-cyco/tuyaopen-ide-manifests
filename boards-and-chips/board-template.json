@@ -14,7 +14,6 @@
     "zh-CN": "<制造商中文名>"
   },
   "platformId": "<platform-id: t5ai | ...>",
-  "variantId": "<id field from variants[] in platforms/<platformId>.json, e.g. t5ai>",
   "image": {
     "url": "<path or URL to board image, e.g. /images/board-id-500x500.jpg>",
     "alt": {
@@ -910,8 +909,6 @@
     "<wifi | ble | zigbee | thread | edge-ai | audio | display | camera | imu | led-pixel | pmic | cellular | ...>"
   ],
   "source": {
-    "repo": "<source repository URL or null>",
-    "ref": "<branch or tag, e.g. main>",
-    "subpath": "<path within repo, e.g. boards/board-id>"
+    "repo": "<board BSP source URL or null>"
   }
 }

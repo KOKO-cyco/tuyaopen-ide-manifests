@@ -6,54 +6,42 @@ import i18n from './i18n.js';
 
 // ========== Card Rendering ==========
 
+// Unified fallback shown in the image slot when a demo has no image of its own.
+const demoImagePlaceholder = () => `
+  <svg class="demo-card-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+    <path d="M21 15l-5-5L5 21"></path>
+  </svg>
+  <span class="demo-card-placeholder-text">${escapeHtml(i18n.t('demoNoImage') || 'No image')}</span>`;
+
 export function renderDemoCard(demo) {
-  const nameEn = typeof demo.name === 'object' ? (demo.name.en || demo.name['zh-CN'] || demo.id) : (demo.name || demo.id);
-  const summaryEn = typeof demo.summary === 'object' ? (demo.summary.en || demo.summary['zh-CN'] || '') : '';
-  const truncatedSummary = summaryEn.length > 120 ? summaryEn.slice(0, 117) + '...' : summaryEn;
+  const lang = i18n.getLanguage();
+  const pick = (loc) => (typeof loc === 'object' && loc) ? (loc[lang] || loc.en || loc['zh-CN'] || '') : (loc || '');
+  const name = pick(demo.name) || demo.id;
+  const summary = pick(demo.summary);
+  const isUnpublished = demo.publish === false;
 
-  const isApp = demo.tags?.includes('app');
-  const categoryLabel = isApp ? 'App' : 'Example';
-  const categoryClass = isApp ? 'demo-badge-app' : 'demo-badge-example';
-
-  const compatLabel = demo.compatibilityType === 'universal' ? i18n.t('demoUniversal') : `${demo.boards?.length || 0} boards`;
-  const compatClass = demo.compatibilityType === 'universal' ? 'demo-badge-universal' : 'demo-badge-boards';
-
-  const isPublished = demo.publish !== false;
-  const publishBadge = isPublished
-    ? '<span class="demo-badge demo-badge-published">Published</span>'
-    : '<span class="demo-badge demo-badge-unpublished">Unpublished</span>';
-
-  const tagsHtml = (demo.tags || [])
-    .filter(t => t !== 'app' && t !== 'example')
-    .slice(0, 5)
-    .map(t => `<span class="demo-tag">${escapeHtml(t)}</span>`)
-    .join('');
-
-  const sourceLink = demo.source?.subpath || '';
   const imageUrl = demo.image?.url || '';
-  const imageHtml = imageUrl
-    ? `<div class="demo-card-image"><img src="/api/demo-images/${imageUrl.replace('images/', '')}" alt="${escapeHtml(nameEn)}" loading="lazy"></div>`
-    : '';
+  const imageInner = imageUrl
+    ? `<img src="/api/demo-images/${imageUrl.replace('images/', '')}" alt="${escapeHtml(name)}" loading="lazy">`
+    : demoImagePlaceholder();
+  const imageHtml = `<div class="demo-card-image${imageUrl ? '' : ' demo-card-image--empty'}">${imageInner}</div>`;
 
   return `
-    <div class="demo-card${!isPublished ? ' demo-card-unpublished' : ''}" data-demo-id="${escapeHtml(demo.id)}">
+    <div class="demo-card${isUnpublished ? ' demo-card--unpublished' : ''}" data-demo-id="${escapeHtml(demo.id)}">
+      ${isUnpublished ? '<span class="demo-card-unpublished-badge">Unpublished / 未发布</span>' : ''}
       ${imageHtml}
       <div class="demo-card-header">
-        <h3 class="demo-card-title">${escapeHtml(nameEn)}</h3>
-        <div class="demo-card-badges">
-          ${publishBadge}
-          <span class="demo-badge ${categoryClass}">${categoryLabel}</span>
-          <span class="demo-badge ${compatClass}">${compatLabel}</span>
+        <div>
+          <div class="demo-card-title">${escapeHtml(name)}</div>
+          <div class="demo-card-id">${escapeHtml(demo.id)}</div>
         </div>
       </div>
-      ${truncatedSummary ? `<p class="demo-card-summary">${escapeHtml(truncatedSummary)}</p>` : ''}
-      <div class="demo-card-meta">
-        <div class="demo-tags">${tagsHtml}</div>
-        <div class="demo-card-source" title="${escapeHtml(sourceLink)}">📁 ${escapeHtml(sourceLink)}</div>
-      </div>
-      <div class="demo-card-actions">
-        <button class="btn btn-sm btn-outline demo-edit-btn" data-demo-id="${escapeHtml(demo.id)}" data-i18n="demoEdit">Edit</button>
-        <button class="btn btn-sm btn-danger demo-delete-btn" data-demo-id="${escapeHtml(demo.id)}" data-i18n="demoDelete">Delete</button>
+      ${summary ? `<p class="demo-card-summary">${escapeHtml(summary)}</p>` : ''}
+      <div class="demo-card-footer">
+        <button class="btn btn-sm btn-outline demo-edit-btn" data-demo-id="${escapeHtml(demo.id)}">✏️ ${escapeHtml(i18n.t('demoEdit') || 'Edit')}</button>
+        <button class="btn btn-sm btn-danger demo-delete-btn" data-demo-id="${escapeHtml(demo.id)}">🗑️ ${escapeHtml(i18n.t('demoDelete') || 'Delete')}</button>
       </div>
     </div>
   `;
@@ -68,164 +56,207 @@ export function renderDemoForm(demo = null) {
   const nameZh = typeof d.name === 'object' ? (d.name?.['zh-CN'] || '') : '';
   const summaryEn = typeof d.summary === 'object' ? (d.summary?.en || '') : '';
   const summaryZh = typeof d.summary === 'object' ? (d.summary?.['zh-CN'] || '') : '';
+  // Classification: single-feature example vs complete-product app.
+  const typeVal = d.type === 'app' ? 'app' : 'example';
   const tags = (d.tags || []).filter(t => t !== 'app' && t !== 'example').join(', ');
   const boards = (d.boards || []).join(', ');
-  const isUniversal = d.compatibilityType === 'universal';
+  // Compatibility scope: 'universal' (any board) | 'platform' (any board of the
+  // listed platform variants) | 'board-specific' (the listed boards + configs).
+  const scope = d.compatibilityType === 'platform' || d.compatibilityType === 'board-specific'
+    ? d.compatibilityType : 'universal';
   const isPublished = d.publish !== false;
-  const sourceRepo = d.source?.repo || 'https://github.com/tuya/TuyaOpen';
-  const sourceSubpath = d.source?.subpath || '';
-  const sourceRef = d.source?.ref || 'master';
-  const defaultConfig = d.defaultConfig ? JSON.stringify(d.defaultConfig, null, 2) : '';
+  const source = typeof d.source === 'string' ? d.source : '';
   const readmeEn = d.documentation?.readme?.en || '';
   const readmeZh = d.documentation?.readme?.['zh-CN'] || '';
   const currentImageUrl = d.image?.url || '';
 
   return `
-    <form id="demoForm" class="demo-form">
-      <div class="form-group">
-        <label class="form-label" data-i18n="demoId">ID</label>
-        <input type="text" id="demoId" class="form-input" value="${escapeHtml(d.id || '')}"
-          ${isEdit ? 'readonly' : ''} placeholder="my-demo-name" pattern="^[a-z0-9]+(?:-[a-z0-9]+)*$" required>
-        ${!isEdit ? '<small class="form-hint">Kebab-case: lowercase letters, numbers, hyphens only</small>' : ''}
+    <form id="demoForm" class="demo-form" style="max-width: none; width: 100%; padding: 24px;">
+      <div class="demo-form-tabs">
+        <button type="button" class="demo-form-tab active" data-pane="basic" data-i18n="demoTabBasic">Basic Info</button>
+        <button type="button" class="demo-form-tab" data-pane="config" data-i18n="demoTabConfig">Board Config Mapping</button>
+        <button type="button" class="demo-form-tab" data-pane="deps" data-i18n="demoTabDeps">Dependencies</button>
       </div>
 
-      <div class="form-group">
-        <label class="form-label">Publish</label>
-        <label class="form-toggle">
-          <input type="checkbox" id="demoPublish" ${isPublished ? 'checked' : ''}>
-          <span class="form-toggle-label">${isPublished ? 'Published — visible in IDE' : 'Unpublished — hidden in IDE'}</span>
-        </label>
+      <!-- ============ Pane: Basic Info ============ -->
+      <div class="demo-pane" data-pane="basic">
+      <!-- ID + Type — both fixed at creation, locked on edit -->
+      <div class="form-group form-row-2col">
+        <div class="form-col-half">
+          <label class="form-label required" for="demoId" data-i18n="demoId">ID</label>
+          <input type="text" id="demoId" class="form-input" value="${escapeHtml(d.id || '')}"
+            ${isEdit ? 'readonly aria-readonly="true" style="background: var(--color-hover); cursor: not-allowed;"' : ''} placeholder="my-demo-name" pattern="^[a-z0-9]+(?:-[a-z0-9]+)*$" required>
+          ${isEdit
+            ? '<small style="color: var(--color-muted);" data-i18n="demoIdLockedHint">ID is fixed at creation and cannot be changed.</small>'
+            : '<small style="color: var(--color-muted);" data-i18n="demoIdHint">Kebab-case: lowercase letters, numbers, hyphens only. Fixed at creation.</small>'}
+        </div>
+        <div class="form-col-half">
+          <label class="form-label required" for="demoCategory" data-i18n="demoCategory">Type</label>
+          <select id="demoCategory" class="form-select"
+            ${isEdit ? 'disabled aria-disabled="true" style="background: var(--color-hover); cursor: not-allowed;"' : ''}>
+            <option value="example" ${typeVal === 'example' ? 'selected' : ''} data-i18n="demoCategoryExample">Example — single-feature sample</option>
+            <option value="app" ${typeVal === 'app' ? 'selected' : ''} data-i18n="demoCategoryApp">App — complete product sample</option>
+          </select>
+          ${isEdit ? '<small style="color: var(--color-muted);" data-i18n="demoCategoryLockedHint">Type is fixed at creation and cannot be changed.</small>' : ''}
+        </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" data-i18n="demoNameEn">Name (EN)</label>
+      <!-- Published Toggle -->
+      <div class="form-group" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--color-hover); border-radius: 6px;">
+        <input type="checkbox" id="demoPublish" ${isPublished ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;">
+        <label for="demoPublish" style="margin: 0; cursor: pointer; font-weight: 500;" data-i18n="demoPublish">Publish</label>
+        <small style="color: var(--color-muted); margin-left: auto;" data-i18n="demoPublishHint">Visible in IDE when checked</small>
+      </div>
+
+      <!-- EN/ZH Pair: Name -->
+      <div class="form-group form-row-2col">
+        <div class="form-col-half">
+          <label class="form-label required" for="demoNameEn" data-i18n="demoNameEn">Name (EN)</label>
           <input type="text" id="demoNameEn" class="form-input" value="${escapeHtml(nameEn)}" required>
         </div>
-        <div class="form-group">
-          <label class="form-label" data-i18n="demoNameZh">Name (zh-CN)</label>
+        <div class="form-col-half">
+          <label class="form-label" for="demoNameZh" data-i18n="demoNameZh">Name (zh-CN)</label>
           <input type="text" id="demoNameZh" class="form-input" value="${escapeHtml(nameZh)}">
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" data-i18n="demoSummaryEn">Summary (EN)</label>
+      <!-- EN/ZH Pair: Summary -->
+      <div class="form-group form-row-2col">
+        <div class="form-col-half">
+          <label class="form-label" for="demoSummaryEn" data-i18n="demoSummaryEn">Summary (EN)</label>
           <textarea id="demoSummaryEn" class="form-textarea" rows="3">${escapeHtml(summaryEn)}</textarea>
         </div>
-        <div class="form-group">
-          <label class="form-label" data-i18n="demoSummaryZh">Summary (zh-CN)</label>
+        <div class="form-col-half">
+          <label class="form-label" for="demoSummaryZh" data-i18n="demoSummaryZh">Summary (zh-CN)</label>
           <textarea id="demoSummaryZh" class="form-textarea" rows="3">${escapeHtml(summaryZh)}</textarea>
         </div>
       </div>
 
+      <!-- Tags — same chip-input + search + available pool as the board form -->
       <div class="form-group">
-        <label class="form-label" data-i18n="demoTags">Tags (comma separated)</label>
-        <input type="text" id="demoTags" class="form-input" value="${escapeHtml(tags)}" placeholder="wifi, ai, peripheral">
+        <label class="form-label" data-i18n="demoTags">Tags</label>
+        <input type="hidden" id="demoTags" value="${escapeHtml(tags)}">
+        <div id="demoTagsContainer" class="tags-chip-input">
+          <div id="demoSelectedTags" class="tags-chips"></div>
+          <div class="tags-add-wrapper">
+            <input type="text" id="demoTagsSearchInput" class="form-input tags-search" autocomplete="off" placeholder="Search tags…" data-i18n-placeholder="demoTagsSearch">
+            <div id="demoTagsDropdown" class="tags-dropdown" style="display: none;"></div>
+          </div>
+        </div>
+        <div id="demoTagsAvailablePool" class="tags-available-pool"></div>
       </div>
 
+      <!-- Source — path in the TuyaOpen repo (e.g. apps/tuya.ai/your_chat_bot) -->
       <div class="form-group">
-        <label class="form-label" data-i18n="demoCompatibility">Compatibility</label>
-        <div class="form-radio-group">
-          <label class="form-radio">
-            <input type="radio" name="compatibilityType" value="universal" ${isUniversal ? 'checked' : ''}>
-            <span data-i18n="demoUniversal">Universal (cross-platform)</span>
-          </label>
-          <label class="form-radio">
-            <input type="radio" name="compatibilityType" value="board-specific" ${!isUniversal ? 'checked' : ''}>
-            <span data-i18n="demoBoardSpecific">Board-specific</span>
-          </label>
+        <label class="form-label required" for="demoSource" data-i18n="demoSource">Source URL</label>
+        <input type="url" id="demoSource" class="form-input" value="${escapeHtml(source)}" required placeholder="https://github.com/tuya/TuyaOpen/tree/master/apps/my_app">
+        <small style="color: var(--color-muted);" data-i18n="demoSourceHint">Full URL to the example's source directory (repo + branch + path).</small>
+      </div>
+
+      <!-- EN/ZH Pair: Documentation -->
+      <div class="form-group form-row-2col">
+        <div class="form-col-half">
+          <label class="form-label" for="demoReadmeEn" data-i18n="demoReadmeEn">README (EN)</label>
+          <input type="url" id="demoReadmeEn" class="form-input url-input" value="${escapeHtml(readmeEn)}" placeholder="https://github.com/...">
+        </div>
+        <div class="form-col-half">
+          <label class="form-label" for="demoReadmeZh" data-i18n="demoReadmeZh">README (zh-CN)</label>
+          <input type="url" id="demoReadmeZh" class="form-input url-input" value="${escapeHtml(readmeZh)}" placeholder="https://github.com/...">
         </div>
       </div>
 
-      <div class="form-group" id="demoBoardsGroup" style="${isUniversal ? 'display:none' : ''}">
-        <label class="form-label" data-i18n="demoBoardsList">Boards (comma separated)</label>
-        <input type="text" id="demoBoards" class="form-input" value="${escapeHtml(boards)}" placeholder="tuya-t5ai-evb, tuya-t5ai-board">
-      </div>
-
-      <fieldset class="form-fieldset">
-        <legend data-i18n="demoConfigs">Board Configs</legend>
-        <small class="form-hint" style="display: block; margin-bottom: 12px;" data-i18n="demoConfigsHint">Map kconfigId to config file path</small>
-        <div id="configsRows">
-          ${d.configs ? Object.entries(d.configs).map(([key, val], idx) => {
-            const filePath = typeof val === 'object' ? (val.file || '') : (val || '');
-            return `
-            <div class="configs-row" data-row-idx="${idx}">
-              <input type="text" class="form-input configs-key" value="${escapeHtml(key)}" placeholder="TUYA_T5AI_EVB" data-i18n-placeholder="demoConfigsKconfigId">
-              <input type="text" class="form-input configs-value" value="${escapeHtml(filePath)}" placeholder="config/TUYA_T5AI_EVB.config" data-i18n-placeholder="demoConfigsFile">
-              <button type="button" class="btn btn-sm btn-danger btn-remove configs-remove-btn">✕</button>
+      <!-- Image -->
+      <div class="form-group">
+        <label class="form-label">${i18n.t('demoImage')}</label>
+        ${isEdit ? `
+          <div class="image-upload-inline" id="demoImageUploadSection">
+            <!-- Image Source Tabs -->
+            <div style="display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 8px;">
+              <button type="button" class="image-source-tab active" data-source="file" style="background: none; border: none; padding: 8px; cursor: pointer; font-weight: 500; color: var(--color-primary);">
+                ${i18n.t('demoImageUploadFile')}
+              </button>
+              <button type="button" class="image-source-tab" data-source="url" style="background: none; border: none; padding: 8px; cursor: pointer; font-weight: 500; color: var(--color-muted);">
+                ${i18n.t('demoImageFromUrl')}
+              </button>
             </div>
-          `;}).join('') : ''}
-        </div>
-        <button type="button" class="btn btn-sm btn-outline" id="addConfigRowBtn" data-i18n="demoConfigsAdd">+ Add Config</button>
-      </fieldset>
 
-      <fieldset class="form-fieldset">
-        <legend data-i18n="demoSource">Source</legend>
+            <!-- File Upload -->
+            <div id="demoImageSourceFile" class="image-source-content">
+              <div class="image-upload-zone" data-demo-id="${escapeHtml(d.id)}">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <p class="upload-text">${i18n.t('demoImageDrop')}</p>
+                <p class="image-recommendation">${i18n.t('demoImageRecommend')}</p>
+                <input type="file" id="demoImageInput" style="display: none;" accept="image/*">
+              </div>
+            </div>
+
+            <!-- URL Input -->
+            <div id="demoImageSourceUrl" class="image-source-content" style="display: none;">
+              <input type="url" id="demoImageUrl" class="form-input url-input" placeholder="https://example.com/image.jpg" style="margin-bottom: 8px;">
+              <small style="color: var(--color-muted); display: block; margin-bottom: 8px;">${i18n.t('demoImageUrlHint')}</small>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" id="demoConfirmUrlBtn" class="btn btn-primary">${i18n.t('demoImageUseUrl')}</button>
+              </div>
+            </div>
+
+            ${currentImageUrl ? `
+              <div class="current-image-preview" id="demoCurrentImage" style="margin-top: 12px; padding: 12px; background-color: var(--color-hover); border-radius: 8px; text-align: center;">
+                <img src="/api/demo-images/${currentImageUrl.replace('images/', '')}" alt="Current demo image" style="max-width: 200px; max-height: 200px; object-fit: contain; border-radius: 4px; border: 1px solid var(--color-border);">
+                <small style="display: block; margin-top: 8px; color: var(--color-muted);">${i18n.t('demoImageCurrentLabel')}: ${escapeHtml(currentImageUrl)}</small>
+                <button type="button" class="btn btn-sm btn-danger" id="demoDeleteImageBtn" style="margin-top: 8px;">${i18n.t('demoImageDelete')}</button>
+              </div>
+            ` : `<small style="color: var(--color-muted);">${i18n.t('demoImageNoneSet')}</small>`}
+          </div>
+        ` : `<small style="color: var(--color-muted);">${i18n.t('demoImageSaveFirst')}</small>`}
+      </div>
+      </div>
+
+      <!-- ============ Pane: Board Config Mapping ============ -->
+      <div class="demo-pane" data-pane="config" style="display:none">
+        <!-- Compatibility scope: universal / platform / board-specific -->
+        <div class="form-group" style="padding: 8px 12px; background: var(--color-hover); border-radius: 6px;">
+          <label class="form-label" style="margin:0 0 6px;" data-i18n="demoScopeLabel">Compatibility scope</label>
+          <div style="display:flex; gap:18px; flex-wrap:wrap;">
+            <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-weight:500;"><input type="radio" name="demoScope" value="universal" ${scope === 'universal' ? 'checked' : ''}> <span data-i18n="demoScopeUniversal">Universal — any board</span></label>
+            <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-weight:500;"><input type="radio" name="demoScope" value="platform" ${scope === 'platform' ? 'checked' : ''}> <span data-i18n="demoScopePlatform">Platform — any board of…</span></label>
+            <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-weight:500;"><input type="radio" name="demoScope" value="board-specific" ${scope === 'board-specific' ? 'checked' : ''}> <span data-i18n="demoScopeBoard">Board-specific</span></label>
+          </div>
+        </div>
+
+        <div id="demoPlatformsSection" style="${scope === 'platform' ? '' : 'display:none'}">
+          <div class="form-group">
+            <label class="form-label" data-i18n="demoPlatformsLabel">Supported platforms</label>
+            <small style="color: var(--color-muted); display:block; margin:6px 0 8px;" data-i18n="demoPlatformsHint">Any board of these platforms can run this demo.</small>
+            <div id="demoPlatforms" class="demo-platforms-checks"></div>
+          </div>
+        </div>
+
+        <div id="demoConfigSection" style="${scope === 'board-specific' ? '' : 'display:none'}">
+          <div class="form-group">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+              <label class="form-label" style="margin:0;" data-i18n="demoTargets">Supported boards &amp; configs</label>
+              <button type="button" class="btn btn-primary btn-sm" id="addTargetBtn" data-i18n="demoTargetAddBtn">+ Add board</button>
+            </div>
+            <small style="color: var(--color-muted); display:block; margin:6px 0 8px;" data-i18n="demoTargetsHint">Each row: a board and its config file(s) + the peripherals each uses.</small>
+            <div id="demoTargets"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ Pane: Dependencies ============ -->
+      <div class="demo-pane" data-pane="deps" style="display:none">
+        <!-- Hardware drivers — what this demo needs, by dependency strength.
+             Required = won't run without it; Optional = enhances but not needed.
+             Vocabulary mirrors the board "peripherals" tags so they can be matched. -->
         <div class="form-group">
-          <label class="form-label" data-i18n="demoSourceRepo">Repository URL</label>
-          <input type="url" id="demoSourceRepo" class="form-input" value="${escapeHtml(sourceRepo)}" required>
+          <label class="form-label" data-i18n="demoDrivers">Hardware drivers</label>
+          <small style="color: var(--color-muted); display:block; margin:2px 0 8px;" data-i18n="demoDriversHint">Hardware this demo uses. Required = won't run without it; Optional = enhances but works without.</small>
+          <div id="demoDriversContainer" class="demo-drivers"></div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" data-i18n="demoSourceSubpath">Subpath</label>
-            <input type="text" id="demoSourceSubpath" class="form-input" value="${escapeHtml(sourceSubpath)}" required placeholder="apps/my_app">
-          </div>
-          <div class="form-group">
-            <label class="form-label" data-i18n="demoSourceRef">Branch/Ref</label>
-            <input type="text" id="demoSourceRef" class="form-input" value="${escapeHtml(sourceRef)}">
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset class="form-fieldset">
-        <legend data-i18n="demoDocumentation">Documentation</legend>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">README (EN)</label>
-            <input type="url" id="demoReadmeEn" class="form-input" value="${escapeHtml(readmeEn)}" placeholder="https://github.com/...">
-          </div>
-          <div class="form-group">
-            <label class="form-label">README (zh-CN)</label>
-            <input type="url" id="demoReadmeZh" class="form-input" value="${escapeHtml(readmeZh)}" placeholder="https://github.com/...">
-          </div>
-        </div>
-      </fieldset>
-
-      ${isEdit ? `
-      <fieldset class="form-fieldset">
-        <legend>Image</legend>
-        <div class="image-upload-inline" id="demoImageUploadSection">
-          ${currentImageUrl ? `
-          <div class="image-current-preview" id="demoCurrentImage">
-            <img src="/api/demo-images/${currentImageUrl.replace('images/', '')}" alt="Demo image" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--color-border);">
-            <button type="button" class="btn btn-sm btn-danger" id="demoDeleteImageBtn" style="margin-top: 8px;">Delete Image</button>
-          </div>
-          ` : ''}
-          <div class="image-source-tabs" style="display: flex; gap: 16px; margin-bottom: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 8px;">
-            <a href="#" class="image-source-tab" data-source="file" style="color: var(--color-primary); font-weight: 600; border-bottom: 2px solid var(--color-primary); text-decoration: none; font-size: 13px;">Upload File</a>
-            <a href="#" class="image-source-tab" data-source="url" style="color: var(--color-muted); font-weight: 500; text-decoration: none; font-size: 13px;">From URL</a>
-          </div>
-          <div id="demoImageSourceFile">
-            <div class="image-upload-zone" data-demo-id="${escapeHtml(d.id)}" style="border: 2px dashed var(--color-border); border-radius: 8px; padding: 24px; text-align: center; cursor: pointer; transition: border-color 0.2s;">
-              <p style="margin: 0; color: var(--color-muted);">Drag and drop image here or <strong>click to select</strong></p>
-              <p class="image-recommendation" style="margin: 8px 0 0; font-size: 12px; color: var(--color-muted);">Recommended: 960×540 (16:9). Must be at least 500px.</p>
-              <input type="file" id="demoImageInput" accept="image/*" style="display: none;">
-            </div>
-          </div>
-          <div id="demoImageSourceUrl" style="display: none;">
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <input type="url" id="demoImageUrl" class="form-input" placeholder="https://example.com/image.jpg" style="flex: 1;">
-              <button type="button" class="btn btn-sm btn-outline" id="demoConfirmUrlBtn">Use URL</button>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-      ` : ''}
-
-      <div class="form-group">
-        <label class="form-label" data-i18n="demoDefaultConfig">Default Config (JSON)</label>
-        <textarea id="demoDefaultConfig" class="form-textarea form-monospace" rows="5" placeholder='{}'>${escapeHtml(defaultConfig)}</textarea>
       </div>
 
       <div class="form-actions">
@@ -242,40 +273,86 @@ export async function saveDemoForm(form, demoId = null) {
   const id = demoId || document.getElementById('demoId').value.trim();
   const isEdit = !!demoId;
 
-  const compatType = form.querySelector('input[name="compatibilityType"]:checked')?.value || 'universal';
-  const tagsRaw = document.getElementById('demoTags').value.trim();
-  const boardsRaw = document.getElementById('demoBoards').value.trim();
-  const categoryTag = compatType === 'universal' ? 'example' : 'app';
-
-  let tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
-  if (!tags.includes(categoryTag)) tags.unshift(categoryTag);
-
-  const boards = compatType === 'universal' ? [] : (boardsRaw ? boardsRaw.split(',').map(b => b.trim()).filter(Boolean) : []);
-
-  let defaultConfig = {};
-  const configText = document.getElementById('demoDefaultConfig').value.trim();
-  if (configText) {
-    try {
-      defaultConfig = JSON.parse(configText);
-    } catch {
-      showError('Invalid JSON', 'Default Config must be valid JSON');
+  // On create, the ID is fixed and must be unique — pre-check before POST for
+  // immediate feedback (the backend also rejects duplicates with a 409).
+  if (!isEdit) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) {
+      showError('Invalid ID', i18n.t('demoIdHint'));
       return false;
+    }
+    try {
+      const existing = await apiClient.getDemos();
+      if ((existing?.demos || []).some(d => d.id === id)) {
+        showError('Duplicate ID', (i18n.t('demoIdDuplicate') || 'ID "{id}" already exists.').replace('{id}', id));
+        return false;
+      }
+    } catch {
+      // If the check fails (e.g. network), fall through — backend still enforces uniqueness.
     }
   }
 
-  // Collect configs map from dynamic rows
-  const configs = {};
-  const configRows = document.querySelectorAll('#configsRows .configs-row');
-  configRows.forEach(row => {
-    const key = row.querySelector('.configs-key')?.value?.trim();
-    const val = row.querySelector('.configs-value')?.value?.trim();
-    if (key && val) {
-      configs[key] = { file: val, overrides: {} };
-    }
+  const compatType = document.querySelector('input[name="demoScope"]:checked')?.value || 'universal';
+  const type = document.getElementById('demoCategory')?.value === 'app' ? 'app' : 'example';
+  const tagsRaw = document.getElementById('demoTags').value.trim();
+
+  // Tags hold capability labels only — type is a dedicated field now.
+  const tags = (tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [])
+    .filter(t => t !== 'app' && t !== 'example');
+
+  // Collect config targets keyed by board (board-specific) or platform.
+  //   board-specific → { board, options:[{name?,file,peripherals?}] }
+  //   platform       → { platform, options:[{file}] } for each checked platform
+  //                    that carries a config file (the demo's defconfig base).
+  const configs = [];
+  if (compatType === 'board-specific') {
+    document.querySelectorAll('#demoTargets .demo-target').forEach(row => {
+      const board = row.querySelector('.target-board')?.value || '';
+      if (!board) return;
+      const options = [];
+      row.querySelectorAll('.target-option').forEach(o => {
+        const file = o.querySelector('.opt-file')?.value?.trim();
+        if (!file) return;
+        const en = o.querySelector('.opt-name-en')?.value?.trim();
+        const zh = o.querySelector('.opt-name-zh')?.value?.trim();
+        const opt = { file };
+        if (en || zh) opt.name = { en: en || '', 'zh-CN': zh || '' };
+        // Peripherals this option uses (board peripheral/group ids, checkboxes).
+        const peripherals = [...o.querySelectorAll('.opt-peri-cb:checked')].map(cb => cb.value);
+        if (peripherals.length) opt.peripherals = peripherals;
+        options.push(opt);
+      });
+      const target = { board };
+      if (options.length) target.options = options;
+      configs.push(target);
+    });
+  } else if (compatType === 'platform') {
+    document.querySelectorAll('#demoPlatforms .demo-plat-row').forEach(row => {
+      const cb = row.querySelector('.demo-plat-cb');
+      if (!cb || !cb.checked) return;
+      const file = row.querySelector('.demo-plat-config')?.value?.trim();
+      if (!file) return;  // a platform without a config file just contributes to platforms[]
+      configs.push({ platform: cb.value, options: [{ file }] });
+    });
+  }
+
+  // boards[] derived from target boards (board-specific only).
+  const boards = compatType === 'board-specific' ? [...new Set(configs.map(t => t.board))] : [];
+  // platforms[] (platform variant ids) — only for platform scope.
+  const platforms = compatType === 'platform'
+    ? [...document.querySelectorAll('#demoPlatforms .demo-plat-cb:checked')].map(cb => cb.value)
+    : [];
+
+  // Hardware drivers: [{ driver, level }] read from the driver rows in the DOM.
+  const drivers = [];
+  document.querySelectorAll('#demoDriversContainer .demo-driver-row').forEach(row => {
+    const driver = row.dataset.driver;
+    if (!driver) return;
+    drivers.push({ driver, level: row.dataset.level === 'required' ? 'required' : 'optional' });
   });
 
   const data = {
     id,
+    type,
     publish: document.getElementById('demoPublish').checked,
     name: {
       en: document.getElementById('demoNameEn').value.trim(),
@@ -287,14 +364,11 @@ export async function saveDemoForm(form, demoId = null) {
     },
     tags,
     boards,
+    platforms: platforms.length > 0 ? platforms : undefined,
     compatibilityType: compatType,
-    source: {
-      repo: document.getElementById('demoSourceRepo').value.trim(),
-      subpath: document.getElementById('demoSourceSubpath').value.trim(),
-      ref: document.getElementById('demoSourceRef').value.trim() || 'master',
-    },
-    defaultConfig,
-    configs: Object.keys(configs).length > 0 ? configs : undefined,
+    source: document.getElementById('demoSource').value.trim(),
+    configs: configs.length > 0 ? configs : undefined,
+    drivers: drivers.length > 0 ? drivers : [],
     documentation: {
       readme: {
         en: document.getElementById('demoReadmeEn').value.trim() || null,

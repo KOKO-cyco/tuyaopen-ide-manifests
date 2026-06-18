@@ -43,11 +43,13 @@ export async function renderPeripheralEditor(containerId, boardId) {
     peripheralGroups = {};
   }
 
-  // Load board to get platformId, then load platform peripherals for GPIO defaults
+  // Load board, then load that chip's peripherals for GPIO defaults. Peripherals
+  // are per-chip, so resolve by the board's variantId (chip id); fall back to
+  // platformId for older data.
   try {
     const boardResp = await apiClient.getBoard(boardId);
     const board = boardResp.board || boardResp;
-    currentPlatformId = board.platformId || null;
+    currentPlatformId = board.variantId || board.platformId || null;
     if (currentPlatformId) {
       const platResp = await apiClient.getPlatformPeripherals(currentPlatformId);
       platformPeripherals = platResp.peripherals || {};
@@ -115,8 +117,9 @@ function getPlatformDefaultPins(type, iface) {
 
   if (type === 'display' && iface === 'QSPI' && pp.qspi?.spec?.ports) {
     const port = pp.qspi.spec.ports[0];
-    if (port?.pins) {
-      return { sck: port.pins.clk, cs: port.pins.cs, d0: port.pins.d0, d1: port.pins.d1, d2: port.pins.d2, d3: port.pins.d3 };
+    const pins = port?.pinGroups?.[0] || port?.pins; // pinGroups (new) or legacy pins
+    if (pins) {
+      return { sck: pins.clk, cs: pins.cs, d0: pins.d0, d1: pins.d1, d2: pins.d2, d3: pins.d3 };
     }
   }
 
@@ -1262,12 +1265,18 @@ function bindFormEvents(form, template) {
       if (blGroupHeader) blGroupHeader.style.display = hideBlPin ? 'none' : '';
       const blPwmCfg = form.querySelector('#periBlPwmConfigSection');
       if (blPwmCfg) blPwmCfg.style.display = blMode === 'PWM' ? '' : 'none';
+      // Leaving PWM mode releases the GPIO lock the PWM-channel binding applies.
+      if (blMode !== 'PWM') {
+        const blPinInput = form.querySelector('[data-role="bl"] .peri-pin-gpio');
+        if (blPinInput) blPinInput.readOnly = false;
+      }
     };
     blModeSelect.addEventListener('change', updateBlVisibility);
     updateBlVisibility();
-    // Lock bl pin if PWM channel already set on load
+    // Lock bl pin only in PWM mode with a channel selected; in GPIO/other modes
+    // the channel select still defaults to "0" but must not lock the GPIO input.
     const initPwmSel = form.querySelector('#periBlPwmSelect');
-    if (initPwmSel?.value !== '' && initPwmSel?.value !== undefined) {
+    if (blModeSelect.value === 'PWM' && initPwmSel?.value !== '' && initPwmSel?.value !== undefined) {
       const blPinInput = form.querySelector('[data-role="bl"] .peri-pin-gpio');
       if (blPinInput) blPinInput.readOnly = true;
     }

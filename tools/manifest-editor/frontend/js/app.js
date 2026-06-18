@@ -7,10 +7,12 @@ import { renderBoardCard, renderBoardForm, saveBoardForm, deleteBoardPrompt, set
 import { renderPeripheralEditor, isDirty as periIsDirty } from './peripheral-editor.js';
 import { renderExpansionPinsEditor } from './expansion-pins-editor.js';
 import { renderDemoCard, renderDemoForm, saveDemoForm, deleteDemoAction } from './demo-editor.js';
+import { renderPlatformCard, mountPlatformForm, mountNewPlatformForm, savePlatformForm, deletePlatformPrompt } from './platform-editor.js';
 import i18n from './i18n.js';
 
 let currentTab = 'boards';
 let platforms = [];
+let activeBoardPlatform = null;  // selected platform tab on the boards page
 let formDirty = false;  // Track unsaved changes
 
 // Initialize application
@@ -26,6 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Set up event listeners
     setupNavigation();
     setupBoardsTab();
+    setupPlatformsTab();
     setupDemosTab();
     setupGitHistoryTab();
 
@@ -77,6 +80,8 @@ function updateUILanguage() {
   const currentTab = document.querySelector('.nav-item.active')?.dataset.tab;
   if (currentTab === 'boards') {
     loadBoards();
+  } else if (currentTab === 'platforms') {
+    loadPlatforms();
   } else if (currentTab === 'demos') {
     loadDemos();
   } else if (currentTab === 'git-history') {
@@ -122,6 +127,8 @@ function switchTab(tab) {
     loadCommitHistory();
   } else if (tab === 'demos') {
     loadDemos();
+  } else if (tab === 'platforms') {
+    loadPlatforms();
   }
 }
 
@@ -192,44 +199,75 @@ function setupBoardsTab() {
   });
 }
 
+function attachBoardCardListeners() {
+  document.querySelectorAll('.edit-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openBoardForm(btn.dataset.boardId);
+    });
+  });
+  document.querySelectorAll('.delete-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteBoardPrompt(btn.dataset.boardId).then((success) => { if (success) loadBoards(); });
+    });
+  });
+}
+
 async function loadBoards() {
   const boardsList = document.getElementById('boardsList');
   if (!boardsList) return;
 
+  boardsList.className = 'boards-list loading';
   boardsList.innerHTML = '<p class="loading-text">Loading boards...</p>';
-  boardsList.classList.add('loading');
 
   try {
-    const result = await apiClient.getBoards();
-    const boards = result.boards || [];
+    // Boards + platforms together: boards are grouped into one tab per chip
+    // platform (t5ai / gd32 / …), scaling as more platforms are added.
+    const [boardsRes, platsRes] = await Promise.all([
+      apiClient.getBoards(),
+      apiClient.getPlatforms().catch(() => ({ platforms: [] })),
+    ]);
+    const boards = boardsRes.boards || [];
+    const plats = platsRes.platforms || [];
 
     if (boards.length === 0) {
+      boardsList.className = 'boards-list';
       boardsList.innerHTML = '<p class="loading-text">No boards yet. Click "Add New Board" to create one.</p>';
-    } else {
-      boardsList.innerHTML = boards.map((board) => renderBoardCard(board)).join('');
-
-      // Attach event listeners
-      document.querySelectorAll('.edit-btn').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const boardId = btn.dataset.boardId;
-          openBoardForm(boardId);
-        });
-      });
-
-      document.querySelectorAll('.delete-btn').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const boardId = btn.dataset.boardId;
-          deleteBoardPrompt(boardId).then((success) => {
-            if (success) loadBoards();
-          });
-        });
-      });
+      return;
     }
 
-    boardsList.classList.remove('loading');
+    // A board's `platformId` is its SDK platform group (e.g. "gd32"); tabs are
+    // one per group, with all the group's chips' boards inside.
+    const byGroup = new Map();
+    for (const b of boards) {
+      const group = b.platformId || '—';
+      if (!byGroup.has(group)) byGroup.set(group, []);
+      byGroup.get(group).push(b);
+    }
+    // Tab order: SDK groups in platform-list order, then any leftovers.
+    const ordered = [];
+    for (const p of plats) { const g = p.platformId || p.id; if (byGroup.has(g) && !ordered.includes(g)) ordered.push(g); }
+    for (const g of byGroup.keys()) if (!ordered.includes(g)) ordered.push(g);
+
+    if (!activeBoardPlatform || !byGroup.has(activeBoardPlatform)) activeBoardPlatform = ordered[0];
+
+    const render = () => {
+      const tabs = ordered.map((g) => {
+        const n = byGroup.get(g).length;
+        const act = g === activeBoardPlatform ? ' active' : '';
+        return `<button type="button" class="board-plat-tab${act}" data-plat="${escapeHtml(g)}">${escapeHtml(g)}<span class="board-plat-tab-count">${n}</span></button>`;
+      }).join('');
+      const cards = byGroup.get(activeBoardPlatform).map(renderBoardCard).join('');
+      boardsList.className = 'boards-tabbed';
+      boardsList.innerHTML = `<div class="board-plat-tabs">${tabs}</div><div class="boards-grid">${cards}</div>`;
+      boardsList.querySelectorAll('.board-plat-tab').forEach((t) =>
+        t.addEventListener('click', () => { activeBoardPlatform = t.dataset.plat; render(); }));
+      attachBoardCardListeners();
+    };
+    render();
   } catch (error) {
+    boardsList.className = 'boards-list';
     boardsList.innerHTML = `<p class="loading-text" style="color: var(--color-error);">Error: ${error.message}</p>`;
   }
 }
@@ -250,40 +288,46 @@ async function openBoardForm(boardId = null) {
     try {
       const result = await apiClient.getBoard(boardId);
       board = result.board;
-      modalTitle.textContent = `Edit Board: ${boardId}`;
+      modalTitle.textContent = `${i18n.t('boardFormEditTitle')}: ${boardId}`;
     } catch (error) {
       showError('Load Failed', `Failed to load board "${boardId}"`);
       return;
     }
   } else {
-    modalTitle.textContent = 'Create New Board';
+    modalTitle.textContent = i18n.t('boardFormCreateTitle');
   }
 
-  // Load platforms if not already loaded
-  if (platforms.length === 0) {
-    try {
-      const result = await apiClient.getStatus();
-      // In a real app, we'd load platforms from /api/platforms
-      // For now, we'll use hardcoded defaults
-      platforms = ['t5ai', 'esp32-s3', 'esp32', 'bk7231n'];
-    } catch (error) {
-      console.error('Error loading platforms:', error);
-    }
+  // Load the actual chip platforms for the dropdown (one entry per existing
+  // platform, e.g. t5ai / gd32) — not a hardcoded list. Reloaded on each open so
+  // newly-created platforms show up.
+  try {
+    const result = await apiClient.getPlatforms();
+    // Each entry is a chip variant: id = chip (-> board.variantId),
+    // platformId = SDK group (-> board.platformId).
+    platforms = (result.platforms || []).map((p) => ({ id: p.id, platformId: p.platformId || p.id, name: p.name }));
+  } catch (error) {
+    console.error('Error loading platforms:', error);
+    platforms = [];
   }
 
   formContainer.innerHTML = renderBoardForm(board);
 
-  // Populate platforms dropdown
+  // Dropdown lists chips; each option's value is the chip id (board.variantId),
+  // and data-group carries its SDK platform group (board.platformId).
   const platformSelect = document.getElementById('platformId');
   if (platformSelect) {
     platforms.forEach((plat) => {
-      if (!platformSelect.querySelector(`option[value="${plat}"]`)) {
+      if (!platformSelect.querySelector(`option[value="${plat.id}"]`)) {
         const option = document.createElement('option');
-        option.value = plat;
-        option.textContent = plat;
+        option.value = plat.id;
+        option.dataset.group = plat.platformId;
+        const nm = plat.name && (plat.name['zh-CN'] || plat.name.en);
+        option.textContent = nm ? `${nm} (${plat.id})` : plat.id;
         platformSelect.appendChild(option);
       }
     });
+    // Pre-select the board's chip (variantId) when editing.
+    if (board && board.variantId) platformSelect.value = board.variantId;
   }
 
   // Set up form handlers and validation
@@ -395,7 +439,8 @@ async function openBoardForm(boardId = null) {
           expPinsPane.style.display = target === 'expansion-pins' ? '' : 'none';
           expPinsPane.classList.toggle('active', target === 'expansion-pins');
           if (target === 'expansion-pins') {
-            renderExpansionPinsEditor('expansionPinsContainer', boardId, board.platformId);
+            // Pinout is per-chip: pass the chip id (variantId), not the SDK group.
+            renderExpansionPinsEditor('expansionPinsContainer', boardId, board.variantId || board.platformId);
           }
         });
       });
@@ -409,13 +454,214 @@ async function openBoardForm(boardId = null) {
   }
 }
 
+// ========== Platforms Tab ==========
+function setupPlatformsTab() {
+  const addBtn = document.getElementById('addPlatformBtn');
+  if (addBtn) addBtn.addEventListener('click', openNewPlatform);
+}
+
+// Step 1 of adding a platform: a small dialog for just the essential fields.
+// On create, jump straight into the full editor for the new platform.
+function openNewPlatform() {
+  const modal = document.getElementById('platformModal');
+  const modalTitle = document.getElementById('platformModalTitle');
+  const container = document.getElementById('platformFormContainer');
+  const closeBtn = document.getElementById('closePlatformModalBtn');
+  if (!modal || !container) return;
+  modalTitle.textContent = i18n.t('platformFormTitle') || 'Add Platform';
+  mountNewPlatformForm(container, {
+    onCreated: (id) => {
+      if (id) { loadPlatforms(); openPlatformForm(id); } // created → open full editor
+      else { modal.classList.add('hidden'); }            // cancelled
+    },
+  });
+  if (closeBtn) closeBtn.onclick = () => modal.classList.add('hidden');
+  modal.classList.remove('hidden');
+}
+
+async function loadPlatforms() {
+  const list = document.getElementById('platformsList');
+  if (!list) return;
+  list.innerHTML = `<p class="loading-text">${i18n.t('loadingPlatforms') || 'Loading platforms...'}</p>`;
+  try {
+    const result = await apiClient.getPlatforms();
+    const platforms = result.platforms || [];
+    if (platforms.length === 0) {
+      list.innerHTML = `<p class="loading-text">${i18n.t('platformsEmpty') || 'No platforms yet.'}</p>`;
+      return;
+    }
+    list.innerHTML = platforms.map(renderPlatformCard).join('');
+    list.querySelectorAll('.platform-edit-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => { e.stopPropagation(); openPlatformForm(btn.dataset.platformId); });
+    });
+    list.querySelectorAll('.platform-delete-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const ok = await deletePlatformPrompt(btn.dataset.platformId);
+        if (ok) loadPlatforms();
+      });
+    });
+  } catch (error) {
+    list.innerHTML = `<p class="loading-text" style="color: var(--color-error);">Error: ${error.message}</p>`;
+  }
+}
+
+async function openPlatformForm(platformId = null) {
+  const modal = document.getElementById('platformModal');
+  const modalTitle = document.getElementById('platformModalTitle');
+  const container = document.getElementById('platformFormContainer');
+  const closeBtn = document.getElementById('closePlatformModalBtn');
+  if (!modal || !container) return;
+
+  let platform = null;
+  let detail = null;
+  if (platformId) {
+    try {
+      const result = await apiClient.getPlatform(platformId);
+      platform = result.platform;
+      detail = result.detail || {};
+      modalTitle.textContent = `${i18n.t('platformFormTitleEdit') || 'Edit Platform'}: ${platformId}`;
+    } catch (error) {
+      showError('Load Failed', error.message);
+      return;
+    }
+  } else {
+    modalTitle.textContent = i18n.t('platformFormTitle') || 'Add Platform';
+  }
+
+  mountPlatformForm(container, platform, detail, { isNew: !platformId });
+
+  const form = document.getElementById('platformForm');
+  const cancelBtn = document.getElementById('pfCancelBtn');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const ok = await savePlatformForm();
+      if (ok) { modal.classList.add('hidden'); loadPlatforms(); }
+    });
+  }
+  if (cancelBtn) cancelBtn.addEventListener('click', () => modal.classList.add('hidden'));
+  if (closeBtn) closeBtn.onclick = () => modal.classList.add('hidden');
+
+  // Inline image upload (only for existing platforms)
+  if (platformId) setupPlatformImageUpload(platformId, modal);
+
+  modal.classList.remove('hidden');
+}
+
+function setupPlatformImageUpload(platformId, modal) {
+  const section = modal.querySelector('#platformImageUploadSection');
+  if (!section) return;
+
+  const zone = section.querySelector('.image-upload-zone');
+  const fileInput = section.querySelector('#platformImageInput');
+  const sourceTabs = section.querySelectorAll('.image-source-tab');
+  const sourceFile = section.querySelector('#platformImageSourceFile');
+  const sourceUrl = section.querySelector('#platformImageSourceUrl');
+  const urlInput = section.querySelector('#platformImageUrl');
+  const confirmUrlBtn = section.querySelector('#platformConfirmUrlBtn');
+  const deleteBtn = section.querySelector('#platformDeleteImageBtn');
+
+  // Tab switching (file / url)
+  sourceTabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      const source = tab.dataset.source;
+      sourceTabs.forEach(t => {
+        const on = t.dataset.source === source;
+        t.style.color = on ? 'var(--color-primary)' : 'var(--color-muted)';
+        t.style.fontWeight = on ? '600' : '500';
+        t.style.borderBottom = on ? '2px solid var(--color-primary)' : 'none';
+      });
+      if (sourceFile) sourceFile.style.display = source === 'file' ? 'block' : 'none';
+      if (sourceUrl) sourceUrl.style.display = source === 'url' ? 'block' : 'none';
+    });
+  });
+
+  // Drag & drop + click
+  if (zone) {
+    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.style.borderColor = 'var(--color-primary)'; });
+    zone.addEventListener('dragleave', () => { zone.style.borderColor = 'var(--color-border)'; });
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault(); zone.style.borderColor = 'var(--color-border)';
+      if (e.dataTransfer.files.length > 0) handlePlatformImageFile(e.dataTransfer.files[0], platformId);
+    });
+    zone.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); fileInput?.click(); });
+  }
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) handlePlatformImageFile(e.target.files[0], platformId);
+    });
+  }
+
+  // URL upload
+  if (confirmUrlBtn) {
+    confirmUrlBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const url = urlInput?.value?.trim();
+      if (!url) { showError('Missing URL', 'Please enter an image URL'); return; }
+      if (!url.startsWith('https://')) { showError('Invalid URL', 'URL must use HTTPS protocol'); return; }
+      confirmUrlBtn.disabled = true;
+      confirmUrlBtn.textContent = i18n.t('platformImageUploading');
+      try {
+        const result = await apiClient.uploadPlatformImage(platformId, url, null, true, true);
+        if (result.success) { showNotification('Platform image uploaded from URL'); urlInput.value = ''; loadPlatforms(); }
+      } catch (error) {
+        showError('Upload Failed', error.message);
+      } finally {
+        confirmUrlBtn.disabled = false;
+        confirmUrlBtn.textContent = i18n.t('platformImageUseUrl');
+      }
+    });
+  }
+
+  // Delete image
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (!confirm(i18n.t('platformImageDeleteConfirm') || 'Delete this platform image?')) return;
+      try {
+        const images = await apiClient.getPlatformImages(platformId);
+        if (images.images?.length > 0) {
+          await apiClient.deletePlatformImage(platformId, images.images[0].filename);
+          showNotification('Platform image deleted');
+          section.querySelector('#platformCurrentImage')?.remove();
+          loadPlatforms();
+        }
+      } catch (error) {
+        showError('Delete Failed', error.message);
+      }
+    });
+  }
+}
+
+async function handlePlatformImageFile(file, platformId) {
+  if (!file.type.startsWith('image/')) { showError('Invalid File', 'Please select an image file (JPEG, PNG, WebP)'); return; }
+  if (file.size > 5242880) { showError('File Too Large', 'Maximum file size is 5MB'); return; }
+  try {
+    const result = await apiClient.uploadPlatformImage(platformId, file, `${platformId}.jpg`, true);
+    if (result.success) { showNotification('Platform image uploaded successfully'); loadPlatforms(); }
+  } catch (error) {
+    showError('Upload Failed', error.message);
+  }
+}
+
 // ========== Demos Tab ==========
 let demosCache = [];
+// Active demos type tab: 'example' or 'app'. Apps tab is first / default.
+let demosActiveType = 'app';
+// Facet filters (multi-select, OR within each dimension).
+let demosFilterTags = [];
+let demosFilterBoards = [];
+// boardId -> display name, for the board facet chips.
+let demosBoardNameMap = {};
 
 function setupDemosTab() {
   const addBtn = document.getElementById('addDemoBtn');
   const searchInput = document.getElementById('demoSearch');
-  const filterSelect = document.getElementById('demoFilterType');
+  const tabs = document.getElementById('demosTabs');
+  const tagChips = document.getElementById('demoFilterTags');
+  const boardChips = document.getElementById('demoFilterBoards');
 
   if (addBtn) {
     addBtn.addEventListener('click', () => openDemoForm(null));
@@ -425,9 +671,487 @@ function setupDemosTab() {
     searchInput.addEventListener('input', debounce(() => filterDemos(), 200));
   }
 
-  if (filterSelect) {
-    filterSelect.addEventListener('change', () => filterDemos());
+  // Facet dropdowns: button toggles its panel; option click toggles selection.
+  const tagsBtn = document.getElementById('demoFilterTagsBtn');
+  const boardsBtn = document.getElementById('demoFilterBoardsBtn');
+  if (tagsBtn) tagsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFacetPanel('demoFilterTags'); });
+  if (boardsBtn) boardsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFacetPanel('demoFilterBoards'); });
+
+  if (tagChips) {
+    tagChips.addEventListener('click', (e) => {
+      const opt = e.target.closest('.demos-filter-option');
+      if (!opt) return;
+      demosFilterTags = toggleInArray(demosFilterTags, opt.dataset.val);
+      populateDemoFacets();
+      filterDemos();
+    });
   }
+  if (boardChips) {
+    boardChips.addEventListener('click', (e) => {
+      const opt = e.target.closest('.demos-filter-option');
+      if (!opt) return;
+      demosFilterBoards = toggleInArray(demosFilterBoards, opt.dataset.val);
+      populateDemoFacets();
+      filterDemos();
+    });
+  }
+
+  // Close any open facet panel when clicking outside a dropdown.
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.demos-filter-dd')) closeFacetPanels();
+  });
+
+  if (tabs) {
+    tabs.addEventListener('click', (e) => {
+      const tab = e.target.closest('.demos-tab');
+      if (!tab) return;
+      demosActiveType = tab.dataset.demoType === 'app' ? 'app' : 'example';
+      tabs.querySelectorAll('.demos-tab').forEach(t => t.classList.toggle('active', t === tab));
+      // Tag/board options depend on the active type's demos; rebuild + reset.
+      demosFilterTags = [];
+      demosFilterBoards = [];
+      populateDemoFacets();
+      filterDemos();
+    });
+  }
+}
+
+function toggleInArray(arr, val) {
+  return arr.includes(val) ? arr.filter(x => x !== val) : [...arr, val];
+}
+
+function closeFacetPanels() {
+  document.querySelectorAll('.demos-filter-panel').forEach(p => { p.hidden = true; });
+  document.querySelectorAll('.demos-filter-dd-btn').forEach(b => b.classList.remove('open'));
+}
+
+function toggleFacetPanel(panelId) {
+  const panel = document.getElementById(panelId);
+  if (!panel) return;
+  const wasHidden = panel.hidden;
+  closeFacetPanels();
+  if (wasHidden) {
+    panel.hidden = false;
+    panel.closest('.demos-filter-dd')?.querySelector('.demos-filter-dd-btn')?.classList.add('open');
+  }
+}
+
+// Rebuild the tag/board facet dropdowns from the demos in the active type tab.
+// Drops any active selection that's no longer present after the rebuild.
+function populateDemoFacets() {
+  const inType = demosCache.filter(d => (d.type === 'app' ? 'app' : 'example') === demosActiveType);
+  const tags = [...new Set(inType.flatMap(d => Array.isArray(d.tags) ? d.tags : []))].sort();
+  const boards = [...new Set(inType.flatMap(d => Array.isArray(d.boards) ? d.boards : []))].sort();
+
+  demosFilterTags = demosFilterTags.filter(t => tags.includes(t));
+  demosFilterBoards = demosFilterBoards.filter(b => boards.includes(b));
+
+  renderFacetPanel('demoFilterTags', 'demoFilterTagsRow', 'demoFilterTagsCount', tags, demosFilterTags, demoTagLabel);
+  renderFacetPanel('demoFilterBoards', 'demoFilterBoardsRow', 'demoFilterBoardsCount', boards, demosFilterBoards, (v) => demosBoardNameMap[v] || v);
+}
+
+// Localized label for a tag id, from the controlled vocabulary (DEMO_TAG_VOCAB).
+function demoTagLabel(id) {
+  const lang = i18n.getLanguage();
+  for (const list of [DEMO_TAG_VOCAB[demosActiveType], DEMO_TAG_VOCAB.example, DEMO_TAG_VOCAB.app]) {
+    const v = list && list.find(x => x.id === id);
+    if (v) return lang === 'zh-CN' ? v.zh : v.en;
+  }
+  return id;
+}
+
+function renderFacetPanel(panelId, ddId, countId, values, selected, labelOf) {
+  const dd = document.getElementById(ddId);
+  const panel = document.getElementById(panelId);
+  const count = document.getElementById(countId);
+  if (!panel || !dd) return;
+  // Hide the whole dropdown when this type tab has no values for the dimension.
+  dd.style.display = values.length ? '' : 'none';
+  if (count) count.textContent = selected.length ? `(${selected.length})` : '';
+  panel.innerHTML = values.map(v => {
+    const on = selected.includes(v);
+    return `<button type="button" class="demos-filter-option${on ? ' demos-filter-option--on' : ''}" data-val="${escapeHtml(v)}">` +
+      `<span class="demos-filter-check">${on ? '✓' : ''}</span>${escapeHtml(labelOf(v))}</button>`;
+  }).join('');
+}
+
+// Searchable multi-select for a demo's "Boards" field, sourced from the live
+// boards list. Selected ids are mirrored into the hidden #demoBoards input
+// (comma-separated) so saveDemoForm reads them unchanged.
+function setupDemoBoardsSelect(allBoards) {
+  const root = document.getElementById('demoBoardsSelect');
+  const hidden = document.getElementById('demoBoards');
+  const chipsEl = document.getElementById('demoBoardsChips');
+  const searchEl = document.getElementById('demoBoardsSearch');
+  const dropdownEl = document.getElementById('demoBoardsDropdown');
+  if (!root || !hidden || !chipsEl || !searchEl || !dropdownEl) return;
+
+  const lang = i18n.getLanguage();
+  const labelOf = (b) => (b.name && (b.name[lang] || b.name.en || b.name['zh-CN'])) || b.id;
+  let selected = (hidden.value || '').split(',').map(s => s.trim()).filter(Boolean);
+
+  const sync = () => { hidden.value = selected.join(','); };
+
+  const renderChips = () => {
+    chipsEl.innerHTML = selected.map(id => {
+      const b = allBoards.find(x => x.id === id);
+      const text = b ? labelOf(b) : id;
+      return `<span class="board-ms-chip" title="${escapeHtml(id)}">${escapeHtml(text)}` +
+        `<button type="button" class="board-ms-chip-x" data-id="${escapeHtml(id)}">×</button></span>`;
+    }).join('');
+  };
+
+  const renderDropdown = () => {
+    const q = (searchEl.value || '').toLowerCase().trim();
+    const avail = allBoards.filter(b => !selected.includes(b.id) &&
+      (!q || b.id.toLowerCase().includes(q) || labelOf(b).toLowerCase().includes(q)));
+    dropdownEl.innerHTML = avail.length
+      ? avail.map(b => `<div class="board-ms-item" data-id="${escapeHtml(b.id)}">` +
+          `<span class="board-ms-item-name">${escapeHtml(labelOf(b))}</span>` +
+          `<span class="board-ms-item-id">${escapeHtml(b.id)}</span></div>`).join('')
+      : `<div class="board-ms-empty">${i18n.t('demoBoardsNoMatch') || 'No matching boards'}</div>`;
+  };
+
+  renderChips();
+
+  const open = () => { renderDropdown(); dropdownEl.style.display = 'block'; };
+  searchEl.addEventListener('focus', open);
+  searchEl.addEventListener('input', open);
+
+  // mousedown + preventDefault so selecting an item doesn't blur the search first
+  dropdownEl.addEventListener('mousedown', (e) => {
+    const item = e.target.closest('.board-ms-item');
+    if (!item) return;
+    e.preventDefault();
+    if (!selected.includes(item.dataset.id)) selected.push(item.dataset.id);
+    sync(); renderChips(); searchEl.value = ''; renderDropdown(); searchEl.focus();
+  });
+
+  chipsEl.addEventListener('click', (e) => {
+    const x = e.target.closest('.board-ms-chip-x');
+    if (!x) return;
+    selected = selected.filter(id => id !== x.dataset.id);
+    sync(); renderChips(); renderDropdown();
+  });
+
+  document.addEventListener('mousedown', (e) => {
+    if (!root.contains(e.target)) dropdownEl.style.display = 'none';
+  });
+}
+
+// Supported-board targets editor (demo Build Config):
+// each target = a board (+ optional accessory) and a list of named config files.
+// Accessory options come from the board's peripheralGroups + ungrouped accessory
+// peripherals (mounting === 'accessory' && no group); onboard peripherals excluded.
+// Accept the new array shape; convert the legacy map ({symbol:{file}}) to
+// provisional targets (board unset) so old data shows for manual re-assignment
+// instead of being silently dropped on save.
+function normalizeDemoConfigs(configs) {
+  if (Array.isArray(configs)) return configs;
+  if (configs && typeof configs === 'object') {
+    return Object.entries(configs).map(([key, val]) => ({
+      board: '',
+      options: [{ name: { en: key, 'zh-CN': '' }, file: (typeof val === 'object' ? val.file : val) || '' }],
+    }));
+  }
+  return [];
+}
+
+function setupDemoTargets(allBoards, existing) {
+  const root = document.getElementById('demoTargets');
+  const addBtn = document.getElementById('addTargetBtn');
+  if (!root) return;
+
+  const lang = i18n.getLanguage();
+  const loc = (n, fb) => (n && (n[lang] || n.en || n['zh-CN'])) || fb;
+  const periphCache = {};
+
+  // All pickable peripherals for a board: its peripheral GROUPS (bundled
+  // accessories) + every UNGROUPED peripheral — onboard parts (button/led/audio)
+  // AND standalone accessories (camera/oled/…). The author checks the ones the
+  // demo actually USES; onboard is NOT auto-included. Group members are
+  // represented by their group, mirroring the IDE hardware view's collapse.
+  async function fetchBoardPeripherals(boardId) {
+    if (periphCache[boardId]) return periphCache[boardId];
+    // Ordered: onboard (soldered) parts first, then accessories (groups +
+    // accessory-mounted parts). Grouped members are represented by their group.
+    const onboard = [];
+    const accessories = [];
+    try {
+      const d = (await apiClient.getBoard(boardId)).board || {};
+      for (const [gid, g] of Object.entries(d.peripheralGroups || {})) {
+        accessories.push({ id: gid, label: loc(g.name, gid), group: true });
+      }
+      for (const arr of Object.values(d.peripheralPatterns || {})) {
+        for (const p of (arr || [])) {
+          if (!p.id || p.group) continue;
+          const item = { id: p.id, label: loc(p.name, p.id), group: false };
+          if (p.mounting === 'accessory') accessories.push(item);
+          else onboard.push(item);
+        }
+      }
+    } catch (e) {
+      console.error('[demoTargets] board peripherals failed', boardId, e);
+    }
+    const list = [...onboard, ...accessories];
+    periphCache[boardId] = list;
+    return list;
+  }
+
+  const boardById = Object.fromEntries(allBoards.map(b => [b.id, b]));
+  const platforms = [...new Set(allBoards.map(b => b.platformId).filter(Boolean))].sort();
+
+  const platformOptions = (sel) => `<option value="">${i18n.t('demoTargetSelectPlatform')}</option>` +
+    platforms.map(p => `<option value="${escapeHtml(p)}"${p === sel ? ' selected' : ''}>${escapeHtml(p)}</option>`).join('');
+  const boardOptions = (platform, sel) => `<option value="">${i18n.t('demoTargetSelectBoard')}</option>` +
+    allBoards.filter(b => !platform || b.platformId === platform)
+      .map(b => `<option value="${escapeHtml(b.id)}"${b.id === sel ? ' selected' : ''}>${escapeHtml(loc(b.name, b.id))}</option>`).join('');
+  // Per-option peripheral picker: the author checks which peripherals THIS
+  // config uses (board peripheral / group ids). Group ids stand for the bundle.
+  const peripheralChecks = (list, selected) => {
+    if (!list.length) return `<small style="color:var(--color-muted)">${i18n.t('demoTargetOptionPeripheralsEmpty')}</small>`;
+    return list.map(p =>
+      `<label class="opt-peri"><input type="checkbox" class="opt-peri-cb" value="${escapeHtml(p.id)}"${selected.includes(p.id) ? ' checked' : ''}> ${escapeHtml(p.label)}${p.group ? ' <span class="opt-peri-grp">⛓</span>' : ''}</label>`
+    ).join('');
+  };
+
+  const optionRow = (o) => `<div class="target-option">
+      <div class="target-option-head">
+        <input type="text" class="form-input opt-name-en" placeholder="${escapeHtml(i18n.t('demoTargetOptionNameEn'))}" value="${escapeHtml(o?.name?.en || '')}">
+        <input type="text" class="form-input opt-name-zh" placeholder="${escapeHtml(i18n.t('demoTargetOptionNameZh'))}" value="${escapeHtml(o?.name?.['zh-CN'] || '')}">
+        <input type="text" class="form-input opt-file" placeholder="${escapeHtml(i18n.t('demoTargetOptionFile'))}" value="${escapeHtml(o?.file || '')}">
+        <button type="button" class="btn btn-sm btn-danger opt-remove">✕</button>
+      </div>
+      <div class="opt-peripherals-wrap">
+        <span class="opt-peri-label">${escapeHtml(i18n.t('demoTargetOptionPeripherals'))}</span>
+        <div class="opt-peripherals" data-selected="${escapeHtml((o?.peripherals || []).join(','))}"></div>
+      </div>
+    </div>`;
+
+  const targetRow = (t) => {
+    const opts = (t?.options && t.options.length) ? t.options : [{}];
+    const platform = t?.board ? (boardById[t.board]?.platformId || '') : '';
+    return `<div class="demo-target">
+      <div class="target-head">
+        <select class="form-input target-platform">${platformOptions(platform)}</select>
+        <select class="form-input target-board">${boardOptions(platform, t?.board || '')}</select>
+        <button type="button" class="btn btn-sm btn-danger target-remove" title="${escapeHtml(i18n.t('demoTargetRemove'))}">✕</button>
+      </div>
+      <small style="color:var(--color-muted);display:block;margin:6px 0 4px;">${escapeHtml(i18n.t('demoTargetOptionsHint'))}</small>
+      <div class="target-options">${opts.map(optionRow).join('')}</div>
+      <button type="button" class="btn btn-sm btn-outline target-add-option">${i18n.t('demoTargetAddOption')}</button>
+    </div>`;
+  };
+
+  // Fill per-option peripheral checkboxes from the target's board. `only`
+  // (optional) restricts to one .opt-peripherals container (when adding an
+  // option) so the other options' live selections are preserved.
+  async function fillPeripherals(row, only) {
+    const board = row.querySelector('.target-board').value;
+    const containers = only ? [only] : [...row.querySelectorAll('.opt-peripherals')];
+    if (!board) {
+      containers.forEach(c => { c.innerHTML = `<small style="color:var(--color-muted)">${i18n.t('demoTargetOptionPeripheralsNoBoard')}</small>`; });
+      return;
+    }
+    const choices = await fetchBoardPeripherals(board);
+    containers.forEach(c => {
+      const sel = (c.dataset.selected || '').split(',').filter(Boolean);
+      c.innerHTML = peripheralChecks(choices, sel);
+    });
+  }
+
+  function addTarget(t, prepend) {
+    root.insertAdjacentHTML(prepend ? 'afterbegin' : 'beforeend', targetRow(t));
+    fillPeripherals(prepend ? root.firstElementChild : root.lastElementChild);
+  }
+
+  root.innerHTML = '';
+  existing.forEach((t) => addTarget(t, false));
+
+  // New rows are added at the top (first row).
+  if (addBtn) addBtn.addEventListener('click', () => addTarget({}, true));
+
+  root.addEventListener('click', (e) => {
+    if (e.target.closest('.target-remove')) { e.target.closest('.demo-target').remove(); return; }
+    if (e.target.closest('.opt-remove')) { e.target.closest('.target-option').remove(); return; }
+    const addOpt = e.target.closest('.target-add-option');
+    if (addOpt) {
+      const opts = addOpt.parentElement.querySelector('.target-options');
+      opts.insertAdjacentHTML('beforeend', optionRow({}));
+      // Fill only the new option's peripheral list — keep others' live state.
+      fillPeripherals(addOpt.closest('.demo-target'), opts.lastElementChild.querySelector('.opt-peripherals'));
+    }
+  });
+  root.addEventListener('change', (e) => {
+    const row = e.target.closest('.demo-target');
+    if (!row) return;
+    if (e.target.classList.contains('target-platform')) {
+      // Refilter boards to the chosen platform; reset board + peripherals.
+      row.querySelector('.target-board').innerHTML = boardOptions(e.target.value, '');
+      row.querySelectorAll('.opt-peripherals').forEach(c => { c.dataset.selected = ''; });
+      fillPeripherals(row);
+    } else if (e.target.classList.contains('target-board')) {
+      // Board changed → its peripheral ids differ; reset + refill.
+      row.querySelectorAll('.opt-peripherals').forEach(c => { c.dataset.selected = ''; });
+      fillPeripherals(row);
+    }
+  });
+}
+
+// Controlled tag vocabulary for demos — two sets, picked by the demo `type`.
+const DEMO_TAG_VOCAB = {
+  example: [
+    { id: 'getting-started', en: 'Getting Started', zh: '入门' },
+    { id: 'peripheral', en: 'Peripheral', zh: '外设' },
+    { id: 'system', en: 'System', zh: '系统' },
+    { id: 'networking', en: 'Networking', zh: '网络' },
+    { id: 'wifi', en: 'Wi-Fi', zh: 'Wi-Fi' },
+    { id: 'ble', en: 'BLE', zh: '蓝牙' },
+    { id: 'multimedia', en: 'Multimedia', zh: '多媒体' },
+    { id: 'graphics', en: 'Graphics', zh: '图形显示' },
+    { id: 'tuya_cloud', en: 'Tuya Cloud', zh: '涂鸦云' },
+    { id: 'tinyml', en: 'TinyML', zh: '端侧 ML' },
+  ],
+  app: [
+    { id: 'ai', en: 'AI', zh: 'AI' },
+    { id: 'pixel-art', en: 'Pixel Art', zh: '像素屏' },
+    { id: 'robotics', en: 'Robotics', zh: '机器人' },
+    { id: 'pocket', en: 'Pocket', zh: '口袋机' },
+    { id: 'game', en: 'Game', zh: '游戏' },
+    { id: 'tuya_cloud', en: 'Tuya Cloud', zh: '涂鸦云' },
+    { id: 'micropython', en: 'MicroPython', zh: 'MicroPython' },
+  ],
+};
+
+// Tag picker for demos — mirrors the board form's chip-input + search dropdown
+// + available pool (same CSS classes/behavior). Sourced from the controlled
+// vocabulary by the current `type`; ids mirror into hidden #demoTags (CSV).
+function setupDemoTagsSelect() {
+  const chipsContainer = document.getElementById('demoSelectedTags');
+  const searchInput = document.getElementById('demoTagsSearchInput');
+  const dropdown = document.getElementById('demoTagsDropdown');
+  const pool = document.getElementById('demoTagsAvailablePool');
+  const hidden = document.getElementById('demoTags');
+  const typeSel = document.getElementById('demoCategory');
+  if (!chipsContainer || !searchInput || !pool || !hidden) return;
+
+  const lang = i18n.getLanguage();
+  const vocab = () => DEMO_TAG_VOCAB[typeSel && typeSel.value === 'app' ? 'app' : 'example'];
+  const labelOf = (id) => { const v = vocab().find(x => x.id === id); return v ? (lang === 'zh-CN' ? v.zh : v.en) : id; };
+  let selected = (hidden.value || '').split(',').map(s => s.trim()).filter(Boolean);
+
+  const sync = () => { selected = selected.filter(id => vocab().some(v => v.id === id)); hidden.value = selected.join(','); };
+  const renderChips = () => {
+    chipsContainer.innerHTML = selected.map(id =>
+      `<span class="tag-chip" data-tag-id="${escapeHtml(id)}">${escapeHtml(labelOf(id))}<button type="button" class="tag-chip-remove">&times;</button></span>`).join('');
+  };
+  const renderPool = () => {
+    const avail = vocab().filter(v => !selected.includes(v.id));
+    pool.innerHTML = avail.length
+      ? `<div class="tag-category-group">` + avail.map(v =>
+          `<span class="tag-pool-item" data-tag-id="${escapeHtml(v.id)}">${escapeHtml(labelOf(v.id))}</span>`).join('') + `</div>`
+      : '';
+  };
+  const refresh = () => { sync(); renderChips(); renderPool(); };
+  const addTag = (id) => { if (!selected.includes(id)) { selected.push(id); refresh(); } };
+  const removeTag = (id) => { selected = selected.filter(x => x !== id); refresh(); };
+
+  refresh();
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.toLowerCase().trim();
+    if (!q) { dropdown.style.display = 'none'; return; }
+    const m = vocab().filter(v => !selected.includes(v.id) && (v.id.toLowerCase().includes(q) || labelOf(v.id).toLowerCase().includes(q)));
+    if (!m.length) { dropdown.style.display = 'none'; return; }
+    dropdown.innerHTML = m.map(v => `<div class="tags-dropdown-item" data-tag-id="${escapeHtml(v.id)}">${escapeHtml(labelOf(v.id))}</div>`).join('');
+    dropdown.style.display = 'block';
+  });
+  dropdown.addEventListener('click', (e) => {
+    const it = e.target.closest('.tags-dropdown-item');
+    if (!it) return;
+    addTag(it.dataset.tagId); searchInput.value = ''; dropdown.style.display = 'none';
+  });
+  searchInput.addEventListener('blur', () => setTimeout(() => { dropdown.style.display = 'none'; }, 200));
+  pool.addEventListener('click', (e) => { const c = e.target.closest('.tag-pool-item'); if (c) addTag(c.dataset.tagId); });
+  chipsContainer.addEventListener('click', (e) => {
+    const b = e.target.closest('.tag-chip-remove');
+    if (!b) return;
+    const c = b.closest('.tag-chip');
+    if (c) removeTag(c.dataset.tagId);
+  });
+  if (typeSel) typeSel.addEventListener('change', refresh);
+}
+
+// Hardware-driver dependency picker for demos. Vocabulary is the "peripherals"
+// tag category (audio/display/led/button/…) so a demo's required drivers can be
+// matched against a board's peripheral tags. Each selected driver carries a
+// level — required (strong: won't run without it) or optional (weak: enhances).
+// State lives in the row's data-driver/data-level; saveDemoForm reads the DOM.
+function setupDemoDrivers(vocab, existing) {
+  const container = document.getElementById('demoDriversContainer');
+  if (!container) return;
+  const lang = i18n.getLanguage();
+  const labelOf = (id) => {
+    const v = vocab.find(x => x.id === id);
+    return v ? ((lang === 'zh-CN' ? (v['zh-CN'] || v.en) : v.en) || id) : id;
+  };
+  let rows = (existing || [])
+    .filter(d => d && d.driver)
+    .map(d => ({ driver: d.driver, level: d.level === 'required' ? 'required' : 'optional' }));
+
+  const render = () => {
+    const used = new Set(rows.map(r => r.driver));
+    const avail = vocab.filter(v => !used.has(v.id));
+    const reqL = i18n.t('demoDriverRequired') || 'Required';
+    const optL = i18n.t('demoDriverOptional') || 'Optional';
+    let html = '';
+    if (rows.length) {
+      html += rows.map(r => `
+        <div class="demo-driver-row" data-driver="${escapeHtml(r.driver)}" data-level="${r.level}">
+          <span class="demo-driver-name">${escapeHtml(labelOf(r.driver))}</span>
+          <div class="demo-driver-levels">
+            <button type="button" class="demo-driver-level${r.level === 'required' ? ' active' : ''}" data-set="required">${escapeHtml(reqL)}</button>
+            <button type="button" class="demo-driver-level${r.level === 'optional' ? ' active' : ''}" data-set="optional">${escapeHtml(optL)}</button>
+          </div>
+          <button type="button" class="demo-driver-remove" title="${escapeHtml(i18n.t('demoDelete') || 'Remove')}">&times;</button>
+        </div>`).join('');
+    } else {
+      html += `<div class="demo-drivers-empty">${escapeHtml(i18n.t('demoDriversEmpty') || 'No hardware drivers declared.')}</div>`;
+    }
+    html += `<div class="demo-driver-add">
+      <select class="demo-driver-select form-select"${avail.length ? '' : ' disabled'}>
+        <option value="">${escapeHtml(i18n.t('demoDriverAddSelect') || '-- add a driver --')}</option>
+        ${avail.map(v => `<option value="${escapeHtml(v.id)}">${escapeHtml(labelOf(v.id))}</option>`).join('')}
+      </select>
+      <button type="button" class="btn btn-sm btn-primary demo-driver-add-btn"${avail.length ? '' : ' disabled'}>+ ${escapeHtml(i18n.t('demoDriverAddBtn') || 'Add')}</button>
+    </div>`;
+    container.innerHTML = html;
+  };
+
+  render();
+
+  container.addEventListener('click', (e) => {
+    const addBtn = e.target.closest('.demo-driver-add-btn');
+    if (addBtn) {
+      const sel = container.querySelector('.demo-driver-select');
+      const id = sel && sel.value;
+      if (id && !rows.some(r => r.driver === id)) { rows.push({ driver: id, level: 'required' }); render(); }
+      return;
+    }
+    const lvl = e.target.closest('.demo-driver-level');
+    if (lvl) {
+      const row = lvl.closest('.demo-driver-row');
+      const r = rows.find(x => x.driver === row.dataset.driver);
+      if (r) { r.level = lvl.dataset.set === 'required' ? 'required' : 'optional'; render(); }
+      return;
+    }
+    const rm = e.target.closest('.demo-driver-remove');
+    if (rm) {
+      const row = rm.closest('.demo-driver-row');
+      rows = rows.filter(x => x.driver !== row.dataset.driver);
+      render();
+    }
+  });
 }
 
 async function loadDemos() {
@@ -439,6 +1163,15 @@ async function loadDemos() {
   try {
     const result = await apiClient.getDemos();
     demosCache = result.demos || result.items || [];
+    // Board id -> name map for the board facet chips (best-effort).
+    try {
+      const lang = i18n.getLanguage();
+      const boardsResult = await apiClient.getBoards();
+      const allBoards = boardsResult.boards || boardsResult.items || [];
+      demosBoardNameMap = Object.fromEntries(allBoards.map(b =>
+        [b.id, (b.name && (b.name[lang] || b.name.en || b.name['zh-CN'])) || b.id]));
+    } catch { demosBoardNameMap = {}; }
+    populateDemoFacets();
     filterDemos();
   } catch (error) {
     console.error('[loadDemos] error:', error);
@@ -447,22 +1180,30 @@ async function loadDemos() {
 }
 
 function filterDemos() {
-  const searchVal = (document.getElementById('demoSearch')?.value || '').toLowerCase();
-  const filterVal = document.getElementById('demoFilterType')?.value || '';
+  const searchVal = (document.getElementById('demoSearch')?.value || '').toLowerCase().trim();
 
-  let filtered = demosCache;
+  // Always scoped to the active type tab (example / app).
+  let filtered = demosCache.filter(d => (d.type === 'app' ? 'app' : 'example') === demosActiveType);
 
-  if (filterVal) {
-    filtered = filtered.filter(d => d.tags?.includes(filterVal));
+  // Facet: tags (OR — demo must carry at least one selected tag).
+  if (demosFilterTags.length) {
+    filtered = filtered.filter(d => Array.isArray(d.tags) && demosFilterTags.some(t => d.tags.includes(t)));
+  }
+  // Facet: boards (OR — demo must support at least one selected board).
+  if (demosFilterBoards.length) {
+    filtered = filtered.filter(d => Array.isArray(d.boards) && demosFilterBoards.some(b => d.boards.includes(b)));
   }
 
+  // Full-text: name (en+zh), summary (en+zh), id, tags, boards.
   if (searchVal) {
     filtered = filtered.filter(d => {
       const nameEn = (typeof d.name === 'object' ? d.name.en : d.name) || '';
       const nameZh = (typeof d.name === 'object' ? d.name['zh-CN'] : '') || '';
       const summaryEn = (typeof d.summary === 'object' ? d.summary.en : '') || '';
+      const summaryZh = (typeof d.summary === 'object' ? d.summary['zh-CN'] : '') || '';
       const tagsStr = (d.tags || []).join(' ');
-      const searchable = `${d.id} ${nameEn} ${nameZh} ${summaryEn} ${tagsStr} ${d.source?.subpath || ''}`.toLowerCase();
+      const boardsStr = (d.boards || []).join(' ');
+      const searchable = `${d.id} ${nameEn} ${nameZh} ${summaryEn} ${summaryZh} ${tagsStr} ${boardsStr}`.toLowerCase();
       return searchable.includes(searchVal);
     });
   }
@@ -479,7 +1220,9 @@ function renderDemosList(demos) {
     return;
   }
 
-  demosList.innerHTML = demos.map(d => renderDemoCard(d)).join('');
+  // Unpublished demos sort to the end (published first), matching the boards list.
+  const sorted = [...demos].sort((a, b) => (a.publish === false ? 1 : 0) - (b.publish === false ? 1 : 0));
+  demosList.innerHTML = sorted.map(d => renderDemoCard(d)).join('');
 
   // Attach event listeners
   demosList.querySelectorAll('.demo-edit-btn').forEach(btn => {
@@ -522,42 +1265,96 @@ async function openDemoForm(demoId = null) {
 
   formContainer.innerHTML = renderDemoForm(demo);
 
-  // Wire compatibility radio → boards field visibility
-  const radios = formContainer.querySelectorAll('input[name="compatibilityType"]');
-  const boardsGroup = document.getElementById('demoBoardsGroup');
-  radios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      if (boardsGroup) {
-        boardsGroup.style.display = radio.value === 'universal' && radio.checked ? 'none' : '';
+  // Translate the freshly-injected form into the active language
+  // (updateUILanguage only runs on init / language switch, not on modal open).
+  formContainer.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = i18n.t(el.getAttribute('data-i18n'));
+  });
+  formContainer.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = i18n.t(el.getAttribute('data-i18n-placeholder'));
+  });
+
+  // Populate the supported-board targets editor (Board Config Mapping pane)
+  try {
+    const boardsResult = await apiClient.getBoards();
+    const allBoards = boardsResult.boards || boardsResult.items || [];
+    // Only board-keyed configs seed the board-targets repeater; platform-keyed
+    // configs are seeded into the platform section's per-platform config inputs.
+    setupDemoTargets(allBoards, normalizeDemoConfigs(demo?.configs).filter(c => c.board));
+  } catch (err) {
+    console.error('[openDemoForm] boards load failed:', err);
+  }
+
+  // Populate the platform multi-select (platform scope) — variants the demo supports.
+  try {
+    const platResult = await apiClient.getPlatforms();
+    const plats = platResult.platforms || platResult.items || [];
+    const plang = i18n.getLanguage();
+    const ploc = (n, fb) => (n && (n[plang] || n.en || n['zh-CN'])) || fb;
+    const sel = Array.isArray(demo?.platforms) ? demo.platforms : [];
+    // Pre-fill each platform's config file from existing platform-scoped
+    // `configs` entries ({ platform, options:[{file}] }). A platform demo's
+    // .config is a defconfig carrying the demo's feature kconfig — the IDE uses
+    // it as the build base and repoints the board choice at the chosen board.
+    const platConfigFile = {};
+    (demo?.configs || []).forEach(c => {
+      if (c.platform && Array.isArray(c.options) && c.options[0] && c.options[0].file) {
+        platConfigFile[c.platform] = c.options[0].file;
       }
+    });
+    const cont = document.getElementById('demoPlatforms');
+    if (cont) {
+      cont.innerHTML = plats.length
+        ? plats.map(p => `<div class="demo-plat-row" data-platform="${escapeHtml(p.id)}">
+            <label class="demo-plat"><input type="checkbox" class="demo-plat-cb" value="${escapeHtml(p.id)}"${sel.includes(p.id) ? ' checked' : ''}> ${escapeHtml(ploc(p.name, p.id))}</label>
+            <input type="text" class="demo-plat-config" data-i18n-placeholder="demoPlatformConfigPlaceholder" placeholder="config file (optional)" value="${escapeHtml(platConfigFile[p.id] || '')}">
+          </div>`).join('')
+        : `<small style="color:var(--color-muted)">${i18n.t('demoPlatformsEmpty')}</small>`;
+      // These rows are injected after the form's initial data-i18n pass, so
+      // apply placeholder translations to them here.
+      cont.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.placeholder = i18n.t(el.getAttribute('data-i18n-placeholder'));
+      });
+    }
+  } catch (err) {
+    console.error('[openDemoForm] platforms load failed:', err);
+  }
+
+  // Tags chip multi-select (controlled vocabulary, type-aware)
+  setupDemoTagsSelect();
+
+  // Hardware-driver dependencies — vocabulary from the "peripherals" tag category.
+  try {
+    const tagsResult = await apiClient.getTags();
+    const peri = (tagsResult.categories || []).find(c => c.id === 'peripherals');
+    const vocab = (peri?.tags || []).map(t => ({ id: t.id, en: t.en, 'zh-CN': t['zh-CN'] }));
+    setupDemoDrivers(vocab, demo?.drivers);
+  } catch (err) {
+    console.error('[openDemoForm] driver vocab load failed:', err);
+    setupDemoDrivers([], demo?.drivers);
+  }
+
+  // Tab switching (Basic Info / Board Config Mapping)
+  formContainer.querySelectorAll('.demo-form-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const pane = tab.dataset.pane;
+      formContainer.querySelectorAll('.demo-form-tab').forEach(t => t.classList.toggle('active', t === tab));
+      formContainer.querySelectorAll('.demo-pane').forEach(p => {
+        p.style.display = p.dataset.pane === pane ? '' : 'none';
+      });
     });
   });
 
-  // Wire configs map add/remove buttons
-  const addConfigRowBtn = document.getElementById('addConfigRowBtn');
-  const configsRowsContainer = document.getElementById('configsRows');
-
-  if (addConfigRowBtn && configsRowsContainer) {
-    addConfigRowBtn.addEventListener('click', () => {
-      const idx = configsRowsContainer.querySelectorAll('.configs-row').length;
-      const rowHtml = `
-        <div class="configs-row" data-row-idx="${idx}">
-          <input type="text" class="form-input configs-key" value="" placeholder="TUYA_T5AI_EVB">
-          <input type="text" class="form-input configs-value" value="" placeholder="config/TUYA_T5AI_EVB.config">
-          <button type="button" class="btn btn-sm btn-danger btn-remove configs-remove-btn">✕</button>
-        </div>
-      `;
-      configsRowsContainer.insertAdjacentHTML('beforeend', rowHtml);
+  // Compatibility scope radios → show the matching section (platform / board).
+  const platSection = document.getElementById('demoPlatformsSection');
+  const configSection = document.getElementById('demoConfigSection');
+  formContainer.querySelectorAll('input[name="demoScope"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const scope = formContainer.querySelector('input[name="demoScope"]:checked')?.value || 'universal';
+      if (platSection) platSection.style.display = scope === 'platform' ? '' : 'none';
+      if (configSection) configSection.style.display = scope === 'board-specific' ? '' : 'none';
     });
-
-    // Delegate remove button clicks
-    configsRowsContainer.addEventListener('click', (e) => {
-      const removeBtn = e.target.closest('.configs-remove-btn');
-      if (removeBtn) {
-        removeBtn.closest('.configs-row').remove();
-      }
-    });
-  }
+  });
 
   // Wire form submission
   const form = document.getElementById('demoForm');
@@ -677,7 +1474,7 @@ function setupDemoImageUpload(demoId, modal) {
         return;
       }
       confirmUrlBtn.disabled = true;
-      confirmUrlBtn.textContent = 'Uploading...';
+      confirmUrlBtn.textContent = i18n.t('demoImageUploading');
       try {
         const result = await apiClient.uploadDemoImage(demoId, url, null, true, true);
         if (result.success) {
@@ -689,7 +1486,7 @@ function setupDemoImageUpload(demoId, modal) {
         showError('Upload Failed', error.message);
       } finally {
         confirmUrlBtn.disabled = false;
-        confirmUrlBtn.textContent = 'Use URL';
+        confirmUrlBtn.textContent = i18n.t('demoImageUseUrl');
       }
     });
   }

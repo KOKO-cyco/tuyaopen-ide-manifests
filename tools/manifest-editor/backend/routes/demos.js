@@ -5,6 +5,61 @@ import { asyncHandler } from '../middleware/error-handler.js';
 
 const router = express.Router();
 
+// Build the demo detail object. Holds the source path + build config + docs;
+// identity, classification and tags stay in the index. `configs` is an array
+// of board targets: { board, accessory?, options:[{name?,file}] }.
+// Returns null when there is nothing to store (caller deletes the file).
+function buildDemoDetail(id, { source, configs, documentation, drivers }) {
+  const detail = { id };
+
+  if (typeof source === 'string' && source.trim()) detail.source = source.trim();
+
+  if (Array.isArray(configs) && configs.length) {
+    const cleaned = configs
+      // A config target is keyed by either a board (board-specific) or a
+      // platform variant (platform demos); keep whichever is present.
+      .filter((t) => t && (t.board || t.platform))
+      .map((t) => {
+        const out = t.board ? { board: t.board } : { platform: t.platform };
+        const opts = (t.options || [])
+          .filter((o) => o && o.file)
+          .map((o) => {
+            const r = { file: o.file };
+            if (o.name && (o.name.en || o.name['zh-CN'])) r.name = o.name;
+            // Board peripheral / group ids this option uses (deduped, drop empty).
+            if (Array.isArray(o.peripherals)) {
+              const peris = [...new Set(
+                o.peripherals.filter((p) => typeof p === 'string' && p.trim()).map((p) => p.trim()),
+              )];
+              if (peris.length) r.peripherals = peris;
+            }
+            return r;
+          });
+        if (opts.length) out.options = opts;
+        return out;
+      });
+    if (cleaned.length) detail.configs = cleaned;
+  }
+
+  const readme = documentation?.readme;
+  const readmeHasValue = readme && Object.values(readme).some((v) => v != null && v !== '');
+  if (readmeHasValue) detail.documentation = { readme };
+
+  // Hardware driver dependencies: [{ driver, level }], level required|optional.
+  // `driver` ids mirror the peripherals tag vocabulary so a board's tags can be
+  // matched against a demo's required drivers. Deduped by driver, order kept.
+  if (Array.isArray(drivers)) {
+    const seen = new Set();
+    const cleaned = drivers
+      .filter((d) => d && typeof d.driver === 'string' && d.driver.trim())
+      .map((d) => ({ driver: d.driver.trim(), level: d.level === 'required' ? 'required' : 'optional' }))
+      .filter((d) => (seen.has(d.driver) ? false : seen.add(d.driver)));
+    if (cleaned.length) detail.drivers = cleaned;
+  }
+
+  return Object.keys(detail).length > 1 ? detail : null;
+}
+
 // GET /api/demos - List all demos
 router.get('/', asyncHandler(async (req, res) => {
   const demos = await manifestLoader.loadDemos();
@@ -15,29 +70,35 @@ router.get('/', asyncHandler(async (req, res) => {
   });
 }));
 
-// GET /api/demos/:id - Get single demo detail
+// GET /api/demos/:id - Get single demo (index entry merged with detail delta)
+// Detail files are incremental (id + source/configs/documentation);
+// identity/classification/tags + detailUrl live in index.json. Merge so the
+// editor form gets a complete object to populate.
 router.get('/:id', asyncHandler(async (req, res) => {
-  const detail = await manifestLoader.loadDemoDetail(req.params.id);
-  if (!detail) {
-    const demos = await manifestLoader.loadDemos();
-    const item = demos?.items?.find(d => d.id === req.params.id);
-    if (!item) {
-      return res.status(404).json({ success: false, error: `Demo "${req.params.id}" not found` });
-    }
-    return res.json({ success: true, demo: item });
+  const demos = await manifestLoader.loadDemos();
+  const item = demos?.items?.find(d => d.id === req.params.id);
+  if (!item) {
+    return res.status(404).json({ success: false, error: `Demo "${req.params.id}" not found` });
   }
-  res.json({ success: true, demo: detail });
+  const detail = await manifestLoader.loadDemoDetail(req.params.id, item.type);
+  // index first (identity/classification), then overlay detail delta (build/docs)
+  const merged = { ...item, ...(detail || {}) };
+  res.json({ success: true, demo: merged });
 }));
 
 // POST /api/demos - Create new demo
 router.post('/', asyncHandler(async (req, res) => {
-  const { id, name, summary, tags, boards, compatibilityType, source, defaultConfig, configs, documentation, publish } = req.body;
+  const { id, type, name, summary, tags, boards, platforms, compatibilityType, source, configs, documentation, drivers, publish } = req.body;
 
-  if (!id || !name?.en || !source?.repo || !source?.subpath) {
+  if (!id || !name?.en || !source || typeof source !== 'string') {
     return res.status(400).json({
       success: false,
-      error: 'Missing required fields: id, name.en, source.repo, source.subpath',
+      error: 'Missing required fields: id, name.en, source (full URL to the example source)',
     });
+  }
+
+  if (!/^https?:\/\//i.test(source.trim())) {
+    return res.status(400).json({ success: false, error: 'source must be a full URL (e.g. https://github.com/tuya/TuyaOpen/tree/master/apps/my_app)' });
   }
 
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) {
@@ -47,23 +108,9 @@ router.post('/', asyncHandler(async (req, res) => {
     });
   }
 
-  // Validate configs keys if provided
-  if (configs && typeof configs === 'object') {
-    const invalidKeys = Object.keys(configs).filter(k => !/^[A-Za-z0-9][A-Za-z0-9_.]*$/.test(k));
-    if (invalidKeys.length > 0) {
-      return res.status(400).json({
-        success: false,
-        error: `Invalid kconfigId keys in configs: ${invalidKeys.join(', ')}. Must be alphanumeric with underscores/dots.`,
-      });
-    }
-    for (const [key, val] of Object.entries(configs)) {
-      if (!val.file || typeof val.file !== 'string') {
-        return res.status(400).json({
-          success: false,
-          error: `configs["${key}"].file is required and must be a string`,
-        });
-      }
-    }
+  // configs is an array of board targets; cleaned/validated in buildDemoDetail.
+  if (configs !== undefined && !Array.isArray(configs)) {
+    return res.status(400).json({ success: false, error: 'configs must be an array of board targets' });
   }
 
   const demos = await manifestLoader.loadDemos();
@@ -71,41 +118,33 @@ router.post('/', asyncHandler(async (req, res) => {
     return res.status(409).json({ success: false, error: `Demo "${id}" already exists` });
   }
 
-  // Derive boardConfigs from configs keys for backward compat
-  const derivedBoardConfigs = configs ? Object.keys(configs) : undefined;
-
+  const cleanTags = Array.isArray(tags) ? tags.filter((t) => t && t !== 'app' && t !== 'example') : [];
+  const demoType = type === 'app' ? 'app' : 'example';
   const indexEntry = {
     id,
+    type: demoType,
     name: name || { en: '' },
     summary: summary || { en: '', 'zh-CN': '' },
-    tags: tags || [],
+    ...(cleanTags.length ? { tags: cleanTags } : {}),
     boards: boards || [],
+    ...(Array.isArray(platforms) && platforms.length ? { platforms } : {}),
     compatibilityType: compatibilityType || 'universal',
-    source: {
-      repo: source.repo,
-      subpath: source.subpath,
-      ref: source.ref || 'master',
-    },
+    detailUrl: `demos/${demoType}/${id}.json`,
     publish: publish !== false,
   };
 
   demos.items.push(indexEntry);
   await manifestLoader.saveDemosIndex(demos);
 
-  const detailEntry = {
-    ...indexEntry,
-    defaultConfig: defaultConfig || {},
-    configs: configs || {},
-    boardConfigs: derivedBoardConfigs || [],
-    documentation: documentation || { readme: { en: null, 'zh-CN': null } },
-  };
-  await manifestLoader.saveDemoDetail(id, detailEntry);
+  // Detail holds source path + build config + docs (identity/tags in the index).
+  const detailEntry = buildDemoDetail(id, { source, configs, documentation, drivers });
+  if (detailEntry) await manifestLoader.saveDemoDetail(id, detailEntry, indexEntry.type);
 
   if (req.body.autoCommit !== false) {
     await gitSync.autoCommit(`feat(demos): add ${id}`);
   }
 
-  res.status(201).json({ success: true, demo: detailEntry, message: `Demo "${id}" created` });
+  res.status(201).json({ success: true, demo: { ...indexEntry, ...(detailEntry || {}) }, message: `Demo "${id}" created` });
 }));
 
 // PATCH /api/demos/:id - Update demo
@@ -121,42 +160,50 @@ router.patch('/:id', asyncHandler(async (req, res) => {
   delete updates.id;
   delete updates.autoCommit;
 
-  // Validate configs keys if provided
-  if (updates.configs && typeof updates.configs === 'object') {
-    const invalidKeys = Object.keys(updates.configs).filter(k => !/^[A-Za-z0-9][A-Za-z0-9_.]*$/.test(k));
-    if (invalidKeys.length > 0) {
-      return res.status(400).json({
-        success: false,
-        error: `Invalid kconfigId keys in configs: ${invalidKeys.join(', ')}. Must be alphanumeric with underscores/dots.`,
-      });
-    }
-    // Regenerate boardConfigs from configs keys for backward compat
-    updates.boardConfigs = Object.keys(updates.configs);
+  // configs is an array of board targets; cleaned/validated in buildDemoDetail.
+  if (updates.configs !== undefined && !Array.isArray(updates.configs)) {
+    return res.status(400).json({ success: false, error: 'configs must be an array of board targets' });
   }
 
-  // Update index entry (only index-level fields)
-  const indexFields = ['name', 'summary', 'tags', 'boards', 'compatibilityType', 'source', 'publish'];
+  // Update index entry (identity / classification / tags + detailUrl)
+  const item = demos.items[idx];
+  const oldType = item.type === 'app' ? 'app' : 'example';
+  const indexFields = ['type', 'name', 'summary', 'boards', 'platforms', 'compatibilityType', 'publish'];
   for (const key of indexFields) {
-    if (updates[key] !== undefined) {
-      demos.items[idx][key] = updates[key];
-    }
+    if (updates[key] !== undefined) item[key] = updates[key];
   }
+  // Drop the scope field that no longer applies after a scope change.
+  const ct = updates.compatibilityType !== undefined ? updates.compatibilityType : item.compatibilityType;
+  if (ct !== 'platform') delete item.platforms;
+  if (ct !== 'board-specific') item.boards = [];
+  if (updates.type !== undefined) item.type = updates.type === 'app' ? 'app' : 'example';
+  if (updates.tags !== undefined) {
+    const cleanTags = Array.isArray(updates.tags) ? updates.tags.filter((t) => t && t !== 'app' && t !== 'example') : [];
+    if (cleanTags.length) item.tags = cleanTags;
+    else delete item.tags;
+  }
+  item.detailUrl = `demos/${item.type}/${req.params.id}.json`;
   await manifestLoader.saveDemosIndex(demos);
 
-  // Update detail file
-  let detail = await manifestLoader.loadDemoDetail(req.params.id);
-  if (!detail) {
-    detail = { ...demos.items[idx] };
-  }
-  Object.assign(detail, updates);
-  detail.id = req.params.id;
-  await manifestLoader.saveDemoDetail(req.params.id, detail);
+  // Detail holds source path + build config + docs. Merge with the existing
+  // detail so a partial PATCH (e.g. publish toggle) doesn't wipe omitted fields.
+  const existing = (await manifestLoader.loadDemoDetail(req.params.id, oldType)) || {};
+  const detail = buildDemoDetail(req.params.id, {
+    source: updates.source !== undefined ? updates.source : existing.source,
+    configs: updates.configs !== undefined ? updates.configs : existing.configs,
+    documentation: updates.documentation !== undefined ? updates.documentation : existing.documentation,
+    drivers: updates.drivers !== undefined ? updates.drivers : existing.drivers,
+  });
+  // A type change moves the detail file between demos/example|app/; drop the stale one.
+  if (item.type !== oldType) await manifestLoader.deleteDemoDetail(req.params.id, oldType);
+  if (detail) await manifestLoader.saveDemoDetail(req.params.id, detail, item.type);
+  else await manifestLoader.deleteDemoDetail(req.params.id, item.type);
 
   if (req.body.autoCommit !== false) {
     await gitSync.autoCommit(`fix(demos): update ${req.params.id}`);
   }
 
-  res.json({ success: true, demo: detail, message: `Demo "${req.params.id}" updated` });
+  res.json({ success: true, demo: { ...item, ...(detail || {}) }, message: `Demo "${req.params.id}" updated` });
 }));
 
 // DELETE /api/demos/:id - Delete demo
@@ -170,7 +217,7 @@ router.delete('/:id', asyncHandler(async (req, res) => {
 
   const removed = demos.items.splice(idx, 1);
   await manifestLoader.saveDemosIndex(demos);
-  await manifestLoader.deleteDemoDetail(req.params.id);
+  await manifestLoader.deleteDemoDetail(req.params.id, removed[0]?.type);
 
   if (req.body?.autoCommit !== false) {
     await gitSync.autoCommit(`chore(demos): remove ${req.params.id}`);
