@@ -11,7 +11,12 @@
             "en": "Tuya T5AI Robot Dog",
             "zh-CN": "涂鸦 T5AI 机器狗"
           },
-          "peripherals": ["audio", "button", "display", "led"]
+          "peripherals": [
+            "audio",
+            "button",
+            "display",
+            "led"
+          ]
         }
       ]
     }
