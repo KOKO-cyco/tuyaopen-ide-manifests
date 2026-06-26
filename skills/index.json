@@ -43,7 +43,10 @@
       "source": {
         "devSkills": true,
         "subpath": "skills/tuyaopen/build"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "tuyaopen-project-config",
@@ -76,7 +79,10 @@
       "source": {
         "devSkills": true,
         "subpath": "skills/tuyaopen/project-config"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "ecosystem-wire-cmake",
@@ -110,7 +116,10 @@
       ],
       "source": {
         "localPath": "skills/embedded/ecosystem-wire-cmake"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "tuya-iot-platform",
@@ -144,7 +153,10 @@
       ],
       "source": {
         "localPath": "skills/cloud/tuya-iot-platform"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "smart-product-dev",
@@ -183,7 +195,10 @@
       ],
       "source": {
         "localPath": "skills/embedded/smart-product-dev"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "hardware-vibe-coding",
@@ -220,7 +235,10 @@
       ],
       "source": {
         "localPath": "skills/embedded/hardware-vibe-coding"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "tyutool-cli",
@@ -254,7 +272,10 @@
       ],
       "source": {
         "localPath": "skills/embedded/tyutool_cli"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "tuyaopen-debug-helper",
@@ -287,7 +308,10 @@
       "source": {
         "devSkills": true,
         "subpath": "skills/tuyaopen/debug-helper"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "tuyaopen-add-board",
@@ -319,7 +343,10 @@
       "source": {
         "devSkills": true,
         "subpath": "skills/tuyaopen/add-board"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "tuyaopen-code-check",
@@ -350,7 +377,10 @@
       "source": {
         "devSkills": true,
         "subpath": "skills/tuyaopen/code-check"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "tuyaopen-dev-loop",
@@ -382,7 +412,10 @@
       "source": {
         "devSkills": true,
         "subpath": "skills/tuyaopen/dev-loop"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "tuyaopen-device-auth",
@@ -414,7 +447,10 @@
       "source": {
         "devSkills": true,
         "subpath": "skills/tuyaopen/device-auth"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "tuyaopen-env-setup",
@@ -445,12 +481,18 @@
       "source": {
         "devSkills": true,
         "subpath": "skills/tuyaopen/env-setup"
-      }
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "smart-panel-dev",
       "order": 99,
-      "name": { "en": "Smart Panel Development", "zh-CN": "智能面板开发" },
+      "name": {
+        "en": "Smart Panel Development",
+        "zh-CN": "智能面板开发"
+      },
       "surface": "miniapp",
       "summary": {
         "en": "Single entry point and orchestrator for Tuya Ray panel miniapp development. Covers architecture, dev conventions, upload audit, and dispatches to category- or topic-specific skills (ray-common, smart-ui, charts-library, lamp/socket/robot-vacuum/ipc/electrician-timing/energy-stats, performance-ux-guard, requirement-guide) when deeper detail is needed.",
@@ -460,7 +502,15 @@
         "en": "Use the moment any panel miniapp work begins — opening a project, reading or writing a DP, picking a category template, designing a page, writing PRD, reviewing code, preparing for upload. From here, dispatch to ray-common / smart-ui / category skill / performance-ux-guard / requirement-guide as the task demands.",
         "zh-CN": "凡涉及面板小程序的开发任务都从本技能进入——打开项目、读写 DP、选品类模板、写 PRD、code review、上传准备一律先走这里，再按需分派到 ray-common / smart-ui / 品类技能 / performance-ux-guard / requirement-guide。"
       },
-      "tags": ["miniapp", "panel", "ray", "orchestrator", "entry-point", "architecture", "audit"],
+      "tags": [
+        "miniapp",
+        "panel",
+        "ray",
+        "orchestrator",
+        "entry-point",
+        "architecture",
+        "audit"
+      ],
       "defaultEnabled": true,
       "installPayload": "miniapp/smart-panel-dev",
       "related": [
@@ -476,7 +526,12 @@
         "miniapp-performance-ux-guard",
         "miniapp-requirement-guide"
       ],
-      "source": { "localPath": "skills/miniapp/smart-panel-dev" }
+      "source": {
+        "localPath": "skills/miniapp/smart-panel-dev"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-ray-common",
@@ -494,10 +549,19 @@
         "en": "Use for any Ray miniapp UI/page/component work, Ray API integration, device capability binding, lifecycle, routing, image-to-code, i18n, or troubleshooting.",
         "zh-CN": "面板/页面/组件开发、Ray API 与设备能力集成、生命周期与路由、图片转代码、多语言与样式、或排障与升级时使用。"
       },
-      "tags": ["miniapp", "ray", "panel"],
+      "tags": [
+        "miniapp",
+        "ray",
+        "panel"
+      ],
       "defaultEnabled": true,
       "installPayload": "miniapp/ray-common",
-      "source": { "localPath": "skills/miniapp/ray-common" }
+      "source": {
+        "localPath": "skills/miniapp/ray-common"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-smart-ui",
@@ -523,8 +587,15 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/smart-ui",
-      "related": ["miniapp-ray-common"],
-      "source": { "localPath": "skills/miniapp/smart-ui" }
+      "related": [
+        "miniapp-ray-common"
+      ],
+      "source": {
+        "localPath": "skills/miniapp/smart-ui"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-lamp-panel",
@@ -551,8 +622,16 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/lamp-panel",
-      "related": ["miniapp-ray-common", "miniapp-smart-ui"],
-      "source": { "localPath": "skills/miniapp/lamp-panel" }
+      "related": [
+        "miniapp-ray-common",
+        "miniapp-smart-ui"
+      ],
+      "source": {
+        "localPath": "skills/miniapp/lamp-panel"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-socket-panel",
@@ -579,8 +658,17 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/socket-panel",
-      "related": ["miniapp-ray-common", "miniapp-electrician-timing", "miniapp-energy-stats"],
-      "source": { "localPath": "skills/miniapp/socket-panel" }
+      "related": [
+        "miniapp-ray-common",
+        "miniapp-electrician-timing",
+        "miniapp-energy-stats"
+      ],
+      "source": {
+        "localPath": "skills/miniapp/socket-panel"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-robot-vacuum",
@@ -607,8 +695,15 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/robot-vacuum",
-      "related": ["miniapp-ray-common"],
-      "source": { "localPath": "skills/miniapp/robot-vacuum" }
+      "related": [
+        "miniapp-ray-common"
+      ],
+      "source": {
+        "localPath": "skills/miniapp/robot-vacuum"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-ipc-panel",
@@ -635,8 +730,15 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/ipc-panel",
-      "related": ["miniapp-ray-common"],
-      "source": { "localPath": "skills/miniapp/ipc-panel" }
+      "related": [
+        "miniapp-ray-common"
+      ],
+      "source": {
+        "localPath": "skills/miniapp/ipc-panel"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-charts-library",
@@ -662,8 +764,16 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/charts-library",
-      "related": ["miniapp-ray-common", "miniapp-energy-stats"],
-      "source": { "localPath": "skills/miniapp/charts-library" }
+      "related": [
+        "miniapp-ray-common",
+        "miniapp-energy-stats"
+      ],
+      "source": {
+        "localPath": "skills/miniapp/charts-library"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-electrician-timing",
@@ -689,8 +799,15 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/electrician-timing",
-      "related": ["miniapp-socket-panel"],
-      "source": { "localPath": "skills/miniapp/electrician-timing" }
+      "related": [
+        "miniapp-socket-panel"
+      ],
+      "source": {
+        "localPath": "skills/miniapp/electrician-timing"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-energy-stats",
@@ -716,8 +833,16 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/energy-stats",
-      "related": ["miniapp-charts-library", "miniapp-socket-panel"],
-      "source": { "localPath": "skills/miniapp/energy-stats" }
+      "related": [
+        "miniapp-charts-library",
+        "miniapp-socket-panel"
+      ],
+      "source": {
+        "localPath": "skills/miniapp/energy-stats"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-requirement-guide",
@@ -743,7 +868,12 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/requirement-guide",
-      "source": { "localPath": "skills/miniapp/requirement-guide" }
+      "source": {
+        "localPath": "skills/miniapp/requirement-guide"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     },
     {
       "id": "miniapp-performance-ux-guard",
@@ -769,8 +899,15 @@
       ],
       "defaultEnabled": false,
       "installPayload": "miniapp/performance-ux-guard",
-      "related": ["miniapp-ray-common"],
-      "source": { "localPath": "skills/miniapp/performance-ux-guard" }
+      "related": [
+        "miniapp-ray-common"
+      ],
+      "source": {
+        "localPath": "skills/miniapp/performance-ux-guard"
+      },
+      "sdks": [
+        "tuyaopen"
+      ]
     }
   ]
 }

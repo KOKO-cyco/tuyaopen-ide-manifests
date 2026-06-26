@@ -1,0 +1,917 @@
+{
+  "schemaVersion": 1,
+  "arch": "arm-cortex-m33",
+  "flashInterface": "qspi",
+  "connectivity": {
+    "wifi": true,
+    "ble": true,
+    "ethernet": true,
+    "cellular": false
+  },
+  "memory": {
+    "sramBytes": 655360,
+    "romBytes": 65536,
+    "flashMaxBytes": 4194304,
+    "psramMaxBytes": 0,
+    "efuse": true
+  },
+  "peripherals": {
+    "gpio": {
+      "enabled": true,
+      "count": 21,
+      "note": "Pin list rebuilt from BK7236 datasheet (Features '21 GPIOs'; Table 3-1/3-2). Only these GPIOs exist on BK7236; the prior 0-48 contiguous list included many non-existent GPIOs.",
+      "spec": {
+        "pins": [
+          [
+            0,
+            1
+          ],
+          [
+            10,
+            19
+          ],
+          [
+            24,
+            25
+          ],
+          [
+            28,
+            28
+          ],
+          [
+            32,
+            32
+          ],
+          [
+            34,
+            34
+          ],
+          [
+            36,
+            36
+          ],
+          [
+            40,
+            41
+          ],
+          [
+            48,
+            48
+          ]
+        ],
+        "direction": [
+          "TUYA_GPIO_INPUT",
+          "TUYA_GPIO_OUTPUT"
+        ],
+        "mode": [
+          "TUYA_GPIO_PUSH_PULL",
+          "TUYA_GPIO_PULLUP",
+          "TUYA_GPIO_PULLDOWN",
+          "TUYA_GPIO_FLOATING",
+          "TUYA_GPIO_OPENDRAIN",
+          "TUYA_GPIO_OPENDRAIN_PULLUP"
+        ],
+        "irq": {
+          "supported": true,
+          "triggers": [
+            "TUYA_GPIO_IRQ_RISE",
+            "TUYA_GPIO_IRQ_FALL",
+            "TUYA_GPIO_IRQ_LOW",
+            "TUYA_GPIO_IRQ_HIGH"
+          ],
+          "pins": [
+            [
+              0,
+              1
+            ],
+            [
+              10,
+              19
+            ],
+            [
+              24,
+              25
+            ],
+            [
+              28,
+              28
+            ],
+            [
+              32,
+              32
+            ],
+            [
+              34,
+              34
+            ],
+            [
+              36,
+              36
+            ],
+            [
+              40,
+              41
+            ],
+            [
+              48,
+              48
+            ]
+          ]
+        }
+      }
+    },
+    "uart": {
+      "enabled": true,
+      "count": 3,
+      "spec": {
+        "baudrate": {
+          "min": 300,
+          "max": 3000000
+        },
+        "databits": [
+          "TUYA_UART_DATA_LEN_5BIT",
+          "TUYA_UART_DATA_LEN_6BIT",
+          "TUYA_UART_DATA_LEN_7BIT",
+          "TUYA_UART_DATA_LEN_8BIT"
+        ],
+        "stopbits": [
+          "TUYA_UART_STOP_LEN_1BIT",
+          "TUYA_UART_STOP_LEN_2BIT"
+        ],
+        "parity": [
+          "TUYA_UART_PARITY_TYPE_NONE",
+          "TUYA_UART_PARITY_TYPE_ODD",
+          "TUYA_UART_PARITY_TYPE_EVEN"
+        ],
+        "flowctrl": [
+          "TUYA_UART_FLOWCTRL_NONE"
+        ],
+        "ports": [
+          {
+            "id": 0,
+            "role": "download",
+            "irq": {
+              "rx": true,
+              "tx": false
+            },
+            "pinGroups": [
+              {
+                "tx": 11,
+                "rx": 10
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "role": "log",
+            "irq": {
+              "rx": true,
+              "tx": false
+            },
+            "pinGroups": [
+              {
+                "tx": 0,
+                "rx": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "role": "general",
+            "irq": {
+              "rx": true,
+              "tx": false
+            },
+            "pinGroups": [
+              {
+                "tx": 41,
+                "rx": 40
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "i2c": {
+      "enabled": true,
+      "count": 1,
+      "spec": {
+        "role": [
+          "TUYA_IIC_MODE_MASTER"
+        ],
+        "speed": [
+          "TUYA_IIC_BUS_SPEED_100K",
+          "TUYA_IIC_BUS_SPEED_400K"
+        ],
+        "addrWidth": [
+          "TUYA_IIC_ADDRESS_7BIT"
+        ],
+        "ports": [
+          {
+            "id": 0,
+            "type": [
+              "sw"
+            ],
+            "irq": false,
+            "pinGroups": [
+              {
+                "scl": 14,
+                "sda": 15
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "spi": {
+      "enabled": true,
+      "count": 1,
+      "spec": {
+        "role": [
+          "TUYA_SPI_ROLE_MASTER",
+          "TUYA_SPI_ROLE_SLAVE"
+        ],
+        "mode": [
+          "TUYA_SPI_MODE0",
+          "TUYA_SPI_MODE1",
+          "TUYA_SPI_MODE2",
+          "TUYA_SPI_MODE3"
+        ],
+        "csType": [
+          "TUYA_SPI_AUTO_TYPE",
+          "TUYA_SPI_SOFT_TYPE"
+        ],
+        "databits": [
+          "TUYA_SPI_DATA_BIT8",
+          "TUYA_SPI_DATA_BIT16"
+        ],
+        "bitorder": [
+          "TUYA_SPI_ORDER_MSB2LSB",
+          "TUYA_SPI_ORDER_LSB2MSB"
+        ],
+        "ports": [
+          {
+            "id": 0,
+            "backend": "spi",
+            "irq": true,
+            "dma": true,
+            "freq": {
+              "min": 100000,
+              "max": 40000000
+            },
+            "pinGroups": [
+              {
+                "clk": 14,
+                "cs": 15,
+                "mosi": 16,
+                "miso": 17
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "pwm": {
+      "enabled": true,
+      "count": 7,
+      "note": "Pins rebuilt from BK7236 datasheet Table 3-2. PWM-capable GPIOs: 18=PWMG0_PWM0, 19=PWMG0_PWM1, 24=PWMG0_PWM4, 25=PWMG0_PWM5, 32=PWMG1_PWM0, 34=PWMG1_PWM2, 36=PWMG1_PWM4. Channel id is the IDE sequential index, not the datasheet PWMGx channel number.",
+      "spec": {
+        "polarity": [
+          "TUYA_PWM_NEGATIVE",
+          "TUYA_PWM_POSITIVE"
+        ],
+        "countMode": [
+          "TUYA_PWM_CNT_UP"
+        ],
+        "duty": {
+          "min": 0,
+          "max": 10000
+        },
+        "freq": {
+          "min": 1,
+          "max": 26000000
+        },
+        "capture": {
+          "supported": false
+        },
+        "channels": [
+          {
+            "id": 0,
+            "pin": 18,
+            "irq": false
+          },
+          {
+            "id": 1,
+            "pin": 19,
+            "irq": false
+          },
+          {
+            "id": 2,
+            "pin": 24,
+            "irq": false
+          },
+          {
+            "id": 3,
+            "pin": 25,
+            "irq": false
+          },
+          {
+            "id": 4,
+            "pin": 32,
+            "irq": false
+          },
+          {
+            "id": 5,
+            "pin": 34,
+            "irq": false
+          },
+          {
+            "id": 6,
+            "pin": 36,
+            "irq": false
+          }
+        ]
+      }
+    },
+    "adc": {
+      "enabled": true,
+      "count": 1,
+      "note": "Channels rebuilt from BK7236 datasheet Table 3-2. AUX ADC channel id = datasheet ADC index: ADC1=GPIO25, ADC2=GPIO24, ADC4=GPIO28, ADC12=GPIO0, ADC13=GPIO1, ADC14=GPIO12, ADC15=GPIO13 (7 GPIO-accessible channels). Previous pins 26/27/29/30 were invalid (non-existent GPIOs).",
+      "spec": {
+        "bits": 12,
+        "mode": [
+          "TUYA_ADC_SINGLE",
+          "TUYA_ADC_CONTINUOUS"
+        ],
+        "ports": [
+          {
+            "id": 0,
+            "channels": [
+              {
+                "id": 1,
+                "pin": 25
+              },
+              {
+                "id": 2,
+                "pin": 24
+              },
+              {
+                "id": 4,
+                "pin": 28
+              },
+              {
+                "id": 12,
+                "pin": 0
+              },
+              {
+                "id": 13,
+                "pin": 1
+              },
+              {
+                "id": 14,
+                "pin": 12
+              },
+              {
+                "id": 15,
+                "pin": 13
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "timer": {
+      "enabled": true,
+      "count": 3,
+      "spec": {
+        "bits": 32,
+        "mode": [
+          "TUYA_TIMER_MODE_ONCE",
+          "TUYA_TIMER_MODE_PERIOD"
+        ],
+        "ids": [
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    "wdt": {
+      "enabled": true,
+      "count": 1
+    },
+    "flash": {
+      "enabled": true,
+      "count": 1,
+      "spec": {
+        "partitionMap": [
+          {
+            "type": "TUYA_FLASH_TYPE_APP",
+            "startAddr": "0x011000",
+            "endAddr": "0x3C7000",
+            "size": 3891200,
+            "blockSize": 4096
+          },
+          {
+            "type": "TUYA_FLASH_TYPE_APP_BIN",
+            "startAddr": "0x011000",
+            "endAddr": "0x3C7000",
+            "size": 3891200,
+            "blockSize": 4096
+          },
+          {
+            "type": "TUYA_FLASH_TYPE_OTA",
+            "startAddr": "0x3C7000",
+            "endAddr": "0x3C9000",
+            "size": 8192,
+            "blockSize": 4096
+          },
+          {
+            "type": "TUYA_FLASH_TYPE_USER0",
+            "startAddr": "0x3CA000",
+            "endAddr": "0x3D0000",
+            "size": 24576,
+            "blockSize": 4096
+          },
+          {
+            "type": "TUYA_FLASH_TYPE_KV_KEY",
+            "startAddr": "0x3D0000",
+            "endAddr": "0x3D1000",
+            "size": 4096,
+            "blockSize": 4096
+          },
+          {
+            "type": "TUYA_FLASH_TYPE_KV_DATA",
+            "startAddr": "0x3D1000",
+            "endAddr": "0x3E0000",
+            "size": 61440,
+            "blockSize": 4096
+          },
+          {
+            "type": "TUYA_FLASH_TYPE_UF",
+            "startAddr": "0x3E0000",
+            "endAddr": "0x3F0000",
+            "size": 65536,
+            "blockSize": 4096
+          }
+        ]
+      }
+    },
+    "pinmux": {
+      "enabled": true,
+      "count": 1
+    }
+  },
+  "power": {
+    "vdd": {
+      "min": 3,
+      "typical": 3.3,
+      "max": 3.6,
+      "unit": "V"
+    },
+    "ioLevel": {
+      "min": 3,
+      "max": 3.3,
+      "unit": "V"
+    },
+    "deepSleepCurrent": {
+      "typical": 14,
+      "unit": "uA"
+    },
+    "activeCurrent": {
+      "wifi": 260,
+      "ble": 35,
+      "unit": "mA"
+    }
+  },
+  "pinout": [
+    {
+      "pin": 1,
+      "name": "VCCIF",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 2,
+      "name": "VCCPLL_BT",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 3,
+      "name": "VCCRXFE",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 4,
+      "name": "ANT",
+      "gpio": null,
+      "type": "RF",
+      "functions": [
+        "ANT"
+      ]
+    },
+    {
+      "pin": 5,
+      "name": "VCCPA",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 6,
+      "name": "VCCPAD",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 7,
+      "name": "XO",
+      "gpio": null,
+      "type": "O",
+      "functions": [
+        "XO"
+      ]
+    },
+    {
+      "pin": 8,
+      "name": "XI",
+      "gpio": null,
+      "type": "I",
+      "functions": [
+        "XI"
+      ]
+    },
+    {
+      "pin": 9,
+      "name": "VCCPLL",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 10,
+      "name": "P48",
+      "gpio": 48,
+      "type": "I/O",
+      "functions": [
+        "GPIO48"
+      ]
+    },
+    {
+      "pin": 11,
+      "name": "P24",
+      "gpio": 24,
+      "type": "I/O",
+      "functions": [
+        "GPIO24",
+        "LPO_CLK",
+        "PWM4",
+        "ADC2"
+      ]
+    },
+    {
+      "pin": 12,
+      "name": "P25",
+      "gpio": 25,
+      "type": "I/O",
+      "functions": [
+        "GPIO25",
+        "IRDA",
+        "PWM5",
+        "ADC1"
+      ]
+    },
+    {
+      "pin": 13,
+      "name": "P28",
+      "gpio": 28,
+      "type": "I/O",
+      "functions": [
+        "GPIO28",
+        "I2S_MCLK",
+        "ADC4",
+        "TOUCH2",
+        "CIS_AUXCLK"
+      ]
+    },
+    {
+      "pin": 14,
+      "name": "P32",
+      "gpio": 32,
+      "type": "I/O",
+      "functions": [
+        "GPIO32",
+        "PWMG1_PWM0",
+        "TOUCH6"
+      ]
+    },
+    {
+      "pin": 15,
+      "name": "P34",
+      "gpio": 34,
+      "type": "I/O",
+      "functions": [
+        "GPIO34",
+        "PWMG1_PWM2",
+        "TOUCH8",
+        "SPI0_CSN"
+      ]
+    },
+    {
+      "pin": 16,
+      "name": "P36",
+      "gpio": 36,
+      "type": "I/O",
+      "functions": [
+        "GPIO36",
+        "PWMG1_PWM4",
+        "TOUCH10",
+        "SPI0_MISO"
+      ]
+    },
+    {
+      "pin": 17,
+      "name": "P1",
+      "gpio": 1,
+      "type": "I/O",
+      "functions": [
+        "GPIO1",
+        "UART1_RX",
+        "I2C0_SDA",
+        "SWDIO",
+        "ADC13",
+        "LIN_RXD"
+      ]
+    },
+    {
+      "pin": 18,
+      "name": "P0",
+      "gpio": 0,
+      "type": "I/O",
+      "functions": [
+        "GPIO0",
+        "UART1_TX",
+        "I2C0_SCL",
+        "SWCLK",
+        "ADC12",
+        "LIN_TXD"
+      ]
+    },
+    {
+      "pin": 19,
+      "name": "P11",
+      "gpio": 11,
+      "type": "I/O",
+      "functions": [
+        "GPIO11",
+        "DL_UART_TX",
+        "UART0_TX",
+        "SDIO_DATA3"
+      ],
+      "note": "Firmware download TX"
+    },
+    {
+      "pin": 20,
+      "name": "P10",
+      "gpio": 10,
+      "type": "I/O",
+      "functions": [
+        "GPIO10",
+        "DL_UART_RX",
+        "UART0_RX",
+        "SDIO_DATA2",
+        "CIS_AUXCLK"
+      ],
+      "note": "Firmware download RX"
+    },
+    {
+      "pin": 21,
+      "name": "P12",
+      "gpio": 12,
+      "type": "I/O",
+      "functions": [
+        "GPIO12",
+        "UART0_RTS",
+        "TOUCH0",
+        "ADC14"
+      ]
+    },
+    {
+      "pin": 22,
+      "name": "P13",
+      "gpio": 13,
+      "type": "I/O",
+      "functions": [
+        "GPIO13",
+        "UART0_CTS",
+        "TOUCH1",
+        "ADC15"
+      ]
+    },
+    {
+      "pin": 23,
+      "name": "VDDDIG",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 24,
+      "name": "VDDD",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 25,
+      "name": "SWD",
+      "gpio": null,
+      "type": "P",
+      "functions": []
+    },
+    {
+      "pin": 26,
+      "name": "CEN",
+      "gpio": null,
+      "type": "I",
+      "functions": [
+        "CEN"
+      ]
+    },
+    {
+      "pin": 27,
+      "name": "VIO",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 28,
+      "name": "VDDA",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 29,
+      "name": "SWA",
+      "gpio": null,
+      "type": "P",
+      "functions": []
+    },
+    {
+      "pin": 30,
+      "name": "GND_DCDC",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "GND"
+      ]
+    },
+    {
+      "pin": 31,
+      "name": "VBAT",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 32,
+      "name": "VDDRAM",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "VCC"
+      ]
+    },
+    {
+      "pin": 33,
+      "name": "P14",
+      "gpio": 14,
+      "type": "I/O",
+      "functions": [
+        "GPIO14",
+        "SDIO_CLK",
+        "SPI0_SCK",
+        "I2C0_SCL"
+      ]
+    },
+    {
+      "pin": 34,
+      "name": "P15",
+      "gpio": 15,
+      "type": "I/O",
+      "functions": [
+        "GPIO15",
+        "SDIO_CMD",
+        "SPI0_CSN",
+        "I2C0_SDA"
+      ]
+    },
+    {
+      "pin": 35,
+      "name": "P16",
+      "gpio": 16,
+      "type": "I/O",
+      "functions": [
+        "GPIO16",
+        "SDIO_DATA0",
+        "SPI0_MOSI"
+      ]
+    },
+    {
+      "pin": 36,
+      "name": "P17",
+      "gpio": 17,
+      "type": "I/O",
+      "functions": [
+        "GPIO17",
+        "SDIO_DATA1",
+        "SPI0_MISO"
+      ]
+    },
+    {
+      "pin": 37,
+      "name": "P18",
+      "gpio": 18,
+      "type": "I/O",
+      "functions": [
+        "GPIO18",
+        "SDIO_DATA2",
+        "PWMG0_PWM0"
+      ]
+    },
+    {
+      "pin": 38,
+      "name": "P19",
+      "gpio": 19,
+      "type": "I/O",
+      "functions": [
+        "GPIO19",
+        "SDIO_DATA3",
+        "PWMG0_PWM1"
+      ]
+    },
+    {
+      "pin": 39,
+      "name": "P41",
+      "gpio": 41,
+      "type": "I/O",
+      "functions": [
+        "GPIO41",
+        "UART2_TX",
+        "LIN_TXD"
+      ]
+    },
+    {
+      "pin": 40,
+      "name": "P40",
+      "gpio": 40,
+      "type": "I/O",
+      "functions": [
+        "GPIO40",
+        "UART2_RX",
+        "LIN_RXD"
+      ]
+    },
+    {
+      "pin": null,
+      "name": "GND_SLUG",
+      "gpio": null,
+      "type": "P",
+      "functions": [
+        "GND"
+      ],
+      "note": "Die pad / exposed thermal ground"
+    }
+  ],
+  "platformSymbol": "T3"
+}
