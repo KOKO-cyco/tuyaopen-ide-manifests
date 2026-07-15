@@ -852,7 +852,8 @@ export default {
     },
     "interfaces": [
       "SPI",
-      "SPI+PWM"
+      "SPI+PWM",
+      "RMT"
     ],
     "pins": {
       "SPI": [
@@ -864,6 +865,9 @@ export default {
         "sck",
         "cold",
         "warm"
+      ],
+      "RMT": [
+        "data"
       ]
     },
     "fields": [
@@ -947,6 +951,14 @@ export default {
           "labelKey": "periPixelPwmCh1",
           "type": "select",
           "options": []
+        }
+      ],
+      "RMT": [
+        {
+          "key": "lineSeq",
+          "labelKey": "periPixelLineSeq",
+          "type": "select",
+          "options": ["RGB","RBG","GRB","GBR","BRG","BGR"]
         }
       ]
     },
@@ -1039,6 +1051,61 @@ export default {
     "modelSuggestions": [
       "AXP2101"
     ]
+  },
+  "io-expander": {
+    "label": {
+      "en": "IO Expander",
+      "zh-CN": "IO 扩展芯片"
+    },
+    "interfaces": [
+      "I2C"
+    ],
+    "pins": {
+      "I2C": [
+        "scl",
+        "sda",
+        "int"
+      ]
+    },
+    "fields": [
+      "model"
+    ],
+    "modelAsSelect": true,
+    "modelLabel": {
+      "en": "Driver IC",
+      "zh-CN": "驱动芯片"
+    },
+    "modelSuggestions": [
+      "XL9555",
+      "PCA9555",
+      "TCA9555",
+      "PCF8575",
+      "PCA9539",
+      "MCP23017"
+    ],
+    "expanderPins": {
+      "provides": true,
+      "entryFields": [
+        "pin",
+        "role",
+        "dir"
+      ],
+      "dirOptions": [
+        "out",
+        "in",
+        "io"
+      ],
+      "modelPinCount": {
+        "XL9555": 16,
+        "PCA9555": 16,
+        "TCA9555": 16,
+        "PCF8575": 16,
+        "PCA9539": 16,
+        "MCP23017": 16,
+        "PCF8574": 8
+      },
+      "defaultPinCount": 16
+    }
   },
   "printer": {
     "label": {
@@ -1184,5 +1251,34 @@ export default {
         }
       ]
     }
+  },
+  "sd-card": {
+    "label": {
+      "en": "SD Card",
+      "zh-CN": "SD 卡"
+    },
+    "interfaces": [
+      "SDIO",
+      "SPI"
+    ],
+    "pins": {
+      "SDIO": [
+        "clk",
+        "cmd",
+        "d0",
+        "d1",
+        "d2",
+        "d3",
+        "cd"
+      ],
+      "SPI": [
+        "sck",
+        "mosi",
+        "miso",
+        "cs",
+        "cd"
+      ]
+    },
+    "fields": []
   }
 };

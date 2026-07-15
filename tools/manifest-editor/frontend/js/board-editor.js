@@ -31,11 +31,14 @@ export async function initGlobalTags() {
   }
 }
 
-function validateHttpsUrl(url) {
+// Accept http OR https. These links (datasheet / schematic / product page / 3D model /
+// image) are opened in the OS browser, not loaded in a CSP webview, so http is fine —
+// and many vendor datasheet / wiki / purchase pages are http-only.
+function validateWebUrl(url) {
   if (!url) return true;
   try {
     const u = new URL(url);
-    return u.protocol === 'https:';
+    return u.protocol === 'https:' || u.protocol === 'http:';
   } catch {
     return false;
   }
@@ -145,6 +148,38 @@ export function renderBoardForm(board = null) {
           value="${board ? escapeHtml((board.boardSymbol ?? board.kconfigId) || '') : ''}"
         >
         <small style="color: var(--color-muted);">${i18n.t('boardKconfigIdHint')}</small>
+      </div>
+
+      <!-- Memory: Flash & PSRAM -->
+      <div class="form-group form-row-2col">
+        <div class="form-col-half">
+          <label class="form-label" for="memFlashMB">${i18n.t('boardMemFlash')}</label>
+          <input
+            type="number"
+            id="memFlashMB"
+            name="memFlashMB"
+            class="form-input"
+            min="0"
+            step="1"
+            placeholder="MB"
+            value="${board?.memory?.flashBytes != null ? (board.memory.flashBytes / 1048576) : ''}"
+          >
+          <small style="color: var(--color-muted);">${i18n.t('boardMemFlashHint')}</small>
+        </div>
+        <div class="form-col-half">
+          <label class="form-label" for="memPsramMB">${i18n.t('boardMemPsram')}</label>
+          <input
+            type="number"
+            id="memPsramMB"
+            name="memPsramMB"
+            class="form-input"
+            min="0"
+            step="1"
+            placeholder="MB"
+            value="${board?.memory?.psramBytes != null ? (board.memory.psramBytes / 1048576) : ''}"
+          >
+          <small style="color: var(--color-muted);">${i18n.t('boardMemPsramHint')}</small>
+        </div>
       </div>
 
       <!-- EN/ZH Pair: Summary -->
@@ -495,18 +530,25 @@ const boardImagePlaceholder = () => `
   </svg>
   <span class="board-card-placeholder-text">${escapeHtml(i18n.t('boardNoImage') || 'No image')}</span>`;
 
-export function renderBoardCard(board) {
+export function renderBoardCard(board, platformUnpublished = false) {
   const imageUrl = board.image?.url
     ? `/api/images/${board.image.url.replace('images/', '')}`
     : null;
-  const isUnpublished = board.published === false;
+  // Grey the card out (effectively unpublished) when the board's own `published` is
+  // false OR its chip platform is unpublished — you can't ship a board whose SoC
+  // platform isn't released yet. The badge names the reason so it's not ambiguous.
+  const boardUnpublished = board.published === false;
+  const isUnpublished = boardUnpublished || platformUnpublished;
+  const badge = boardUnpublished
+    ? 'Unpublished / 未发布'
+    : (platformUnpublished ? 'Platform unpublished / 平台未发布' : '');
   const imageInner = imageUrl
     ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(getLocalizedString(board.name) || board.id)}">`
     : boardImagePlaceholder();
 
   return `
     <div class="board-card ${isUnpublished ? 'board-card--unpublished' : ''}" data-board-id="${escapeHtml(board.id)}">
-      ${isUnpublished ? '<span class="board-card-unpublished-badge">Unpublished / 未发布</span>' : ''}
+      ${isUnpublished ? `<span class="board-card-unpublished-badge">${badge}</span>` : ''}
       <div class="board-card-image${imageUrl ? '' : ' board-card-image--empty'}">${imageInner}</div>
       <div class="board-card-header">
         <div>
@@ -565,8 +607,8 @@ export async function saveBoardForm(formElement) {
   };
 
   for (const [fieldName, { url }] of Object.entries(urlFields)) {
-    if (url && !validateHttpsUrl(url)) {
-      showError('Invalid URL', `${fieldName} must be a valid HTTPS URL`);
+    if (url && !validateWebUrl(url)) {
+      showError('Invalid URL', `${fieldName} must be a valid URL (http:// or https://)`);
       return false;
     }
   }
@@ -602,6 +644,15 @@ export async function saveBoardForm(formElement) {
   // project-creation time from platformId + boardSymbol — no scaffold stored.
   if (boardSymbol) {
     boardData.boardSymbol = boardSymbol;
+  }
+
+  // Memory: flash + PSRAM (MB → bytes)
+  const flashMB = parseFloat(document.getElementById('memFlashMB')?.value);
+  const psramMB = parseFloat(document.getElementById('memPsramMB')?.value);
+  if (flashMB > 0 || psramMB >= 0) {
+    boardData.memory = {};
+    if (flashMB > 0) boardData.memory.flashBytes = Math.round(flashMB * 1048576);
+    if (psramMB >= 0 && document.getElementById('memPsramMB')?.value !== '') boardData.memory.psramBytes = Math.round(psramMB * 1048576);
   }
 
   if (nameZh) {
@@ -666,17 +717,17 @@ function isValidTagFormat(tag) {
 }
 
 export function setupFormValidation() {
-  // Real-time HTTPS URL validation
+  // Real-time URL validation (http/https accepted)
   document.querySelectorAll('.url-input').forEach(input => {
     input.addEventListener('input', (e) => {
       const url = e.target.value.trim();
       const urlType = e.target.dataset.urlType;
       const errorEl = document.getElementById(urlType + 'Error');
 
-      if (url && !validateHttpsUrl(url)) {
+      if (url && !validateWebUrl(url)) {
         e.target.classList.add('invalid');
         if (errorEl) {
-          errorEl.textContent = '❌ Must be a valid HTTPS URL (https://...)';
+          errorEl.textContent = '❌ Must be a valid URL (http:// or https://)';
           errorEl.classList.add('url-error');
         }
       } else {
@@ -690,11 +741,11 @@ export function setupFormValidation() {
 
     // Initial check
     const url = input.value.trim();
-    if (url && !validateHttpsUrl(url)) {
+    if (url && !validateWebUrl(url)) {
       input.classList.add('invalid');
       const errorEl = document.getElementById(input.dataset.urlType + 'Error');
       if (errorEl) {
-        errorEl.textContent = '❌ Must be a valid HTTPS URL (https://...)';
+        errorEl.textContent = '❌ Must be a valid URL (http:// or https://)';
         errorEl.classList.add('url-error');
       }
     }

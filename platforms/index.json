@@ -218,7 +218,7 @@
       "sdks": [
         "tuyaopen"
       ],
-      "published": false
+      "published": true
     },
     {
       "id": "esp32c3",
@@ -235,7 +235,7 @@
       "sdks": [
         "tuyaopen"
       ],
-      "published": false
+      "published": true
     },
     {
       "id": "esp32c6",
@@ -252,7 +252,7 @@
       "sdks": [
         "tuyaopen"
       ],
-      "published": false
+      "published": true
     },
     {
       "id": "esp32s3",
@@ -269,7 +269,7 @@
       "sdks": [
         "tuyaopen"
       ],
-      "published": false
+      "published": true
     },
     {
       "id": "linux",

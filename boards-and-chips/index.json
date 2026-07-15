@@ -313,6 +313,34 @@
       ]
     },
     {
+      "id": "gd32vw553-ty1",
+      "name": {
+        "en": "GD32VW553-TY1 Wi-Fi 6 + BLE 模组",
+        "zh-CN": "GD32VW553-TY1 Wi-Fi 6 + BLE 模组"
+      },
+      "platformId": "gd32",
+      "variantId": "gd32vw553",
+      "manufacturer": "兆易创新",
+      "summary": {
+        "en": "GigaDevice GD32VW553-TY1 2.4GHz Wi-Fi 6 (802.11b/g/n/ax) + BLE module on the GD32VW553 (RISC-V @160MHz, 4MB flash, onboard PCB antenna, 15 GPIO pins). Default UART2 on PA6/PA7 for download & log, UART1 on PB15/PA8 for AT commands; PC8=BOOT0, PB1=BOOT1. Maps to SDK board GD32_MC_FOC_VWS_VW553.",
+        "zh-CN": "兆易创新 GD32VW553-TY1 2.4GHz Wi-Fi 6 (802.11b/g/n/ax) + BLE 模组，基于 GD32VW553（RISC-V 主频 160MHz，4MB Flash，板载 PCB 天线，引出 15 个 GPIO）。默认 PA6/PA7 = UART2（下载/日志），PB15/PA8 = UART1（AT 指令）；PC8=BOOT0，PB1=BOOT1。对应 SDK board GD32_MC_FOC_VWS_VW553。"
+      },
+      "tags": [
+        "wifi6",
+        "ble",
+        "module",
+        "iot"
+      ],
+      "image": {
+        "url": "images/gd32vw553-ty1/gd32vw553-ty1.jpg"
+      },
+      "detailUrl": "boards-and-chips/gd32/gd32vw553-ty1.json",
+      "published": true,
+      "sdks": [
+        "tuyaopen"
+      ]
+    },
+    {
       "id": "t5ai-otto",
       "name": {
         "en": "T5AI Otto 机器人",
@@ -377,8 +405,8 @@
     {
       "id": "espressif-esp32",
       "name": {
-        "en": "乐鑫 ESP32 通用开发板",
-        "zh-CN": "乐鑫 ESP32 通用开发板"
+        "en": "ESP32-WROOM-32E",
+        "zh-CN": "ESP32-WROOM-32E"
       },
       "manufacturer": "乐鑫",
       "platformId": "esp32",
@@ -393,16 +421,19 @@
         "development"
       ],
       "detailUrl": "boards-and-chips/esp32/espressif-esp32.json",
-      "published": false,
+      "published": true,
       "sdks": [
         "tuyaopen"
-      ]
+      ],
+      "image": {
+        "url": "images/espressif-esp32/espressif-esp32.jpg"
+      }
     },
     {
       "id": "espressif-esp32-c3",
       "name": {
-        "en": "乐鑫 ESP32-C3 通用开发板",
-        "zh-CN": "乐鑫 ESP32-C3 通用开发板"
+        "en": "ESP32-C3-MINI",
+        "zh-CN": "ESP32-C3-MINI"
       },
       "manufacturer": "乐鑫",
       "platformId": "esp32",
@@ -417,16 +448,19 @@
         "development"
       ],
       "detailUrl": "boards-and-chips/esp32/espressif-esp32-c3.json",
-      "published": false,
+      "published": true,
       "sdks": [
         "tuyaopen"
-      ]
+      ],
+      "image": {
+        "url": "images/espressif-esp32-c3/espressif-esp32-c3.jpg"
+      }
     },
     {
       "id": "espressif-esp32-c6",
       "name": {
-        "en": "乐鑫 ESP32-C6 通用开发板",
-        "zh-CN": "乐鑫 ESP32-C6 通用开发板"
+        "en": "ESP32-C6-MINI",
+        "zh-CN": "ESP32-C6-MINI"
       },
       "manufacturer": "乐鑫",
       "platformId": "esp32",
@@ -443,22 +477,22 @@
         "development"
       ],
       "detailUrl": "boards-and-chips/esp32/espressif-esp32-c6.json",
-      "published": false,
+      "published": true,
       "sdks": [
         "tuyaopen"
-      ]
+      ],
+      "image": {
+        "url": "images/espressif-esp32-c6/espressif-esp32-c6.jpg"
+      }
     },
     {
       "id": "espressif-esp32-s3",
       "name": {
-        "en": "Espressif ESP32-S3 (Generic)",
-        "zh-CN": "乐鑫 ESP32-S3 通用开发板"
+        "en": "ESP32-S3-WROOM",
+        "zh-CN": "ESP32-S3-WROOM"
       },
-      "manufacturer": {
-        "en": "Espressif",
-        "zh-CN": "乐鑫"
-      },
-      "platformId": "esp32s3",
+      "manufacturer": "乐鑫",
+      "platformId": "esp32",
       "variantId": "esp32s3",
       "summary": {
         "en": "Generic ESP32-S3 development board target — dual-core Xtensa LX7 with Wi-Fi, BLE 5.0, USB-OTG, PSRAM, and AI vector instructions. For audio and display AIoT.",
@@ -474,7 +508,10 @@
       "published": true,
       "sdks": [
         "tuyaopen"
-      ]
+      ],
+      "image": {
+        "url": "images/espressif-esp32-s3/espressif-esp32-s3.jpg"
+      }
     },
     {
       "id": "espressif-esp32-p4",
@@ -508,14 +545,11 @@
     {
       "id": "atk-dnesp32s3",
       "name": {
-        "en": "ATK-DNESP32S3",
+        "en": "正点原子 DNESP32S3 开发板",
         "zh-CN": "正点原子 DNESP32S3 开发板"
       },
-      "manufacturer": {
-        "en": "ALIENTEK",
-        "zh-CN": "正点原子"
-      },
-      "platformId": "esp32s3",
+      "manufacturer": "正点原子",
+      "platformId": "esp32",
       "variantId": "esp32s3",
       "summary": {
         "en": "ALIENTEK DNESP32S3 development board based on ESP32-S3 — onboard ES8388 audio codec, ST7789 SPI LCD, and an XL9555 I/O expander, with 16MB flash and PSRAM.",
@@ -526,25 +560,26 @@
         "ble",
         "audio",
         "display",
-        "development"
+        "development",
+        "starter-kit"
       ],
       "detailUrl": "boards-and-chips/esp32/atk-dnesp32s3.json",
       "published": true,
       "sdks": [
         "tuyaopen"
-      ]
+      ],
+      "image": {
+        "url": "images/atk-dnesp32s3/atk-dnesp32s3.jpg"
+      }
     },
     {
       "id": "atk-dnesp32s3-box",
       "name": {
-        "en": "ATK-DNESP32S3-BOX",
+        "en": "正点原子 DNESP32S3-BOX",
         "zh-CN": "正点原子 DNESP32S3-BOX"
       },
-      "manufacturer": {
-        "en": "ALIENTEK",
-        "zh-CN": "正点原子"
-      },
-      "platformId": "esp32s3",
+      "manufacturer": "正点原子",
+      "platformId": "esp32",
       "variantId": "esp32s3",
       "summary": {
         "en": "ALIENTEK DNESP32S3-BOX based on ESP32-S3 — boxed AI voice-interaction kit with ES8311 codec, ST7789 8080-interface LCD, and XL9555 I/O expander.",
@@ -562,19 +597,19 @@
       "published": true,
       "sdks": [
         "tuyaopen"
-      ]
+      ],
+      "image": {
+        "url": "images/atk-dnesp32s3-box/atk-dnesp32s3-box.jpg"
+      }
     },
     {
       "id": "atk-dnesp32s3-box2-wifi",
       "name": {
-        "en": "ATK-DNESP32S3-BOX2 (Wi-Fi)",
+        "en": "正点原子 DNESP32S3-BOX2 (Wi-Fi)",
         "zh-CN": "正点原子 DNESP32S3-BOX2 (Wi-Fi)"
       },
-      "manufacturer": {
-        "en": "ALIENTEK",
-        "zh-CN": "正点原子"
-      },
-      "platformId": "esp32s3",
+      "manufacturer": "正点原子",
+      "platformId": "esp32",
       "variantId": "esp32s3",
       "summary": {
         "en": "ALIENTEK DNESP32S3-BOX2 (Wi-Fi) based on ESP32-S3 — ES8389 audio codec, ST7789 8080-interface LCD with backlight, and a multi-function XL9555 I/O expander.",
@@ -592,19 +627,19 @@
       "published": true,
       "sdks": [
         "tuyaopen"
-      ]
+      ],
+      "image": {
+        "url": "images/atk-dnesp32s3-box2-wifi/atk-dnesp32s3-box2-wifi.jpg"
+      }
     },
     {
       "id": "waveshare-esp32s3-touch-amoled-1-8",
       "name": {
-        "en": "Waveshare ESP32-S3 Touch AMOLED 1.8\"",
+        "en": "Waveshare ESP32-S3 Touch AMOLED 1.8 ",
         "zh-CN": "微雪 ESP32-S3 Touch AMOLED 1.8 寸"
       },
-      "manufacturer": {
-        "en": "Waveshare",
-        "zh-CN": "微雪"
-      },
-      "platformId": "esp32s3",
+      "manufacturer": "微雪",
+      "platformId": "esp32",
       "variantId": "esp32s3",
       "summary": {
         "en": "Waveshare ESP32-S3 Touch AMOLED 1.8\" board — 368x448 SH8601 QSPI AMOLED with FT5x06 capacitive touch, ES8311 audio codec, AXP2101 PMIC, and a TCA9554 I/O expander.",
@@ -622,19 +657,19 @@
       "published": true,
       "sdks": [
         "tuyaopen"
-      ]
+      ],
+      "image": {
+        "url": "images/waveshare-esp32s3-touch-amoled-1-8/waveshare-esp32s3-touch-amoled-1-8.jpg"
+      }
     },
     {
       "id": "waveshare-esp32c6-dev-kit-n16",
       "name": {
-        "en": "Waveshare ESP32-C6 Dev Kit N16",
+        "en": "微雪 ESP32-C6 开发套件 N16",
         "zh-CN": "微雪 ESP32-C6 开发套件 N16"
       },
-      "manufacturer": {
-        "en": "Waveshare",
-        "zh-CN": "微雪"
-      },
-      "platformId": "esp32c6",
+      "manufacturer": "微雪",
+      "platformId": "esp32",
       "variantId": "esp32c6",
       "summary": {
         "en": "Waveshare ESP32-C6 Dev Kit (N16, 16MB flash) — minimal board with a user button and an addressable RGB LED. Wi-Fi 6, BLE 5.3, and 802.15.4.",
@@ -650,7 +685,7 @@
         "development"
       ],
       "detailUrl": "boards-and-chips/esp32/waveshare-esp32c6-dev-kit-n16.json",
-      "published": true,
+      "published": false,
       "sdks": [
         "tuyaopen"
       ]
@@ -687,14 +722,11 @@
     {
       "id": "xingzhi-esp32s3-cube-0-96-oled-wifi",
       "name": {
-        "en": "Xingzhi ESP32-S3 Cube 0.96\" OLED (Wi-Fi)",
+        "en": "虾哥 ESP32-S3 立方体 0.96 寸 OLED (Wi-Fi)",
         "zh-CN": "虾哥 ESP32-S3 立方体 0.96 寸 OLED (Wi-Fi)"
       },
-      "manufacturer": {
-        "en": "Xingzhi",
-        "zh-CN": "虾哥"
-      },
-      "platformId": "esp32s3",
+      "manufacturer": "虾哥",
+      "platformId": "esp32",
       "variantId": "esp32s3",
       "summary": {
         "en": "Xingzhi ESP32-S3 Cube with a 0.96\" SSD1306 OLED (128x64, I2C) and codec-less I2S audio. A compact Wi-Fi AI voice-assistant reference.",
@@ -709,7 +741,7 @@
         "compact"
       ],
       "detailUrl": "boards-and-chips/esp32/xingzhi-esp32s3-cube-0-96-oled-wifi.json",
-      "published": true,
+      "published": false,
       "sdks": [
         "tuyaopen"
       ]
@@ -717,14 +749,11 @@
     {
       "id": "esp32s3-bread-compact-wifi",
       "name": {
-        "en": "ESP32-S3 Breadboard Compact (Wi-Fi)",
+        "en": "ESP32-S3 面包板紧凑型 (Wi-Fi)",
         "zh-CN": "ESP32-S3 面包板紧凑型 (Wi-Fi)"
       },
-      "manufacturer": {
-        "en": "Espressif",
-        "zh-CN": "乐鑫"
-      },
-      "platformId": "esp32s3",
+      "manufacturer": "乐鑫",
+      "platformId": "esp32",
       "variantId": "esp32s3",
       "summary": {
         "en": "Compact breadboard ESP32-S3 reference with a 0.96\" SSD1306 OLED (128x32, I2C) and codec-less I2S audio — a minimal DIY Wi-Fi build.",
@@ -741,7 +770,10 @@
       "published": true,
       "sdks": [
         "tuyaopen"
-      ]
+      ],
+      "image": {
+        "url": "images/esp32s3-bread-compact-wifi/esp32s3-bread-compact-wifi.jpg"
+      }
     },
     {
       "id": "ubuntu",
