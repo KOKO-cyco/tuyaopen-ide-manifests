@@ -778,8 +778,8 @@
     {
       "id": "ubuntu",
       "name": {
-        "en": "Ubuntu Linux PC",
-        "zh-CN": "Ubuntu Linux 主机"
+        "en": "Ubuntu",
+        "zh-CN": "Ubuntu"
       },
       "manufacturer": {
         "en": "Generic",
@@ -789,8 +789,8 @@
       "variantId": "linux",
       "chip": "Linux",
       "summary": {
-        "en": "Run TuyaOpen apps natively on Ubuntu or other desktop Linux (x86_64 or arm64). Ideal for LVGL SDL simulator-style UI and cloud-connected demos on a PC.",
-        "zh-CN": "在 Ubuntu 或其他桌面 Linux（x86_64 / arm64）上原生运行 TuyaOpen 应用，适合 SDL 桌面 UI 与云端连接类 demo。"
+        "en": "Run TuyaOpen apps on Ubuntu or other desktop Linux (x86_64). Ideal for LVGL SDL simulator-style UI and cloud-connected demos on a PC.",
+        "zh-CN": "在 Ubuntu 或其他桌面 Linux（x86_64）上运行 TuyaOpen 应用，适合 SDL 桌面 UI 与云端连接类 demo。"
       },
       "tags": [
         "linux",

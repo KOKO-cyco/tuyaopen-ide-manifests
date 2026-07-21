@@ -35,8 +35,12 @@
   "expansionPins": [],
   "peripheralGroups": {},
   "runtime": {
-    "runMode": "native-local",
+    "runMode": "cross-deploy",
     "artifact": "elf",
+    "arch": "x86_64",
+    "deploy": {
+      "defaultRemoteDir": "~/tuyaopen-apps"
+    },
     "systemPackages": {
       "debian": [
         "build-essential",
