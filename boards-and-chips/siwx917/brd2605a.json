@@ -131,7 +131,7 @@
     ]
   },
   "links": {
-    "schematic": null,
+    "schematic": "https://www.silabs.com/documents/public/schematic-files/BRD2605A-A02-schematic.pdf",
     "datasheet": "https://www.silabs.com/documents/public/user-guides/ug581-brd2605a-user-guide.pdf",
     "productPage": "https://www.silabs.com/development-tools/wireless/wi-fi/siwx917-dk2605a-wifi-6-bluetooth-le-soc-dev-kit"
   },
