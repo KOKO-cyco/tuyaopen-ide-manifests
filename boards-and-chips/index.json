@@ -861,8 +861,8 @@
       "variantId": "linux",
       "chip": "Linux",
       "summary": {
-        "en": "Run TuyaOpen apps on Ubuntu or other desktop Linux (x86_64). Ideal for LVGL SDL simulator-style UI and cloud-connected demos on a PC.",
-        "zh-CN": "在 Ubuntu 或其他桌面 Linux（x86_64）上运行 TuyaOpen 应用，适合 SDL 桌面 UI 与云端连接类 demo。"
+        "en": "Run TuyaOpen straight on an Ubuntu PC or any x86_64 desktop Linux machine — performance scales with the host, from a laptop to a workstation. A fast, dependency-light way to prototype and demo TuyaOpen apps before moving to real hardware.",
+        "zh-CN": "在 Ubuntu 或其他 x86_64 桌面 Linux 主机上直接运行 TuyaOpen，性能随主机配置而定，笔记本到工作站皆可。适合在真正上板前快速搭建原型与演示 TuyaOpen 应用。"
       },
       "tags": [
         "linux",
@@ -893,8 +893,8 @@
       "variantId": "linux",
       "chip": "BCM2711/2712",
       "summary": {
-        "en": "Raspberry Pi 4B / 5 running TuyaOpen with ALSA audio, optional SDL2 display, keyboard trigger, and V4L2 USB camera support.",
-        "zh-CN": "树莓派 4B / 5 运行 TuyaOpen，支持 ALSA 音频、可选 SDL2 显示、键盘触发与 V4L2 USB 摄像头。"
+        "en": "Raspberry Pi 4B (Broadcom BCM2711, quad-core Cortex-A72 @1.8GHz) or Pi 5 (BCM2712, quad-core Cortex-A76 @2.4GHz) running TuyaOpen — a widely available, community-backed SBC with a rich ecosystem of cameras, microphones and displays, well suited to voice and vision AIoT prototypes.",
+        "zh-CN": "树莓派 4B（博通 BCM2711，四核 Cortex-A72 @1.8GHz）或 5（BCM2712，四核 Cortex-A76 @2.4GHz）运行 TuyaOpen —— 生态成熟、周边丰富的单板机，摄像头、麦克风、显示屏配件齐全，适合语音与视觉类 AIoT 原型开发。"
       },
       "tags": [
         "linux",
@@ -925,8 +925,8 @@
       "variantId": "linux",
       "chip": "RK3576",
       "summary": {
-        "en": "TaishanPi 3 SBC (Rockchip RK3576) with ALSA audio, SDL2 display, keyboard input, and optional V4L2 camera — for edge AI chatbot demos.",
-        "zh-CN": "泰山派 3（瑞芯微 RK3576）支持 ALSA 音频、SDL2 显示、键盘输入与可选 V4L2 摄像头，适用于端侧 AI 聊天 demo。"
+        "en": "TaishanPi 3 SBC built on the Rockchip RK3576 — an 8-core chip (4×Cortex-A72 @2.2GHz + 4×Cortex-A53 @2.0GHz) with a Mali-G52 GPU and a 6 TOPS NPU on board, paired with a camera and display for edge AI chatbot demos.",
+        "zh-CN": "泰山派 3 —— 搭载瑞芯微 RK3576 八核芯片（4×Cortex-A72 @2.2GHz + 4×Cortex-A53 @2.0GHz），板载 Mali-G52 GPU 与 6 TOPS NPU，配合摄像头与显示屏，适用于端侧 AI 聊天 demo。"
       },
       "tags": [
         "linux",
@@ -957,8 +957,8 @@
       "variantId": "linux",
       "chip": "DshanPi_A1",
       "summary": {
-        "en": "100ask DshanPi-A1 Linux board with ALSA audio (AEC) and keyboard trigger for TuyaOpen voice applications.",
-        "zh-CN": "百问网 DshanPi-A1 Linux 开发板，支持 ALSA 音频（AEC）与键盘触发，适用于 TuyaOpen 语音应用。"
+        "en": "100ask DshanPi-A1 — built on the same Rockchip RK3576 chip as TaishanPi 3: an 8-core CPU, Mali-G52 GPU and a 6 TOPS NPU on board, paired with a microphone and speaker with echo cancellation for voice-first TuyaOpen applications.",
+        "zh-CN": "百问网 DshanPi-A1 —— 与泰山派 3 同款瑞芯微 RK3576 芯片，八核 CPU、Mali-G52 GPU 与 6 TOPS NPU，搭配带回声消除的麦克风与扬声器，适合语音优先的 TuyaOpen 应用。"
       },
       "tags": [
         "linux",
@@ -1718,6 +1718,63 @@
         "tuyaopen",
         "tuyaos"
       ]
+    },
+    {
+      "id": "brd2605a",
+      "name": {
+        "en": "Silicon Labs BRD2605A",
+        "zh-CN": "Silicon Labs BRD2605A"
+      },
+      "manufacturer": "Silicon Labs",
+      "platformId": "siwx917",
+      "variantId": "siwx917",
+      "summary": {
+        "en": "Silicon Labs BRD2605A radio board, built on the SiWx917 single-chip Wi-Fi 6 + BLE 5.4 SoC with an integrated ARM Cortex-M4. Two user buttons, two LEDs and an I2S audio interface (no onboard codec) are wired through to TuyaOpen, making it a direct way to evaluate the SiWx917 platform and bring up ultra-low-power connected devices.",
+        "zh-CN": "Silicon Labs BRD2605A 无线开发板，基于 SiWx917 单芯片 Wi-Fi 6 + BLE 5.4 SoC，集成 ARM Cortex-M4。板载 2 个用户按键、2 个 LED 与 I2S 音频接口（板上不含编解码器），均已接入 TuyaOpen，适合评估 SiWx917 平台、快速验证超低功耗联网设备。"
+      },
+      "detailUrl": "boards-and-chips/siwx917/brd2605a.json",
+      "published": true,
+      "tags": [
+        "wifi",
+        "ble",
+        "button",
+        "led",
+        "audio"
+      ],
+      "image": {
+        "url": "images/brd2605a/brd2605a.png",
+        "width": 640,
+        "height": 545
+      }
+    },
+    {
+      "id": "siwx917-ai-dev-kit",
+      "name": {
+        "en": "SiWx917 AI Dev Kit",
+        "zh-CN": "SiWx917 AI 开发套件"
+      },
+      "manufacturer": "Silicon Labs",
+      "platformId": "siwx917",
+      "variantId": "siwx917",
+      "summary": {
+        "en": "SiWx917 AI voice development kit — a Wi-Fi 6 + BLE 5.4 board for AI voice interaction, with a dedicated AI chat button and the same GPIO layout as the BRD2605A. An optional display header takes an ST7789 or a custom LCD driver.",
+        "zh-CN": "SiWx917 AI 语音开发套件 — 基于 Wi-Fi 6 + BLE 5.4 的 AI 语音交互开发板，配有独立的 AI 对话按键，引脚布局与 BRD2605A 一致。预留显示屏接口，支持 ST7789 或自定义 LCD 驱动。"
+      },
+      "detailUrl": "boards-and-chips/siwx917/siwx917-ai-dev-kit.json",
+      "published": true,
+      "tags": [
+        "wifi",
+        "ble",
+        "ai",
+        "button",
+        "led",
+        "audio"
+      ],
+      "image": {
+        "url": "images/siwx917-ai-dev-kit/siwx917-ai-dev-kit.jpg",
+        "width": 500,
+        "height": 500
+      }
     }
   ]
 }

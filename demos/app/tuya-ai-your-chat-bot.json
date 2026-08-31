@@ -243,6 +243,40 @@
           }
         }
       ]
+    },
+    {
+      "board": "brd2605a",
+      "options": [
+        {
+          "file": "BRD2605A.config",
+          "name": {
+            "en": "SiWx917 BRD2605A",
+            "zh-CN": "SiWx917 BRD2605A"
+          },
+          "peripherals": [
+            "audio",
+            "led",
+            "button"
+          ]
+        }
+      ]
+    },
+    {
+      "board": "siwx917-ai-dev-kit",
+      "options": [
+        {
+          "file": "SIWX917_AI_DEV_KIT.config",
+          "name": {
+            "en": "SiWx917 AI Dev Kit",
+            "zh-CN": "SiWx917 AI 开发套件"
+          },
+          "peripherals": [
+            "audio",
+            "led",
+            "button"
+          ]
+        }
+      ]
     }
   ],
   "documentation": {
