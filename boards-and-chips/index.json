@@ -1753,7 +1753,10 @@
         "en": "SiWx917 AI Dev Kit",
         "zh-CN": "SiWx917 AI 开发套件"
       },
-      "manufacturer": "Silicon Labs",
+      "manufacturer": {
+        "en": "SEKORM",
+        "zh-CN": "世强"
+      },
       "platformId": "siwx917",
       "variantId": "siwx917",
       "summary": {
