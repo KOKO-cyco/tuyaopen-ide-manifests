@@ -126,9 +126,9 @@
     ]
   },
   "links": {
-    "schematic": null,
+    "schematic": "https://raw.githubusercontent.com/tuya/tuyaopen-ide-manifests/main/boards-and-chips/files/siwx917-ai-dev-kit/SK_SiWx917_AI_MB_Schematic_V1.1.pdf",
     "datasheet": "https://www.silabs.com/documents/public/user-guides/ug581-brd2605a-user-guide.pdf",
-    "productPage": "https://www.silabs.com/development-tools/wireless/wi-fi/siwx917-dk2605a-wifi-6-bluetooth-le-soc-dev-kit"
+    "productPage": "https://www.sekorm.com/product/603942256.html"
   },
   "boardSymbol": "SIWX917_AI_DEV_KIT",
   "source": {
